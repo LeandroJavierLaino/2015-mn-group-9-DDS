@@ -1,5 +1,5 @@
-/scr/test/generated-sources/xtend/
-/scr/main/generated-sources/xtend/
+/src/test/generated-sources/xtend/
+/src/main/generated-sources/xtend/
 .project
 .settings
 .classpath
