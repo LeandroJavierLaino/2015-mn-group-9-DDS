@@ -40,6 +40,7 @@ class TestsDeIMC {
 		nicolas.altura = 1.74
 		nicolas.peso = 60
 		
+		//
 		Assert.assertEquals(19.817677368, nicolas.calculaIMC, 0.00000001)
 	}
 }
