@@ -34,4 +34,12 @@ class TestsDeIMC {
 		
 		Assert.assertEquals(22.491349481,diego.calculaIMC,0.000000001)
 	}
+@Test
+	def void nicolasCalculaSuIMC() {
+		val nicolas = new Usuario()
+		nicolas.altura = 1.74
+		nicolas.peso = 60
+		
+		Assert.assertEquals(19.817677368, nicolas.calculaIMC, 0.00000001)
+	}
 }
