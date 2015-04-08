@@ -38,4 +38,13 @@ public class TestsDeIMC {
     double _calculaIMC = nicolas.calculaIMC();
     Assert.assertEquals(19.817677368, _calculaIMC, 0.00000001);
   }
+  
+  @Test
+  public void pabloCalculaSuIMC() {
+    final Usuario pablo = new Usuario();
+    pablo.setAltura(1.79);
+    pablo.setPeso(72);
+    double _calculaIMC = pablo.calculaIMC();
+    Assert.assertEquals(22.471208763, _calculaIMC, 0.00000001);
+  }
 }
