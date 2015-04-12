@@ -1,55 +1,69 @@
 import org.junit.Test
 import org.junit.Assert
+import org.junit.Before
 
 class TestsDeIMC {
-	
-@Test
-	def void leandroCalculaSuIMC(){
-	
-		val leandro = new Usuario()
-		leandro.altura = 1.74
-		leandro.peso = 70 
-	
-	/** Cuando usamos un assertEquals para un float o un double se tiene que tener en cuenta un tercer parametro que es el delta. */
-		Assert.assertEquals(23.12062359624785, leandro.calculaIMC,0.00000000000001)
- 	}	
-	
-@Test
-	def void eriCalculaSuIMC(){
-		
-		val eri = new Usuario()
-		eri.altura = 1.52
-		eri.peso = 60
-		
-		Assert.assertEquals(25.9695291,eri.calculaIMC,0.0000001)
-	}
 
+	Usuario leandro
+	Usuario eri
+	Usuario diego
+	Usuario nicolas
+	Usuario pablo
+	
+	double delta =  0.0000000001
 
-@Test
-	def void diegoCalculaSuIMC(){
+	@Before
+	def void init() {
+		leandro = new Usuario => [
+			altura = 1.74
+			peso = 70
+		]
+		eri = new Usuario => [
+			altura = 1.52
+			peso = 60
+		]
+
+		diego = new Usuario => [
+			altura = 1.70
+			peso = 65
+		]
 		
-		val diego = new Usuario()
-		diego.altura = 1.70
-		diego.peso = 65
-		
-		Assert.assertEquals(22.491349481,diego.calculaIMC,0.000000001)
-	}
-@Test
-	def void nicolasCalculaSuIMC() {
-		val nicolas = new Usuario()
-		nicolas.altura = 1.74
-		nicolas.peso = 60
-		
+		nicolas = new Usuario => [
+			altura = 1.74
+			peso = 60
+
 		//
-		Assert.assertEquals(19.817677368, nicolas.calculaIMC, 0.00000001)
-	}
-	
-@Test
-	def void pabloCalculaSuIMC(){
-		val pablo = new Usuario ()
-		pablo.altura = 1.79
-		pablo.peso = 72
+		]
 		
-		Assert.assertEquals(22.471208763, pablo.calculaIMC, 0.00000001)
+		pablo = new Usuario => [
+			altura = 1.79
+			peso = 72
+		]
+	}
+
+	@Test
+	def void leandroCalculaSuIMC() {
+		/** Cuando usamos un assertEquals para un float o un double se tiene que tener en cuenta un tercer parametro que es el delta. */
+		Assert.assertEquals(23.1206235962, leandro.calculaIMC, delta)
+	}
+
+	@Test
+	def void eriCalculaSuIMC() {
+		Assert.assertEquals(25.9695290859, eri.calculaIMC, delta)
+	}
+
+	@Test
+	def void diegoCalculaSuIMC() {
+		Assert.assertEquals(22.4913494809, diego.calculaIMC, delta)
+	}
+
+	@Test
+	def void nicolasCalculaSuIMC() {
+		Assert.assertEquals(19.8176773682, nicolas.calculaIMC, delta)
+	}
+
+	@Test
+	def void pabloCalculaSuIMC() {
+		Assert.assertEquals(22.4712087637, pablo.calculaIMC, delta)
 	}
 }

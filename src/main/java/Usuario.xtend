@@ -1,11 +1,11 @@
 
-
 import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Usuario {
 	
-	@Accessors double altura
-	@Accessors double peso 
+	double altura
+	double peso
 	
 	def double calculaIMC(){
 		peso / (altura*altura)
