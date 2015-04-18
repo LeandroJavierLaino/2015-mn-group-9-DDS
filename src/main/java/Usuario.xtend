@@ -1,6 +1,8 @@
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import java.util.HashSet
+import java.util.Collection
 
 @Accessors
 class Usuario {
@@ -25,7 +27,7 @@ class Usuario {
 	Rutina rutina
 	
 	/** lista de recestas que conoce el usuario */
-	List<Receta> recetas
+	Collection<Receta> recetas = new HashSet<Receta>
 	
 	def double calculaIMC(){
 		peso / (altura*altura)
@@ -36,5 +38,9 @@ class Usuario {
 			/** es valido???? */
 		} 
 		
+	}
+	
+	def tieneLaReceta(Receta receta){
+		recetas.contains(receta)
 	}
 }
