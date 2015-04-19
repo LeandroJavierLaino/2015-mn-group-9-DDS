@@ -4,13 +4,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors 
 class RutinaActiva extends Rutina {
-	def intensidad(){
-		if(tiempo>30){
-			/** "Rutina activa intensa" */
+	def Boolean activaIntensa(){
+		if(tiempo>30){true}else{false}
 		}
-		if(tiempo==0){
-			/** "Rutina activa" */
-		}
-	}
+		
+	def Boolean esSoloActiva(){
+		if(tiempo==0){true}else{false}
+	}	
 	
 }

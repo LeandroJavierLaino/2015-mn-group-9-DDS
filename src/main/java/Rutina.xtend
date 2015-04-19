@@ -6,4 +6,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 abstract class Rutina {
 	int tiempo
 	
+	def boolean activaIntensa()
+	
 }
