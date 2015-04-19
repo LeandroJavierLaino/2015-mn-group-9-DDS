@@ -43,18 +43,19 @@ class Usuario {
 	}
 	
 	def Boolean noTieneCondicionesPreexistentes(){
-		if(condicionesPreexistentes.size()==0){true}
-		else{false}
+		condicionesPreexistentes.size()==0
 	}
 	
 	def Boolean condicionesPreexistentesSonValidas(){
-		if(condicionesPreexistentes.forEach[it.valido(this)]){true}else{false}
+		condicionesPreexistentes.forEach[it.valido(this)]
 	}
 	
 	def Boolean sigueUnaRutinaSaludable(){
-		if(noTieneCondicionesPreexistentes() && calculaIMC()>=18 && calculaIMC()<=30){true}
+		if(noTieneCondicionesPreexistentes()){
+			 calculaIMC()>=18 && calculaIMC()<=30
+		}
 		else{
-			if(condicionesPreexistentes.forEach[it.tieneRutinaSaludable()]){true}else{false}
+			condicionesPreexistentes.forEach[it.tieneRutinaSaludable()]
 		}
 	}
 }
