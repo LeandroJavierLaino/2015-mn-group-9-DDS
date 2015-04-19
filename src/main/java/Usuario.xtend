@@ -19,7 +19,7 @@ class Usuario {
 	
 	/** para las condiciones preexistentes podriamos usar un Strategy o un List de Strategys :O 
 	 *  releyendo un poco en la parte de validacion da idea que cada CondicionPreexistente es una Clase que entiende el mensaje validar()*/ 
-		List<CondicionPreexitente> condicionesPreexistentes
+		List<CondicionPreexistente> condicionesPreexistentes
 	
 	/** se puede usar un Interface a una Rutina y que de esa salgan dos "subtipos" de rutinas ej. Sedentaria o Activa, esto tambien no puede dar chances de que un Usuario pueda a futuro 
 	 * cambiar de tipo de Rutina
@@ -33,9 +33,8 @@ class Usuario {
 		peso / (altura*altura)
 	}
 	
-	def Boolean validar(){
-		if(altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas() ){ 
-		/** valida la creacion del usuario */ } 
+	def boolean validar(){
+		(altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas())
 	}
 	
 	def tieneLaReceta(Receta receta){
@@ -43,18 +42,17 @@ class Usuario {
 	}
 	
 	def Boolean noTieneCondicionesPreexistentes(){
-		if(condicionesPreexistentes.size()==0){true}
-		else{false}
+		condicionesPreexistentes.empty
 	}
 	
 	def Boolean condicionesPreexistentesSonValidas(){
-		if(condicionesPreexistentes.forEach[it.valido(this)]){true}else{false}
+		noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.valido(this)]
 	}
 	
 	def Boolean sigueUnaRutinaSaludable(){
 		if(noTieneCondicionesPreexistentes() && calculaIMC()>=18 && calculaIMC()<=30){true}
 		else{
-			if(condicionesPreexistentes.forEach[it.tieneRutinaSaludable()]){true}else{false}
+			condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]
 		}
 	}
 }

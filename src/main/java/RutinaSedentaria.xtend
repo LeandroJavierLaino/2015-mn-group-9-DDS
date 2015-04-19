@@ -17,5 +17,8 @@ abstract class RutinaSedentaria extends Rutina{
 		}
 			
 	}
+	override esActiva() {
+		false
+	}
 	
 }

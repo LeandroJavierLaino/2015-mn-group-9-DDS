@@ -8,4 +8,6 @@ abstract class Rutina {
 	
 	def boolean activaIntensa()
 	
+	def boolean esActiva()
+	
 }
