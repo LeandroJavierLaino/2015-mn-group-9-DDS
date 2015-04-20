@@ -4,12 +4,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors 
 class RutinaActiva extends Rutina {
-	def Boolean activaIntensa(){
-		if(tiempo>30){true}else{false}
+	override def activaIntensa(){
+		tiempo > 30
 		}
 		
 	def Boolean esSoloActiva(){
-		if(tiempo==0){true}else{false}
+		tiempo==0
 	}	
 	
 }
