@@ -4,6 +4,7 @@ import java.util.List
 import java.util.HashSet
 import java.util.Collection
 
+
 @Accessors
 class Usuario {
 	
@@ -11,7 +12,7 @@ class Usuario {
 	double peso
 	String nombre
 	long fechaDeNacimiento
-	String sexo /** aunque podria hacerce de otra manera pero no se me ocurre :S */ 
+	char sexo /** aunque podria hacerce de otra manera pero no se me ocurre :S */ 
 	
 	/** para saber que comidas le disgustan o le gustan a un usuario  */
 	List<String> comidasQueDisgustan
@@ -34,8 +35,8 @@ class Usuario {
 	}
 	
 	def boolean validar(){
-		altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas()  
-		/** valida la creacion del usuario */ } 
+		altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas()
+		/** valida la creacion del usuario */  
 	}
 	
 	def tieneLaReceta(Receta receta){
