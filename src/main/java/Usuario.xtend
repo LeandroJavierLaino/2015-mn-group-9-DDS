@@ -10,7 +10,7 @@ class Usuario {
 	double altura
 	double peso
 	String nombre
-	int fechaDeNacimiento
+	long fechaDeNacimiento
 	String sexo /** aunque podria hacerce de otra manera pero no se me ocurre :S */ 
 	
 	/** para saber que comidas le disgustan o le gustan a un usuario  */
@@ -33,8 +33,8 @@ class Usuario {
 		peso / (altura*altura)
 	}
 	
-	def Boolean validar(){
-		if(altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas() ){ 
+	def boolean validar(){
+		altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas()  
 		/** valida la creacion del usuario */ } 
 	}
 	
@@ -42,15 +42,15 @@ class Usuario {
 		recetas.contains(receta)
 	}
 	
-	def Boolean noTieneCondicionesPreexistentes(){
+	def boolean noTieneCondicionesPreexistentes(){
 		condicionesPreexistentes.size()==0
 	}
 	
-	def Boolean condicionesPreexistentesSonValidas(){
+	def boolean condicionesPreexistentesSonValidas(){
 		condicionesPreexistentes.forEach[it.valido(this)]
 	}
 	
-	def Boolean sigueUnaRutinaSaludable(){
+	def boolean sigueUnaRutinaSaludable(){
 		if(noTieneCondicionesPreexistentes()){
 			 calculaIMC()>=18 && calculaIMC()<=30
 		}

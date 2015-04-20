@@ -9,37 +9,79 @@ class TestsDeIMC {
 	Usuario diego
 	Usuario nicolas
 	Usuario pablo
+	Sistema elSistema
 	
 	double delta =  0.0000000001
 
 	@Before
 	def void init() {
+		elSistema = new Sistema =>[
+			
+		]
+		
 		leandro = new Usuario => [
+			nombre = "Leandro"
+			sexo = "Masculino"
+			fechaDeNacimiento = 27061988
 			altura = 1.74
 			peso = 70
 		]
+		
 		eri = new Usuario => [
+			nombre = "Erika"
+			sexo = "Femenino"
+			fechaDeNacimiento = 1011980 
 			altura = 1.52
 			peso = 60
 		]
 
 		diego = new Usuario => [
+			nombre = "Diego"
+			sexo = "Masculino"
+			fechaDeNacimiento = 1011980 
 			altura = 1.70
 			peso = 65
 		]
 		
 		nicolas = new Usuario => [
+			nombre = "Nicolas"
+			sexo = "Masculino"
+			fechaDeNacimiento = 1011980 
 			altura = 1.74
 			peso = 60
-
-		//
 		]
 		
 		pablo = new Usuario => [
+			nombre = "Pablo"
+			sexo = "Masculino"
+			fechaDeNacimiento = 1011980 
 			altura = 1.79
 			peso = 72
 		]
 	}
+//Punto 1
+	
+	@Test
+	def void eriEsUnUsuarioValido(){
+		Assert.assertEquals(true,eri.validar())
+	}
+	
+	@Test
+	def void diegoEsUnUsuarioValido(){
+		Assert.assertEquals(true,diego.validar())
+	}
+	
+	@Test
+	def void nicolasEsUnUsuarioValido(){
+		Assert.assertEquals(true,nicolas.validar())
+	}
+	
+	@Test
+	def void pabloEsUnUsuarioValido(){
+		Assert.assertEquals(true,pablo.validar())
+	}
+	
+//Punto 2
 
 	@Test
 	def void leandroCalculaSuIMC() {
@@ -65,5 +107,30 @@ class TestsDeIMC {
 	@Test
 	def void pabloCalculaSuIMC() {
 		Assert.assertEquals(22.4712087637, pablo.calculaIMC, delta)
+	}	
+	
+	@Test
+	def void leandroSigueUnaRutinaSaludable(){
+		Assert.assertEquals(true, leandro.sigueUnaRutinaSaludable())
+	}
+	
+	@Test
+	def void erikaSigueUnaRutinaSaludable(){
+		Assert.assertEquals(true, eri.sigueUnaRutinaSaludable())
+	}
+	
+		@Test
+	def void diegoSigueUnaRutinaSaludable(){
+		Assert.assertEquals(true, diego.sigueUnaRutinaSaludable())
+	}
+	
+	@Test
+	def void nicolasSigueUnaRutinaSaludable(){
+		Assert.assertEquals(true, nicolas.sigueUnaRutinaSaludable())
+	}
+
+	@Test
+	def void pabloSigueUnaRutinaSaludable(){
+		Assert.assertEquals(true, pablo.sigueUnaRutinaSaludable())
 	}
 }

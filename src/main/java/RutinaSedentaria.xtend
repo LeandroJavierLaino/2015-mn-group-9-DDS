@@ -5,17 +5,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors 
 abstract class RutinaSedentaria extends Rutina{
 		
-	def instensidad(){
-		if (tiempo<=30){
-			/** "rutina sedentaria leve" */
+	def boolean sedentariaLeve(){tiempo<=30
 		}
-		if (tiempo>30){
-			/** "rutina sedentaria media" */
+		
+	def boolean sedentariaMedia(){tiempo>30
 		}
-		if (tiempo==0){
-			/** "rutina sedentaria" */
-		}
-			
-	}
 	
+	def boolean sedentaria(){tiempo==0
+		}		
 }
