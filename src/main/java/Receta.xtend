@@ -32,7 +32,7 @@ class Receta {
 	}
 
 	def puedeSerCreada(Receta receta) {
-		if (hayUnIngrediente(ingredientes) && totalDeCaloriasEnRango(totalCalorias)) {
+		if (hayUnIngrediente(receta.ingredientes) && totalDeCaloriasEnRango(receta.totalCalorias)) {
 			receta
 		} else {
 			throw new BusinessException("No está en el rango de calorías o no tiene un ingrediente la receta")
@@ -61,5 +61,7 @@ class Receta {
 	}
 
 	def esInadecuadaPara(Usuario usuario) {
+		
 	}
+	
 }

@@ -44,10 +44,11 @@ class Usuario {
 	def crearReceta(String nombrePlato, Collection<Ingrediente> ingredientes, Collection<Condimento> condimentos,
 		Collection<String> procesoPreparacion, BigDecimal totalCalorias, DificultadPreparacion dificultadCargada,
 		Temporada temporadaCargada) {
-			
-		val receta = new Receta(nombrePlato, ingredientes, condimentos, procesoPreparacion, totalCalorias,
+
+		var receta = new Receta(nombrePlato, ingredientes, condimentos, procesoPreparacion, totalCalorias,
 			dificultadCargada, temporadaCargada)
-		receta.puedeSerCreada(receta)
+		receta = receta.puedeSerCreada(receta)
+		recetas.add(receta)
 	}
 
 	def tieneLaReceta(Receta receta) {
