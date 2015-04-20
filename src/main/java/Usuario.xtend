@@ -13,7 +13,7 @@ class Usuario {
 	double peso
 	String nombre
 	int fechaDeNacimiento
-	String sexo
+	char sexo
 	
 	List<String> comidasQueDisgustan = new ArrayList<String>
 	List<String> comidaPreferida = new ArrayList<String>
@@ -32,7 +32,10 @@ class Usuario {
 	def void agregarCondicion(CondicionPreexistente condicion){
 		condicionesPreexistentes.add(condicion)
 	}
-	
+	def void agregarComidaALista(List<String> lista, String comida) {
+		lista.add(comida)
+	}
+		
 	def boolean validar(){
 		(altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas())
 	}

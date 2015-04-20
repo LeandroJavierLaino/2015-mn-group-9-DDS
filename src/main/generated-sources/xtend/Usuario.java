@@ -19,7 +19,7 @@ public class Usuario {
   
   private int fechaDeNacimiento;
   
-  private String sexo;
+  private char sexo;
   
   private List<String> comidasQueDisgustan = new ArrayList<String>();
   
@@ -37,6 +37,10 @@ public class Usuario {
   
   public void agregarCondicion(final CondicionPreexistente condicion) {
     this.condicionesPreexistentes.add(condicion);
+  }
+  
+  public void agregarComidaALista(final List<String> lista, final String comida) {
+    lista.add(comida);
   }
   
   public boolean validar() {
@@ -159,11 +163,11 @@ public class Usuario {
   }
   
   @Pure
-  public String getSexo() {
+  public char getSexo() {
     return this.sexo;
   }
   
-  public void setSexo(final String sexo) {
+  public void setSexo(final char sexo) {
     this.sexo = sexo;
   }
   
