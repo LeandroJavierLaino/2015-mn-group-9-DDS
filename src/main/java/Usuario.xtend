@@ -37,7 +37,7 @@ class Usuario {
 	}
 		
 	def boolean validar(){
-		(altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas())
+		altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas()
 	}
 	
 	def tieneLaReceta(Receta receta){
@@ -53,9 +53,6 @@ class Usuario {
 	}
 	
 	def Boolean sigueUnaRutinaSaludable(){
-		if(noTieneCondicionesPreexistentes() && calculaIMC()>=18 && calculaIMC()<=30){true}
-		else{
-			condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]
-		}
+		(noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]) && calculaIMC()>=18 && calculaIMC()<=30
 	}
 }

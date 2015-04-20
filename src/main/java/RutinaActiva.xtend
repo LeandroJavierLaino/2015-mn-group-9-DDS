@@ -10,8 +10,5 @@ class RutinaActiva extends Rutina {
 		
 	def boolean esSoloActiva() {  
 		tiempo.equals(0)
-	}	
-	override esActiva() {
-		true
 	}
 }
