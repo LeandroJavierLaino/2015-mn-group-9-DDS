@@ -3,6 +3,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.HashSet
 import java.util.Collection
+import java.util.ArrayList
 
 @Accessors
 class Usuario {
@@ -14,10 +15,10 @@ class Usuario {
 	int fechaDeNacimiento
 	String sexo
 	
-	List<String> comidasQueDisgustan
-	List<String> comidaPreferida
+	List<String> comidasQueDisgustan = new ArrayList<String>
+	List<String> comidaPreferida = new ArrayList<String>
 	
-	List<CondicionPreexistente> condicionesPreexistentes
+	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
 		
 	Rutina rutina
 	
@@ -26,6 +27,10 @@ class Usuario {
 	//Mensajes
 	def double calculaIMC(){
 		peso / (altura*altura)
+	}
+	
+	def void agregarCondicion(CondicionPreexistente condicion){
+		condicionesPreexistentes.add(condicion)
 	}
 	
 	def boolean validar(){
