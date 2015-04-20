@@ -4,13 +4,13 @@ class CondicionVegano implements CondicionPreexistente{
 
 	override valido(Usuario unUsuario) {
 		
-		if(unUsuario.comidaPreferida.contains('Carne') || unUsuario.comidaPreferida.contains('Pollo') || unUsuario.comidaPreferida.contains('Chivito') || unUsuario.comidaPreferida.contains('Chori'))
+		if(unUsuario.comidaPreferida.contains("Carne") || unUsuario.comidaPreferida.contains("Pollo") || unUsuario.comidaPreferida.contains("Chivito") || unUsuario.comidaPreferida.contains("Chori"))
 			false
 		else true
 		
 	}
 	override tieneRutinaSaludable(Usuario unUsuario) {	
-		unUsuario.comidaPreferida.contains('Fruta')
+		unUsuario.comidaPreferida.contains("Fruta")
 	}
 	
 	override alimentoInadecuado() {

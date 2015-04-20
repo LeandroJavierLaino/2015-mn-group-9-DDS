@@ -10,7 +10,7 @@ class CondicionDiabetico implements CondicionPreexistente {
 	}
 	
 	override tieneRutinaSaludable(Usuario unUsuario) {
-		unUsuario.rutina.esActiva
+		unUsuario.rutina.esActiva || unUsuario.peso <= 70
 		}
 	
 	override alimentoInadecuado() {

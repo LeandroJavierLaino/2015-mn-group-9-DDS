@@ -7,28 +7,23 @@ import java.util.Collection
 @Accessors
 class Usuario {
 	
+	//Atributos
 	double altura
 	double peso
 	String nombre
 	int fechaDeNacimiento
-	String sexo /** aunque podria hacerce de otra manera pero no se me ocurre :S */ 
+	String sexo
 	
-	/** para saber que comidas le disgustan o le gustan a un usuario  */
 	List<String> comidasQueDisgustan
 	List<String> comidaPreferida
 	
-	/** para las condiciones preexistentes podriamos usar un Strategy o un List de Strategys :O 
-	 *  releyendo un poco en la parte de validacion da idea que cada CondicionPreexistente es una Clase que entiende el mensaje validar()*/ 
-		List<CondicionPreexistente> condicionesPreexistentes
-	
-	/** se puede usar un Interface a una Rutina y que de esa salgan dos "subtipos" de rutinas ej. Sedentaria o Activa, esto tambien no puede dar chances de que un Usuario pueda a futuro 
-	 * cambiar de tipo de Rutina
-	 */
+	List<CondicionPreexistente> condicionesPreexistentes
+		
 	Rutina rutina
 	
-	/** lista de recestas que conoce el usuario */
 	Collection<Receta> recetas = new HashSet<Receta>
 	
+	//Mensajes
 	def double calculaIMC(){
 		peso / (altura*altura)
 	}

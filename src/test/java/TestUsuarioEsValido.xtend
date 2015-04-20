@@ -5,11 +5,14 @@ import org.junit.Before
 class TestUsuarioEsValido {
 	
 	Usuario marcos 
-	/*Usuario jerry
-	CondicionPreexistente vegano*/
+	Usuario jerry
+	CondicionPreexistente vegano
+	CondicionPreexistente celiaco
 	
 	@Before
 	def void init() {
+		val vegano =  new CondicionVegano
+		val celiaco = new CondicionCeliaco
 		
 		marcos = new Usuario => [
 		nombre = "Marcos"
@@ -18,14 +21,13 @@ class TestUsuarioEsValido {
 		fechaDeNacimiento = 2495
 		condicionesPreexistentes = emptyList
 		]
-		
-		/*jerry = new Usuario => [
-			nombre = "Jerry"
-			altura = 1.50
-			peso = 200.0
-			fechaDeNacimiento = 2558
-			condicionesPreexistentes = (vegano)
-		] */ //no me funca la lista
+		jerry = new Usuario => [
+		nombre = "Jer"
+		altura = 1.85
+		peso = 88.0
+		fechaDeNacimiento = 2495
+		condicionesPreexistentes = emptyList
+		]
 
 	}
 	
@@ -34,4 +36,8 @@ class TestUsuarioEsValido {
 		Assert.assertTrue(marcos.validar())
 	}
 	
+	@Test
+	def void jerryEsUsuarioValido() {
+		Assert.assertFalse(jerry.validar())
+	}
 }

@@ -8,7 +8,7 @@ class RutinaActiva extends Rutina {
 		if(tiempo>30){true}else{false}
 		}
 		
-	def Boolean esSoloActiva(){
+	def boolean esSoloActiva(){
 		if(tiempo==0){true}else{false}
 	}	
 	override esActiva() {
