@@ -1,6 +1,7 @@
 import org.junit.Test
 import org.junit.Assert
 import org.junit.Before
+import java.util.ArrayList
 
 class TestsDeIMC {
 
@@ -16,11 +17,19 @@ class TestsDeIMC {
 	Usuario usrInval4	//sin peso
 	Usuario usrInval5	//fecha futura
 	Usuario usrInval6	//sin rutina
-	Usuario usrVegano
-	Usuario usrHipertenso
-	Usuario usrDiabetico1	//mas de 70kg
-	Usuario usrDiabetico2	//menos de 70kg
-	Usuario usrCeliaco		
+	Usuario usrVegano1		//le gusta el pollo	//no le gusta la fruta
+	Usuario usrVegano2		//valido			//le gusta la fruta
+	Usuario usrHipertenso1	//sin preferencia	//tiene rutina activa
+	Usuario usrHipertenso2	//valido			//tiene rutina sedentaria
+	Usuario usrDiabetico1	//sin sexo 			//mas de 70kg
+	Usuario usrDiabetico2	//sin preferencia 	//menos de 70kg
+	Usuario usrDiabetico3	//valido
+	Usuario usrCeliaco		//valido
+	Receta	receta1			//antiVegano
+	Receta	receta2			//antiDiabetico
+	Receta	receta3			//Apta para Todo Publico
+	Receta	recetaLean		//hecha por Lean
+	Receta	recetaEri		//hecha por Eri
 	Sistema elSistema
 	Rutina 	rutinaCorta
 	Rutina	rutinaLarga
@@ -90,8 +99,7 @@ class TestsDeIMC {
 		
 		usrValid1 = new Usuario => [
 			nombre = "Manu"
-			sexo = ''
-			fechaDeNacimiento = 01011980 
+			fechaDeNacimiento = 12011980 
 			altura = 1.76
 			peso = 70
 			rutina = rutinaCorta
@@ -112,7 +120,7 @@ class TestsDeIMC {
 		
 		usrInval3 = new Usuario => [
 			nombre = "juanse"
-			sexo = ''
+			sexo = 'M'
 			fechaDeNacimiento = 10102001
 			altura = 0
 			peso = 99
@@ -145,17 +153,30 @@ class TestsDeIMC {
 			peso = 67
 		]
 		
-		usrVegano = new Usuario => [
-			nombre = "Vegano"
+		usrVegano1 = new Usuario => [
+			nombre = "VeganoUno"
 			sexo = 'M'
 			fechaDeNacimiento = 20112000
 			altura = 1.70
 			peso = 67
 			rutina = rutinaCorta
+			comidaPreferida = new ArrayList<String>()
+			comidaPreferida.add("pollo")
 		]
 		
-		usrHipertenso = new Usuario => [
-			nombre = "Hipertenso"
+		usrVegano2 = new Usuario => [
+			nombre = "VeganoDos"
+			sexo = 'M'
+			fechaDeNacimiento = 20112000
+			altura = 1.70
+			peso = 67
+			rutina = rutinaCorta
+			comidaPreferida = new ArrayList<String>()
+			comidaPreferida.add("frutas")
+		]
+		
+		usrHipertenso1 = new Usuario => [
+			nombre = "HipertensoUno"
 			sexo = 'F'
 			fechaDeNacimiento = 20112000
 			altura = 1.70
@@ -163,13 +184,25 @@ class TestsDeIMC {
 			rutina = rutinaLarga
 		]
 		
+		usrHipertenso2 = new Usuario => [
+			nombre = "HipertensoDos"
+			sexo = 'F'
+			fechaDeNacimiento = 20112000
+			altura = 1.70
+			peso = 67
+			rutina = rutinaCorta
+			comidaPreferida = new ArrayList<String>()
+			comidaPreferida.add("carne")
+		]
+		
 		usrDiabetico1 = new Usuario => [
 			nombre = "DiabeticoUno"
-			sexo = 'M'
 			fechaDeNacimiento = 20112000
 			altura = 1.70
 			peso = 80
 			rutina = rutinaCorta
+			comidaPreferida = new ArrayList<String>()
+			comidaPreferida.add("carne")
 		]
 		
 		usrDiabetico2 = new Usuario => [
@@ -179,6 +212,17 @@ class TestsDeIMC {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaLarga
+		]
+		
+		usrDiabetico3 = new Usuario => [
+			nombre = "DiabeticoTres"
+			sexo = 'M'
+			fechaDeNacimiento = 20112000
+			altura = 1.70
+			peso = 67
+			rutina = rutinaLarga
+			comidaPreferida = new ArrayList<String>()
+			comidaPreferida.add("pollo")
 		]
 		
 		usrCeliaco = new Usuario => [
@@ -193,62 +237,101 @@ class TestsDeIMC {
 //Punto 1 VALIDEZ
 	//testeados sin datos, nombre corto, sin altura, sin peso, fecha futura, sin rutina
 	// sin sexo (valido)
-	//TODO: testear condiciones especiales
 	
 	
 	@Test
 	def void eriEsUnUsuarioValido(){
-		Assert.assertEquals(true,eri.validar())
+		Assert.assertTrue(eri.validar())
 	}
 	
 	@Test
 	def void diegoEsUnUsuarioValido(){
-		Assert.assertEquals(true,diego.validar())
+		Assert.assertTrue(diego.validar())
 	}
 	
 	@Test
 	def void nicolasEsUnUsuarioValido(){
-		Assert.assertEquals(true,nicolas.validar())
+		Assert.assertTrue(nicolas.validar())
 	}
 	
 	@Test
 	def void pabloEsUnUsuarioValido(){
-		Assert.assertEquals(true,pablo.validar())
+		Assert.assertTrue(pablo.validar())
 	}
 	
 	@Test
 	def void leandroEsUnUsuarioValido(){
-		Assert.assertEquals(true,leandro.validar())
+		Assert.assertTrue(leandro.validar())
 	}
 	
 	@Test
 	def void usrValid1EsUnUsuarioValidoSinSexo(){
-		Assert.assertEquals(true,usrValid1.validar())
+		Assert.assertTrue(usrValid1.validar())
 	}
 	
 	@Test
 	def void usrInvalido1NoValidoFaltanDatos(){
-		Assert.assertEquals(false,usrInval1.validar())
+		Assert.assertFalse(usrInval1.validar())
 	}
 	
 	@Test
 	def void usrInvalido2NoValidoNombreCorto(){
-		Assert.assertEquals(false,usrInval2.validar())
+		Assert.assertFalse(usrInval2.validar())
 	}
 	
 	@Test
 	def void usrInvalido3NoValidoSinAltura(){
-		Assert.assertEquals(false,usrInval3.validar())
+		Assert.assertFalse(usrInval3.validar())
 	}
 	
 	@Test
 	def void usrInvalido4NoValidoSinPeso(){
-		Assert.assertEquals(false,usrInval4.validar())
+		Assert.assertFalse(usrInval4.validar())
 	}
 	
 	@Test
 	def void usrInvalido5NoValidoFechaFutura(){
-		Assert.assertEquals(false,usrInval5.validar())
+		Assert.assertFalse(usrInval5.validar())
+	}
+	
+	@Test
+	def void usrVeganoUnoNoValidoPorGustos(){
+		Assert.assertFalse(usrVegano1.validar())
+	}
+	
+	@Test
+	def void usrVeganoDosValido(){
+		Assert.assertTrue(usrVegano2.validar())
+	}
+	
+	@Test
+	def void usrHipertensoUnoNoValidoPorGustos(){
+		Assert.assertFalse(usrHipertenso1.validar())
+	}
+	
+	@Test
+	def void usrHipertensoDosValido(){
+		Assert.assertTrue(usrHipertenso2.validar())
+	}
+	
+	@Test
+	def void usrDiabeticoUnoNoValidoSinSexo(){
+		Assert.assertFalse(usrDiabetico1.validar())
+	}
+	
+	@Test
+	def void usrDiabeticoDosNoValidoPorGustos(){
+		Assert.assertFalse(usrDiabetico2.validar())
+	}
+	
+	@Test
+	def void usrDiabeticoTresValido(){
+		Assert.assertTrue(usrDiabetico3.validar())
+	}
+	
+	@Test
+	def void usrCeliacoValido(){
+		Assert.assertTrue(usrCeliaco.validar())
 	}
 	
 	
@@ -280,10 +363,6 @@ class TestsDeIMC {
 		Assert.assertEquals(22.4712087637, pablo.calculaIMC, delta)
 	}	
 	
-	@Test
-	def void pabloCalculaMalSuIMC() {
-		Assert.assertEquals(0, pablo.calculaIMC, delta)
-	}
 	
 	@Test (expected=typeof(BusinessException))	//sin altura
 	def void usrInval3CalculaSuIMC() {
@@ -299,58 +378,131 @@ class TestsDeIMC {
 	
 	@Test
 	def void leandroSigueUnaRutinaSaludable(){
-		Assert.assertEquals(true, leandro.sigueUnaRutinaSaludable())
+		Assert.assertTrue(leandro.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
 	def void erikaSigueUnaRutinaSaludable(){
-		Assert.assertEquals(true, eri.sigueUnaRutinaSaludable())
+		Assert.assertTrue(eri.sigueUnaRutinaSaludable())
 	}
 	
-		@Test
+	@Test
 	def void diegoSigueUnaRutinaSaludable(){
-		Assert.assertEquals(true, diego.sigueUnaRutinaSaludable())
+		Assert.assertTrue(diego.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
 	def void nicolasSigueUnaRutinaSaludable(){
-		Assert.assertEquals(true, nicolas.sigueUnaRutinaSaludable())
+		Assert.assertTrue(nicolas.sigueUnaRutinaSaludable())
 	}
 
 	@Test
 	def void pabloSigueUnaRutinaSaludable(){
-		Assert.assertEquals(true, pablo.sigueUnaRutinaSaludable())
+		Assert.assertTrue(pablo.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
 	def void usrInval2NoSigueUnaRutinaSaludable(){
-		Assert.assertEquals(false, usrInval2.sigueUnaRutinaSaludable())
+		Assert.assertFalse(usrInval2.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
 	def void usrVeganoNoSigueUnaRutinaSaludable(){
-		Assert.assertEquals(false, usrVegano.sigueUnaRutinaSaludable())
+		Assert.assertFalse(usrVegano1.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
 	def void usrHipertensoNoSigueUnaRutinaSaludable(){
-		Assert.assertEquals(false, usrHipertenso.sigueUnaRutinaSaludable())
+		Assert.assertFalse(usrHipertenso1.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
 	def void usrDiabetico1NoSigueUnaRutinaSaludable(){
-		Assert.assertEquals(false, usrDiabetico1.sigueUnaRutinaSaludable())
+		Assert.assertFalse(usrDiabetico1.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
 	def void usrDiabetico2SigueUnaRutinaSaludable(){
-		Assert.assertEquals(true, usrDiabetico2.sigueUnaRutinaSaludable())
+		Assert.assertTrue(usrDiabetico2.sigueUnaRutinaSaludable())
 	}
 	
-		@Test
+	@Test
 	def void usrCeliacoSigueUnaRutinaSaludable(){
-		Assert.assertEquals(true, usrCeliaco.sigueUnaRutinaSaludable())
+		Assert.assertTrue(usrCeliaco.sigueUnaRutinaSaludable())
 	}
+	
+//Punto 3 CREAR RECETAS
+
+//TODO: necesito bien los tipos de la funcion crearReceta
+
+	@Test	(expected=typeof(BusinessException))	//sin Ingrediente
+	def void leandroCreaReceta(){
+		leandro.crearReceta("RecetaLean",,,"pasoXpaso",450,1,1)
+	}		
+	
+	@Test	(expected=typeof(BusinessException))	//calorias Fuera de Rango
+	def void eriCreaReceta(){
+		eri.crearReceta("RecetaEri",,,"pasoXpaso",8,1,1)
+	}		
+	
+	@Test
+	def void crearReceta(){
+		diego.crearReceta("RecetaDiego",,,"pasoXpaso",300,1,1)
+	}		
+	
+	@Test
+	def void nicolasCreaReceta(){
+		nicolas.crearReceta("RecetaNico",,,"pasoXpaso",120,1,1)
+	}	
+	
+	@Test
+	def void pabloCreaReceta(){
+		pablo.crearReceta("RecetaPablo",,,"pasoXpaso",110,1,1)
+	}		
+	
+//Punto 3 CONDICIONES PREEX
+
+	@Test
+	def void Receta1NoAdecuadaParaVegano(){
+		Assert.assertEquals(Vegano, receta1.esInadecuadaPara())
+	}
+	
+	@Test
+	def void Receta3InadecuadaParaDiabetico(){
+		Assert.assertEquals(Diabetico, receta2.esInadecuadaPara())
+	}
+	
+	@Test
+	def void Receta2AdecuadaParaTodos(){
+		Assert.assertNull(receta3.esInadecuadaPara())
+	}
+	
+//Punto 4 PUEDE VER/MODIFICAR RECETAS
+	@Test
+	def void leandroPuedeVerRecetaLean(){
+		Assert.assertTrue(receta3.puedeVerOModificarReceta(recetaLean))
+	}
+	
+	@Test
+	def void leandroNoPuedeVerRecetaEri(){
+		Assert.assertFalse(leandro.puedeVerOModificarReceta(recetaEri))
+	}
+
+	@Test
+	def void leandroPuedeVerReceta1(){
+		Assert.assertFalse(leandro.puedeVerOModificarReceta(receta1))
+	}
+	
+//Punto 4 MODIFICAR RECETAS
+	@Test
+	def void leandroModificaReceta1(){
+		leandro.modificarReceta(receta1)
+	}
+
+	@Test	(expected=typeof(BusinessException))	//no Tiene Permitido Modificar
+	def void eriModificaRecetaLean(){
+		leandro.modificarReceta(recetaLean)
+	}
+	
+//Punto 5 RECETA CON SUBRECETAS
 }
-
-
