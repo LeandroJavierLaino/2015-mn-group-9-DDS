@@ -61,6 +61,9 @@ class Receta {
 	}
 
 	def esInadecuadaPara(Usuario usuario) {
+		if(ingredientes.exists[it.nombre.equals("Azucar")] && ){
+			
+		}
 		
 	}
 	
