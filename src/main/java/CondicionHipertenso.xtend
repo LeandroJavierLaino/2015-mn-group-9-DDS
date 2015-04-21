@@ -21,8 +21,6 @@ class CondicionHipertenso implements CondicionPreexistente {
 	}
 	
 	override tolera (Receta unaReceta) {
-		if(unaReceta.condimentos.containsKey("Sal") || unaReceta.ingredientes.containsKey("Caldo"))
-			false
-		else true
+		!(unaReceta.condimentos.containsKey("Sal") || unaReceta.ingredientes.containsKey("Caldo"))
 	}
 }
