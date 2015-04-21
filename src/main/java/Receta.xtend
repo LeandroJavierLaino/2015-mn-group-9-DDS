@@ -71,6 +71,6 @@ class Receta {
 	//TODO: Falta el comportamiento con las condiciones preexistentes
 	
 	def esRecomendablePara(Usuario unUsuario) {
-		unUsuario.condicionesPreexistentes.forall[it.tolera(this)]
+		unUsuario.noTieneCondicionesPreexistentes() || unUsuario.condicionesPreexistentes.forall[it.tolera(this)]
 	}
 }

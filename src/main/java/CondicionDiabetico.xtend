@@ -6,7 +6,7 @@ class CondicionDiabetico implements CondicionPreexistente {
 	
 	override Boolean valido(Usuario unUsuario) {
 		
-		unUsuario.comidaPreferida.length() > 0 && (unUsuario.sexo.equals('M') || unUsuario.sexo.equals('F')) //el chequeo del char no funciona
+		unUsuario.comidaPreferida.length() > 0 && (unUsuario.sexo.equals("M") || unUsuario.sexo.equals("F")) //el chequeo del char no funciona
 		
 	}
 	

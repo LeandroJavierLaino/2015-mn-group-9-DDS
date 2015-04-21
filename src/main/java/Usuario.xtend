@@ -12,8 +12,8 @@ class Usuario {
 	double altura
 	double peso
 	String nombre
-	int fechaDeNacimiento
-	char sexo
+	long fechaDeNacimiento
+	String sexo
 	
 	List<String> comidasQueDisgustan = new ArrayList<String>
 	List<String> comidaPreferida = new ArrayList<String>
@@ -37,7 +37,7 @@ class Usuario {
 	}
 		
 	def boolean validar(){
-		altura > 0 && peso > 0 && fechaDeNacimiento > 0 && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas()
+		altura > 0 && peso > 0 && fechaDeNacimiento > 0  && nombre != ""  && nombre.length()>4 && condicionesPreexistentesSonValidas()
 	}
 	
 	def tieneLaReceta(Receta receta){

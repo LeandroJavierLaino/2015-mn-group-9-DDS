@@ -51,7 +51,7 @@ class TestUsuarioEsValido {
 			nombre = "Mauro"
 			altura = 1.79
 			peso = 71.0
-			fechaDeNacimiento = 25495
+			fechaDeNacimiento = 250495
 			sexo = 'M'
 			agregarCondicion(diabetico)
 			agregarComidaALista(comidaPreferida, "Carne")
@@ -72,7 +72,7 @@ class TestUsuarioEsValido {
 			altura = 1.60
 			peso = 50.0
 			sexo = 'M'
-			fechaDeNacimiento = 13991
+			fechaDeNacimiento = 130991
 			agregarCondicion(hipertenso)
 			agregarCondicion(celiaco)
 			agregarCondicion(diabetico)
