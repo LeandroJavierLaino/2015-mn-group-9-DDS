@@ -47,7 +47,7 @@ class Receta {
 	}
 
 	def hayUnIngrediente(Map<String, BigDecimal> ingredientes) {
-		ingredientes.size > 1
+		ingredientes.size >= 1
 	}
 
 	def totalDeCaloriasEnRango(BigDecimal totalCalorias) {
@@ -69,4 +69,8 @@ class Receta {
 	}
 	
 	//TODO: Falta el comportamiento con las condiciones preexistentes
+	
+	def esRecomendablePara(Usuario unUsuario) {
+		unUsuario.condicionesPreexistentes.forall[it.tolera(this)]
+	}
 }

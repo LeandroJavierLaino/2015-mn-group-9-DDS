@@ -19,7 +19,7 @@ class Usuario {
 	List<String> comidaPreferida = new ArrayList<String>
 	
 	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
-		
+	
 	Rutina rutina
 	
 	Collection<Receta> recetas = new HashSet<Receta>

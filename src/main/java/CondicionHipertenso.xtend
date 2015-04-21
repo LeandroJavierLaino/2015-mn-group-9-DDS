@@ -16,4 +16,10 @@ class CondicionHipertenso implements CondicionPreexistente {
 	override alimentoInadecuado() {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
+	
+	override tolera (Receta unaReceta) {
+		if(unaReceta.condimentos.containsKey("Sal") || unaReceta.ingredientes.containsKey("Caldo"))
+			false
+		else true
+	}
 }

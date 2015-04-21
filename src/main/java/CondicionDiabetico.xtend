@@ -17,5 +17,9 @@ class CondicionDiabetico implements CondicionPreexistente {
 	override alimentoInadecuado() {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
-	
+	override tolera (Receta unaReceta) {
+		if(unaReceta.condimentos.containsKey("Azucar") && unaReceta.condimentos.get("Azucar") >100)
+			false
+		else true
+	}
 }

@@ -17,4 +17,9 @@ class CondicionVegano implements CondicionPreexistente{
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
+	override tolera (Receta unaReceta) {
+		if(unaReceta.ingredientes.containsKey("Carne") || unaReceta.ingredientes.containsKey("Pollo") || unaReceta.ingredientes.containsKey("Chivito") || unaReceta.ingredientes.containsKey("Chori"))
+			false
+		else true
+	}
 }

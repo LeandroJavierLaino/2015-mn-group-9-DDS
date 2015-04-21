@@ -34,7 +34,7 @@ class TestUsuarioEsValido {
 			altura = 1.85
 			peso = 88.0
 			fechaDeNacimiento = 2495
-			agregarCondicion(vegano)
+			agregarCondicion((vegano))
 			agregarComidaALista(comidaPreferida, "Fruta")
 		]
 		eva = new Usuario => [
