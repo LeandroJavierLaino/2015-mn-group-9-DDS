@@ -4,13 +4,16 @@ class CondicionVegano implements CondicionPreexistente{
 
 	override valido(Usuario unUsuario) {
 		
-		if(unUsuario.comidaPreferida.contains("Carne") || unUsuario.comidaPreferida.contains("Pollo") || unUsuario.comidaPreferida.contains("Chivito") || unUsuario.comidaPreferida.contains("Chori"))
-			false
-		else true
-		
+	!(unUsuario.comidaPreferida.contains("Carne") || unUsuario.comidaPreferida.contains("Pollo") || unUsuario.comidaPreferida.contains("Chivito") || unUsuario.comidaPreferida.contains("Chori"))
+
 	}
 	override tieneRutinaSaludable(Usuario unUsuario) {	
+	
+		if(unUsuario.comidaPreferida.nullOrEmpty)
+			throw new ExcepcionUsuario("La lista comidaPreferida no se declaro o esta vacia")
+			
 		unUsuario.comidaPreferida.contains("Fruta")
+			
 	}
 	
 	override alimentoInadecuado() {
@@ -18,8 +21,6 @@ class CondicionVegano implements CondicionPreexistente{
 	}
 	
 	override tolera (Receta unaReceta) {
-		if(unaReceta.ingredientes.containsKey("Carne") || unaReceta.ingredientes.containsKey("Pollo") || unaReceta.ingredientes.containsKey("Chivito") || unaReceta.ingredientes.containsKey("Chori"))
-			false
-		else true
+		!(unaReceta.ingredientes.containsKey("Carne") || unaReceta.ingredientes.containsKey("Pollo") || unaReceta.ingredientes.containsKey("Chivito") || unaReceta.ingredientes.containsKey("Chori"))
 	}
 }

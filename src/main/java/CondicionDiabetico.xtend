@@ -6,7 +6,17 @@ class CondicionDiabetico implements CondicionPreexistente {
 	
 	override Boolean valido(Usuario unUsuario) {
 		
-		unUsuario.comidaPreferida.length() > 0 && (unUsuario.sexo.equals("M") || unUsuario.sexo.equals("F")) //el chequeo del char no funciona
+		
+		if(unUsuario.sexo.nullOrEmpty) 
+			throw new ExcepcionUsuario("El campo sexo no se declaro esta vacio")
+			
+		else if(!(unUsuario.sexo.equals("M") || unUsuario.sexo.equals("F")))
+			throw new ExcepcionUsuario("El campo sexo es dintinto de 'M' y 'F'")
+			
+		if(unUsuario.comidaPreferida.nullOrEmpty)
+			throw new ExcepcionUsuario("La lista comidaPreferida no se declaro o esta vacia")
+						
+		(unUsuario.sexo.equals("M") || unUsuario.sexo.equals("F")) //el chequeo del char no funciona
 		
 	}
 	
@@ -18,8 +28,6 @@ class CondicionDiabetico implements CondicionPreexistente {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	override tolera (Receta unaReceta) {
-		if(unaReceta.condimentos.containsKey("Azucar") && unaReceta.condimentos.get("Azucar") >100)
-			false
-		else true
+		!(unaReceta.condimentos.containsKey("Azucar") && unaReceta.condimentos.get("Azucar") >100)
 	}
 }

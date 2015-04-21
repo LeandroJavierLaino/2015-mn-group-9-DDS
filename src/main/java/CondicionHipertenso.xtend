@@ -6,6 +6,9 @@ class CondicionHipertenso implements CondicionPreexistente {
 	
 	override Boolean valido(Usuario unUsuario) {
 		
+		if(unUsuario.comidaPreferida.nullOrEmpty)
+			throw new ExcepcionUsuario("La lista comidaPreferida no se declaro o esta vacia")
+			
 		unUsuario.comidaPreferida.length() > 0
 	}
 	
