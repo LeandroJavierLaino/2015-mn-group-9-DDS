@@ -3,7 +3,7 @@ import org.junit.Assert
 import org.junit.Before
 
 class TestUsuarioEsValido {
-	
+// TEST OK!	
 	Usuario marcos // el mas simple
 	Usuario jerry // vegano
 	Usuario eva // nombre corto

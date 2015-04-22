@@ -7,7 +7,7 @@ import java.util.List
 import java.util.HashSet
 
 class TestsDeIMC {
-
+//dos errores menos :/
 	Usuario leandro
 	Usuario eri
 	Usuario diego
