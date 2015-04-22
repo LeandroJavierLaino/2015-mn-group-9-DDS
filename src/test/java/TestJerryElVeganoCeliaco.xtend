@@ -16,7 +16,7 @@ class TestJerryElVeganoCeliaco {
 		nombre = "Jerry"
 		altura = 1.85
 		peso = 88.0
-		fechaDeNacimiento = 2495
+		fechaDeNacimiento = 19081991
 		agregarCondicion(celiaco)
 		]
 

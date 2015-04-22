@@ -15,4 +15,7 @@ class CondicionCeliaco implements CondicionPreexistente {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
+	override tolera (Receta unaReceta) {
+		true
+	}
 }
