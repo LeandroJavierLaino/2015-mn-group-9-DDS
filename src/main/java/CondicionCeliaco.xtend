@@ -1,6 +1,6 @@
 
 
-import CondicionPreexistente
+
 
 class CondicionCeliaco implements CondicionPreexistente {
 	

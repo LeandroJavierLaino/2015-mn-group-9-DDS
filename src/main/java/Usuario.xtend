@@ -6,6 +6,7 @@ import java.math.BigDecimal
 import java.util.Calendar
 import java.util.ArrayList
 
+
 @Accessors
 class Usuario {
 	
@@ -21,12 +22,9 @@ class Usuario {
 	
 	List<String> comidasQueDisgustan = new ArrayList<String>
 	List<String> comidaPreferida = new ArrayList<String>
-	
 	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
-	
 	Rutina rutina
 	Collection<Receta> recetas = new HashSet<Receta>
-
 	
 	//Mensajes
 	def double calculaIMC(){
