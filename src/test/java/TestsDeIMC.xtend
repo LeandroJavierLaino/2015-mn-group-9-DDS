@@ -89,7 +89,7 @@ class TestsDeIMC {
 		leandro = new Usuario => [
 			nombre = "Leandro"
 			sexo = "M"
-			fechaDeNacimiento = "27/06/1988"
+			fechaDeNacimiento = 19880627
 			altura = 1.74
 			peso = 70
 			rutina = rutinaCorta
@@ -99,7 +99,7 @@ class TestsDeIMC {
 		eri = new Usuario => [
 			nombre = "Erika"
 			sexo = "F"
-			fechaDeNacimiento = "01/01/1980"
+			fechaDeNacimiento = 19800101
 			altura = 1.52
 			peso = 60
 			rutina = rutinaLarga
@@ -109,7 +109,7 @@ class TestsDeIMC {
 		diego = new Usuario => [
 			nombre = "Diego"
 			sexo = "M"
-			fechaDeNacimiento = "01/01/1980"
+			fechaDeNacimiento =19800101
 			altura = 1.70
 			peso = 65
 			rutina = rutinaCorta
@@ -119,7 +119,7 @@ class TestsDeIMC {
 		nicolas = new Usuario => [
 			nombre = "Nicolas"
 			sexo = 'M'
-			fechaDeNacimiento = "10/11/1980"
+			fechaDeNacimiento = 19801110
 			altura = 1.74
 			peso = 60
 			rutina = rutinaLarga
@@ -129,7 +129,7 @@ class TestsDeIMC {
 		pablo = new Usuario => [
 			nombre = "Pablo"
 			sexo = "M"
-			fechaDeNacimiento = "01/01/1980"
+			fechaDeNacimiento = 19800202
 			altura = 1.79
 			peso = 72
 			rutina = rutinaCorta
@@ -138,7 +138,7 @@ class TestsDeIMC {
 
 		usrValid1 = new Usuario => [
 			nombre = "Manu"
-			fechaDeNacimiento = "12/01/1980"
+			fechaDeNacimiento = 19801112
 			altura = 1.76
 			peso = 70
 			rutina = rutinaCorta
@@ -167,7 +167,7 @@ class TestsDeIMC {
 		usrInval2 = new Usuario => [
 			nombre = "ari"
 			sexo = "M"
-			fechaDeNacimiento = "10/29/1991"
+			fechaDeNacimiento = 19911020
 			altura = 1.45
 			peso = 197
 			rutina = rutinaCorta
@@ -184,7 +184,7 @@ class TestsDeIMC {
 		usrInval3 = new Usuario => [
 			nombre = "juanse"
 			sexo = "M"
-			fechaDeNacimiento = "10/10/2001"
+			fechaDeNacimiento = 20011010
 			altura = 0
 			peso = 99
 			rutina = rutinaCorta
@@ -201,7 +201,7 @@ class TestsDeIMC {
 		usrInval4 = new Usuario => [
 			nombre = "Marta"
 			sexo = "F"
-			fechaDeNacimiento = "20/01/2001"
+			fechaDeNacimiento = 20012010
 			altura = 1.70
 			peso = 0
 			rutina = rutinaCorta
@@ -218,7 +218,7 @@ class TestsDeIMC {
 		usrInval5 = new Usuario => [
 			nombre = "Florencia"
 			sexo = "F"
-			fechaDeNacimiento = "20/11/2090"
+			fechaDeNacimiento = 20901110
 			altura = 1.70
 			peso = 67
 			rutina = rutinaCorta
@@ -235,7 +235,7 @@ class TestsDeIMC {
 		usrInval6 = new Usuario => [
 			nombre = "Paula"
 			sexo = "F"
-			fechaDeNacimiento = "20/11/2090"
+			fechaDeNacimiento = 20900523
 			altura = 1.70
 			peso = 67
 			val Set<Condimento> condimentos = new HashSet<Condimento>
@@ -251,8 +251,7 @@ class TestsDeIMC {
 		usrVegano1 = new Usuario => [
 			nombre = "VeganoUno"
 			sexo = "M"
-			fechaDeNacimiento = "20/11/2000"
-			altura = 1.70
+			fechaDeNacimiento = 20112004
 			peso = 67
 			rutina = rutinaCorta
 			val Set<Condimento> condimentos = new HashSet<Condimento>
@@ -270,7 +269,7 @@ class TestsDeIMC {
 		usrVegano2 = new Usuario => [
 			nombre = "VeganoDos"
 			sexo = "M"
-			fechaDeNacimiento = "20/11/2000"
+			fechaDeNacimiento = 20001120
 			altura = 1.70
 			peso = 67
 			rutina = rutinaCorta
@@ -289,7 +288,7 @@ class TestsDeIMC {
 		usrHipertenso1 = new Usuario => [
 			nombre = "HipertensoUno"
 			sexo = "F"
-			fechaDeNacimiento = "20/11/2000"
+			fechaDeNacimiento = 20001120
 			altura = 1.70
 			peso = 67
 			rutina = rutinaLarga
@@ -306,7 +305,7 @@ class TestsDeIMC {
 		usrHipertenso2 = new Usuario => [
 			nombre = "HipertensoDos"
 			sexo = "F"
-			fechaDeNacimiento = "20/11/2000"
+			fechaDeNacimiento = 20001120
 			altura = 1.70
 			peso = 67
 			rutina = rutinaCorta
@@ -324,7 +323,7 @@ class TestsDeIMC {
 
 		usrDiabetico1 = new Usuario => [
 			nombre = "DiabeticoUno"
-			fechaDeNacimiento = "20/11/2000"
+			fechaDeNacimiento = 20001120
 			altura = 1.70
 			peso = 80
 			rutina = rutinaCorta
@@ -345,7 +344,7 @@ class TestsDeIMC {
 		usrDiabetico2 = new Usuario => [
 			nombre = "DiabeticoDos"
 			sexo = "M"
-			fechaDeNacimiento = "20/11/2000"
+			fechaDeNacimiento = 20001120
 			altura = 1.70
 			peso = 67
 			rutina = rutinaLarga
@@ -362,7 +361,7 @@ class TestsDeIMC {
 		usrDiabetico3 = new Usuario => [
 			nombre = "DiabeticoTres"
 			sexo = "M"
-			fechaDeNacimiento = "20/11/2000"
+			fechaDeNacimiento = 20001120
 			altura = 1.70
 			peso = 67
 			rutina = rutinaLarga
@@ -381,7 +380,7 @@ class TestsDeIMC {
 		usrCeliaco = new Usuario => [
 			nombre = "Celiaco"
 			sexo = "F"
-			fechaDeNacimiento = "20/11/2000"
+			fechaDeNacimiento = 20001120
 			altura = 1.70
 			peso = 78
 			rutina = rutinaCorta
@@ -474,9 +473,9 @@ class TestsDeIMC {
 		Assert.assertTrue(usrHipertenso2.validar())
 	}
 
-	@Test(expected=typeof(Exception))
+	@Test (expected=typeof(Exception))
 	def void usrDiabeticoUnoNoValidoSinSexo() {
-		usrDiabetico1.validar
+		usrDiabetico1.validar()
 	}
 
 	@Test

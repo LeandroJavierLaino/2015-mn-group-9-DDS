@@ -12,9 +12,11 @@ class Usuario {
 	double altura
 	double peso
 	String nombre
-	String fechaDeNacimiento
+	//String fechaDeNacimiento
+	long fechaDeNacimiento
 	String sexo
-	final String FECHA_ACTUAL = "31/12/2015"
+	//final String FECHA_ACTUAL = "31/12/2015"
+	final long FECHA_ACTUAL = 20151231
 
 	// "Define" de minimo de caracteres para nombre
 	int CARACTERES_MINIMOS = 4

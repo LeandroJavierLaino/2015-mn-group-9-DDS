@@ -26,14 +26,15 @@ class TestUsuarioEsValido {
 			nombre = "Marcos"
 			altura = 1.85
 			peso = 88.0
-			//fechaDeNacimiento = 2495
+			fechaDeNacimiento = 19991102
 			condicionesPreexistentes = emptyList
 		]
 		jerry = new Usuario => [
 			nombre = "Jerry"
 			altura = 1.85
 			peso = 88.0
-			//fechaDeNacimiento = 2495
+			fechaDeNacimiento = 19911020
+			//fechaDeNacimiento = "20/10/1992"
 			agregarCondicion((vegano))
 			agregarComidaALista(comidaPreferida, "Fruta")
 		]
@@ -41,7 +42,8 @@ class TestUsuarioEsValido {
 			nombre = "Eva"
 			altura = 1.55
 			peso = 50.0
-			//fechaDeNacimiento = 2490
+			fechaDeNacimiento = 19900402
+			//fechaDeNacimiento = "02/04/1990"
 		]
 		tomas = new Usuario => [
 			nombre = "Tomas"
@@ -51,7 +53,8 @@ class TestUsuarioEsValido {
 			nombre = "Mauro"
 			altura = 1.79
 			peso = 71.0
-			//fechaDeNacimiento = 250495
+			fechaDeNacimiento = 19950425
+			//fechaDeNacimiento ="25/04/1995"
 			sexo = 'M'
 			agregarCondicion(diabetico)
 			agregarComidaALista(comidaPreferida, "Carne")
@@ -61,7 +64,8 @@ class TestUsuarioEsValido {
 			nombre = "David"
 			altura = 1.98
 			peso = 100.0
-			//fechaDeNacimiento = 26590
+			fechaDeNacimiento = 19900526
+			//fechaDeNacimiento = "26/05/1990"
 			agregarCondicion(hipertenso)
 			agregarComidaALista(comidaPreferida, "Chori")
 			rutina = rutinaDeDavid
@@ -72,7 +76,8 @@ class TestUsuarioEsValido {
 			altura = 1.60
 			peso = 50.0
 			sexo = 'M'
-			//fechaDeNacimiento = 130991
+			fechaDeNacimiento = 19911025
+			//anterior fechaDeNacimiento ="25/10/1991"
 			agregarCondicion(hipertenso)
 			agregarCondicion(celiaco)
 			agregarCondicion(diabetico)
@@ -84,7 +89,8 @@ class TestUsuarioEsValido {
 			nombre = "Santiago"
 			altura = 1.70
 			peso = 80.0
-			//fechaDeNacimiento = 5490
+			fechaDeNacimiento = 19900405
+			//fechaDeNacimiento = "05/04/1990"
 			agregarCondicion(vegano)
 			
 			agregarComidaALista(comidaPreferida, "Chori")
