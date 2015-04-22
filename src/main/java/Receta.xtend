@@ -11,7 +11,6 @@ class Receta {
 	Collection<Ingrediente> ingredientes = new HashSet<Ingrediente>
 	Collection<Condimento> condimentos = new HashSet<Condimento>
 	Collection<String> procesoPreparacion = new ArrayList<String>
-	Collection<Usuario> tiposDeUsuariosInadecuados
 	BigDecimal totalCalorias
 	DificultadPreparacion dificultad
 	Temporada temporada
@@ -47,24 +46,25 @@ class Receta {
 		(totalCalorias > cantidadMinimaCalorias) && (totalCalorias < cantidadMaximaCalorias)
 	}
 
-	//yo supongo que las recetas publicas son identicas a las recetas comunes, no valdria la pena hacer otra clase porque importa quien la crea no donde
-	//Lo unico que hay una pequeña logica repetida que hace que sistema y usuario entiendan el mismo metodo que hace lo mismo, quiza habria que hacer una interfaz
-	def puedeVerOModificarReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || Sistema.tieneLaReceta(this)
+	def boolean puedeVerReceta(Usuario usuario) {
+		usuario.tieneLaReceta(this) || RepositorioRecetas.tieneLaReceta(this)
 	}
 
-	def modificarReceta(Usuario usuario) {
-		if (puedeVerOModificarReceta(usuario)) {
+	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
+		usuario.tieneLaReceta(this) || RepositorioRecetas.tieneLaReceta(this)
+	}
+
+	def puedeModificarReceta(Usuario usuario) {
+		if (tienePermisosParaModificarReceta(usuario) && puedeVerReceta(usuario)) {
 		} else {
 			throw new BusinessException("No puede ver o modificar la receta")
 		}
 	}
 
-	def esInadecuadaPara(Usuario usuario) {
-		if(ingredientes.exists[it.nombre.equals("Azucar")] && ){
-			
-		}
-		
-	}
-	
+//	def esInadecuadaPara(Usuario usuario) {
+//		if(ingredientes.exists[it.nombre.equals("Azucar")] && ){
+//			
+//		}
+//		
+//	}
 }

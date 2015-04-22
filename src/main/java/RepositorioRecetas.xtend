@@ -3,7 +3,7 @@ import java.util.Collection
 import java.util.HashSet
 
 @Accessors
-class Sistema {
+class RepositorioRecetas {
 	static Collection<Receta> recetas = new HashSet<Receta>
 	
 	static def tieneLaReceta(Receta receta){

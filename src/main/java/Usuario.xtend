@@ -4,6 +4,7 @@ import java.util.HashSet
 import java.util.Collection
 import java.math.BigDecimal
 import java.util.Calendar
+import java.util.ArrayList
 
 @Accessors
 class Usuario {
@@ -12,22 +13,11 @@ class Usuario {
 	double peso
 	String nombre
 	Calendar fechaDeNacimiento
-	String sexo /** aunque podria hacerce de otra manera pero no se me ocurre :S */
-
-	/** para saber que comidas le disgustan o le gustan a un usuario  */
-	List<String> comidasQueDisgustan
-	List<String> comidaPreferida
-
-	/** para las condiciones preexistentes podriamos usar un Strategy o un List de Strategys :O 
-	 *  releyendo un poco en la parte de validacion da idea que cada CondicionPreexistente es una Clase que entiende el mensaje validar()*/
-	List<CondicionPreexitente> condicionesPreexistentes
-
-	/** se puede usar un Interface a una Rutina y que de esa salgan dos "subtipos" de rutinas ej. Sedentaria o Activa, esto tambien no puede dar chances de que un Usuario pueda a futuro 
-	 * cambiar de tipo de Rutina
-	 */
+	String sexo
+	List<String> comidasQueDisgustan = new ArrayList<String>
+	List<String> comidaPreferida = new ArrayList<String>
+	List<CondicionPreexitente> condicionesPreexistentes = new ArrayList<CondicionPreexitente>
 	Rutina rutina
-
-	/** lista de recestas que conoce el usuario */
 	Collection<Receta> recetas = new HashSet<Receta>
 
 	def double calculaIMC() {
@@ -51,6 +41,22 @@ class Usuario {
 		recetas.add(receta)
 	}
 
+	def modificarReceta(Receta receta, String nombrePlato, Collection<Ingrediente> ingredientes,
+		Collection<Condimento> condimentos, Collection<String> procesoPreparacion, BigDecimal totalCalorias,
+		DificultadPreparacion dificultadCargada, Temporada temporadaCargada) {
+
+		receta.puedeModificarReceta(this)
+		val recetaNueva = new Receta(receta.nombrePlato, receta.ingredientes, receta.condimentos,
+			receta.procesoPreparacion, receta.totalCalorias, receta.dificultad, receta.temporada)
+		recetaNueva.nombrePlato.concat(nombrePlato)
+		recetaNueva.ingredientes.addAll(ingredientes)
+		recetaNueva.condimentos.addAll(condimentos)
+		recetaNueva.procesoPreparacion.addAll(procesoPreparacion)
+		recetaNueva.dificultad = dificultadCargada
+		recetaNueva.temporada = temporadaCargada
+		recetas.add(recetaNueva)
+	}
+
 	def tieneLaReceta(Receta receta) {
 		recetas.contains(receta)
 	}
@@ -64,10 +70,7 @@ class Usuario {
 	}
 
 	def boolean sigueUnaRutinaSaludable() {
-		if (noTieneCondicionesPreexistentes() && calculaIMC() >= 18 && calculaIMC() <= 30) {
-			true
-		} else {
+		(noTieneCondicionesPreexistentes() && calculaIMC() >= 18 && calculaIMC() <= 30) ||
 			condicionesPreexistentes.forall[it.tieneRutinaSaludable()]
-		}
 	}
 }
