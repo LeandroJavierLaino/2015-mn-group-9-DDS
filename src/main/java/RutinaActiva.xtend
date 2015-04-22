@@ -8,8 +8,7 @@ class RutinaActiva extends Rutina {
 		tiempo > 30
 		}
 		
-	def Boolean esSoloActiva(){
-		tiempo==0
-	}	
-	
+	def boolean esSoloActiva() {  
+		tiempo.equals(0)
+	}
 }

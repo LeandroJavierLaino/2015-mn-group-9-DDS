@@ -3,10 +3,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 abstract class Caracteristica {
 	String nombre
-	String cantidad
+	double cantidad
+	String tipo
 	
-	new(String cNombre, String cCantidad){
+	new(String cNombre, double cCantidad, String cTipo){
 		nombre = cNombre
 		cantidad = cCantidad
+		tipo = cTipo
 	}	
 }

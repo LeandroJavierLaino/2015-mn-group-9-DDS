@@ -8,27 +8,56 @@ import java.util.ArrayList
 
 @Accessors
 class Usuario {
-
+	
+	//Atributos
 	double altura
 	double peso
 	String nombre
 	Calendar fechaDeNacimiento
 	String sexo
+	
+	// "Define" de minimo de caracteres para nombre
+	int CARACTERES_MINIMOS = 4
+	
 	List<String> comidasQueDisgustan = new ArrayList<String>
 	List<String> comidaPreferida = new ArrayList<String>
-	List<CondicionPreexitente> condicionesPreexistentes = new ArrayList<CondicionPreexitente>
+	
+	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
+	
 	Rutina rutina
 	Collection<Receta> recetas = new HashSet<Receta>
 
-	def double calculaIMC() {
-		peso / (altura * altura)
+	
+	//Mensajes
+	def double calculaIMC(){
+		peso / (altura*altura)
 	}
-
-	def Boolean validar() {
-		if (altura > 0 && peso > 0 && fechaDeNacimiento.equals(Calendar.getInstance) && nombre.length() > 4 &&
-			condicionesPreexistentesSonValidas()) {
-			/** valida la creacion del usuario */
-		}
+	
+	def void agregarCondicion(CondicionPreexistente condicion){
+		condicionesPreexistentes.add(condicion)
+	}
+	def void agregarComidaALista(List<String> lista, String comida) {
+		lista.add(comida)
+	}
+		
+	def boolean validar(){
+		altura > 0 && peso > 0 && fechaDeNacimiento.equals(Calendar.getInstance) && nombre.length()>= CARACTERES_MINIMOS && condicionesPreexistentesSonValidas()
+	}
+	
+	def tieneLaReceta(Receta receta){
+		recetas.contains(receta)
+	}
+	
+	def Boolean noTieneCondicionesPreexistentes(){
+		condicionesPreexistentes.empty
+	}
+	
+	def Boolean condicionesPreexistentesSonValidas(){
+		noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.valido(this)]
+	}
+	
+	def Boolean sigueUnaRutinaSaludable(){
+		(noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]) && calculaIMC()>=18 && calculaIMC()<=30
 	}
 
 	def crearReceta(String nombrePlato, Collection<Ingrediente> ingredientes, Collection<Condimento> condimentos,
@@ -57,20 +86,4 @@ class Usuario {
 		recetas.add(recetaNueva)
 	}
 
-	def tieneLaReceta(Receta receta) {
-		recetas.contains(receta)
-	}
-
-	def boolean noTieneCondicionesPreexistentes() {
-		condicionesPreexistentes.empty
-	}
-
-	def boolean condicionesPreexistentesSonValidas() {
-		condicionesPreexistentes.forall[it.valido(this)]
-	}
-
-	def boolean sigueUnaRutinaSaludable() {
-		(noTieneCondicionesPreexistentes() && calculaIMC() >= 18 && calculaIMC() <= 30) ||
-			condicionesPreexistentes.forall[it.tieneRutinaSaludable()]
-	}
 }

@@ -39,7 +39,7 @@ class Receta {
 	}
 
 	def hayUnIngrediente(Collection<Ingrediente> ingredientes) {
-		ingredientes.size > 1
+		ingredientes.size >= 1
 	}
 
 	def totalDeCaloriasEnRango(BigDecimal totalCalorias) {
@@ -60,11 +60,12 @@ class Receta {
 			throw new BusinessException("No puede ver o modificar la receta")
 		}
 	}
-
-//	def esInadecuadaPara(Usuario usuario) {
-//		if(ingredientes.exists[it.nombre.equals("Azucar")] && ){
-//			
-//		}
-//		
-//	}
+	
+	def tieneAzucarMayorA100(Collection<Condimento> condimentos){
+		condimentos.exists[condimento | condimento.cantidad > 100 && condimento.nombre.equalsIgnoreCase("Azucar")]
+	}
+	
+	def esRecomendablePara(Usuario unUsuario) {
+		unUsuario.noTieneCondicionesPreexistentes() || unUsuario.condicionesPreexistentes.forall[it.tolera(this)]
+	}
 }
