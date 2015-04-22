@@ -40,7 +40,7 @@ class Usuario {
 	}
 
 	def boolean validar() {
-		altura > 0 && peso > 0 && fechaDeNacimiento >= FECHA_ACTUAL && nombre.length() >= CARACTERES_MINIMOS &&
+		altura > 0 && peso > 0 && fechaDeNacimiento <= FECHA_ACTUAL && nombre.length() >= CARACTERES_MINIMOS &&
 			condicionesPreexistentesSonValidas()
 	}
 
@@ -57,8 +57,8 @@ class Usuario {
 	}
 
 	def Boolean sigueUnaRutinaSaludable() {
-		(noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]) &&
-			calculaIMC() >= 18 && calculaIMC() <= 30
+		(noTieneCondicionesPreexistentes() &&
+			calculaIMC() >= 18 && calculaIMC() <= 30) || condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]
 	}
 
 	def crearReceta(String nombrePlato, Set<Ingrediente> ingredientes, Set<Condimento> condimentos,

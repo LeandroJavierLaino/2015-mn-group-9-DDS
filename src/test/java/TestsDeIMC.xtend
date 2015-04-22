@@ -44,12 +44,20 @@ class TestsDeIMC {
 	Ingrediente huevos
 	Ingrediente cebollas
 	Ingrediente chori
+	RepositorioRecetas repo
+	CondicionCeliaco celiaco
+	CondicionDiabetico diabetico
+	CondicionHipertenso hipertenso
+	CondicionVegano vegano
 
 	double delta = 0.0000000001
 
 	@Before
 	def void init() {
-
+		celiaco = new CondicionCeliaco
+		diabetico = new CondicionDiabetico
+		hipertenso = new CondicionHipertenso
+		vegano = new CondicionVegano
 		azucar = new Condimento("azucar", 150, "grs")
 		chori = new Ingrediente("chori",2,"unidades")
 		caldo = new Condimento("caldo", 0, "cantidad necesaria")
@@ -64,8 +72,11 @@ class TestsDeIMC {
 		condimentosAntiDiabetico.add(azucar)
 		ingredientesAntiVegano.add(chori)
 		preparacionDefaul.add("paso")
+//		repo.recetas.add(receta1)
 		
 		receta1 = new Receta("antiVegano",ingredientesAntiVegano,condimentosAntiDiabetico,preparacionDefaul,150,"Baja","Verano")
+		receta2 = new Receta("antiDiabetico",ingredientesAntiVegano,condimentosAntiDiabetico,preparacionDefaul,250,"Media","Invierno")
+		receta3 = new Receta("default",ingredientesAntiVegano,condimentosAntiDiabetico,preparacionDefaul,150,"Baja","Verano")
 
 		rutinaCorta = new RutinaActiva => [
 			tiempo = 10
@@ -107,12 +118,12 @@ class TestsDeIMC {
 
 		nicolas = new Usuario => [
 			nombre = "Nicolas"
-			sexo = "M"
+			sexo = 'M'
 			fechaDeNacimiento = "10/11/1980"
 			altura = 1.74
 			peso = 60
 			rutina = rutinaLarga
-			
+			condicionesPreexistentes = emptyList	
 		]
 
 		pablo = new Usuario => [
@@ -327,6 +338,8 @@ class TestsDeIMC {
 			procesoPreparacion.add("pasoxpaso")
 			condimentos.add(azucar)
 			condimentos.add(caldo)
+			agregarCondicion(celiaco)
+			sexo = null
 		]
 
 		usrDiabetico2 = new Usuario => [
@@ -461,9 +474,9 @@ class TestsDeIMC {
 		Assert.assertTrue(usrHipertenso2.validar())
 	}
 
-	@Test
+	@Test(expected=typeof(Exception))
 	def void usrDiabeticoUnoNoValidoSinSexo() {
-		Assert.assertFalse(usrDiabetico1.validar())
+		usrDiabetico1.validar
 	}
 
 	@Test
@@ -561,8 +574,8 @@ class TestsDeIMC {
 	}
 
 	@Test
-	def void usrDiabetico1NoSigueUnaRutinaSaludable() {
-		Assert.assertFalse(usrDiabetico1.sigueUnaRutinaSaludable())
+	def void usrDiabetico1SigueUnaRutinaSaludable() {
+		Assert.assertTrue(usrDiabetico1.sigueUnaRutinaSaludable())
 	}
 
 	@Test
@@ -663,25 +676,25 @@ class TestsDeIMC {
 	}
 
 	@Test
-	def void leandroNoPuedeVerRecetaEri() {
-		Assert.assertTrue(receta2.puedeVerOModificarReceta(eri))
+	def void eriNoPuedeVerRecetaDeLeandro() {
+		Assert.assertFalse(receta2.puedeVerReceta(eri))
 	}
 
 	@Test
 	def void leandroPuedeVerReceta1() {
-		Assert.assertFalse(leandro.puedeVerOModificarReceta(receta1))
+		Assert.assertTrue(receta1.puedeVerReceta(leandro))
 	}
 
-	//Punto 4 MODIFICAR RECETAS
-	@Test
-	def void leandroModificaReceta1() {
-		leandro.modificarReceta(receta1)
-	}
-
-	@Test(expected=typeof(BusinessException)) //no Tiene Permitido Modificar
-	def void eriModificaRecetaLean() {
-		leandro.modificarReceta(recetaLean)
-	}
-
-//Punto 5 RECETA CON SUBRECETAS
+//	//Punto 4 MODIFICAR RECETAS
+//	@Test
+//	def void leandroModificaReceta1() {
+//		leandro.modificarReceta(receta1,"Nuevo")
+//	}
+//
+//	@Test(expected=typeof(BusinessException)) //no Tiene Permitido Modificar
+//	def void eriModificaRecetaLean() {
+//		leandro.modificarReceta(recetaLean)
+//	}
+//
+////Punto 5 RECETA CON SUBRECETAS
 }

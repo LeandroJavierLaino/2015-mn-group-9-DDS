@@ -2,7 +2,7 @@
 
 class CondicionDiabetico implements CondicionPreexistente {
 
-	override Boolean valido(Usuario unUsuario) {
+	override def valido(Usuario unUsuario) {
 
 		if (unUsuario.sexo.nullOrEmpty)
 			throw new ExcepcionUsuario("El campo sexo no se declaro esta vacio")
@@ -16,7 +16,7 @@ class CondicionDiabetico implements CondicionPreexistente {
 
 	}
 
-	override tieneRutinaSaludable(Usuario unUsuario) {
+	override def tieneRutinaSaludable(Usuario unUsuario) {
 		unUsuario.rutina.class.equals(RutinaActiva) || unUsuario.peso <= 70
 	}
 
@@ -24,7 +24,7 @@ class CondicionDiabetico implements CondicionPreexistente {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 
-	override tolera(Receta unaReceta) {
+	override def tolera(Receta unaReceta) {
 		!(unaReceta.tieneAzucarMayorA100(unaReceta.condimentos))
 	}
 }

@@ -15,8 +15,8 @@ class Receta {
 	double totalCalorias
 	String dificultad
 	String temporada
-	double cantidadMinimaCalorias
-	double cantidadMaximaCalorias
+	double cantidadMinimaCalorias = 10
+	double cantidadMaximaCalorias = 5000
 	Set<Receta> subRecetas = new HashSet<Receta>
 
 	new(String nombre, Set<Ingrediente> ingredientesCargados, Set<Condimento> condimentosCargados,

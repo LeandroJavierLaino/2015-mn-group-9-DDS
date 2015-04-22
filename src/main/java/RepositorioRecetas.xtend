@@ -4,9 +4,11 @@ import java.util.HashSet
 
 @Accessors
 class RepositorioRecetas {
-	static Collection<Receta> recetas = new HashSet<Receta>
+	 static Collection<Receta> recetas = new HashSet<Receta>
 	
 	static def tieneLaReceta(Receta receta){
 		recetas.contains(receta)
 	}
+	
+	
 }
