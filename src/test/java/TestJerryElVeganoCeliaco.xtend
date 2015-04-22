@@ -5,6 +5,7 @@ import org.junit.Assert
 class TestJerryElVeganoCeliaco {
 	
 	Usuario jerry
+
 	
 	@Before
 	def void init() {
@@ -25,4 +26,5 @@ class TestJerryElVeganoCeliaco {
 	def void jerryEsUsuarioValido() {
 		Assert.assertTrue(jerry.validar())
 	}
+	
 }

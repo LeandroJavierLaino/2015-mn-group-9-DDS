@@ -1,26 +1,27 @@
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.math.BigDecimal
 import java.util.Collection
 import java.util.ArrayList
 import java.util.HashSet
+import java.util.Set
+import java.util.List
 
 @Accessors
 class Receta {
 
 	String nombrePlato
-	Collection<Ingrediente> ingredientes = new HashSet<Ingrediente>
-	Collection<Condimento> condimentos = new HashSet<Condimento>
-	Collection<String> procesoPreparacion = new ArrayList<String>
-	BigDecimal totalCalorias
-	DificultadPreparacion dificultad
-	Temporada temporada
-	BigDecimal cantidadMinimaCalorias
-	BigDecimal cantidadMaximaCalorias
-	Collection<Receta> subRecetas = new HashSet<Receta>
+	Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
+	Set<Condimento> condimentos = new HashSet<Condimento>
+	List<String> procesoPreparacion = new ArrayList<String>
+	double totalCalorias
+	String dificultad
+	String temporada
+	double cantidadMinimaCalorias
+	double cantidadMaximaCalorias
+	Set<Receta> subRecetas = new HashSet<Receta>
 
-	new(String nombre, Collection<Ingrediente> ingredientesCargados, Collection<Condimento> condimentosCargados,
-		Collection<String> procesoPreparacionCargado, BigDecimal caloriasCargadas,
-		DificultadPreparacion dificultadCargada, Temporada temporadaCargada) {
+	new(String nombre, Set<Ingrediente> ingredientesCargados, Set<Condimento> condimentosCargados,
+		List<String> procesoPreparacionCargado, double caloriasCargadas,
+		String dificultadCargada, String temporadaCargada) {
 		nombrePlato = nombre
 		ingredientes = ingredientesCargados
 		condimentos = condimentosCargados
@@ -42,7 +43,7 @@ class Receta {
 		ingredientes.size >= 1
 	}
 
-	def totalDeCaloriasEnRango(BigDecimal totalCalorias) {
+	def totalDeCaloriasEnRango(double totalCalorias) {
 		(totalCalorias > cantidadMinimaCalorias) && (totalCalorias < cantidadMaximaCalorias)
 	}
 
@@ -67,5 +68,9 @@ class Receta {
 	
 	def esRecomendablePara(Usuario unUsuario) {
 		unUsuario.noTieneCondicionesPreexistentes() || unUsuario.condicionesPreexistentes.forall[it.tolera(this)]
+	}
+	
+	def aniadirReceta(Receta receta){
+		subRecetas.add(receta)
 	}
 }
