@@ -719,8 +719,8 @@ class TestsDeIMC {
 	
 
 ////Punto 5 RECETA CON SUBRECETAS
-	@Test
-	def void construirRecetasConSubRecetas(){
+	@Test(expected = typeof(BusinessException))
+	def void construirRecetasConSubRecetasSinPermisos(){
 		val Set<Condimento> condimentos = new HashSet<Condimento>
 		val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
 		val List<String> procesoPreparacion = new ArrayList<String>
@@ -731,8 +731,24 @@ class TestsDeIMC {
 		condimentos.add(caldo)
 		var recetaCompuesta = diego.crearReceta("RecetaDiego", ingredientes, condimentos, procesoPreparacion, 300, "Media", "Verano")
 		var recetaSimple = eri.crearReceta("Pure", ingredientes, condimentos, procesoPreparacion, 300, "Media", "Verano")
-		recetaCompuesta.aniadirReceta(recetaSimple)
+		diego.agregarRecetaAUnaPrincipal(recetaCompuesta, recetaSimple)
 					
+	}
+	
+	@Test
+	def void construirRecetasConSubRecetasConPermisos(){
+		val Set<Condimento> condimentos = new HashSet<Condimento>
+		val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
+		val List<String> procesoPreparacion = new ArrayList<String>
+		ingredientes.add(huevos)
+		ingredientes.add(cebollas)
+		procesoPreparacion.add("pasoxpaso")
+		condimentos.add(azucar)
+		condimentos.add(caldo)
+		var recetaCompuesta = diego.crearReceta("RecetaDiego", ingredientes, condimentos, procesoPreparacion, 300, "Media", "Verano")
+		var recetaSimple = diego.crearReceta("Pure", ingredientes, condimentos, procesoPreparacion, 300, "Media", "Verano")
+		diego.agregarRecetaAUnaPrincipal(recetaCompuesta, recetaSimple)
+		
 	}
 	
 

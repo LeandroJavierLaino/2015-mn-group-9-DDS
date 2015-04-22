@@ -97,5 +97,11 @@ class Usuario {
 		recetaNueva.temporada = temporadaCargada
 		recetas.add(recetaNueva)
 	}
+	
+	def agregarRecetaAUnaPrincipal(Receta recetaPrincipal, Receta subReceta){
+		recetaPrincipal.puedeModificarReceta(this)
+		subReceta.puedeModificarReceta(this)
+		recetaPrincipal.aniadirReceta(subReceta)
+	}
 
 }
