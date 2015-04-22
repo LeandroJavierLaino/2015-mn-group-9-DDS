@@ -17,6 +17,7 @@ class Usuario {
 	String sexo
 	//final String FECHA_ACTUAL = "31/12/2015"
 	final long FECHA_ACTUAL = 20151231
+	final double NULO = 0
 
 	// "Define" de minimo de caracteres para nombre
 	int CARACTERES_MINIMOS = 4
@@ -62,8 +63,7 @@ class Usuario {
 	}
 
 	def Boolean sigueUnaRutinaSaludable() {
-		(noTieneCondicionesPreexistentes() &&
-			calculaIMC() >= 18 && calculaIMC() <= 30) || condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]
+		(noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]) && calculaIMC() >= 18 && calculaIMC() <= 30
 	}
 
 	def crearReceta(String nombrePlato, Set<Ingrediente> ingredientes, Set<Condimento> condimentos,

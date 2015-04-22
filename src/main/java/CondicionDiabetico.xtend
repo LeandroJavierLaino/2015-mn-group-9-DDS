@@ -2,17 +2,18 @@
 
 class CondicionDiabetico implements CondicionPreexistente {
 
-	override def valido(Usuario unUsuario) {
+	override Boolean valido(Usuario unUsuario) {
 
 		if (unUsuario.sexo == "")
 			throw new ExcepcionUsuario("El campo sexo no se declaro esta vacio")
-		else if (!(unUsuario.sexo.equalsIgnoreCase("M") || unUsuario.sexo.equalsIgnoreCase("F")))
+			
+		else if(!(unUsuario.sexo.equals("M") || unUsuario.sexo.equals("F")))
 			throw new ExcepcionUsuario("El campo sexo es dintinto de 'M' y 'F'")
-
-		if (unUsuario.comidaPreferida.nullOrEmpty)
+			
+		if(unUsuario.comidaPreferida.nullOrEmpty)
 			throw new ExcepcionUsuario("La lista comidaPreferida no se declaro o esta vacia")
-
-		(unUsuario.sexo.equalsIgnoreCase("M") || unUsuario.sexo.equalsIgnoreCase("F")) //el chequeo del char no funciona
+						
+		(unUsuario.sexo.equals("M") || unUsuario.sexo.equals("F")) //el chequeo del char no funciona
 
 	}
 

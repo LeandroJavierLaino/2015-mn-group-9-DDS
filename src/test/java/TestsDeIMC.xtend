@@ -446,7 +446,7 @@ class TestsDeIMC {
 
 	@Test
 	def void usrInval2SigueUnaRutinaSaludable() {
-		Assert.assertTrue(usrInval2.sigueUnaRutinaSaludable())
+		Assert.assertFalse(usrInval2.sigueUnaRutinaSaludable())
 	}
 
 	@Test
@@ -566,12 +566,12 @@ class TestsDeIMC {
 		Assert.assertFalse(receta2.puedeVerReceta(eri))
 	}
 
+
 /*	@Test
 	def void leandroPuedeVerReceta1() {
 		Assert.assertTrue(receta1.puedeVerReceta(leandro))
 	}
 */
-
 //Punto 4 MODIFICAR RECETAS
 	@Test
 	def void leandroModificaReceta2() {
