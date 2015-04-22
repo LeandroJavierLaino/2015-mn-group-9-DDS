@@ -30,6 +30,9 @@ class Usuario {
 
 	//Mensajes
 	def double calculaIMC() {
+		if(altura == 0 || peso == 0){
+			throw new ExcepcionUsuario("Tiene Altura o Peso en 0")
+		}
 		peso / (altura * altura)
 	}
 
@@ -76,6 +79,10 @@ class Usuario {
 		Collection<Condimento> condimentos, Collection<String> procesoPreparacion, double totalCalorias,
 		String dificultadCargada, String temporadaCargada) {
 
+		if(nombrePlato == ""){
+			throw new BusinessException("Nombre Vacio")
+			}
+		
 		receta.puedeModificarReceta(this)
 		val recetaNueva = new Receta(receta.nombrePlato, receta.ingredientes, receta.condimentos,
 			receta.procesoPreparacion, receta.totalCalorias, receta.dificultad, receta.temporada)
@@ -85,7 +92,6 @@ class Usuario {
 		recetaNueva.procesoPreparacion.addAll(procesoPreparacion)
 		recetaNueva.dificultad = dificultadCargada
 		recetaNueva.temporada = temporadaCargada
-		recetas.add(recetaNueva)
-	}
-
+		
+		recetas.add(recetaNueva)}
 }

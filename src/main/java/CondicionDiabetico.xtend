@@ -4,7 +4,7 @@ class CondicionDiabetico implements CondicionPreexistente {
 
 	override def valido(Usuario unUsuario) {
 
-		if (unUsuario.sexo.nullOrEmpty)
+		if (unUsuario.sexo == "")
 			throw new ExcepcionUsuario("El campo sexo no se declaro esta vacio")
 		else if (!(unUsuario.sexo.equalsIgnoreCase("M") || unUsuario.sexo.equalsIgnoreCase("F")))
 			throw new ExcepcionUsuario("El campo sexo es dintinto de 'M' y 'F'")

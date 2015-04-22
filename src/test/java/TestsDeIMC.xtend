@@ -7,7 +7,6 @@ import java.util.List
 import java.util.HashSet
 
 class TestsDeIMC {
-//dos errores menos :/
 	Usuario leandro
 	Usuario eri
 	Usuario diego
@@ -31,12 +30,9 @@ class TestsDeIMC {
 	Receta receta1 //antiVegano
 	Receta receta2 //antiDiabetico
 	Receta receta3 //Apta para Todo Publico
-	Receta recetaLean //hecha por Lean
-	Receta recetaEri //hecha por Eri
 	Rutina rutinaCorta
 	Rutina rutinaLarga
 	Condimento azucar
-	Ingrediente papa
 	Condimento caldo
 	Condimento ajiMolido
 	Condimento pimienta
@@ -44,7 +40,6 @@ class TestsDeIMC {
 	Ingrediente huevos
 	Ingrediente cebollas
 	Ingrediente chori
-	RepositorioRecetas repo
 	CondicionCeliaco celiaco
 	CondicionDiabetico diabetico
 	CondicionHipertenso hipertenso
@@ -67,16 +62,20 @@ class TestsDeIMC {
 		huevos = new Ingrediente("huevos", 20, "unidades")
 		cebollas = new Ingrediente("cebollas", 1, "kgs")
 		val condimentosAntiDiabetico = new HashSet<Condimento>
-		val preparacionDefaul = new ArrayList<String>
+		val condimentosParaCualquiera = new HashSet<Condimento>
+		val preparacionDefault = new ArrayList<String>
 		val ingredientesAntiVegano = new HashSet<Ingrediente>
+		val ingredientesParaCualquiera = new HashSet<Ingrediente>
 		condimentosAntiDiabetico.add(azucar)
+		condimentosParaCualquiera.add(ajiMolido)
 		ingredientesAntiVegano.add(chori)
-		preparacionDefaul.add("paso")
-//		repo.recetas.add(receta1)
+		ingredientesParaCualquiera.add(cebollas)
+		preparacionDefault.add("paso")
+		RepositorioRecetas.agregarReceta(receta1)
 		
-		receta1 = new Receta("antiVegano",ingredientesAntiVegano,condimentosAntiDiabetico,preparacionDefaul,150,"Baja","Verano")
-		receta2 = new Receta("antiDiabetico",ingredientesAntiVegano,condimentosAntiDiabetico,preparacionDefaul,250,"Media","Invierno")
-		receta3 = new Receta("default",ingredientesAntiVegano,condimentosAntiDiabetico,preparacionDefaul,150,"Baja","Verano")
+		receta1 = new Receta("antiVegano",ingredientesAntiVegano,condimentosParaCualquiera,preparacionDefault,150,"Baja","Verano")
+		receta2 = new Receta("antiDiabetico",ingredientesParaCualquiera,condimentosAntiDiabetico,preparacionDefault,250,"Media","Invierno")
+		receta3 = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,150,"Baja","Verano")
 
 		rutinaCorta = new RutinaActiva => [
 			tiempo = 10
@@ -138,30 +137,15 @@ class TestsDeIMC {
 
 		usrValid1 = new Usuario => [
 			nombre = "Manu"
+			sexo = ""
 			fechaDeNacimiento = 19801112
 			altura = 1.76
 			peso = 70
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
 		]
 
 		usrInval1 = new Usuario => [
 			sexo = "M"
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
 		]
 
 		usrInval2 = new Usuario => [
@@ -171,14 +155,6 @@ class TestsDeIMC {
 			altura = 1.45
 			peso = 197
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
 		]
 
 		usrInval3 = new Usuario => [
@@ -188,14 +164,6 @@ class TestsDeIMC {
 			altura = 0
 			peso = 99
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
 		]
 
 		usrInval4 = new Usuario => [
@@ -205,14 +173,6 @@ class TestsDeIMC {
 			altura = 1.70
 			peso = 0
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
 		]
 
 		usrInval5 = new Usuario => [
@@ -222,14 +182,6 @@ class TestsDeIMC {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
 		]
 
 		usrInval6 = new Usuario => [
@@ -238,14 +190,6 @@ class TestsDeIMC {
 			fechaDeNacimiento = 20900523
 			altura = 1.70
 			peso = 67
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
 		]
 
 		usrVegano1 = new Usuario => [
@@ -254,16 +198,9 @@ class TestsDeIMC {
 			fechaDeNacimiento = 20112004
 			peso = 67
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
 			comidaPreferida = new ArrayList<String>()
 			comidaPreferida.add("pollo")
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
+			agregarCondicion(vegano)
 		]
 
 		usrVegano2 = new Usuario => [
@@ -273,16 +210,9 @@ class TestsDeIMC {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
 			comidaPreferida = new ArrayList<String>()
 			comidaPreferida.add("frutas")
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
+			agregarCondicion(vegano)
 		]
 
 		usrHipertenso1 = new Usuario => [
@@ -292,14 +222,7 @@ class TestsDeIMC {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaLarga
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
+			agregarCondicion(hipertenso)
 		]
 
 		usrHipertenso2 = new Usuario => [
@@ -309,36 +232,21 @@ class TestsDeIMC {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
 			comidaPreferida = new ArrayList<String>()
 			comidaPreferida.add("carne")
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
+			agregarCondicion(hipertenso)
 		]
 
 		usrDiabetico1 = new Usuario => [
 			nombre = "DiabeticoUno"
+			sexo = ""
 			fechaDeNacimiento = 20001120
 			altura = 1.70
 			peso = 80
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
 			comidaPreferida = new ArrayList<String>()
 			comidaPreferida.add("carne")
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
-			agregarCondicion(celiaco)
-			sexo = null
+			agregarCondicion(diabetico)
 		]
 
 		usrDiabetico2 = new Usuario => [
@@ -348,14 +256,7 @@ class TestsDeIMC {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaLarga
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
+			agregarCondicion(diabetico)
 		]
 
 		usrDiabetico3 = new Usuario => [
@@ -365,16 +266,9 @@ class TestsDeIMC {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaLarga
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
 			comidaPreferida = new ArrayList<String>()
 			comidaPreferida.add("pollo")
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
+			agregarCondicion(diabetico)
 		]
 
 		usrCeliaco = new Usuario => [
@@ -384,14 +278,7 @@ class TestsDeIMC {
 			altura = 1.70
 			peso = 78
 			rutina = rutinaCorta
-			val Set<Condimento> condimentos = new HashSet<Condimento>
-			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-			val List<String> procesoPreparacion = new ArrayList<String>
-			ingredientes.add(huevos)
-			ingredientes.add(cebollas)
-			procesoPreparacion.add("pasoxpaso")
-			condimentos.add(azucar)
-			condimentos.add(caldo)
+			agregarCondicion(celiaco)
 		]
 	}
 
@@ -463,7 +350,7 @@ class TestsDeIMC {
 		Assert.assertTrue(usrVegano2.validar())
 	}
 
-	@Test
+	@Test	(expected=typeof(ExcepcionUsuario)) //sin comidaPreferida
 	def void usrHipertensoUnoNoValidoPorGustos() {
 		Assert.assertFalse(usrHipertenso1.validar())
 	}
@@ -473,12 +360,12 @@ class TestsDeIMC {
 		Assert.assertTrue(usrHipertenso2.validar())
 	}
 
-	@Test (expected=typeof(Exception))
+	@Test	(expected=typeof(ExcepcionUsuario)) //sin sexo
 	def void usrDiabeticoUnoNoValidoSinSexo() {
 		usrDiabetico1.validar()
 	}
 
-	@Test
+	@Test	(expected=typeof(ExcepcionUsuario)) //sin comidaPreferida
 	def void usrDiabeticoDosNoValidoPorGustos() {
 		Assert.assertFalse(usrDiabetico2.validar())
 	}
@@ -521,12 +408,12 @@ class TestsDeIMC {
 		Assert.assertEquals(22.4712087637, pablo.calculaIMC, delta)
 	}
 
-	@Test(expected=typeof(BusinessException)) //sin altura
+	@Test(expected=typeof(ExcepcionUsuario)) //sin altura
 	def void usrInval3CalculaSuIMC() {
 		usrInval3.calculaIMC
 	}
 
-	@Test(expected=typeof(BusinessException)) //sin peso
+	@Test(expected=typeof(ExcepcionUsuario)) //sin peso
 	def void usrInval4CalculaSuIMC() {
 		usrInval4.calculaIMC
 	}
@@ -558,8 +445,8 @@ class TestsDeIMC {
 	}
 
 	@Test
-	def void usrInval2NoSigueUnaRutinaSaludable() {
-		Assert.assertFalse(usrInval2.sigueUnaRutinaSaludable())
+	def void usrInval2SigueUnaRutinaSaludable() {
+		Assert.assertTrue(usrInval2.sigueUnaRutinaSaludable())
 	}
 
 	@Test
@@ -568,8 +455,8 @@ class TestsDeIMC {
 	}
 
 	@Test
-	def void usrHipertensoNoSigueUnaRutinaSaludable() {
-		Assert.assertFalse(usrHipertenso1.sigueUnaRutinaSaludable())
+	def void usrHipertenso2NoSigueUnaRutinaSaludable() {
+		Assert.assertFalse(usrHipertenso2.sigueUnaRutinaSaludable())
 	}
 
 	@Test
@@ -614,7 +501,7 @@ class TestsDeIMC {
 	}
 
 	@Test
-	def void crearReceta() {
+	def void diegoCreaReceta() {
 		val Set<Condimento> condimentos = new HashSet<Condimento>
 			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
 			val List<String> procesoPreparacion = new ArrayList<String>
@@ -659,41 +546,78 @@ class TestsDeIMC {
 	}
 
 	@Test
-	def void Receta3InadecuadaParaDiabetico() {
+	def void Receta2NoAdecuadaParaDiabetico() {
 		Assert.assertFalse(receta2.esRecomendablePara(usrDiabetico1))
 	}
 
 	@Test
-	def void Receta2AdecuadaParaTodos() {
+	def void Receta3AdecuadaParaTodos() {
 		Assert.assertTrue(receta3.esRecomendablePara(usrDiabetico1))
 	}
 
 	//Punto 4 PUEDE VER/MODIFICAR RECETAS
 	@Test
 	def void leandroPuedeVerRecetaLean() {
-		Assert.assertFalse(receta3.puedeVerReceta(leandro))
+		Assert.assertTrue(receta2.puedeVerReceta(leandro))
 	}
 
 	@Test
-	def void eriNoPuedeVerRecetaDeLeandro() {
+	def void eriNoPuedeVerRecetaLean() {
 		Assert.assertFalse(receta2.puedeVerReceta(eri))
 	}
 
-	@Test
+/*	@Test
 	def void leandroPuedeVerReceta1() {
 		Assert.assertTrue(receta1.puedeVerReceta(leandro))
 	}
+*/
 
-//	//Punto 4 MODIFICAR RECETAS
-//	@Test
-//	def void leandroModificaReceta1() {
-//		leandro.modificarReceta(receta1,"Nuevo")
-//	}
-//
-//	@Test(expected=typeof(BusinessException)) //no Tiene Permitido Modificar
-//	def void eriModificaRecetaLean() {
-//		leandro.modificarReceta(recetaLean)
-//	}
-//
-////Punto 5 RECETA CON SUBRECETAS
+//Punto 4 MODIFICAR RECETAS
+	@Test
+	def void leandroModificaReceta2() {
+		val preparacionDefaultLean2 = new ArrayList<String>
+		val condimentosLean2 = new HashSet<Condimento>
+		val ingredientesLean2 = new HashSet<Ingrediente>
+		ingredientesLean2.add(chori)
+		condimentosLean2.add(caldo)
+		preparacionDefaultLean2.add("pasoLean")
+		leandro.modificarReceta(receta2,"defaultALaLean",ingredientesLean2,condimentosLean2,preparacionDefaultLean2,150,"Baja","Verano")
+	}
+
+	@Test(expected=typeof(BusinessException)) //no Tiene Permitido Modificar
+	def void leandroModificaReceta3() {
+		val preparacionDefaultLean3 = new ArrayList<String>
+		val condimentosLean3 = new HashSet<Condimento>
+		val ingredientesLean3 = new HashSet<Ingrediente>
+		ingredientesLean3.add(chori)
+		ingredientesLean3.add(cebollas)
+		condimentosLean3.add(ajiMolido)
+		preparacionDefaultLean3.add("pasoLean")
+		leandro.modificarReceta(receta3,"antiDiabeticoPlus",ingredientesLean3,condimentosLean3,preparacionDefaultLean3,250,"Media","Invierno")
+	}
+	
+	@Test(expected=typeof(BusinessException)) //no Tiene Nombre
+	def void eriModificaReceta3() {
+		val preparacionDefaultEri3 = new ArrayList<String>
+		val condimentosEri3 = new HashSet<Condimento>
+		val ingredientesEri3 = new HashSet<Ingrediente>
+		ingredientesEri3.add(chori)
+		condimentosEri3.add(ajiMolido)
+		preparacionDefaultEri3.add("pasoEri")
+		leandro.modificarReceta(receta3,"",ingredientesEri3,condimentosEri3,preparacionDefaultEri3,250,"Media","Invierno")
+	}
+
+//Punto 5 RECETA CON SUBRECETAS
+//TODO: reparar punto 5
+	/*
+	@Test(expected=typeof(BusinessException)) //no tiene Permitido Visualizar
+	def void diegoNoPuedeCrearRecetaConSubreceta() {
+		
+	}
+		
+	@Test
+	def void diegoCreaRecetaConSubreceta() {
+		
+	}
+	*/
 }
