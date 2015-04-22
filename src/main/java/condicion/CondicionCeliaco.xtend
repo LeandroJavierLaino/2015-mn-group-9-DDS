@@ -1,6 +1,6 @@
-
-
-
+package condicion
+import cosasUsuario.Usuario
+import receta.Receta
 
 class CondicionCeliaco implements CondicionPreexistente {
 	

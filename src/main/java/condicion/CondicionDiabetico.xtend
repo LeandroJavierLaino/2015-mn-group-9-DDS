@@ -1,4 +1,8 @@
-
+package condicion
+import cosasUsuario.Usuario
+import excepcion.ExcepcionUsuario
+import rutina.RutinaActiva
+import receta.Receta
 
 class CondicionDiabetico implements CondicionPreexistente {
 

@@ -1,3 +1,4 @@
+package excepcion
 import java.lang.RuntimeException
 
 class BusinessException extends RuntimeException {

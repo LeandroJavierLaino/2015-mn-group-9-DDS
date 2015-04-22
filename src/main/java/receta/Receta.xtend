@@ -1,9 +1,14 @@
+package receta
+
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.Set
 import java.util.List
+import cosasUsuario.Usuario
+import excepcion.BusinessException
+import repositorioRecetas.RepositorioRecetas
 
 @Accessors
 class Receta {

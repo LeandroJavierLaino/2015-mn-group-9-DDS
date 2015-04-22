@@ -1,3 +1,4 @@
+package rutina
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors

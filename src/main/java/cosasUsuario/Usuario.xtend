@@ -1,9 +1,17 @@
+package cosasUsuario
+
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.HashSet
 import java.util.Collection
 import java.util.ArrayList
 import java.util.Set
+import excepcion.BusinessException
+import condicion.CondicionPreexistente
+import rutina.Rutina
+import receta.Receta
+import receta.Ingrediente
+import receta.Condimento
 
 @Accessors
 class Usuario {
@@ -12,9 +20,9 @@ class Usuario {
 	double altura
 	double peso
 	String nombre
-	String fechaDeNacimiento
+	long fechaDeNacimiento
 	String sexo
-	final String FECHA_ACTUAL = "31/12/2015"
+	long fechaActual = 20151231
 
 	// "Define" de minimo de caracteres para nombre
 	int CARACTERES_MINIMOS = 4
@@ -28,7 +36,9 @@ class Usuario {
 
 	//Mensajes
 	def double calculaIMC() {
-		peso / (altura * altura)
+		 peso / (altura * altura)
+		
+		
 	}
 
 	def void agregarCondicion(CondicionPreexistente condicion) {
@@ -39,9 +49,10 @@ class Usuario {
 		lista.add(comida)
 	}
 
-	def boolean validar() {
-		altura > 0 && peso > 0 && fechaDeNacimiento <= FECHA_ACTUAL && nombre.length() >= CARACTERES_MINIMOS &&
-			condicionesPreexistentesSonValidas()
+	def validar() {
+		if(altura > 0 && peso > 0 && fechaDeNacimiento <= fechaActual  && nombre.length() >= CARACTERES_MINIMOS &&
+			condicionesPreexistentesSonValidas()){}
+			else{throw new BusinessException("Usuario no valido")}
 	}
 
 	def tieneLaReceta(Receta receta) {
@@ -61,13 +72,14 @@ class Usuario {
 			calculaIMC() >= 18 && calculaIMC() <= 30) || condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]
 	}
 
-	def crearReceta(String nombrePlato, Set<Ingrediente> ingredientes, Set<Condimento> condimentos,
+	def Receta crearReceta(String nombrePlato, Set<Ingrediente> ingredientes, Set<Condimento> condimentos,
 		List<String> procesoPreparacion, double totalCalorias, String dificultadCargada, String temporadaCargada) {
 
 		var receta = new Receta(nombrePlato, ingredientes, condimentos, procesoPreparacion, totalCalorias,
 			dificultadCargada, temporadaCargada)
 		receta = receta.puedeSerCreada(receta)
 		recetas.add(receta)
+		receta
 	}
 
 	def modificarReceta(Receta receta, String nombrePlato, Collection<Ingrediente> ingredientes,

@@ -1,6 +1,13 @@
-import org.junit.Test
+import condicion.CondicionCeliaco
+import condicion.CondicionDiabetico
+import condicion.CondicionHipertenso
+import condicion.CondicionVegano
+import cosasUsuario.Usuario
+import excepcion.BusinessException
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Test
+import rutina.RutinaActiva
 
 class TestUsuarioEsValido {
 	
@@ -33,7 +40,7 @@ class TestUsuarioEsValido {
 			nombre = "Jerry"
 			altura = 1.85
 			peso = 88.0
-			//fechaDeNacimiento = 2495
+			fechaDeNacimiento = 2495
 			agregarCondicion((vegano))
 			agregarComidaALista(comidaPreferida, "Fruta")
 		]
@@ -41,7 +48,7 @@ class TestUsuarioEsValido {
 			nombre = "Eva"
 			altura = 1.55
 			peso = 50.0
-			//fechaDeNacimiento = 2490
+			fechaDeNacimiento = 2490
 		]
 		tomas = new Usuario => [
 			nombre = "Tomas"
@@ -51,7 +58,7 @@ class TestUsuarioEsValido {
 			nombre = "Mauro"
 			altura = 1.79
 			peso = 71.0
-			//fechaDeNacimiento = 250495
+			fechaDeNacimiento = 250495
 			sexo = 'M'
 			agregarCondicion(diabetico)
 			agregarComidaALista(comidaPreferida, "Carne")
@@ -61,7 +68,7 @@ class TestUsuarioEsValido {
 			nombre = "David"
 			altura = 1.98
 			peso = 100.0
-			//fechaDeNacimiento = 26590
+			fechaDeNacimiento = 26590
 			agregarCondicion(hipertenso)
 			agregarComidaALista(comidaPreferida, "Chori")
 			rutina = rutinaDeDavid
@@ -72,7 +79,7 @@ class TestUsuarioEsValido {
 			altura = 1.60
 			peso = 50.0
 			sexo = 'M'
-			//fechaDeNacimiento = 130991
+			fechaDeNacimiento = 130991
 			agregarCondicion(hipertenso)
 			agregarCondicion(celiaco)
 			agregarCondicion(diabetico)
@@ -84,7 +91,7 @@ class TestUsuarioEsValido {
 			nombre = "Santiago"
 			altura = 1.70
 			peso = 80.0
-			//fechaDeNacimiento = 5490
+			fechaDeNacimiento = 5490
 			agregarCondicion(vegano)
 			
 			agregarComidaALista(comidaPreferida, "Chori")
@@ -93,36 +100,36 @@ class TestUsuarioEsValido {
 	
 	@Test
 	def void marcosEsUsuarioValido() {
-		Assert.assertTrue(marcos.validar())
+		marcos.validar
 	}
 	
 	@Test
 	def void jerryEsUsuarioValido() {
-		Assert.assertTrue(jerry.validar())
+		jerry.validar
 	}
-	@Test
+	@Test(expected=typeof(BusinessException))
 	def void evaNoEsUsuarioValido() {
-		Assert.assertFalse(eva.validar())
+		eva.validar
 	}
-	@Test
+	@Test(expected=typeof(BusinessException))
 	def void tomasNoEsValidoPorqueNoTieneNiAlturaNiPeso() {
-		Assert.assertFalse(tomas.validar())
+		tomas.validar
 	}
 	@Test
 	def void mauroEsDiabeticoYUnUsuarioValido() {
-		Assert.assertTrue(mauro.validar())
+		mauro.validar
 	}
 	@Test
 	def void davidEsHipertensoYUnUsuarioValido() {
-		Assert.assertTrue(david.validar())
+		david.validar
 	}
 	@Test
 	def void eugeneEsUnUsuarioValido() {
-		Assert.assertTrue(eugene.validar())
+		eugene.validar
 	}
-	@Test
+	@Test(expected=typeof(BusinessException))
 	def void santiagoEsUnVeganoCareta() {
-		Assert.assertFalse(santiago.validar())
+		santiago.validar
 	}
 	@Test
 	def void mauroSigueUnaDietaSaludable() {
