@@ -288,10 +288,11 @@ class TestsDeIMC {
 		usrHipertenso1 = new Usuario => [
 			nombre = "HipertensoUno"
 			sexo = "F"
+			agregarCondicion(hipertenso)
 			fechaDeNacimiento = 20001120
 			altura = 1.70
 			peso = 67
-			rutina = rutinaLarga
+			rutina = rutinaCorta
 			val Set<Condimento> condimentos = new HashSet<Condimento>
 			val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
 			val List<String> procesoPreparacion = new ArrayList<String>
@@ -337,12 +338,12 @@ class TestsDeIMC {
 			procesoPreparacion.add("pasoxpaso")
 			condimentos.add(azucar)
 			condimentos.add(caldo)
-			agregarCondicion(celiaco)
-			sexo = null
+			agregarCondicion(diabetico)
 		]
 
 		usrDiabetico2 = new Usuario => [
 			nombre = "DiabeticoDos"
+			agregarCondicion(diabetico)
 			sexo = "M"
 			fechaDeNacimiento = 20001120
 			altura = 1.70
@@ -463,9 +464,9 @@ class TestsDeIMC {
 		Assert.assertTrue(usrVegano2.validar())
 	}
 
-	@Test
+	@Test (expected=typeof(Exception))
 	def void usrHipertensoUnoNoValidoPorGustos() {
-		Assert.assertFalse(usrHipertenso1.validar())
+		usrHipertenso1.validar()
 	}
 
 	@Test
@@ -478,9 +479,9 @@ class TestsDeIMC {
 		usrDiabetico1.validar()
 	}
 
-	@Test
+	@Test (expected=typeof(Exception))
 	def void usrDiabeticoDosNoValidoPorGustos() {
-		Assert.assertFalse(usrDiabetico2.validar())
+		usrDiabetico2.validar()
 	}
 
 	@Test
@@ -521,12 +522,12 @@ class TestsDeIMC {
 		Assert.assertEquals(22.4712087637, pablo.calculaIMC, delta)
 	}
 
-	@Test(expected=typeof(BusinessException)) //sin altura
+	@Test(expected=typeof(Exception)) //sin altura
 	def void usrInval3CalculaSuIMC() {
 		usrInval3.calculaIMC
 	}
 
-	@Test(expected=typeof(BusinessException)) //sin peso
+	@Test(expected=typeof(Exception)) //sin peso
 	def void usrInval4CalculaSuIMC() {
 		usrInval4.calculaIMC
 	}
@@ -562,7 +563,7 @@ class TestsDeIMC {
 		Assert.assertFalse(usrInval2.sigueUnaRutinaSaludable())
 	}
 
-	@Test
+	@Test (expected=typeof(Exception))
 	def void usrVeganoNoSigueUnaRutinaSaludable() {
 		Assert.assertFalse(usrVegano1.sigueUnaRutinaSaludable())
 	}

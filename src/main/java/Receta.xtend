@@ -30,7 +30,7 @@ class Receta {
 		dificultad = dificultadCargada
 		temporada = temporadaCargada
 	}
-
+	
 	def puedeSerCreada(Receta receta) {
 		if (hayUnIngrediente(receta.ingredientes) && totalDeCaloriasEnRango(receta.totalCalorias)) {
 			receta
