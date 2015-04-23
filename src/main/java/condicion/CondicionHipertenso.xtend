@@ -18,10 +18,6 @@ class CondicionHipertenso implements CondicionPreexistente {
 		unUsuario.rutina.activaIntensa
 	}
 
-	override alimentoInadecuado() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
 	override tolera(Receta unaReceta) {
 		!(unaReceta.condimentos.exists[it.nombre.equalsIgnoreCase("Sal")] ||
 			unaReceta.ingredientes.exists[it.nombre.equalsIgnoreCase("Caldo")])

@@ -24,10 +24,6 @@ class CondicionDiabetico implements CondicionPreexistente {
 		unUsuario.rutina.class.equals(RutinaActiva) || unUsuario.peso <= 70
 	}
 
-	override alimentoInadecuado() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
 	override def tolera(Receta unaReceta) {
 		!(unaReceta.tieneAzucarMayorA100(unaReceta.condimentos))
 	}

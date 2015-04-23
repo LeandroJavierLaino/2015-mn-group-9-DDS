@@ -11,10 +11,6 @@ class CondicionCeliaco implements CondicionPreexistente {
 		true
 	}
 	
-	override alimentoInadecuado() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
 	override tolera (Receta unaReceta) {
 		true
 	}

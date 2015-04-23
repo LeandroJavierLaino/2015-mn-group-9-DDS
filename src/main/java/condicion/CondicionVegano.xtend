@@ -19,10 +19,6 @@ class CondicionVegano implements CondicionPreexistente {
 
 	}
 
-	override alimentoInadecuado() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
 	override tolera(Receta unaReceta) {
 		!(unaReceta.ingredientes.exists[it.nombre.equalsIgnoreCase("Carne")] ||
 			unaReceta.ingredientes.exists[it.nombre.equalsIgnoreCase("Pollo")] ||

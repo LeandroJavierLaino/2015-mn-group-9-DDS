@@ -36,9 +36,7 @@ class Usuario {
 
 	//Mensajes
 	def double calculaIMC() {
-		 peso / (altura * altura)
-		
-		
+		 peso / (altura * altura)	
 	}
 
 	def void agregarCondicion(CondicionPreexistente condicion) {
