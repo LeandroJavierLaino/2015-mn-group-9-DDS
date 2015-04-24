@@ -13,8 +13,8 @@ import condicion.CondicionCeliaco
 import condicion.CondicionDiabetico
 import condicion.CondicionHipertenso
 import condicion.CondicionVegano
-import rutina.Rutina
 import rutina.RutinaActiva
+import rutina.RutinaSedentaria
 import repositorioRecetas.RepositorioRecetas
 import org.eclipse.xtend.lib.annotations.Accessors
 
@@ -27,24 +27,27 @@ abstract class TestInstances {
 	Usuario pablo
 	Usuario usrValid1 //sin sexo
 	Usuario usrInval1 //sin datos
-	Usuario usrInval2 //nombre corto
+	Usuario usrInval2 //nombre corto		//IMC > 30
 	Usuario usrInval3 //sin altura
 	Usuario usrInval4 //sin peso
-	Usuario usrInval5 //fecha futura
+	Usuario usrInval5 //fecha futura		//IMC < 18
 	Usuario usrInval6 //sin rutina
 	Usuario usrVegano1 //le gusta el pollo	//no le gusta la fruta
-	Usuario usrVegano2 //valido			//le gusta la fruta
-	Usuario usrHipertenso1 //sin preferencia	//tiene rutina activa
-	Usuario usrHipertenso2 //valido			//tiene rutina sedentaria
-	Usuario usrDiabetico1 //sin sexo 			//mas de 70kg
-	Usuario usrDiabetico2 //sin preferencia 	//menos de 70kg
-	Usuario usrDiabetico3 //valido
+	Usuario usrVegano2 //valido				//le gusta la fruta
+	Usuario usrHipertenso1 //sin preferen	//tiene rutina activa c/ej adicional
+	Usuario usrHipertenso2 //valido			//tiene rutina activa s/ej adicional
+	Usuario usrHipertenso3 //valido			//tiene rutina sedentaria
+	Usuario usrDiabetico1 //sin sexo 		//mas de 70kg pero activo
+	Usuario usrDiabetico2 //sin preferen 	//menos de 70kg y activo
+	Usuario usrDiabetico3 //valido			//mas de 70kg y sedentario
+	Usuario usrDiabetico4 //valido			//menos de 70kg y sedentario
 	Usuario usrCeliaco //valido
 	Receta receta1 //antiVegano
 	Receta receta2 //antiDiabetico
 	Receta receta3 //Apta para Todo Publico
-	Rutina rutinaCorta
-	Rutina rutinaLarga
+	RutinaActiva rutinaCorta
+	RutinaActiva rutinaLarga
+	RutinaSedentaria rutinaSedentaria
 	Condimento azucar
 	Condimento caldo
 	Condimento ajiMolido
@@ -103,6 +106,11 @@ abstract class TestInstances {
 		rutinaLarga = new RutinaActiva => [
 			tiempo = 40
 		]
+		
+		rutinaSedentaria = new RutinaSedentaria => [
+			tiempo = 10
+		]
+		
 
 		leandro = new Usuario => [
 			nombre = "Leandro"
@@ -198,8 +206,8 @@ abstract class TestInstances {
 			nombre = "Florencia"
 			sexo = "F"
 			fechaDeNacimiento = 20901110
-			altura = 1.70
-			peso = 67
+			altura = 2.10
+			peso = 40
 			rutina = rutinaCorta
 		]
 
@@ -218,7 +226,7 @@ abstract class TestInstances {
 			peso = 67
 			rutina = rutinaCorta
 			comidaPreferida = new ArrayList<String>()
-			comidaPreferida.add("pollo")
+			comidaPreferida.add("Pollo")
 			agregarCondicion(vegano)
 		]
 
@@ -230,7 +238,7 @@ abstract class TestInstances {
 			peso = 67
 			rutina = rutinaCorta
 			comidaPreferida = new ArrayList<String>()
-			comidaPreferida.add("frutas")
+			comidaPreferida.add("Fruta")
 			agregarCondicion(vegano)
 		]
 
@@ -252,7 +260,19 @@ abstract class TestInstances {
 			peso = 67
 			rutina = rutinaCorta
 			comidaPreferida = new ArrayList<String>()
-			comidaPreferida.add("carne")
+			comidaPreferida.add("Carne")
+			agregarCondicion(hipertenso)
+		]
+		
+		usrHipertenso3 = new Usuario => [
+			nombre = "HipertensoTres"
+			sexo = "M"
+			fechaDeNacimiento = 20001120
+			altura = 1.70
+			peso = 67
+			rutina = rutinaSedentaria
+			comidaPreferida = new ArrayList<String>()
+			comidaPreferida.add("Pollo")
 			agregarCondicion(hipertenso)
 		]
 
@@ -264,7 +284,7 @@ abstract class TestInstances {
 			peso = 80
 			rutina = rutinaCorta
 			comidaPreferida = new ArrayList<String>()
-			comidaPreferida.add("carne")
+			comidaPreferida.add("Carne")
 			agregarCondicion(diabetico)
 		]
 
@@ -283,10 +303,22 @@ abstract class TestInstances {
 			sexo = "M"
 			fechaDeNacimiento = 20001120
 			altura = 1.70
-			peso = 67
-			rutina = rutinaLarga
+			peso = 78
+			rutina = rutinaSedentaria
 			comidaPreferida = new ArrayList<String>()
-			comidaPreferida.add("pollo")
+			comidaPreferida.add("Pollo")
+			agregarCondicion(diabetico)
+		]
+		
+		usrDiabetico4 = new Usuario => [
+			nombre = "DiabeticoCuatro"
+			sexo = "M"
+			fechaDeNacimiento = 20001120
+			altura = 1.70
+			peso = 65
+			rutina = rutinaSedentaria
+			comidaPreferida = new ArrayList<String>()
+			comidaPreferida.add("Fruta")
 			agregarCondicion(diabetico)
 		]
 

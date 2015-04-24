@@ -1,9 +1,17 @@
 package rutina
+
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-abstract class RutinaSedentaria extends Rutina {
-
+class RutinaSedentaria extends Rutina {
+	override def activaIntensa() {
+		return false
+	}
+	
+	override def esActiva(){
+		return false
+	}
+	
 	def boolean sedentariaLeve() {
 		tiempo <= 30
 	}

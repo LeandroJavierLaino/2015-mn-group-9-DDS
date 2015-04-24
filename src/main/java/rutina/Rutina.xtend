@@ -7,5 +7,5 @@ abstract class Rutina {
 	int tiempo
 	
 	def boolean activaIntensa()
-	
+	def boolean esActiva()
 }

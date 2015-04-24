@@ -21,10 +21,10 @@ class CondicionDiabetico implements CondicionPreexistente {
 	}
 
 	override def tieneRutinaSaludable(Usuario unUsuario) {
-		unUsuario.rutina.class.equals(RutinaActiva) || unUsuario.peso <= 70
+		unUsuario.rutina.esActiva || unUsuario.peso <= 70
 	}
 
 	override def tolera(Receta unaReceta) {
-		(unaReceta.contieneComida("Azucar",100))
+		(!unaReceta.contieneComida("Azucar",100))
 	}
 }

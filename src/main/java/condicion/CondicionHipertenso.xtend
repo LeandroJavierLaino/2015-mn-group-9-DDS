@@ -19,6 +19,6 @@ class CondicionHipertenso implements CondicionPreexistente {
 	}
 
 	override tolera(Receta unaReceta) {
-		!(unaReceta.contieneComida("Sal",0) || unaReceta.contieneComida("Caldo",0))
+		(!unaReceta.contieneComida("Sal",0) && !unaReceta.contieneComida("Caldo",0))
 	}
 }

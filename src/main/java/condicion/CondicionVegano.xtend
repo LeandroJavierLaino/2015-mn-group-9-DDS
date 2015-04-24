@@ -16,11 +16,10 @@ class CondicionVegano implements CondicionPreexistente {
 		if (unUsuario.comidaPreferida.nullOrEmpty) throw new ExcepcionUsuario("La lista comidaPreferida no se declaro o esta vacia")
 
 		unUsuario.comidaPreferida.contains("Fruta")
-
 	}
 
 	override tolera(Receta unaReceta) {
-		(unaReceta.contieneComida("carne",1) || unaReceta.contieneComida("pollo",1) || unaReceta.contieneComida ("chivito",1) ||
-			unaReceta.contieneComida("chori",1))
+		(!unaReceta.contieneComida("carne",1) && !unaReceta.contieneComida("pollo",1) && !unaReceta.contieneComida ("chivito",1) &&
+			!unaReceta.contieneComida("chori",1))
 	}
 }

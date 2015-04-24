@@ -66,8 +66,8 @@ class Usuario {
 	}
 
 	def Boolean sigueUnaRutinaSaludable() {
-		(noTieneCondicionesPreexistentes() &&
-			calculaIMC() >= 18 && calculaIMC() <= 30) || condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)]
+		(calculaIMC() >= 18 && calculaIMC() <= 30) &&	
+		(noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tieneRutinaSaludable(this)])
 	}
 
 	def Receta crearReceta(String nombrePlato, Set<Ingrediente> ingredientes, Set<Condimento> condimentos,

@@ -8,6 +8,14 @@ import testeo.TestInstances
 
 //Punto 2 IMC
 
+	/* 
+	Casos de Prueba
+	
+	IMC con Peso y Altura correctos		Equals	(x5)
+	IMC con Altura = 0					BusinessException
+	IMC con Peso = 0					BusinessException
+	*/
+
 class TestIMC extends TestInstances{
 
 	@Test

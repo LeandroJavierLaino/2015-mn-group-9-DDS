@@ -6,6 +6,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Condimento extends Caracteristica{
 	
 	def boolean esParteDe(String unCondimento,int unaCantidad){
-		cantidad <= unaCantidad && nombre.equalsIgnoreCase(unCondimento)
+		cantidad >= unaCantidad && nombre.equalsIgnoreCase(unCondimento)
 	}
 }

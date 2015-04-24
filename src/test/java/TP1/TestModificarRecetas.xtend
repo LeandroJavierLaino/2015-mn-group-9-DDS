@@ -11,6 +11,14 @@ import testeo.TestInstances
 
 //Punto 4 MODIFICAR RECETAS
 
+	/* 
+	Casos de Prueba
+	
+	Usuario Modifica Receta Propia					Good
+	Usuario Modifica Receta Ajena					BusinessException
+	Usuario Modifica Receta y no da Nombre			BusinessException 
+	*/
+
 class TestModificarRecetas extends TestInstances{
 	
 		@Test

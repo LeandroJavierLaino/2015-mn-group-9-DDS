@@ -6,8 +6,26 @@ import org.junit.Test
 import testeo.TestInstances
 
 //Punto 1 VALIDEZ
-	//testeados sin datos, nombre corto, sin altura, sin peso, fecha futura, sin rutina
-	// sin sexo (valido)
+
+	/* 
+	Casos de Prueba
+	
+	Usuario con Nombre, Altura, Peso, FechaPasada y Rutina			Good	(x5)
+	Usuario con Nombre, Altura, Peso, FechaPasada y Rutina s/Sexo	Good
+	Usuarios sin Nombre, Altura, Peso, FechaPasada o Rutina			BusinessException
+	Usuario con Nombre <4 digitos									BusinessException
+	Usuario con Altura = 0											BusinessException
+	Usuario con Peso = 0											BusinessException
+	Usuario con FechaFutura											BusinessException
+	Usuario Vegano con gustos: Pollo								BusinessException
+	Usuario Vegano con gustos: Fruta								Good
+	Usuario Hipertenso sin gustos									BusinessException
+	Usuario Hipertenso con gustos									Good
+	Usuario Diabetico sin Sexo										BusinessException
+	Usuario Diabetico sin gustos									BusinessException
+	Usuario Diabetico con Sexo y gustos								Good
+	Usuario Celiaco													Good
+	*/
 
 class TestValidez extends TestInstances{
 
@@ -41,33 +59,33 @@ class TestValidez extends TestInstances{
 		usrValid1.validar
 	}
 
-	@Test(expected=typeof(BusinessException))
+	@Test(expected=typeof(BusinessException)) //solo tiene Nombre
 	def void usrInvalido1NoValidoFaltanDatos() {
 		usrInval1.validar
 	}
 
-	@Test(expected=typeof(BusinessException))
+	@Test(expected=typeof(BusinessException)) //Nombre <4 digitos
 	def void usrInvalido2NoValidoNombreCorto() {
 		usrInval2.validar
 	}
 
-	@Test(expected=typeof(BusinessException))
+	@Test(expected=typeof(BusinessException)) //Altura =0
 	def void usrInvalido3NoValidoSinAltura() {
 		usrInval3.validar
 	}
 
-	@Test(expected=typeof(BusinessException))
+	@Test(expected=typeof(BusinessException)) //Peso = 0
 	def void usrInvalido4NoValidoSinPeso() {
 		usrInval4.validar
 	}
 
-	@Test(expected=typeof(BusinessException))
+	@Test(expected=typeof(BusinessException)) //Fecha futura
 	def void usrInvalido5NoValidoFechaFutura() {
 		usrInval5.validar
 	}
 
-	@Test
-	def void usrVeganoUnoValidoPorGustos() {
+	@Test(expected=typeof(BusinessException)) //le gusta el pollo
+	def void usrVeganoUnoNoValidoPorGustos() {
 		usrVegano1.validar
 	}
 
@@ -76,7 +94,7 @@ class TestValidez extends TestInstances{
 		usrVegano2.validar
 	}
 
-	@Test(expected=typeof(ExcepcionUsuario))
+	@Test(expected=typeof(ExcepcionUsuario)) //sin Preferencias
 	def void usrHipertensoUnoNoValidoPorGustos() {
 		usrHipertenso1.validar
 	}
@@ -86,12 +104,12 @@ class TestValidez extends TestInstances{
 		usrHipertenso2.validar
 	}
 
-	@Test(expected=typeof(ExcepcionUsuario))
+	@Test(expected=typeof(ExcepcionUsuario)) //sin Sexo
 	def void usrDiabeticoUnoNoValidoSinSexo() {
 		usrDiabetico1.validar
 	}
 
-	@Test(expected=typeof(ExcepcionUsuario))
+	@Test(expected=typeof(ExcepcionUsuario)) //sin Preferencias
 	def void usrDiabeticoDosNoValidoPorGustos() {
 		usrDiabetico2.validar
 	}

@@ -13,9 +13,18 @@ import receta.Ingrediente
 import testeo.TestInstances
 
 //Punto 3 CREAR RECETAS
-//TODO: mejorar (son todas iguales)
+
+	/* 
+	Casos de Prueba
+	
+	Receta s/ingrediente						BusinessException
+	Receta c/ingrediente y CALORIAS<10			BusinessException
+	Receta c/ingrediente y 5000<CALORIAS		BusinessException
+	Receta c/ingrediente y 10<CALORIAS<5000		Good	(x2)
+	*/
 	
 class TestCrearRecetas extends TestInstances{
+	
 	@Test(expected=typeof(BusinessException)) //sin Ingrediente
 	def void leandroCreaReceta() {
 		var Set<Condimento> condimentos = new HashSet<Condimento>
@@ -28,7 +37,7 @@ class TestCrearRecetas extends TestInstances{
 		leandro.crearReceta("RecetaLean", ingredientes, condimentos, procesoPreparacion, 450, "Media", "Verano")
 	}
 
-	@Test(expected=typeof(BusinessException)) //calorias Fuera de Rango
+	@Test(expected=typeof(BusinessException)) //calorias Fuera de Rango (menor)
 	def void eriCreaReceta() {
 		val Set<Condimento> condimentos = new HashSet<Condimento>
 		val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
@@ -41,7 +50,7 @@ class TestCrearRecetas extends TestInstances{
 		eri.crearReceta("RecetaEri", ingredientes, condimentos, procesoPreparacion, 8, "Media", "Invierno")
 	}
 
-	@Test
+	@Test(expected=typeof(BusinessException)) //calorias Fuera de Rango (mayor)
 	def void crearReceta() {
 		val Set<Condimento> condimentos = new HashSet<Condimento>
 		val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
@@ -51,7 +60,7 @@ class TestCrearRecetas extends TestInstances{
 		procesoPreparacion.add("pasoxpaso")
 		condimentos.add(azucar)
 		condimentos.add(caldo)
-		diego.crearReceta("RecetaDiego", ingredientes, condimentos, procesoPreparacion, 300, "Media", "Verano")
+		diego.crearReceta("RecetaDiego", ingredientes, condimentos, procesoPreparacion, 30000, "Media", "Verano")
 	}
 
 	@Test

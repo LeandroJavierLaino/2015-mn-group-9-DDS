@@ -13,8 +13,17 @@ import testeo.TestInstances
 
 //Punto 5 RECETA CON SUBRECETAS
 	
+	/* 
+	Casos de Prueba
+	
+	Usuario crea Receta con SubRecetas sin permisos			BusinessException
+	Usuario crea Receta con SubRecetas						Good
+	*/
+	
+	
 class TestRecetaConSubrecetas extends TestInstances{
-	@Test(expected = typeof(BusinessException))
+	
+	@Test(expected = typeof(BusinessException)) //no tiene Permisos
 	def void construirRecetasConSubRecetasSinPermisos(){
 		val Set<Condimento> condimentos = new HashSet<Condimento>
 		val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
@@ -26,8 +35,7 @@ class TestRecetaConSubrecetas extends TestInstances{
 		condimentos.add(caldo)
 		var recetaCompuesta = diego.crearReceta("RecetaDiego", ingredientes, condimentos, procesoPreparacion, 300, "Media", "Verano")
 		var recetaSimple = eri.crearReceta("Pure", ingredientes, condimentos, procesoPreparacion, 300, "Media", "Verano")
-		diego.agregarRecetaAUnaPrincipal(recetaCompuesta, recetaSimple)
-					
+		diego.agregarRecetaAUnaPrincipal(recetaCompuesta, recetaSimple)		
 	}
 	
 	@Test
@@ -43,6 +51,5 @@ class TestRecetaConSubrecetas extends TestInstances{
 		var recetaCompuesta = diego.crearReceta("RecetaDiego", ingredientes, condimentos, procesoPreparacion, 300, "Media", "Verano")
 		var recetaSimple = diego.crearReceta("Pure", ingredientes, condimentos, procesoPreparacion, 300, "Media", "Verano")
 		diego.agregarRecetaAUnaPrincipal(recetaCompuesta, recetaSimple)
-		
 	}
 }
