@@ -676,7 +676,7 @@ class TestsDeIMC {
 	//Punto 3 CONDICIONES PREEX
 	@Test
 	def void Receta1NoAdecuadaParaVegano() {
-		Assert.assertTrue(receta1.esRecomendablePara(usrVegano1))
+		Assert.assertFalse(receta1.esRecomendablePara(usrVegano1))
 	}
 
 	@Test

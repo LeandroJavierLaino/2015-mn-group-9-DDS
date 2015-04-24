@@ -20,7 +20,7 @@ class CondicionVegano implements CondicionPreexistente {
 	}
 
 	override tolera(Receta unaReceta) {
-		!(unaReceta.contieneComida("carne",1) || unaReceta.contieneComida("pollo",1) || unaReceta.contieneComida ("chivito",1) ||
+		(unaReceta.contieneComida("carne",1) || unaReceta.contieneComida("pollo",1) || unaReceta.contieneComida ("chivito",1) ||
 			unaReceta.contieneComida("chori",1))
 	}
 }
