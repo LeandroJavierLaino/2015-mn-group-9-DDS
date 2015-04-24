@@ -67,8 +67,8 @@ class Receta {
 		}
 	}
 	
-	def tieneAzucarMayorA100(Collection<Condimento> condimentos){
-		condimentos.exists[condimento | condimento.cantidad > 100 && condimento.nombre.equalsIgnoreCase("Azucar")]
+	def contieneComida(String unaComida,int unaCantidad){
+		condimentos.exists[condimento | condimento.esParteDe(unaComida,unaCantidad)] || ingredientes.exists[ingrediente | ingrediente.esParteDe(unaComida,unaCantidad)]
 	}
 	
 	def esRecomendablePara(Usuario unUsuario) {

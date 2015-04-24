@@ -20,9 +20,7 @@ class CondicionVegano implements CondicionPreexistente {
 	}
 
 	override tolera(Receta unaReceta) {
-		!(unaReceta.ingredientes.exists[it.nombre.equalsIgnoreCase("Carne")] ||
-			unaReceta.ingredientes.exists[it.nombre.equalsIgnoreCase("Pollo")] ||
-			unaReceta.ingredientes.exists[it.nombre.equalsIgnoreCase("Chivito")] ||
-			unaReceta.ingredientes.exists[it.nombre.equalsIgnoreCase("Chori")])
+		!(unaReceta.contieneComida("carne",1) || unaReceta.contieneComida("pollo",1) || unaReceta.contieneComida ("chivito",1) ||
+			unaReceta.contieneComida("chori",1))
 	}
 }

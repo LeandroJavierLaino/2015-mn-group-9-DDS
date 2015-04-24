@@ -75,14 +75,14 @@ class TestsDeIMC {
 		diabetico = new CondicionDiabetico
 		hipertenso = new CondicionHipertenso
 		vegano = new CondicionVegano
-		azucar = new Condimento("azucar", 150, "grs")
-		chori = new Ingrediente("chori", 2, "unidades")
-		caldo = new Condimento("caldo", 0, "cantidad necesaria")
-		ajiMolido = new Condimento("aji molido", 0, "cantidad necesaria")
-		pimienta = new Condimento("pimienta", 0, "cantidad necesaria")
-		cuadril = new Ingrediente("cuadril", 3, "kgs")
-		huevos = new Ingrediente("huevos", 20, "unidades")
-		cebollas = new Ingrediente("cebollas", 1, "kgs")
+		azucar = new Condimento("Azucar", 150, "grs")
+		chori = new Ingrediente("Chori", 2, "unidades")
+		caldo = new Condimento("Caldo", 0, "cantidad necesaria")
+		ajiMolido = new Condimento("Aji Molido", 0, "cantidad necesaria")
+		pimienta = new Condimento("Pimienta", 0, "cantidad necesaria")
+		cuadril = new Ingrediente("Cuadril", 3, "kgs")
+		huevos = new Ingrediente("Huevos", 20, "unidades")
+		cebollas = new Ingrediente("Cebollas", 1, "kgs")
 		condimentosAntiDiabetico.add(azucar)
 		ingredientesAntiVegano.add(chori)
 		preparacionDefaul.add("paso")
@@ -676,7 +676,7 @@ class TestsDeIMC {
 	//Punto 3 CONDICIONES PREEX
 	@Test
 	def void Receta1NoAdecuadaParaVegano() {
-		Assert.assertFalse(receta1.esRecomendablePara(usrVegano1))
+		Assert.assertTrue(receta1.esRecomendablePara(usrVegano1))
 	}
 
 	@Test
