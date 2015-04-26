@@ -1,10 +1,9 @@
 package TP1
 
-import excepcion.BusinessException
-import excepcion.ExcepcionUsuario
 import org.junit.Test
 import org.junit.Assert
 import testeo.TestInstances
+import excepcion.UsuarioInvalidoExcepcion
 
 //Punto 2 IMC
 
@@ -12,8 +11,8 @@ import testeo.TestInstances
 	Casos de Prueba
 	
 	IMC con Peso y Altura correctos		Equals	(x5)
-	IMC con Altura = 0					BusinessException
-	IMC con Peso = 0					BusinessException
+	IMC con Altura = 0					UsuarioInvalidoExcepcion
+	IMC con Peso = 0					UsuarioInvalidoExcepcion
 	*/
 
 class TestIMC extends TestInstances{
@@ -44,13 +43,13 @@ class TestIMC extends TestInstances{
 		Assert.assertEquals(22.4712087637, pablo.calculaIMC, delta)
 	}
 
-	@Test (expected=typeof(BusinessException)) //sin altura
+	@Test (expected=typeof(UsuarioInvalidoExcepcion)) //sin altura
 	def void usrInval3CalculaSuIMC() {
 		usrInval3.validar
 		usrInval3.calculaIMC
 	}
 
-	@Test(expected=typeof(BusinessException)) //sin peso
+	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //sin peso
 	def void usrInval4CalculaSuIMC() {
 		usrInval4.validar
 		usrInval4.calculaIMC

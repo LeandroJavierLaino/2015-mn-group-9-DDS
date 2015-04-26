@@ -1,9 +1,6 @@
 package TP1
 
-import excepcion.BusinessException
-import excepcion.ExcepcionUsuario
 import org.junit.Test
-import org.junit.Assert
 import java.util.Set
 import java.util.List
 import java.util.HashSet
@@ -11,21 +8,22 @@ import java.util.ArrayList
 import receta.Condimento
 import receta.Ingrediente
 import testeo.TestInstances
+import excepcion.RecetaInvalidaExcepcion
 
 //Punto 3 CREAR RECETAS
 
 	/* 
 	Casos de Prueba
 	
-	Receta s/ingrediente						BusinessException
-	Receta c/ingrediente y CALORIAS<10			BusinessException
-	Receta c/ingrediente y 5000<CALORIAS		BusinessException
+	Receta s/ingrediente						RecetaInvalidaExcepcion
+	Receta c/ingrediente y CALORIAS<10			CondPreexistenteExcepcion
+	Receta c/ingrediente y 5000<CALORIAS		CondPreexistenteExcepcion
 	Receta c/ingrediente y 10<CALORIAS<5000		Good	(x2)
 	*/
 	
 class TestCrearRecetas extends TestInstances{
 	
-	@Test(expected=typeof(BusinessException)) //sin Ingrediente
+	@Test(expected=typeof(RecetaInvalidaExcepcion)) //sin Ingrediente
 	def void leandroCreaReceta() {
 		var Set<Condimento> condimentos = new HashSet<Condimento>
 		var Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
@@ -37,7 +35,7 @@ class TestCrearRecetas extends TestInstances{
 		leandro.crearReceta("RecetaLean", ingredientes, condimentos, procesoPreparacion, 450, "Media", "Verano")
 	}
 
-	@Test(expected=typeof(BusinessException)) //calorias Fuera de Rango (menor)
+	@Test(expected=typeof(RecetaInvalidaExcepcion)) //calorias Fuera de Rango (menor)
 	def void eriCreaReceta() {
 		val Set<Condimento> condimentos = new HashSet<Condimento>
 		val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
@@ -50,7 +48,7 @@ class TestCrearRecetas extends TestInstances{
 		eri.crearReceta("RecetaEri", ingredientes, condimentos, procesoPreparacion, 8, "Media", "Invierno")
 	}
 
-	@Test(expected=typeof(BusinessException)) //calorias Fuera de Rango (mayor)
+	@Test(expected=typeof(RecetaInvalidaExcepcion)) //calorias Fuera de Rango (mayor)
 	def void crearReceta() {
 		val Set<Condimento> condimentos = new HashSet<Condimento>
 		val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>

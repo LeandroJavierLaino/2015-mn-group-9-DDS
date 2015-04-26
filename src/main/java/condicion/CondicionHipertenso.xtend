@@ -1,15 +1,14 @@
 package condicion
 import cosasUsuario.Usuario
-import excepcion.ExcepcionUsuario
 import receta.Receta
-
+import excepcion.CondPreexistenteExcepcion
 
 class CondicionHipertenso implements CondicionPreexistente {
 
 	override boolean valido(Usuario unUsuario) {
 
 		if (unUsuario.comidaPreferida.nullOrEmpty)
-			throw new ExcepcionUsuario("La lista comidaPreferida no se declaro o esta vacia")
+			throw new CondPreexistenteExcepcion("La lista comidaPreferida no se declaro o esta vacia")
 
 		unUsuario.comidaPreferida.length() > 0
 	}

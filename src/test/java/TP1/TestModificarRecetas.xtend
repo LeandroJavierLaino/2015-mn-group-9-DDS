@@ -1,13 +1,13 @@
 package TP1
 
-import excepcion.BusinessException
-import excepcion.ExcepcionUsuario
 import org.junit.Test
 import java.util.ArrayList
 import java.util.HashSet
 import receta.Condimento
 import receta.Ingrediente
 import testeo.TestInstances
+import excepcion.SinPermisosExcepcion
+import excepcion.RecetaInvalidaExcepcion
 
 //Punto 4 MODIFICAR RECETAS
 
@@ -15,8 +15,8 @@ import testeo.TestInstances
 	Casos de Prueba
 	
 	Usuario Modifica Receta Propia					Good
-	Usuario Modifica Receta Ajena					BusinessException
-	Usuario Modifica Receta y no da Nombre			BusinessException 
+	Usuario Modifica Receta Ajena					SinPermisosExcepcion
+	Usuario Modifica Receta y no da Nombre			RecetaInvalidaExcepcion 
 	*/
 
 class TestModificarRecetas extends TestInstances{
@@ -32,7 +32,7 @@ class TestModificarRecetas extends TestInstances{
 		leandro.modificarReceta(receta2,"defaultALaLean",ingredientesLean2,condimentosLean2,preparacionDefaultLean2,150,"Baja","Verano")
 	}
 
-		@Test(expected=typeof(BusinessException)) //no Tiene Permitido Modificar
+		@Test(expected=typeof(SinPermisosExcepcion)) //no Tiene Permitido Modificar
 	def void leandroModificaReceta3() {
 		val preparacionDefaultLean3 = new ArrayList<String>
 		val condimentosLean3 = new HashSet<Condimento>
@@ -44,7 +44,7 @@ class TestModificarRecetas extends TestInstances{
 		leandro.modificarReceta(receta3,"antiDiabeticoPlus",ingredientesLean3,condimentosLean3,preparacionDefaultLean3,250,"Media","Invierno")
 	}
 	
-		@Test(expected=typeof(BusinessException)) //no Tiene Nombre
+		@Test(expected=typeof(RecetaInvalidaExcepcion)) //no Tiene Nombre. Receta sin nombre
 	def void eriModificaReceta3() {
 		val preparacionDefaultEri3 = new ArrayList<String>
 		val condimentosEri3 = new HashSet<Condimento>

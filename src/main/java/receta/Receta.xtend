@@ -7,8 +7,9 @@ import java.util.HashSet
 import java.util.Set
 import java.util.List
 import cosasUsuario.Usuario
-import excepcion.BusinessException
 import repositorioRecetas.RepositorioRecetas
+import excepcion.RecetaInvalidaExcepcion
+import excepcion.SinPermisosExcepcion
 
 @Accessors
 class Receta {
@@ -40,7 +41,7 @@ class Receta {
 		if (hayUnIngrediente(receta.ingredientes) && totalDeCaloriasEnRango(receta.totalCalorias)) {
 			receta
 		} else {
-			throw new BusinessException("No está en el rango de calorías o no tiene un ingrediente la receta")
+			throw new RecetaInvalidaExcepcion("No está en el rango de calorías o no tiene un ingrediente la receta")
 		}
 	}
 
@@ -63,7 +64,7 @@ class Receta {
 	def puedeModificarReceta(Usuario usuario) {
 		if (tienePermisosParaModificarReceta(usuario) && puedeVerReceta(usuario)) {
 		} else {
-			throw new BusinessException("No puede ver o modificar la receta")
+			throw new SinPermisosExcepcion("No puede ver o modificar la receta")//Antes Business
 		}
 	}
 	

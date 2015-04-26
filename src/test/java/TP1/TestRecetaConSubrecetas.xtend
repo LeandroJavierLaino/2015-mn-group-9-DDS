@@ -1,7 +1,5 @@
 package TP1
 
-import excepcion.BusinessException
-import excepcion.ExcepcionUsuario
 import org.junit.Test
 import java.util.Set
 import java.util.List
@@ -10,20 +8,20 @@ import java.util.ArrayList
 import receta.Condimento
 import receta.Ingrediente
 import testeo.TestInstances
+import excepcion.SinPermisosExcepcion
 
 //Punto 5 RECETA CON SUBRECETAS
 	
 	/* 
 	Casos de Prueba
 	
-	Usuario crea Receta con SubRecetas sin permisos			BusinessException
+	Usuario crea Receta con SubRecetas sin permisos			SinPermisosExcepcion
 	Usuario crea Receta con SubRecetas						Good
 	*/
-	
-	
+		
 class TestRecetaConSubrecetas extends TestInstances{
 	
-	@Test(expected = typeof(BusinessException)) //no tiene Permisos
+	@Test(expected = typeof(SinPermisosExcepcion)) //no tiene Permisos
 	def void construirRecetasConSubRecetasSinPermisos(){
 		val Set<Condimento> condimentos = new HashSet<Condimento>
 		val Set<Ingrediente> ingredientes = new HashSet<Ingrediente>

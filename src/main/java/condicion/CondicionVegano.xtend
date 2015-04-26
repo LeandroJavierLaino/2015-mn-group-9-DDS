@@ -1,7 +1,8 @@
 package condicion
 import cosasUsuario.Usuario
 import receta.Receta
-import excepcion.ExcepcionUsuario
+import excepcion.CondPreexistenteExcepcion
+
 class CondicionVegano implements CondicionPreexistente {
 
 	override valido(Usuario unUsuario) {
@@ -13,7 +14,7 @@ class CondicionVegano implements CondicionPreexistente {
 
 	override tieneRutinaSaludable(Usuario unUsuario) {
 
-		if (unUsuario.comidaPreferida.nullOrEmpty) throw new ExcepcionUsuario("La lista comidaPreferida no se declaro o esta vacia")
+		if (unUsuario.comidaPreferida.nullOrEmpty) throw new CondPreexistenteExcepcion("La lista comidaPreferida no se declaro o esta vacia")
 
 		unUsuario.comidaPreferida.contains("Fruta")
 	}

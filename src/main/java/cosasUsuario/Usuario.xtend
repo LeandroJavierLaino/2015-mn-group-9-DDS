@@ -6,12 +6,12 @@ import java.util.HashSet
 import java.util.Collection
 import java.util.ArrayList
 import java.util.Set
-import excepcion.BusinessException
 import condicion.CondicionPreexistente
 import rutina.Rutina
 import receta.Receta
 import receta.Ingrediente
 import receta.Condimento
+import excepcion.UsuarioInvalidoExcepcion
 
 @Accessors
 class Usuario {
@@ -50,7 +50,7 @@ class Usuario {
 	def validar() {
 		if(altura > 0 && peso > 0 && fechaDeNacimiento <= fechaActual  && nombre.length() >= CARACTERES_MINIMOS &&
 			condicionesPreexistentesSonValidas()){}
-			else{throw new BusinessException("Usuario no valido")}
+			else{throw new UsuarioInvalidoExcepcion("Usuario no valido")} //Antes BusinessException
 	}
 
 	def tieneLaReceta(Receta receta) {

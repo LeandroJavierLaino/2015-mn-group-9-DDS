@@ -1,9 +1,9 @@
 package TP1
 
-import excepcion.BusinessException
-import excepcion.ExcepcionUsuario
+import excepcion.CondPreexistenteExcepcion
 import org.junit.Test
 import testeo.TestInstances
+import excepcion.UsuarioInvalidoExcepcion
 
 //Punto 1 VALIDEZ
 
@@ -12,17 +12,17 @@ import testeo.TestInstances
 	
 	Usuario con Nombre, Altura, Peso, FechaPasada y Rutina			Good	(x5)
 	Usuario con Nombre, Altura, Peso, FechaPasada y Rutina s/Sexo	Good
-	Usuarios sin Nombre, Altura, Peso, FechaPasada o Rutina			BusinessException
-	Usuario con Nombre <4 digitos									BusinessException
-	Usuario con Altura = 0											BusinessException
-	Usuario con Peso = 0											BusinessException
-	Usuario con FechaFutura											BusinessException
-	Usuario Vegano con gustos: Pollo								BusinessException
+	Usuarios sin Nombre, Altura, Peso, FechaPasada o Rutina			UsuarioInvalidoExcepcion
+	Usuario con Nombre <4 digitos									UsuarioInvalidoExcepcion
+	Usuario con Altura = 0											UsuarioInvalidoExcepcion
+	Usuario con Peso = 0											UsuarioInvalidoExcepcion
+	Usuario con FechaFutura											UsuarioInvalidoExcepcion
+	Usuario Vegano con gustos: Pollo								CondPreexistenteExcepcion
 	Usuario Vegano con gustos: Fruta								Good
-	Usuario Hipertenso sin gustos									BusinessException
+	Usuario Hipertenso sin gustos									CondPreexistenteExcepcion
 	Usuario Hipertenso con gustos									Good
-	Usuario Diabetico sin Sexo										BusinessException
-	Usuario Diabetico sin gustos									BusinessException
+	Usuario Diabetico sin Sexo										CondPreexistenteExcepcion
+	Usuario Diabetico sin gustos									CondPreexistenteExcepcion
 	Usuario Diabetico con Sexo y gustos								Good
 	Usuario Celiaco													Good
 	*/
@@ -59,32 +59,32 @@ class TestValidez extends TestInstances{
 		usrValid1.validar
 	}
 
-	@Test(expected=typeof(BusinessException)) //solo tiene Nombre
+	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //solo tiene Nombre
 	def void usrInvalido1NoValidoFaltanDatos() {
 		usrInval1.validar
 	}
 
-	@Test(expected=typeof(BusinessException)) //Nombre <4 digitos
+	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //Nombre <4 digitos
 	def void usrInvalido2NoValidoNombreCorto() {
 		usrInval2.validar
 	}
 
-	@Test(expected=typeof(BusinessException)) //Altura =0
+	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //Altura =0
 	def void usrInvalido3NoValidoSinAltura() {
 		usrInval3.validar
 	}
 
-	@Test(expected=typeof(BusinessException)) //Peso = 0
+	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //Peso = 0
 	def void usrInvalido4NoValidoSinPeso() {
 		usrInval4.validar
 	}
 
-	@Test(expected=typeof(BusinessException)) //Fecha futura
+	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //Fecha futura
 	def void usrInvalido5NoValidoFechaFutura() {
 		usrInval5.validar
 	}
 
-	@Test(expected=typeof(BusinessException)) //le gusta el pollo
+	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //le gusta el pollo
 	def void usrVeganoUnoNoValidoPorGustos() {
 		usrVegano1.validar
 	}
@@ -94,7 +94,7 @@ class TestValidez extends TestInstances{
 		usrVegano2.validar
 	}
 
-	@Test(expected=typeof(ExcepcionUsuario)) //sin Preferencias
+	@Test(expected=typeof(CondPreexistenteExcepcion)) //sin Preferencias
 	def void usrHipertensoUnoNoValidoPorGustos() {
 		usrHipertenso1.validar
 	}
@@ -104,12 +104,12 @@ class TestValidez extends TestInstances{
 		usrHipertenso2.validar
 	}
 
-	@Test(expected=typeof(ExcepcionUsuario)) //sin Sexo
+	@Test(expected=typeof(CondPreexistenteExcepcion)) //sin Sexo
 	def void usrDiabeticoUnoNoValidoSinSexo() {
 		usrDiabetico1.validar
 	}
 
-	@Test(expected=typeof(ExcepcionUsuario)) //sin Preferencias
+	@Test(expected=typeof(CondPreexistenteExcepcion)) //sin Preferencias
 	def void usrDiabeticoDosNoValidoPorGustos() {
 		usrDiabetico2.validar
 	}
