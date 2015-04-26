@@ -19,6 +19,8 @@ import excepcion.RecetaInvalidaExcepcion
 	Usuario Modifica Receta y no da Nombre			RecetaInvalidaExcepcion 
 	*/
 
+//Nuevas excepciones modificadas
+
 class TestModificarRecetas extends TestInstances{
 	
 		@Test

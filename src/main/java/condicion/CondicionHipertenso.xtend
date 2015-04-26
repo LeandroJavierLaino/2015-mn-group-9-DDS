@@ -3,6 +3,8 @@ import cosasUsuario.Usuario
 import receta.Receta
 import excepcion.CondPreexistenteExcepcion
 
+//Nuevas excepciones modificadas
+
 class CondicionHipertenso implements CondicionPreexistente {
 
 	override boolean valido(Usuario unUsuario) {

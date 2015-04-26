@@ -27,6 +27,9 @@ import excepcion.UsuarioInvalidoExcepcion
 	Usuario Celiaco													Good
 	*/
 
+
+//Nuevas excepciones modificadas
+
 class TestValidez extends TestInstances{
 
 	@Test

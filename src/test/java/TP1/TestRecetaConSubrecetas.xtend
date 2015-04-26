@@ -18,6 +18,8 @@ import excepcion.SinPermisosExcepcion
 	Usuario crea Receta con SubRecetas sin permisos			SinPermisosExcepcion
 	Usuario crea Receta con SubRecetas						Good
 	*/
+
+//Nuevas excepciones modificadas
 		
 class TestRecetaConSubrecetas extends TestInstances{
 	

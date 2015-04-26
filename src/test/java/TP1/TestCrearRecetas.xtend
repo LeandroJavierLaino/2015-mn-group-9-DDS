@@ -20,6 +20,8 @@ import excepcion.RecetaInvalidaExcepcion
 	Receta c/ingrediente y 5000<CALORIAS		CondPreexistenteExcepcion
 	Receta c/ingrediente y 10<CALORIAS<5000		Good	(x2)
 	*/
+
+//Nuevas excepciones modificadas
 	
 class TestCrearRecetas extends TestInstances{
 	

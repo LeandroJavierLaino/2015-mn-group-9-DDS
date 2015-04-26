@@ -3,6 +3,8 @@ import cosasUsuario.Usuario
 import receta.Receta
 import excepcion.CondPreexistenteExcepcion
 
+//Nuevas excepciones modificadas
+
 class CondicionVegano implements CondicionPreexistente {
 
 	override valido(Usuario unUsuario) {

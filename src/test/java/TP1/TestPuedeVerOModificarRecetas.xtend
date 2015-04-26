@@ -14,6 +14,8 @@ import testeo.TestInstances
 	Usuario Ve/Modifica Receta Propia				True
 	*/
 
+//Nuevas excepciones modificadas
+
 class TestPuedeVerOModificarRecetas extends TestInstances{
 	
 	@Test

@@ -17,6 +17,8 @@ import testeo.TestInstances
 	Receta sin problemas	-> Celiaco		True
 	*/
 
+//Nuevas excepciones modificadas
+
 class TestCondicionesPreexistentes extends TestInstances{
 	@Test
 	def void Receta1NoAdecuadaParaVegano() {

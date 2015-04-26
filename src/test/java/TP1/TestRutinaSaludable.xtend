@@ -23,7 +23,8 @@ import testeo.TestInstances
 	Usuario Diabetico Rutina Sedentaria <70kg	True
 	Usuario Celiaco								True
 	*/
-	
+
+//Nuevas excepciones modificadas	
 
 class TestRutinaSaludable extends TestInstances{
 	@Test

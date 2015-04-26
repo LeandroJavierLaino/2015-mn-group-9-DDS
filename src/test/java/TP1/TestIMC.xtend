@@ -15,6 +15,8 @@ import excepcion.UsuarioInvalidoExcepcion
 	IMC con Peso = 0					UsuarioInvalidoExcepcion
 	*/
 
+//Nuevas excepciones modificadas
+
 class TestIMC extends TestInstances{
 
 	@Test

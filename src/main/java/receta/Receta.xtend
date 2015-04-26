@@ -11,6 +11,8 @@ import repositorioRecetas.RepositorioRecetas
 import excepcion.RecetaInvalidaExcepcion
 import excepcion.SinPermisosExcepcion
 
+//Nuevas excepciones modificadas
+
 @Accessors
 class Receta {
 

@@ -13,6 +13,8 @@ import receta.Ingrediente
 import receta.Condimento
 import excepcion.UsuarioInvalidoExcepcion
 
+//Nuevas excepciones modificadas
+
 @Accessors
 class Usuario {
 
