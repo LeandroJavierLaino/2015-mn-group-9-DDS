@@ -87,7 +87,7 @@ class TestValidez extends TestInstances{
 		usrInval5.validar
 	}
 
-	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //le gusta el pollo
+	@Test(expected=typeof(CondPreexistenteExcepcion)) //le gusta el pollo
 	def void usrVeganoUnoNoValidoPorGustos() {
 		usrVegano1.validar
 	}
@@ -107,7 +107,7 @@ class TestValidez extends TestInstances{
 		usrHipertenso2.validar
 	}
 
-	@Test(expected=typeof(CondPreexistenteExcepcion)) //sin Sexo
+	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //sin Sexo
 	def void usrDiabeticoUnoNoValidoSinSexo() {
 		usrDiabetico1.validar
 	}
