@@ -78,4 +78,27 @@ class Receta {
 	def aniadirReceta(Receta receta){
 		subRecetas.add(receta)
 	}
+	
+	def crearReceta(Usuario usuario){
+		puedeSerCreada(this)
+		usuario.agregarReceta(this)
+	}
+	
+	def modificarReceta(Usuario usuario, Receta recetaModificada){
+		puedeModificarReceta(usuario)
+		var Receta recetaClon = this
+		recetaClon.nombrePlato = recetaModificada.nombrePlato
+		recetaClon.ingredientes = recetaModificada.ingredientes
+		recetaClon.condimentos = recetaModificada.condimentos
+		recetaClon.procesoPreparacion = recetaModificada.procesoPreparacion
+		recetaClon.dificultad = recetaModificada.dificultad
+		recetaClon.temporada = recetaModificada.temporada
+		if(usuario.tieneLaReceta(recetaClon)){
+			usuario.borrarReceta(recetaClon)
+			usuario.agregarReceta(recetaModificada)
+		}else{
+			usuario.agregarReceta(recetaModificada)
+		}
+	}
+	
 }

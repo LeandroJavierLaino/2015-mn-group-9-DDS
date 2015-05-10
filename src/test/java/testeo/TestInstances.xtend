@@ -17,6 +17,7 @@ import rutina.RutinaActiva
 import rutina.RutinaSedentaria
 import repositorioRecetas.RepositorioRecetas
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.LocalDate
 
 @Accessors
 abstract class TestInstances {
@@ -45,6 +46,9 @@ abstract class TestInstances {
 	Receta receta1 //antiVegano
 	Receta receta2 //antiDiabetico
 	Receta receta3 //Apta para Todo Publico
+	Receta recetaSinIngrediente
+	Receta recetaCaloriasBajoRango
+	Receta recetaCaloriasMayorRango
 	RutinaActiva rutinaCorta
 	RutinaActiva rutinaLarga
 	RutinaSedentaria rutinaSedentaria
@@ -56,6 +60,7 @@ abstract class TestInstances {
 	Ingrediente huevos
 	Ingrediente cebollas
 	Ingrediente chori
+	Set<Ingrediente> ingredientesVacios = emptySet
 	RepositorioRecetas repo	//TODO: todavia sin uso definido
 	CondicionCeliaco celiaco
 	CondicionDiabetico diabetico
@@ -96,9 +101,13 @@ abstract class TestInstances {
 			"Media","Invierno")
 		receta3 = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,150,
 			"Baja","Verano")
-
-
-
+		recetaSinIngrediente = new Receta("default",ingredientesVacios,condimentosParaCualquiera,preparacionDefault,150,
+			"Baja","Verano")
+		recetaCaloriasBajoRango = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,0,
+			"Baja","Verano")
+		recetaCaloriasMayorRango = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,100000000,
+			"Baja","Verano")
+			
 		rutinaCorta = new RutinaActiva => [
 			tiempo = 10
 		]
@@ -115,7 +124,7 @@ abstract class TestInstances {
 		leandro = new Usuario => [
 			nombre = "Leandro"
 			sexo = "M"
-			fechaDeNacimiento = 19880627
+			fechaDeNacimiento = new LocalDate(1988,6,27)
 			altura = 1.74
 			peso = 70
 			rutina = rutinaCorta
@@ -125,7 +134,7 @@ abstract class TestInstances {
 		eri = new Usuario => [
 			nombre = "Erika"
 			sexo = "F"
-			fechaDeNacimiento = 19800101
+			fechaDeNacimiento = new LocalDate(1980,1,1)
 			altura = 1.52
 			peso = 60
 			rutina = rutinaLarga
@@ -135,7 +144,7 @@ abstract class TestInstances {
 		diego = new Usuario => [
 			nombre = "Diego"
 			sexo = "M"
-			fechaDeNacimiento =19800101
+			fechaDeNacimiento = new LocalDate(1980,1,1)
 			altura = 1.70
 			peso = 65
 			rutina = rutinaCorta
@@ -145,7 +154,7 @@ abstract class TestInstances {
 		nicolas = new Usuario => [
 			nombre = "Nicolas"
 			sexo = 'M'
-			fechaDeNacimiento = 19801110
+			fechaDeNacimiento = new LocalDate(1980,11,10)
 			altura = 1.74
 			peso = 60
 			rutina = rutinaLarga
@@ -155,7 +164,7 @@ abstract class TestInstances {
 		pablo = new Usuario => [
 			nombre = "Pablo"
 			sexo = "M"
-			fechaDeNacimiento = 19800202
+			fechaDeNacimiento = new LocalDate(1980,2,2)
 			altura = 1.79
 			peso = 72
 			rutina = rutinaCorta
@@ -165,7 +174,7 @@ abstract class TestInstances {
 		usrValid1 = new Usuario => [
 			nombre = "Manu"
 			sexo = ""
-			fechaDeNacimiento = 19801112
+			fechaDeNacimiento = new LocalDate(1980,11,12)
 			altura = 1.76
 			peso = 70
 			rutina = rutinaCorta
@@ -178,7 +187,7 @@ abstract class TestInstances {
 		usrInval2 = new Usuario => [
 			nombre = "ari"
 			sexo = "M"
-			fechaDeNacimiento = 19911020
+			fechaDeNacimiento = new LocalDate(1991,10,20)
 			altura = 1.45
 			peso = 197
 			rutina = rutinaCorta
@@ -187,7 +196,7 @@ abstract class TestInstances {
 		usrInval3 = new Usuario => [
 			nombre = "juanse"
 			sexo = "M"
-			fechaDeNacimiento = 20011010
+			fechaDeNacimiento = new LocalDate(2001,10,10)
 			altura = 0
 			peso = 99
 			rutina = rutinaCorta
@@ -196,7 +205,7 @@ abstract class TestInstances {
 		usrInval4 = new Usuario => [
 			nombre = "Marta"
 			sexo = "F"
-			fechaDeNacimiento = 20012010
+			fechaDeNacimiento = new LocalDate(2021,11,10)
 			altura = 1.70
 			peso = 0
 			rutina = rutinaCorta
@@ -205,7 +214,7 @@ abstract class TestInstances {
 		usrInval5 = new Usuario => [
 			nombre = "Florencia"
 			sexo = "F"
-			fechaDeNacimiento = 20901110
+			fechaDeNacimiento = new LocalDate(2090,11,10)
 			altura = 2.10
 			peso = 40
 			rutina = rutinaCorta
@@ -214,7 +223,7 @@ abstract class TestInstances {
 		usrInval6 = new Usuario => [
 			nombre = "Paula"
 			sexo = "F"
-			fechaDeNacimiento = 20900523
+			fechaDeNacimiento = new LocalDate(2090,5,23)
 			altura = 1.70
 			peso = 67
 		]
@@ -222,7 +231,7 @@ abstract class TestInstances {
 		usrVegano1 = new Usuario => [
 			nombre = "VeganoUno"
 			sexo = "M"
-			fechaDeNacimiento = 20112004
+			fechaDeNacimiento = new LocalDate(2021,11,04)
 			peso = 67
 			rutina = rutinaCorta
 			comidaPreferida = new ArrayList<String>()
@@ -233,7 +242,7 @@ abstract class TestInstances {
 		usrVegano2 = new Usuario => [
 			nombre = "VeganoDos"
 			sexo = "M"
-			fechaDeNacimiento = 20001120
+			fechaDeNacimiento = new LocalDate(2000,11,20)
 			altura = 1.70
 			peso = 67
 			rutina = rutinaCorta
@@ -245,7 +254,7 @@ abstract class TestInstances {
 		usrHipertenso1 = new Usuario => [
 			nombre = "HipertensoUno"
 			sexo = "F"
-			fechaDeNacimiento = 20001120
+			fechaDeNacimiento = new LocalDate(2000,11,20)
 			altura = 1.70
 			peso = 67
 			rutina = rutinaLarga
@@ -255,7 +264,7 @@ abstract class TestInstances {
 		usrHipertenso2 = new Usuario => [
 			nombre = "HipertensoDos"
 			sexo = "F"
-			fechaDeNacimiento = 20001120
+			fechaDeNacimiento = new LocalDate(2000,11,20)
 			altura = 1.70
 			peso = 67
 			rutina = rutinaCorta
@@ -267,7 +276,7 @@ abstract class TestInstances {
 		usrHipertenso3 = new Usuario => [
 			nombre = "HipertensoTres"
 			sexo = "M"
-			fechaDeNacimiento = 20001120
+			fechaDeNacimiento = new LocalDate(2000,11,20)
 			altura = 1.70
 			peso = 67
 			rutina = rutinaSedentaria
@@ -279,7 +288,7 @@ abstract class TestInstances {
 		usrDiabetico1 = new Usuario => [
 			nombre = "DiabeticoUno"
 			sexo = ""
-			fechaDeNacimiento = 20001120
+			fechaDeNacimiento = new LocalDate(2000,11,20)
 			altura = 1.70
 			peso = 80
 			rutina = rutinaCorta
@@ -291,7 +300,7 @@ abstract class TestInstances {
 		usrDiabetico2 = new Usuario => [
 			nombre = "DiabeticoDos"
 			sexo = "M"
-			fechaDeNacimiento = 20001120
+			fechaDeNacimiento = new LocalDate(2000,11,20)
 			altura = 1.70
 			peso = 67
 			rutina = rutinaLarga
@@ -301,7 +310,7 @@ abstract class TestInstances {
 		usrDiabetico3 = new Usuario => [
 			nombre = "DiabeticoTres"
 			sexo = "M"
-			fechaDeNacimiento = 20001120
+			fechaDeNacimiento = new LocalDate(2000,11,20)
 			altura = 1.70
 			peso = 78
 			rutina = rutinaSedentaria
@@ -313,7 +322,7 @@ abstract class TestInstances {
 		usrDiabetico4 = new Usuario => [
 			nombre = "DiabeticoCuatro"
 			sexo = "M"
-			fechaDeNacimiento = 20001120
+			fechaDeNacimiento = new LocalDate(2000,11,20)
 			altura = 1.70
 			peso = 65
 			rutina = rutinaSedentaria
@@ -325,7 +334,7 @@ abstract class TestInstances {
 		usrCeliaco = new Usuario => [
 			nombre = "Celiaco"
 			sexo = "F"
-			fechaDeNacimiento = 20001120
+			fechaDeNacimiento = new LocalDate(2000,11,20)
 			altura = 1.70
 			peso = 78
 			rutina = rutinaCorta

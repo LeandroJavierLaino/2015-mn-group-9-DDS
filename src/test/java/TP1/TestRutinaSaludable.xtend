@@ -1,9 +1,7 @@
 package TP1
 
-import excepcion.BusinessException
-import excepcion.ExcepcionUsuario
-import org.junit.Test
 import org.junit.Assert
+import org.junit.Test
 import testeo.TestInstances
 
 //Punto 2 RUTINA SALUDABLE

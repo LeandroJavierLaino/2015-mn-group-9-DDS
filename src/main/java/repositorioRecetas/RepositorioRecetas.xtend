@@ -1,3 +1,4 @@
+
 package repositorioRecetas
 import receta.Receta
 import org.eclipse.xtend.lib.annotations.Accessors
