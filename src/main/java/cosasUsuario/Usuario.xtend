@@ -1,16 +1,16 @@
 package cosasUsuario
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.List
-import java.util.HashSet
-import java.util.ArrayList
-import java.util.Set
-import excepcion.BusinessException
 import condicion.CondicionPreexistente
-import rutina.Rutina
-import receta.Receta
+import excepcion.UsuarioInvalidoExcepcion
+import java.util.ArrayList
+import java.util.HashSet
+import java.util.List
+import java.util.Set
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
-
+import receta.Receta
+import rutina.Rutina
+import excepcion.FechaInvalidaExcepcion
 
 @Accessors
 class Usuario {
@@ -47,7 +47,7 @@ class Usuario {
 		if (altura > 0 && peso > 0 && nombre.length() >= CARACTERES_MINIMOS && condicionesPreexistentesSonValidas()) {
 			fechaValida(fechaActual, fechaDeNacimiento)
 		} else {
-			throw new BusinessException("Usuario no valido")
+			throw new UsuarioInvalidoExcepcion("Usuario no valido")
 		}
 	}
 
@@ -84,11 +84,11 @@ class Usuario {
 
 	def fechaValida(LocalDate fechaActual, LocalDate fechaSegunda) {
 		if (fechaActual.getYear > fechaSegunda.getYear) {
-			throw new BusinessException("Se ingreso una fecha con año mayor al actual")
+			throw new FechaInvalidaExcepcion("Se ingreso una fecha con año mayor al actual")
 		} else if (fechaActual.getMonthOfYear < fechaSegunda.getMonthOfYear) {
-			throw new BusinessException("Se ingreso una fecha con un mes mayor al actual")
+			throw new FechaInvalidaExcepcion("Se ingreso una fecha con un mes mayor al actual")
 		} else if (fechaActual.getDayOfMonth > fechaSegunda.getDayOfMonth)
-			throw new BusinessException("Se ingreso un día mayor al actual")
+			throw new FechaInvalidaExcepcion("Se ingreso un día mayor al actual")
 	}
 }
 

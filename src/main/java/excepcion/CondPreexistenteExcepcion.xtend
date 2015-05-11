@@ -1,8 +1,8 @@
 package excepcion
 
 import java.lang.Exception
-
-class ExcepcionUsuario extends Exception {
+//nueva excepcion
+class CondPreexistenteExcepcion extends Exception {
 	
 	new (String msg) {
 		super(msg)

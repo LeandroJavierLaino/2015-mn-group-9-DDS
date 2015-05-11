@@ -1,5 +1,6 @@
 package TP1
 
+
 import org.junit.Assert
 import org.junit.Test
 import testeo.TestInstances
@@ -16,6 +17,8 @@ import testeo.TestInstances
 	Receta sin problemas	-> Hipertenso	True
 	Receta sin problemas	-> Celiaco		True
 	*/
+
+//Nuevas excepciones modificadas
 
 class TestCondicionesPreexistentes extends TestInstances{
 	@Test
