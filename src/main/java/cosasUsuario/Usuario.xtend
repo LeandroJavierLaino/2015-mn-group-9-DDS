@@ -13,6 +13,7 @@ import receta.Caracteristica
 import receta.Receta
 import rutina.Rutina
 import filtro.Filtro
+import procesamientoPosterior.ProcesamientoPosterior
 
 @Accessors
 class Usuario {
@@ -27,12 +28,14 @@ class Usuario {
 	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
 	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
 	List<String> comidaPreferida = new ArrayList<String>
-
+	ProcesamientoPosterior procesamiento
 	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
 	Rutina rutina
 	Set<Receta> recetas = new HashSet<Receta>
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	GrupoUsuario grupoAlQuePertenece
+	
+	boolean habilitarFavoritos = false
 
 	//Mensajes
 	def double calculaIMC() {
@@ -118,6 +121,19 @@ class Usuario {
 	def tieneSobrepeso(){
 		calculaIMC > 500
 	}
+	
+	def indicarProcesamientoPosterior() {
+		procesamiento
+	}
+	
+	def elegirProcesamiento(ProcesamientoPosterior procesamientoProcesado){
+		procesamiento = procesamientoProcesado
+	}
+	
+	def habilitaSusFavoritos() {
+		habilitarFavoritos = true	
+	}
+	
 }
 
 

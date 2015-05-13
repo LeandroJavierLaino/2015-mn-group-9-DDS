@@ -8,6 +8,9 @@ import java.util.Collection
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import receta.Receta
+import procesamientoPosterior.ProcesamientoPosterior
+import java.util.HashSet
+import java.util.Set
 
 @Accessors
 class RepositorioRecetas {
@@ -52,6 +55,21 @@ class RepositorioRecetas {
 	
 	def aplicarFiltro(Usuario usuario){
 		filtros.addAll(usuario.filtrosAAplicar)
-		filtros.forEach[filtro|filtro.filtrar(usuario.recetas,usuario)]
+		var Set<Receta> recetasUsuario = new HashSet<Receta>
+		recetasUsuario = usuario.recetas
+		for(filtro : filtros){
+			recetasUsuario = filtro.filtrar(recetasUsuario,usuario)
+		}
+		recetasUsuario
+	}
+	
+	def dameResultadosPara(Usuario usuario){
+		var Set<Receta> recetaResultado = new HashSet<Receta>
+		recetaResultado = this.aplicarFiltro(usuario)
+		var ProcesamientoPosterior procesamiento = usuario.indicarProcesamientoPosterior
+		recetaResultado = procesamiento.asociarProcesamiento(usuario.recetas)
+		if(usuario.habilitaSusFavoritos){
+			usuario.recetasFavoritas.addAll(recetaResultado)
+		}	
 	}
 }

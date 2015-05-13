@@ -1,20 +1,20 @@
 package receta
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.Collection
-import java.util.ArrayList
-import java.util.HashSet
-import java.util.Set
-import java.util.List
+import cosasUsuario.GrupoUsuario
 import cosasUsuario.Usuario
-import repositorioRecetas.RepositorioRecetas
 import excepcion.RecetaInvalidaExcepcion
 import excepcion.SinPermisosExcepcion
-import cosasUsuario.GrupoUsuario
+import java.util.ArrayList
+import java.util.Collection
+import java.util.HashSet
+import java.util.List
+import java.util.Set
+import org.eclipse.xtend.lib.annotations.Accessors
+import repositorioRecetas.RepositorioRecetas
 
 //Nuevas excepciones modificadas
 @Accessors
-class Receta {
+class Receta{
 
 	String nombrePlato
 	Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
@@ -123,5 +123,5 @@ class Receta {
 	
 	def tieneIngredientesCaros(){
 		ingredientes.forall[ingrediente|ingrediente.esCaro]
-	}
+	}		
 }
