@@ -1,9 +1,15 @@
 package postProcesado
 
+import java.util.List
+import receta.Receta
+import excepcion.ExceptionReceta
+import cosasUsuario.Usuario
+
 class PostProcesoPosta implements PostProceso {
 	
-	override postProcesar(<List>) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	override postProcesar(Usuario unUsuario, List <Receta> recetasAMostrar) {
+		if(recetasAMostrar.isEmpty){
+		throw new ExceptionReceta("no se obtuvo ninguna receta")
+		}
 	}
-	
 }

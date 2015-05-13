@@ -2,6 +2,7 @@ package filtro
 
 import cosasUsuario.Usuario
 import receta.Receta
+import excepcion.ExceptionReceta
 
 class FiltroDisgusto extends FiltroDecorador{
 	
@@ -10,7 +11,8 @@ class FiltroDisgusto extends FiltroDecorador{
 	}
 	
 override filtrar(Usuario unUsuario,Receta unaReceta){
-	if(unUsuario.leDisgusta(unaReceta) && unUsuario.conoceReceta(unaReceta)){
+	try unUsuario.leDisgusta(unaReceta) 
+	catch(ExceptionReceta error){
 		unUsuario.filtrar(unaReceta)
 	}
 	decorado.filtrar(unUsuario,unaReceta)

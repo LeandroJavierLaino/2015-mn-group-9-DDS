@@ -4,7 +4,7 @@ import cosasUsuario.Usuario
 import receta.Receta
 
 abstract class FiltroDecorador implements Filtro {
-	Filtro decorado
+	public Filtro decorado
 	
 	new(Filtro filtro){
 		decorado=filtro

@@ -1,14 +1,18 @@
 package postProcesado
 
+import receta.Receta
+import java.util.List
+import cosasUsuario.Usuario
+
 abstract class PostProcesoDecorador implements PostProceso {
-	PostProceso decorado
+	public PostProceso decorado
 	
 	new(PostProceso postProceso){
 		decorado = postProceso
 	}
 	
-	override postProcesar(<List>){
-		decorado.postProcesar(<List>)
+	override postProcesar(Usuario unUsuario, List <Receta> recetasAMostrar){
+		decorado.postProcesar(unUsuario, recetasAMostrar)
 	}
 	
 }

@@ -36,6 +36,7 @@ class Usuario {
 	
 	List<Receta> recetasPorFiltros//hay que generar primero un clon de las recetas que conoce un usuario.
 
+
 	//Mensajes
 	def double calculaIMC() {
 		peso / (altura * altura)
@@ -98,7 +99,7 @@ class Usuario {
 	}
 	
 	def filtrar(Receta unaReceta){
-		rectasPorFiltros.remove(unaReceta)
+		recetasPorFiltros.remove(unaReceta)
 	}
 	
 	def conoceReceta(Receta receta) {
@@ -114,11 +115,12 @@ class Usuario {
 	}
 	
 	def filtrarRecetas(){
-		recetasPorFiltro forEach[receta|filtro.filtrar(this,receta)]
+		recetasPorFiltros.forEach[receta|filtro.filtrar(this,receta)]
 	}
 	
+	
 	def postProcesar(){
-		postProceso.postProcesar(this.filtrarRecetas())
+		postProceso.postProcesar(this, recetasPorFiltros);
 	}
 }
 
