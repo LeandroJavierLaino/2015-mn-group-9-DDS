@@ -6,7 +6,7 @@ class PostProceso10Primeros extends PostProcesoDecorador {
 		super(decorado)
 	}
 	
-	override postProcesar(){
+	override postProcesar(<List>){
 		
 	}
 }

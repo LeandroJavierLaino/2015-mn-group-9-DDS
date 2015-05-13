@@ -6,7 +6,7 @@ class PostProcesoResultadosPares extends PostProcesoDecorador{
 		super(decorado)
 	}
 	
-	override postProcesar(){
+	override postProcesar(<List>){
 		
 	}
 	

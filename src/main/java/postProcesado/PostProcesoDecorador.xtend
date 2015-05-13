@@ -7,8 +7,8 @@ abstract class PostProcesoDecorador implements PostProceso {
 		decorado = postProceso
 	}
 	
-	override postProcesar(){
-		decorado.postProcesar()
+	override postProcesar(<List>){
+		decorado.postProcesar(<List>)
 	}
 	
 }

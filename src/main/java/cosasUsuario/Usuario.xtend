@@ -12,6 +12,7 @@ import org.joda.time.LocalDate
 import receta.Receta
 import rutina.Rutina
 import filtro.FiltroPosta
+import postProcesado.PostProcesoPosta
 
 @Accessors
 class Usuario {
@@ -24,6 +25,7 @@ class Usuario {
 	LocalDate fechaDeNacimiento
 	int CARACTERES_MINIMOS = 4
 	FiltroPosta filtro
+	PostProcesoPosta postProceso
 
 	List<String> comidasQueDisgustan = new ArrayList<String>
 	List<String> comidaPreferida = new ArrayList<String>
@@ -31,6 +33,8 @@ class Usuario {
 	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
 	Rutina rutina
 	Set<Receta> recetas = new HashSet<Receta>
+	
+	List<Receta> recetasPorFiltros//hay que generar primero un clon de las recetas que conoce un usuario.
 
 	//Mensajes
 	def double calculaIMC() {
@@ -109,6 +113,13 @@ class Usuario {
 		this.calculaIMC()>500
 	}
 	
+	def filtrarRecetas(){
+		recetasPorFiltro forEach[receta|filtro.filtrar(this,receta)]
+	}
+	
+	def postProcesar(){
+		postProceso.postProcesar(this.filtrarRecetas())
+	}
 }
 
 
