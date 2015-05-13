@@ -11,8 +11,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import receta.Receta
 import rutina.Rutina
-import filtro.FiltroPosta
-import postProcesado.PostProcesoPosta
+import filtro.Filtro
+import postProcesado.PostProceso
 
 @Accessors
 class Usuario {
@@ -24,8 +24,8 @@ class Usuario {
 	LocalDate fechaActual = new LocalDate()
 	LocalDate fechaDeNacimiento
 	int CARACTERES_MINIMOS = 4
-	FiltroPosta filtro
-	PostProcesoPosta postProceso
+	Filtro filtro
+	PostProceso postProceso
 
 	List<String> comidasQueDisgustan = new ArrayList<String>
 	List<String> comidaPreferida = new ArrayList<String>
@@ -103,7 +103,7 @@ class Usuario {
 	}
 	
 	def conoceReceta(Receta receta) {
-		recetasPorFiltros.contains(receta)
+		recetas.contains(receta)
 	}
 	
 	def leDisgusta(Receta receta) {
@@ -111,13 +111,12 @@ class Usuario {
 	}
 	
 	def boolean tieneSobrepeso() {
-		this.calculaIMC()>500
+		this.calculaIMC()>30
 	}
 	
 	def filtrarRecetas(){
 		recetasPorFiltros.forEach[receta|filtro.filtrar(this,receta)]
 	}
-	
 	
 	def postProcesar(){
 		postProceso.postProcesar(this, recetasPorFiltros);

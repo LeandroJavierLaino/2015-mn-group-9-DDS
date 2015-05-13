@@ -18,6 +18,12 @@ import rutina.RutinaSedentaria
 import repositorioRecetas.RepositorioRecetas
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
+import filtro.FiltroPosta
+import filtro.FiltroConCondicion
+import filtro.FiltroSobrepeso
+import postProcesado.PostProcesoPosta
+import postProcesado.PostProcesoOrdenadoCalor
+import postProcesado.PostProcesoResultadosPares
 
 @Accessors
 abstract class TestInstances {
@@ -71,6 +77,19 @@ abstract class TestInstances {
 	Set<Ingrediente> ingredientesParaCualquiera = new HashSet<Ingrediente>
 	Set<Ingrediente> ingredientesAntiVegano = new HashSet<Ingrediente>
 	List<String> preparacionDefault = new ArrayList<String>
+	List<Receta> listaRecetas1 = new ArrayList<Receta>
+	List<Receta> listaRecetas2 = new ArrayList<Receta>
+	List<Receta> listaRecetas3 = new ArrayList<Receta>
+	List<Receta> listaRecetas4 = new ArrayList<Receta>
+	
+	
+	FiltroPosta filtroPos
+	FiltroConCondicion filtroCond
+	FiltroSobrepeso filtroSobrep
+	PostProcesoPosta postProcesoPosta
+	PostProcesoOrdenadoCalor postProcesoOrdenadoCalor
+	PostProcesoResultadosPares postProcesoResultadosPares
+	
 	
 
 	double delta = 0.0000000001
@@ -97,7 +116,7 @@ abstract class TestInstances {
 
 		receta1 = new Receta("antiVegano",ingredientesAntiVegano,condimentosParaCualquiera,preparacionDefault,150,
 			"Baja","Verano")
-		receta2 = new Receta("antiDiabetico",ingredientesParaCualquiera,condimentosAntiDiabetico,preparacionDefault,250,
+		receta2 = new Receta("antiDiaPosbetico",ingredientesParaCualquiera,condimentosAntiDiabetico,preparacionDefault,250,
 			"Media","Invierno")
 		receta3 = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,150,
 			"Baja","Verano")
@@ -107,6 +126,21 @@ abstract class TestInstances {
 			"Baja","Verano")
 		recetaCaloriasMayorRango = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,100000000,
 			"Baja","Verano")
+			
+		listaRecetas1.add(receta1)
+		listaRecetas1.add(receta2)
+		listaRecetas1.add(receta3)
+		
+		listaRecetas2.add(receta1)
+		listaRecetas2.add(receta3)
+		
+		listaRecetas3.add(receta3)
+		listaRecetas3.add(receta1)
+		
+		listaRecetas4.add(receta1)
+		listaRecetas4.add(receta3)
+		listaRecetas4.add(receta3)
+		
 			
 		rutinaCorta = new RutinaActiva => [
 			tiempo = 10
@@ -340,5 +374,13 @@ abstract class TestInstances {
 			rutina = rutinaCorta
 			agregarCondicion(celiaco)
 		]
+		
+		filtroPos = new FiltroPosta
+		filtroCond = new FiltroConCondicion(new FiltroPosta)
+		filtroSobrep = new FiltroSobrepeso(new FiltroConCondicion(new FiltroPosta))
+		
+		postProcesoPosta = new PostProcesoPosta
+		postProcesoOrdenadoCalor = new PostProcesoOrdenadoCalor(new PostProcesoPosta)
+		postProcesoResultadosPares = new PostProcesoResultadosPares(new PostProcesoPosta)
 	}
 }

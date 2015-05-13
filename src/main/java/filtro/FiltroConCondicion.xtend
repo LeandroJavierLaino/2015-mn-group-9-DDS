@@ -10,7 +10,7 @@ class FiltroConCondicion extends FiltroDecorador {
 	}
 	
 	override filtrar(Usuario unUsuario,Receta unaReceta){
-		if(unaReceta.noCumplePrecondiciones(unUsuario) && unUsuario.conoceReceta(unaReceta)){
+		if(!unaReceta.esRecomendablePara(unUsuario) && unUsuario.conoceReceta(unaReceta)){
 			unUsuario.filtrar(unaReceta)
 		}
 		else{

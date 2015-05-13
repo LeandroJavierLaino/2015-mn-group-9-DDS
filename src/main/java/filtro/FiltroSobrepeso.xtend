@@ -10,7 +10,7 @@ class FiltroSobrepeso extends FiltroDecorador{
 	}
 
 	override filtrar(Usuario unUsuario,Receta unaReceta){
-		if(unUsuario.tieneSobrepeso() && unUsuario.conoceReceta(unaReceta)){
+		if(unUsuario.tieneSobrepeso() && unaReceta.cantidadMaximaCalorias >= 500 && unUsuario.conoceReceta(unaReceta)){
 			unUsuario.filtrar(unaReceta)
 		}
 		decorado.filtrar(unUsuario,unaReceta)

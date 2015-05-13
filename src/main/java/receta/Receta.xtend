@@ -106,10 +106,5 @@ class Receta {
 	
 	def boolean tieneIngredientesCaros() {
 		ingredientes.forall[ingrediente|ingrediente.esIngredienteCaro()]
-	}
-	
-	def boolean noCumplePrecondiciones(Usuario usuario) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
+	}	
 }
