@@ -70,6 +70,8 @@ class RepositorioRecetas {
 		recetaResultado = procesamiento.asociarProcesamiento(usuario.recetas)
 		if(usuario.habilitaSusFavoritos){
 			usuario.recetasFavoritas.addAll(recetaResultado)
-		}	
+			recetaResultado = usuario.recetasFavoritas
+		}
+		recetaResultado	
 	}
 }
