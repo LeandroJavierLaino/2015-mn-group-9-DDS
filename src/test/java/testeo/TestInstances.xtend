@@ -18,6 +18,7 @@ import rutina.RutinaSedentaria
 import repositorioRecetas.RepositorioRecetas
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
+import cosasUsuario.GrupoUsuario
 
 @Accessors
 abstract class TestInstances {
@@ -61,7 +62,6 @@ abstract class TestInstances {
 	Ingrediente cebollas
 	Ingrediente chori
 	Set<Ingrediente> ingredientesVacios = emptySet
-	RepositorioRecetas repo	//TODO: todavia sin uso definido
 	CondicionCeliaco celiaco
 	CondicionDiabetico diabetico
 	CondicionHipertenso hipertenso
@@ -71,6 +71,9 @@ abstract class TestInstances {
 	Set<Ingrediente> ingredientesParaCualquiera = new HashSet<Ingrediente>
 	Set<Ingrediente> ingredientesAntiVegano = new HashSet<Ingrediente>
 	List<String> preparacionDefault = new ArrayList<String>
+	GrupoUsuario grupoDeLaMuerte
+	GrupoUsuario grupoFlojito
+	RepositorioRecetas repo = RepositorioRecetas.getInstance
 	
 
 	double delta = 0.0000000001
@@ -148,7 +151,6 @@ abstract class TestInstances {
 			altura = 1.70
 			peso = 65
 			rutina = rutinaCorta
-			
 		]
 
 		nicolas = new Usuario => [
@@ -158,7 +160,8 @@ abstract class TestInstances {
 			altura = 1.74
 			peso = 60
 			rutina = rutinaLarga
-			condicionesPreexistentes = emptyList	
+			condicionesPreexistentes = emptyList
+			comidasQueDisgustan.add(ajiMolido)	
 		]
 
 		pablo = new Usuario => [
@@ -339,6 +342,21 @@ abstract class TestInstances {
 			peso = 78
 			rutina = rutinaCorta
 			agregarCondicion(celiaco)
+		]
+		
+		grupoDeLaMuerte = new GrupoUsuario => [
+			agregarUsuario(leandro)
+			agregarUsuario(diego)
+			palabrasClave.add(azucar)
+			palabrasClave.add(ajiMolido)
+			palabrasClave.add(cebollas)
+		]
+		
+		grupoFlojito = new GrupoUsuario => [
+			agregarUsuario(eri)
+			agregarUsuario(pablo)
+			agregarUsuario(nicolas)
+			palabrasClave.add(azucar)
 		]
 	}
 }

@@ -1,6 +1,7 @@
 package cosasUsuario
 
 import condicion.CondicionPreexistente
+import excepcion.FechaInvalidaExcepcion
 import excepcion.UsuarioInvalidoExcepcion
 import java.util.ArrayList
 import java.util.HashSet
@@ -8,9 +9,9 @@ import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
+import receta.Caracteristica
 import receta.Receta
 import rutina.Rutina
-import excepcion.FechaInvalidaExcepcion
 
 @Accessors
 class Usuario {
@@ -23,12 +24,14 @@ class Usuario {
 	LocalDate fechaDeNacimiento
 	int CARACTERES_MINIMOS = 4
 
-	List<String> comidasQueDisgustan = new ArrayList<String>
+	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
 	List<String> comidaPreferida = new ArrayList<String>
 
 	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
 	Rutina rutina
 	Set<Receta> recetas = new HashSet<Receta>
+	Set<Receta> recetasFavoritas = new HashSet<Receta>
+	GrupoUsuario grupoAlQuePertenece
 
 	//Mensajes
 	def double calculaIMC() {
@@ -89,6 +92,22 @@ class Usuario {
 			throw new FechaInvalidaExcepcion("Se ingreso una fecha con un mes mayor al actual")
 		} else if (fechaActual.getDayOfMonth > fechaSegunda.getDayOfMonth)
 			throw new FechaInvalidaExcepcion("Se ingreso un día mayor al actual")
+	}
+	
+	def contienteComidaQueDisgusta(Caracteristica comidaQueDisgusta) {
+		comidasQueDisgustan.contains(comidaQueDisgusta)
+	}
+	
+	def esRecomendable(Receta receta){
+		noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tolera(receta)]
+	}
+	
+	def comparteGrupoCon(Usuario usuario) {
+		grupoAlQuePertenece.tieneUnUsuario(usuario)
+	}
+	
+	def marcarComoFavorita(Receta receta){
+		recetasFavoritas.add(receta)
 	}
 }
 

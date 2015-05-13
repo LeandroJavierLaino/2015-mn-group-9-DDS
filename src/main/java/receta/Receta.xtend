@@ -10,9 +10,9 @@ import cosasUsuario.Usuario
 import repositorioRecetas.RepositorioRecetas
 import excepcion.RecetaInvalidaExcepcion
 import excepcion.SinPermisosExcepcion
+import cosasUsuario.GrupoUsuario
 
 //Nuevas excepciones modificadas
-
 @Accessors
 class Receta {
 
@@ -26,10 +26,11 @@ class Receta {
 	double cantidadMinimaCalorias = 10
 	double cantidadMaximaCalorias = 5000
 	Set<Receta> subRecetas = new HashSet<Receta>
+	Usuario creador
 
 	new(String nombre, Set<Ingrediente> ingredientesCargados, Set<Condimento> condimentosCargados,
-		List<String> procesoPreparacionCargado, double caloriasCargadas,
-		String dificultadCargada, String temporadaCargada) {
+		List<String> procesoPreparacionCargado, double caloriasCargadas, String dificultadCargada,
+		String temporadaCargada) {
 		nombrePlato = nombre
 		ingredientes = ingredientesCargados
 		condimentos = condimentosCargados
@@ -56,38 +57,40 @@ class Receta {
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || RepositorioRecetas.tieneLaReceta(this)
+		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || creador.comparteGrupoCon(usuario)
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || RepositorioRecetas.tieneLaReceta(this)
+		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || creador.comparteGrupoCon(usuario)
 	}
 
 	def puedeModificarReceta(Usuario usuario) {
 		if (tienePermisosParaModificarReceta(usuario) && puedeVerReceta(usuario)) {
 		} else {
-			throw new SinPermisosExcepcion("No puede ver o modificar la receta")//Antes Business
+			throw new SinPermisosExcepcion("No puede ver o modificar la receta") 
 		}
 	}
-	
-	def contieneComida(String unaComida,int unaCantidad){
-		condimentos.exists[condimento | condimento.esParteDe(unaComida,unaCantidad)] || ingredientes.exists[ingrediente | ingrediente.esParteDe(unaComida,unaCantidad)]
+
+	def contieneComida(String unaComida, int unaCantidad) {
+		condimentos.exists[condimento|condimento.esParteDe(unaComida, unaCantidad)] ||
+			ingredientes.exists[ingrediente|ingrediente.esParteDe(unaComida, unaCantidad)]
 	}
-	
+
 	def esRecomendablePara(Usuario unUsuario) {
 		unUsuario.noTieneCondicionesPreexistentes() || unUsuario.condicionesPreexistentes.forall[it.tolera(this)]
 	}
-	
-	def aniadirReceta(Receta receta){
+
+	def aniadirReceta(Receta receta) {
 		subRecetas.add(receta)
 	}
-	
-	def crearReceta(Usuario usuario){
+
+	def crearReceta(Usuario usuario) {
 		puedeSerCreada(this)
 		usuario.agregarReceta(this)
+		creador = usuario
 	}
-	
-	def modificarReceta(Usuario usuario, Receta recetaModificada){
+
+	def modificarReceta(Usuario usuario, Receta recetaModificada) {
 		puedeModificarReceta(usuario)
 		var Receta recetaClon = this
 		recetaClon.nombrePlato = recetaModificada.nombrePlato
@@ -96,12 +99,22 @@ class Receta {
 		recetaClon.procesoPreparacion = recetaModificada.procesoPreparacion
 		recetaClon.dificultad = recetaModificada.dificultad
 		recetaClon.temporada = recetaModificada.temporada
-		if(usuario.tieneLaReceta(recetaClon)){
+		if (usuario.tieneLaReceta(recetaClon)) {
 			usuario.borrarReceta(recetaClon)
 			usuario.agregarReceta(recetaModificada)
-		}else{
+		} else {
 			usuario.agregarReceta(recetaModificada)
 		}
 	}
+
+	def tieneUnIngredienteOCondimentoQueDisgustaPara(Usuario usuario) {
+		ingredientes.exists[comidaQueDisgusta|usuario.contienteComidaQueDisgusta(comidaQueDisgusta)] ||
+			condimentos.exists[comidaQueDisgusta|usuario.contienteComidaQueDisgusta(comidaQueDisgusta)]
+	}
 	
+	def tieneUnIngredienteOCondimentoQueGustaPara(GrupoUsuario usuario) {
+		ingredientes.exists[comidaQueGusta|usuario.perteneceALasPalabrasClave(comidaQueGusta)] ||
+		condimentos.exists[comidaQueGusta|usuario.perteneceALasPalabrasClave(comidaQueGusta)]		
+	}
+
 }
