@@ -12,6 +12,7 @@ import org.joda.time.LocalDate
 import receta.Caracteristica
 import receta.Receta
 import rutina.Rutina
+import filtro.Filtro
 
 @Accessors
 class Usuario {
@@ -23,7 +24,7 @@ class Usuario {
 	LocalDate fechaActual = new LocalDate()
 	LocalDate fechaDeNacimiento
 	int CARACTERES_MINIMOS = 4
-
+	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
 	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
 	List<String> comidaPreferida = new ArrayList<String>
 
@@ -108,6 +109,14 @@ class Usuario {
 	
 	def marcarComoFavorita(Receta receta){
 		recetasFavoritas.add(receta)
+	}
+	
+	def agregarFiltro(Filtro filtro){
+		filtrosAAplicar.add(filtro)
+	}
+	
+	def tieneSobrepeso(){
+		calculaIMC > 500
 	}
 }
 

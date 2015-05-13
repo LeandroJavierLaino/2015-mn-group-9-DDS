@@ -19,6 +19,10 @@ import repositorioRecetas.RepositorioRecetas
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import cosasUsuario.GrupoUsuario
+import filtro.FiltroPorCondicionesPreexistentes
+import filtro.FiltroPorExcesoDeCalorias
+import filtro.FiltroPorGusto
+import filtro.FiltroPorSerCaros
 
 @Accessors
 abstract class TestInstances {
@@ -74,7 +78,10 @@ abstract class TestInstances {
 	GrupoUsuario grupoDeLaMuerte
 	GrupoUsuario grupoFlojito
 	RepositorioRecetas repo = RepositorioRecetas.getInstance
-	
+	FiltroPorCondicionesPreexistentes filtroPorCondicionesPreexistentes
+	FiltroPorExcesoDeCalorias filtroPorExcesoCalorias
+	FiltroPorGusto filtroPorGusto
+	FiltroPorSerCaros filtroPorCaros
 
 	double delta = 0.0000000001
 

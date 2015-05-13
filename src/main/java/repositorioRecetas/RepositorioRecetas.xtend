@@ -1,8 +1,8 @@
 package repositorioRecetas
 
-import com.google.common.collect.Lists
 import cosasUsuario.GrupoUsuario
 import cosasUsuario.Usuario
+import filtro.Filtro
 import java.util.ArrayList
 import java.util.Collection
 import java.util.List
@@ -12,6 +12,7 @@ import receta.Receta
 @Accessors
 class RepositorioRecetas {
 	Collection<Receta> recetas = new ArrayList<Receta>
+	List<Filtro> filtros = new ArrayList<Filtro>
 	static RepositorioRecetas instance = null
 
 	static def getInstance() {
@@ -46,7 +47,11 @@ class RepositorioRecetas {
 	}
 
 	def listarRecetasVisiblesPara(Usuario usuario) {
-		var List<Receta> recetas = Lists.newArrayList(listarRecetas.filter[unaReceta|unaReceta.puedeVerReceta(usuario)]) 
-		recetas
+		listarRecetas.filter[unaReceta|unaReceta.puedeVerReceta(usuario)].toList
+	}
+	
+	def aplicarFiltro(Usuario usuario){
+		filtros.addAll(usuario.filtrosAAplicar)
+		filtros.forEach[filtro|filtro.filtrar(usuario.recetas,usuario)]
 	}
 }

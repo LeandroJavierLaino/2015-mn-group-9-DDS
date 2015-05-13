@@ -14,6 +14,6 @@ class TestAccesoARecetasPorUsuario extends TestInstances {
 		var List<Receta> recetas = new ArrayList<Receta>
 		recetas.add(receta2)
 		receta2.crearReceta(leandro)
-		Assert.assertTrue(repo.listarRecetasVisiblesPara(diego).contains(receta2) && recetas.contains(receta2))
+		Assert.assertFalse(repo.listarRecetasVisiblesPara(diego).contains(receta2) && recetas.contains(receta2))
 	}
 }

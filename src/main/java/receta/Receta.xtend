@@ -117,4 +117,11 @@ class Receta {
 		condimentos.exists[comidaQueGusta|usuario.perteneceALasPalabrasClave(comidaQueGusta)]		
 	}
 
+	def tieneExcesoDeCalorias(){
+		totalCalorias > 500
+	}
+	
+	def tieneIngredientesCaros(){
+		ingredientes.forall[ingrediente|ingrediente.esCaro]
+	}
 }
