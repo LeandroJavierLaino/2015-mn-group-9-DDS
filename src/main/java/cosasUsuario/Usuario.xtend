@@ -1,6 +1,7 @@
 package cosasUsuario
 
 import condicion.CondicionPreexistente
+import excepcion.FechaInvalidaExcepcion
 import excepcion.UsuarioInvalidoExcepcion
 import java.util.ArrayList
 import java.util.HashSet
@@ -10,7 +11,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import receta.Receta
 import rutina.Rutina
-import excepcion.FechaInvalidaExcepcion
+import filtro.FiltroPosta
 
 @Accessors
 class Usuario {
@@ -22,6 +23,7 @@ class Usuario {
 	LocalDate fechaActual = new LocalDate()
 	LocalDate fechaDeNacimiento
 	int CARACTERES_MINIMOS = 4
+	FiltroPosta filtro
 
 	List<String> comidasQueDisgustan = new ArrayList<String>
 	List<String> comidaPreferida = new ArrayList<String>
@@ -90,6 +92,23 @@ class Usuario {
 		} else if (fechaActual.getDayOfMonth > fechaSegunda.getDayOfMonth)
 			throw new FechaInvalidaExcepcion("Se ingreso un día mayor al actual")
 	}
+	
+	def filtrar(Receta unaReceta){
+		rectasPorFiltros.remove(unaReceta)
+	}
+	
+	def conoceReceta(Receta receta) {
+		recetasPorFiltros.contains(receta)
+	}
+	
+	def leDisgusta(Receta receta) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	def boolean tieneSobrepeso() {
+		this.calculaIMC()>500
+	}
+	
 }
 
 
