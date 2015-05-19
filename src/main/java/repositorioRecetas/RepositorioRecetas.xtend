@@ -64,6 +64,7 @@ class RepositorioRecetas {
 	}
 	
 	def dameResultadosPara(Usuario usuario){
+		
 		var Set<Receta> recetaResultado = new HashSet<Receta>
 		recetaResultado = this.aplicarFiltro(usuario)
 		var ProcesamientoPosterior procesamiento = usuario.indicarProcesamientoPosterior
