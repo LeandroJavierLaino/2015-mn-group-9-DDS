@@ -19,13 +19,13 @@ import testeo.TestInstances
 class TestModificarRecetas extends TestInstances{
 	
 		@Test
-	def void leandroModificaReceta2() {
-		receta2.modificarReceta(leandro,receta1)
+	def void leandroModificaRecetaAntiVegano() {
+		getRecetaAntiDiabetico.modificarReceta(leandro,getRecetaAntiVegano)
 	}
 
 		@Test(expected=typeof(SinPermisosExcepcion)) //no Tiene Permitido Modificar
-	def void leandroModificaReceta3() {
-		receta3.modificarReceta(leandro,receta1)
+	def void leandroModificaRecetaParaCualquiera() {
+		getRecetaParaCualquiera.modificarReceta(leandro,getRecetaAntiVegano)
 	}
 	
 }

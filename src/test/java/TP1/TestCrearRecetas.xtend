@@ -37,11 +37,11 @@ class TestCrearRecetas extends TestInstances{
 
 	@Test
 	def void nicolasCreaReceta() {
-		receta1.crearReceta(nicolas)
+		getRecetaAntiVegano.crearReceta(nicolas)
 	}
 
 	@Test
 	def void pabloCreaReceta() {
-		receta2.crearReceta(pablo)
+		getRecetaAntiDiabetico.crearReceta(pablo)
 	}
 }

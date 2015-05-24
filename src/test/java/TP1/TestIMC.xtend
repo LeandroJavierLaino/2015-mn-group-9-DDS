@@ -47,13 +47,13 @@ class TestIMC extends TestInstances{
 
 	@Test (expected=typeof(UsuarioInvalidoExcepcion)) //sin altura
 	def void usrInval3CalculaSuIMC() {
-		usrInval3.validar
-		usrInval3.calculaIMC
+		getUsuarioSinAltura.validar
+		getUsuarioSinAltura.calculaIMC
 	}
 
 	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //sin peso
 	def void usrInval4CalculaSuIMC() {
-		usrInval4.validar
-		usrInval4.calculaIMC
+		getUsuarioSinPeso.validar
+		getUsuarioSinPeso.calculaIMC
 	}
 }

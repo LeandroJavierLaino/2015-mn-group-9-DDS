@@ -53,62 +53,62 @@ class TestRutinaSaludable extends TestInstances{
 	}
 
 	@Test	//el IMC le da fuera de rango (<18)
-	def void usrInval5SigueUnaRutinaSaludable() {
-		Assert.assertFalse(usrInval5.sigueUnaRutinaSaludable())
+	def void UsuarioFechaFuturaEIMCMenorA18SigueUnaRutinaSaludable() {
+		Assert.assertFalse(getUsuarioFechaFuturaEIMCMenorA18.sigueUnaRutinaSaludable())
 	}
 	
 	@Test	//el IMC le da fuera de rango (>30)
-	def void usrInval2SigueUnaRutinaSaludable() {
-		Assert.assertFalse(usrInval2.sigueUnaRutinaSaludable())
+	def void UsuarioNombreCortoEIMCMayorA30SigueUnaRutinaSaludable() {
+		Assert.assertFalse(getUsuarioNombreCortoEIMCMayorA30.sigueUnaRutinaSaludable())
 	}
 
 	@Test	//No le gusta la Fruta para Vegano
-	def void usrVeganoNoSigueUnaRutinaSaludable() {
-		Assert.assertFalse(usrVegano1.sigueUnaRutinaSaludable())
+	def void VeganoCaretaNoSigueUnaRutinaSaludable() {
+		Assert.assertFalse(getUsuarioVeganoLeGustaPolloYNoLaFruta.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
-	def void usrVeganoSigueUnaRutinaSaludable() {
-		Assert.assertTrue(usrVegano2.sigueUnaRutinaSaludable())
+	def void UsuarioVeganoValidoYLeGustaLaFrutaSigueUnaRutinaSaludable() {
+		Assert.assertTrue(getUsuarioVeganoValidoYLeGustaLaFruta.sigueUnaRutinaSaludable())
 	}
 
 	@Test
-	def void usrHipertenso1SigueUnaRutinaSaludable() {
-		Assert.assertTrue(usrHipertenso1.sigueUnaRutinaSaludable())
+	def void UsuarioHipertensoSinPreferenciasYRutinaActivaConEjercicioSigueUnaRutinaSaludable() {
+		Assert.assertTrue(getUsuarioHipertensoSinPreferenciasYRutinaActivaConEjercicio.sigueUnaRutinaSaludable())
 	}
 	
 	@Test	//Rutina Activa de Poco Ejercicio para Hipertenso
-	def void usrHipertenso2NoSigueUnaRutinaSaludable() {
-		Assert.assertFalse(usrHipertenso2.sigueUnaRutinaSaludable())
+	def void UsuarioHipertensoValidoConRutinaActivaYSinEjercicioNoSigueUnaRutinaSaludable() {
+		Assert.assertFalse(getUsuarioHipertensoValidoConRutinaActivaYSinEjercicio.sigueUnaRutinaSaludable())
 	}
 	
 	@Test	//Rutina Sedentaria para Hipertenso
-	def void usrHipertenso3NoSigueUnaRutinaSaludable() {
-		Assert.assertFalse(usrHipertenso3.sigueUnaRutinaSaludable())
+	def void UsuarioHipertensoValidoConRutinaSedentariaNoSigueUnaRutinaSaludable() {
+		Assert.assertFalse(getUsuarioHipertensoValidoConRutinaSedentaria.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
-	def void usrDiabetico1SigueUnaRutinaSaludable() {
-		Assert.assertTrue(usrDiabetico1.sigueUnaRutinaSaludable())
+	def void UsuarioDiabeticoSinSexoMasDe70KgYActivoSigueUnaRutinaSaludable() {
+		Assert.assertTrue(getUsuarioDiabeticoSinSexoMasDe70KgYActivo.sigueUnaRutinaSaludable())
 	}
 
 	@Test
-	def void usrDiabetico2SigueUnaRutinaSaludable() {
-		Assert.assertTrue(usrDiabetico2.sigueUnaRutinaSaludable())
+	def void UsuarioDiabeticoSinPreferenciaMenosDe70KgYActivoSigueUnaRutinaSaludable() {
+		Assert.assertTrue(getUsuarioDiabeticoSinPreferenciaMenosDe70KgYActivo.sigueUnaRutinaSaludable())
 	}
 	
 	@Test	//No tiene rutina Activa y pesa mas de 70kg para Diabetico
-	def void usrDiabetico3SigueUnaRutinaSaludable() {
-		Assert.assertFalse(usrDiabetico3.sigueUnaRutinaSaludable())
+	def void UsuarioDiabeticoValidoMasDe70KgYSedentarioSigueUnaRutinaSaludable() {
+		Assert.assertFalse(getUsuarioDiabeticoValidoMasDe70KgYSedentario.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
-	def void usrDiabetico4SigueUnaRutinaSaludable() {
-		Assert.assertTrue(usrDiabetico4.sigueUnaRutinaSaludable())
+	def void UsuarioDiabeticoValidoMenosDe70KgYSedentarioSigueUnaRutinaSaludable() {
+		Assert.assertTrue(getUsuarioDiabeticoValidoMenosDe70KgYSedentario.sigueUnaRutinaSaludable())
 	}
 	
 	@Test
-	def void usrCeliacoSigueUnaRutinaSaludable() {
-		Assert.assertTrue(usrCeliaco.sigueUnaRutinaSaludable())
+	def void UsuarioCeliacoValidoSigueUnaRutinaSaludable() {
+		Assert.assertTrue(getUsuarioCeliacoValido.sigueUnaRutinaSaludable())
 	}
 }

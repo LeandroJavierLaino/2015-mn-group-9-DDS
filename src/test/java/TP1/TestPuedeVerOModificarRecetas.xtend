@@ -20,12 +20,12 @@ class TestPuedeVerOModificarRecetas extends TestInstances{
 	
 	@Test
 	def void leandroPuedeVerRecetaLean() {
-		Assert.assertTrue(receta2.puedeVerReceta(leandro))
+		Assert.assertTrue(getRecetaAntiDiabetico.puedeVerReceta(leandro))
 	}
 
 	@Test
 	def void eriNoPuedeVerRecetaLean() {
-		Assert.assertFalse(receta2.puedeVerReceta(eri))
+		Assert.assertFalse(getRecetaAntiDiabetico.puedeVerReceta(eri))
 	}
 
 

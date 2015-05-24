@@ -19,15 +19,15 @@ class TestRecetaConSubrecetas extends TestInstances{
 	
 	@Test(expected = typeof(SinPermisosExcepcion)) //no tiene Permisos
 	def void construirRecetasConSubRecetasSinPermisos(){
-		receta1.crearReceta(diego)
-		receta3.crearReceta(eri)
-		diego.agregarRecetaAUnaPrincipal(receta1, receta3)		
+		getRecetaAntiVegano.crearReceta(diego)
+		getRecetaParaCualquiera.crearReceta(eri)
+		diego.agregarRecetaAUnaPrincipal(getRecetaAntiVegano, getRecetaParaCualquiera)		
 	}
 	
 	@Test
 	def void construirRecetasConSubRecetasConPermisos(){
-		receta1.crearReceta(diego)
-		receta3.crearReceta(diego)
-		diego.agregarRecetaAUnaPrincipal(receta1, receta3)
+		getRecetaAntiVegano.crearReceta(diego)
+		getRecetaParaCualquiera.crearReceta(diego)
+		diego.agregarRecetaAUnaPrincipal(getRecetaAntiVegano, getRecetaParaCualquiera)
 	}
 }

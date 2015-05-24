@@ -58,72 +58,72 @@ class TestValidez extends TestInstances{
 	}
 
 	@Test
-	def void usrValid1EsUnUsuarioValidoSinSexo() {
-		usrValid1.validar
+	def void UsuarioSinSexoEsUnUsuarioValidoSinSexo() {
+		getUsuarioSinSexo.validar
 	}
 
 	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //solo tiene Nombre
-	def void usrInvalido1NoValidoFaltanDatos() {
-		usrInval1.validar
+	def void UsuarioSinDatosNoValidoFaltanDatos() {
+		getUsuarioSinDatos.validar
 	}
 
 	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //Nombre <4 digitos
-	def void usrInvalido2NoValidoNombreCorto() {
-		usrInval2.validar
+	def void UsuarioNombreCortoEIMCMayorA30NoValidoNombreCorto() {
+		getUsuarioNombreCortoEIMCMayorA30.validar
 	}
 
 	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //Altura =0
-	def void usrInvalido3NoValidoSinAltura() {
-		usrInval3.validar
+	def void UsuarioSinAlturaNoValidoSinAltura() {
+		getUsuarioSinAltura.validar
 	}
 
 	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //Peso = 0
-	def void usrInvalido4NoValidoSinPeso() {
-		usrInval4.validar
+	def void UsuarioSinPesoNoValidoSinPeso() {
+		getUsuarioSinPeso.validar
 	}
 
 	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //Fecha futura
-	def void usrInvalido5NoValidoFechaFutura() {
-		usrInval5.validar
+	def void UsuarioFechaFuturaEIMCMenorA18NoValidoFechaFutura() {
+		getUsuarioFechaFuturaEIMCMenorA18.validar
 	}
 
 	@Test(expected=typeof(CondPreexistenteExcepcion)) //le gusta el pollo
-	def void usrVeganoUnoNoValidoPorGustos() {
-		usrVegano1.validar
+	def void VeganoCaretaUnoNoValidoPorGustos() {
+		getUsuarioVeganoLeGustaPolloYNoLaFruta.validar
 	}
 
 	@Test
-	def void usrVeganoDosValido() {
-		usrVegano2.validar
+	def void UsuarioVeganoValidoYLeGustaLaFrutaValido() {
+		getUsuarioVeganoValidoYLeGustaLaFruta.validar
 	}
 
 	@Test(expected=typeof(CondPreexistenteExcepcion)) //sin Preferencias
-	def void usrHipertensoUnoNoValidoPorGustos() {
-		usrHipertenso1.validar
+	def void UsuarioHipertensoSinPreferenciasYRutinaActivaConEjercicioNoValidoPorGustos() {
+		getUsuarioHipertensoSinPreferenciasYRutinaActivaConEjercicio.validar
 	}
 
 	@Test
-	def void usrHipertensoDosValido() {
-		usrHipertenso2.validar
+	def void UsuarioHipertensoValidoConRutinaActivaYSinEjercicioValido() {
+		getUsuarioHipertensoValidoConRutinaActivaYSinEjercicio.validar
 	}
 
 	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //sin Sexo
-	def void usrDiabeticoUnoNoValidoSinSexo() {
-		usrDiabetico1.validar
+	def void UsuarioDiabeticoSinSexoMasDe70KgYActivoNoValido() {
+		getUsuarioDiabeticoSinSexoMasDe70KgYActivo.validar
 	}
 
 	@Test(expected=typeof(CondPreexistenteExcepcion)) //sin Preferencias
-	def void usrDiabeticoDosNoValidoPorGustos() {
-		usrDiabetico2.validar
+	def void UsuarioDiabeticoSinPreferenciaMenosDe70KgYActivoNoValidoPorGustos() {
+		getUsuarioDiabeticoSinPreferenciaMenosDe70KgYActivo.validar
 	}
 
 	@Test
-	def void usrDiabeticoTresValido() {
-		usrDiabetico3.validar
+	def void UsuarioDiabeticoValidoMasDe70KgYSedentarioValido() {
+		getUsuarioDiabeticoValidoMasDe70KgYSedentario.validar
 	}
 
 	@Test
 	def void usrCeliacoValido() {
-		usrCeliaco.validar
+		getUsuarioCeliacoValido.validar
 	}
 }

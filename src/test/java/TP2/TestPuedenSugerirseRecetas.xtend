@@ -7,22 +7,22 @@ import testeo.TestInstances
 class TestPuedenSugerirseRecetas extends TestInstances{
 	
 	@Test
-	def void puedeSugerirseRecetaUnoADiego(){
-		Assert.assertTrue(repo.puedeSugerirseAUsuario(diego,receta1))
+	def void puedeSugerirseRecetaAntiVeganoADiego(){
+		Assert.assertTrue(repo.puedeSugerirseAUsuario(diego,getRecetaAntiVegano))
 	}
 	
 	@Test
-	def void noPuedeSugerirseRecetaUnoANicolas(){
-		Assert.assertFalse(repo.puedeSugerirseAUsuario(nicolas,receta1))
+	def void noPuedeSugerirseRecetaAntiVeganoANicolas(){
+		Assert.assertFalse(repo.puedeSugerirseAUsuario(nicolas,getRecetaAntiVegano))
 	}
 	
 	@Test
-	def void noPuedeSugerirseRecetaUnoAGrupoFlojito(){
-		Assert.assertFalse(repo.puedeSugerirseAGrupo(grupoFlojito,receta1))
+	def void noPuedeSugerirseRecetaAntiVeganoAGrupoFlojito(){
+		Assert.assertFalse(repo.puedeSugerirseAGrupo(grupoFlojito,getRecetaAntiVegano))
 	}
 	
 	@Test
-	def void puedeSugerirseRecetaUnoAGrupoDeLaMuertePorqueLeGustanLasCebollas(){
-		Assert.assertTrue(repo.puedeSugerirseAGrupo(grupoDeLaMuerte,receta1))
+	def void puedeSugerirseRecetaAntiveganoAGrupoDeLaMuertePorqueLeGustanLasCebollas(){
+		Assert.assertTrue(repo.puedeSugerirseAGrupo(grupoDeLaMuerte,getRecetaAntiVegano))
 	}
 }

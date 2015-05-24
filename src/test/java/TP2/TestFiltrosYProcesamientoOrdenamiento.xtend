@@ -17,7 +17,7 @@ class TestFiltrosYProcesamientoOrdenamiento extends TestInstances {
 	Set<Receta> recetasFiltradas = new HashSet<Receta>
 	
 	@Test
-	def void filtroAnidado(){
+	def void aplicarVariosFiltros(){
 		filtroGusto = new FiltroPorGusto
 		filtroExceso = new FiltroPorExcesoDeCalorias
 		diego.filtrosAAplicar.add(filtroGusto)
@@ -27,22 +27,22 @@ class TestFiltrosYProcesamientoOrdenamiento extends TestInstances {
 	}
 	
 	@Test
-	def void filtroSimple(){
+	def void aplicarFiltroUnico(){
 		filtroGusto = new FiltroPorGusto
 		leandro.comidasQueDisgustan.add(chori)
-		leandro.agregarReceta(receta1)
+		leandro.agregarReceta(getRecetaAntiVegano)
 		leandro.agregarFiltro(filtroGusto)
 		recetasFiltradas = repo.aplicarFiltro(leandro)
 		Assert.assertNotEquals(recetasFiltradas,leandro.recetas)
 	}
 	
 	@Test
-	def void listarTrasFiltrarYPedirLosDiezPrimeros(){
+	def void listarTrasFiltrarPorVariosFiltrosYPedirLosDiezPrimeros(){
 		filtroGusto = new FiltroPorGusto
 		filtroExceso = new FiltroPorExcesoDeCalorias
 		diego.filtrosAAplicar.add(filtroGusto)
 		diego.filtrosAAplicar.add(filtroExceso)
-		diego.recetasFavoritas.add(receta2)
+		diego.recetasFavoritas.add(getRecetaAntiDiabetico)
 		diego.comidasQueDisgustan.add(chori)
 		diego.procesamiento = new ProcesamientoParaTomarLosPrimerosN
 		recetasFiltradas = repo.dameResultadosPara(diego)

@@ -10,10 +10,10 @@ import java.util.ArrayList
 class TestAccesoARecetasPorUsuario extends TestInstances {
 
 	@Test
-	def void diegoTieneAccesoAReceta2() {
+	def void diegoTieneAccesoARecetaAntiDiabetico() {
 		var List<Receta> recetas = new ArrayList<Receta>
-		recetas.add(receta2)
-		receta2.crearReceta(leandro)
-		Assert.assertFalse(repo.listarRecetasVisiblesPara(diego).contains(receta2) && recetas.contains(receta2))
+		recetas.add(getRecetaAntiDiabetico)
+		getRecetaAntiDiabetico.crearReceta(leandro)
+		Assert.assertFalse(repo.listarRecetasVisiblesPara(diego).contains(getRecetaAntiDiabetico) && recetas.contains(getRecetaAntiDiabetico))
 	}
 }
