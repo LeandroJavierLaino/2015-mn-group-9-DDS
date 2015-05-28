@@ -2,7 +2,6 @@ package postProcesado
 
 import java.util.List
 import receta.Receta
-import cosasUsuario.Usuario
 
 class PostProcesoResultadosPares extends PostProcesoDecorador{
 	
@@ -11,12 +10,19 @@ class PostProcesoResultadosPares extends PostProcesoDecorador{
 		super(decorado)
 	}
 	
-	override postProcesar(Usuario unUsuario, List<Receta> recetasAMostrar){
-		val i = 1 as int
+	override postProcesar(List<Receta> recetasAMostrar){
+		var i = 1 as int
+		var esPar=false
 		while(i<recetasAMostrar.size()){
-		unUsuario.filtrar(recetasAMostrar.get(i))
+			if(esPar){
+			recetasAMostrar.get(i)
+			esPar=false
+			}
+			else{
+				esPar=true
+			}
 		}
-		decorado.postProcesar(unUsuario, recetasAMostrar)
+		decorado.postProcesar(recetasAMostrar)
 	}
 	
 }

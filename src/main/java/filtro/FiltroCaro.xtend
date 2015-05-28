@@ -1,7 +1,8 @@
 package filtro
 
-import cosasUsuario.Usuario
 import receta.Receta
+import java.util.List
+import cosasUsuario.Usuario
 
 class FiltroCaro extends FiltroDecorador {
 	
@@ -9,10 +10,9 @@ class FiltroCaro extends FiltroDecorador {
 		super(decorado)
 	}
 	
-override filtrar(Usuario usuario,Receta receta){
-	if(receta.tieneIngredientesCaros() && usuario.conoceReceta(receta)){
-		usuario.filtrar(receta)
-	}
-	decorado.filtrar(usuario,receta)	
+override filtrar(List<Receta> recetasAFiltrar,Usuario unUsuario){
+    var List<Receta> recetasFiltradas
+    recetasFiltradas = recetasAFiltrar.filter[receta| receta.tieneIngredientesCaros()].toList
+	decorado.filtrar(recetasFiltradas,unUsuario)	
     }
 }

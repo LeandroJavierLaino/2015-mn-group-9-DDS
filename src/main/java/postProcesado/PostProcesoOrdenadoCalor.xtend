@@ -2,7 +2,6 @@ package postProcesado
 
 import java.util.List
 import receta.Receta
-import cosasUsuario.Usuario
 
 class PostProcesoOrdenadoCalor extends PostProcesoDecorador {
 	
@@ -10,8 +9,8 @@ class PostProcesoOrdenadoCalor extends PostProcesoDecorador {
 		super(decorado)
 	}
 	
-	override postProcesar(Usuario unUsuario, List<Receta> recetasAMostrar){
-		unUsuario.recetasPorFiltros = recetasAMostrar.sortBy[receta|receta.cantidadMaximaCalorias]
-		decorado.postProcesar(unUsuario, recetasAMostrar)
+	override postProcesar(List<Receta> recetasAMostrar){
+		recetasAMostrar.sortBy[receta|receta.cantidadMaximaCalorias]
+		decorado.postProcesar(recetasAMostrar.sortBy[receta|receta.cantidadMaximaCalorias].toList)
 	}
 }

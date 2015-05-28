@@ -11,8 +11,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import receta.Receta
 import rutina.Rutina
-import filtro.Filtro
-import postProcesado.PostProceso
 
 @Accessors
 class Usuario {
@@ -24,8 +22,6 @@ class Usuario {
 	LocalDate fechaActual = new LocalDate()
 	LocalDate fechaDeNacimiento
 	int CARACTERES_MINIMOS = 4
-	Filtro filtro
-	PostProceso postProceso
 
 	List<String> comidasQueDisgustan = new ArrayList<String>
 	List<String> comidaPreferida = new ArrayList<String>
@@ -98,28 +94,16 @@ class Usuario {
 			throw new FechaInvalidaExcepcion("Se ingreso un día mayor al actual")
 	}
 	
-	def filtrar(Receta unaReceta){
-		recetasPorFiltros.remove(unaReceta)
-	}
-	
 	def conoceReceta(Receta receta) {
 		recetas.contains(receta)
 	}
 	
-	def leDisgusta(Receta receta) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	def boolean leDisgusta(Receta receta) {
+		receta.ingredientes.contains(comidasQueDisgustan)
 	}
 	
 	def boolean tieneSobrepeso() {
 		this.calculaIMC()>30
-	}
-	
-	def filtrarRecetas(){
-		recetasPorFiltros.forEach[receta|filtro.filtrar(this,receta)]
-	}
-	
-	def postProcesar(){
-		postProceso.postProcesar(this, recetasPorFiltros);
 	}
 }
 
