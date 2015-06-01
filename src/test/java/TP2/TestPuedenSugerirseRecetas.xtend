@@ -8,21 +8,21 @@ class TestPuedenSugerirseRecetas extends TestInstances{
 	
 	@Test
 	def void puedeSugerirseRecetaAntiVeganoADiego(){
-		Assert.assertTrue(repo.puedeSugerirseAUsuario(diego,getRecetaAntiVegano))
+		Assert.assertTrue(diego.puedeSerSugeridaUnaReceta(getRecetaAntiVegano))
 	}
 	
 	@Test
 	def void noPuedeSugerirseRecetaAntiVeganoANicolas(){
-		Assert.assertFalse(repo.puedeSugerirseAUsuario(nicolas,getRecetaAntiVegano))
+		Assert.assertFalse(nicolas.puedeSerSugeridaUnaReceta(getRecetaAntiVegano))
 	}
 	
 	@Test
 	def void noPuedeSugerirseRecetaAntiVeganoAGrupoFlojito(){
-		Assert.assertFalse(repo.puedeSugerirseAGrupo(grupoFlojito,getRecetaAntiVegano))
+		Assert.assertFalse(grupoFlojito.puedeSerSugeridaRecetaAlGrupo(getRecetaAntiVegano))
 	}
 	
 	@Test
 	def void puedeSugerirseRecetaAntiveganoAGrupoDeLaMuertePorqueLeGustanLasCebollas(){
-		Assert.assertTrue(repo.puedeSugerirseAGrupo(grupoDeLaMuerte,getRecetaAntiVegano))
+		Assert.assertTrue(grupoDeLaMuerte.puedeSerSugeridaRecetaAlGrupo(getRecetaAntiVegano))
 	}
 }

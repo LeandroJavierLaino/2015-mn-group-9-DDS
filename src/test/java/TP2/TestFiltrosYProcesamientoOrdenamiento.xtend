@@ -22,7 +22,7 @@ class TestFiltrosYProcesamientoOrdenamiento extends TestInstances {
 		filtroExceso = new FiltroPorExcesoDeCalorias
 		diego.filtrosAAplicar.add(filtroGusto)
 		diego.filtrosAAplicar.add(filtroExceso)
-		recetasFiltradas = repo.aplicarFiltro(diego)
+		recetasFiltradas = diego.aplicarFiltros
 		Assert.assertArrayEquals(diego.recetas,recetasFiltradas)
 	}
 	
@@ -32,7 +32,7 @@ class TestFiltrosYProcesamientoOrdenamiento extends TestInstances {
 		leandro.comidasQueDisgustan.add(chori)
 		leandro.agregarReceta(getRecetaAntiVegano)
 		leandro.agregarFiltro(filtroGusto)
-		recetasFiltradas = repo.aplicarFiltro(leandro)
+		recetasFiltradas = leandro.aplicarFiltros
 		Assert.assertNotEquals(recetasFiltradas,leandro.recetas)
 	}
 	
@@ -45,7 +45,7 @@ class TestFiltrosYProcesamientoOrdenamiento extends TestInstances {
 		diego.recetasFavoritas.add(getRecetaAntiDiabetico)
 		diego.comidasQueDisgustan.add(chori)
 		diego.procesamiento = new ProcesamientoParaTomarLosPrimerosN
-		recetasFiltradas = repo.dameResultadosPara(diego)
+		recetasFiltradas = diego.postProcesarRecetas
 		Assert.assertEquals(1,recetasFiltradas.size)
 		
 	}

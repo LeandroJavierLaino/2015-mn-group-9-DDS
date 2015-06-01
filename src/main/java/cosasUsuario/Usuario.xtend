@@ -14,9 +14,12 @@ import receta.Receta
 import rutina.Rutina
 import filtro.Filtro
 import procesamientoPosterior.ProcesamientoPosterior
+import repositorioRecetas.RepositorioRecetas
+import org.uqbar.commons.model.Entity
+import repositorioUsuarios.RepositorioUsuarios
 
 @Accessors
-class Usuario {
+class Usuario extends Entity{
 
 	double altura
 	double peso
@@ -134,6 +137,34 @@ class Usuario {
 		habilitarFavoritos = true	
 	}
 	
+	def aplicarFiltros(){
+		var Set<Receta> busquedaReceta = new HashSet<Receta>
+		busquedaReceta = RepositorioRecetas.getInstance().listarRecetasVisiblesPara(this)
+		for(filtro : filtrosAAplicar){
+			busquedaReceta = filtro.filtrar(busquedaReceta,this)
+		}
+		busquedaReceta
+	}
+	
+	def postProcesarRecetas(){
+		var Set<Receta> recetasFiltradas = new HashSet<Receta>
+		recetasFiltradas = this.aplicarFiltros()
+		var ProcesamientoPosterior procesamiento = this.indicarProcesamientoPosterior()
+		recetasFiltradas = procesamiento.asociarProcesamiento(recetasFiltradas)
+		if(habilitaSusFavoritos()){
+			recetasFavoritas.addAll(recetasFiltradas)
+			recetasFiltradas = recetasFavoritas
+		}
+		recetasFiltradas
+	}
+	
+	def puedeSerSugeridaUnaReceta(Receta receta){
+		(!receta.tieneUnIngredienteOCondimentoQueDisgustaPara(this)) && this.condicionesPreexistentesSonValidas
+	}
+	
+	def solicitarIngresoASistema(){
+		RepositorioUsuarios.getInstance.agregarAListaPendientes(this)
+	}
 }
 
 
