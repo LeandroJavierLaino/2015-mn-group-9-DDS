@@ -90,11 +90,11 @@ class Usuario {
 	}
 
 	def fechaValida(LocalDate fechaActual, LocalDate fechaSegunda) {
-		if (fechaActual.getYear > fechaSegunda.getYear) {
+		if (fechaActual.getYear < fechaSegunda.getYear) {
 			throw new FechaInvalidaExcepcion("Se ingreso una fecha con año mayor al actual")
-		} else if (fechaActual.getMonthOfYear < fechaSegunda.getMonthOfYear) {
+		} else if ((fechaActual.getYear == fechaSegunda.getYear) && fechaActual.getMonthOfYear < fechaSegunda.getMonthOfYear) {
 			throw new FechaInvalidaExcepcion("Se ingreso una fecha con un mes mayor al actual")
-		} else if (fechaActual.getDayOfMonth > fechaSegunda.getDayOfMonth)
+		} else if ((fechaActual.getYear == fechaSegunda.getYear) && (fechaActual.getMonthOfYear == fechaSegunda.getMonthOfYear) && fechaActual.getDayOfMonth < fechaSegunda.getDayOfMonth)
 			throw new FechaInvalidaExcepcion("Se ingreso un día mayor al actual")
 	}
 	

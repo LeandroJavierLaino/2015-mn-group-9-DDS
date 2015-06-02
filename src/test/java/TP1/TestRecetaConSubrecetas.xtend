@@ -1,7 +1,7 @@
 package TP1
 
 import org.junit.Test
-import testeo.TestInstances
+import testeo.TestUsers
 import excepcion.SinPermisosExcepcion
 
 //Punto 5 RECETA CON SUBRECETAS
@@ -15,19 +15,19 @@ import excepcion.SinPermisosExcepcion
 
 //Nuevas excepciones modificadas
 		
-class TestRecetaConSubrecetas extends TestInstances{
+class TestRecetaConSubrecetas extends TestUsers{
 	
 	@Test(expected = typeof(SinPermisosExcepcion)) //no tiene Permisos
 	def void construirRecetasConSubRecetasSinPermisos(){
-		receta1.crearReceta(diego)
-		receta3.crearReceta(eri)
-		diego.agregarRecetaAUnaPrincipal(receta1, receta3)		
+		recetaAntiVegano.crearReceta(diego)
+		recetaParaCualquiera.crearReceta(eri)
+		diego.agregarRecetaAUnaPrincipal(recetaAntiVegano, recetaParaCualquiera)		
 	}
 	
 	@Test
 	def void construirRecetasConSubRecetasConPermisos(){
-		receta1.crearReceta(diego)
-		receta3.crearReceta(diego)
-		diego.agregarRecetaAUnaPrincipal(receta1, receta3)
+		recetaAntiVegano.crearReceta(diego)
+		recetaParaCualquiera.crearReceta(diego)
+		diego.agregarRecetaAUnaPrincipal(recetaAntiVegano, recetaParaCualquiera)
 	}
 }

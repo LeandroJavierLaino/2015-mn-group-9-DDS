@@ -2,7 +2,7 @@ package TP1
 
 import org.junit.Assert
 import org.junit.Test
-import testeo.TestInstances
+import testeo.TestUsers
 import excepcion.UsuarioInvalidoExcepcion
 
 //Punto 2 IMC
@@ -17,7 +17,7 @@ import excepcion.UsuarioInvalidoExcepcion
 
 //Nuevas excepciones modificadas
 
-class TestIMC extends TestInstances{
+class TestIMC extends TestUsers{
 
 	@Test
 	def void leandroCalculaSuIMC() {

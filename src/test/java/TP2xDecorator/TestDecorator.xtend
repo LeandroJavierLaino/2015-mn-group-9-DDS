@@ -3,67 +3,69 @@ package TP2xDecorator
 
 import org.junit.Assert
 import org.junit.Test
-import testeo.TestInstances
+import testeo.TestFiltersAndPostProc
 
-class TestDecorator extends TestInstances{
+class TestDecorator extends TestFiltersAndPostProc{
+	
+	
 	
 	@Test
 	def void filtroBasico() {
 		usrDiabetico3.filtro = filtroPos
-		usrDiabetico3.recetas = listaRecetas1.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetas1
+		usrDiabetico3.recetas = listaRecetasTriple.toSet
+		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
 		usrDiabetico3.filtrarRecetas()
-		Assert.assertArrayEquals(listaRecetas1 , usrDiabetico3.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasTriple, usrDiabetico3.recetasPorFiltros)
 	}
 	
 	@Test
 	def void filtroConCondic() {
 		usrDiabetico3.filtro = filtroCond
-		usrDiabetico3.recetas = listaRecetas1.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetas1
+		usrDiabetico3.recetas = listaRecetasTriple.toSet
+		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
 		usrDiabetico3.filtrarRecetas()
-		Assert.assertArrayEquals(listaRecetas2 , usrDiabetico3.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)
 	}
 	
 	@Test
 	def void filtroConCondicySobrep() {
 		usrDiabetico3.filtro = filtroSobrep
-		usrDiabetico3.recetas = listaRecetas1.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetas1
+		usrDiabetico3.recetas = listaRecetasTriple.toSet
+		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
 		usrDiabetico3.filtrarRecetas()
-		Assert.assertArrayEquals(listaRecetas2 , usrDiabetico3.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)
 	}
 	
 	
 /*	@Test
 	def void filtroConCondicySobrepNoCumple() {
 		usrInval2.filtro = filtroSobrep
-		usrInval2.recetas = listaRecetas1.toSet
-		usrInval2.recetasPorFiltros = listaRecetas1
+		usrInval2.recetas = listaRecetasTriple.toSet
+		usrInval2.recetasPorFiltros = listaRecetasTriple
 		usrInval2.filtrarRecetas()
-		Assert.assertArrayEquals(listaRecetas2 , usrInval2.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrInval2.recetasPorFiltros)
 	}*/
 	
 	@Test
 	def void postProcesPostaYfiltroConCondicySobrep() {
 		usrDiabetico3.postProceso = postProcesoPosta
 		usrDiabetico3.filtro = filtroSobrep
-		usrDiabetico3.recetas = listaRecetas1.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetas1
+		usrDiabetico3.recetas = listaRecetasTriple.toSet
+		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
 		usrDiabetico3.filtrarRecetas()
 		usrDiabetico3.postProcesar()
-		Assert.assertArrayEquals(listaRecetas2 , usrDiabetico3.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)
 	}
 	
 	@Test
 	def void postProcesOrdenadoCalorYfiltroConCondicySobrep() {
 		usrDiabetico3.postProceso = postProcesoOrdenadoCalor
 		usrDiabetico3.filtro = filtroSobrep
-		usrDiabetico3.recetas = listaRecetas1.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetas1
+		usrDiabetico3.recetas = listaRecetasTriple.toSet
+		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
 		usrDiabetico3.filtrarRecetas()
 		usrDiabetico3.postProcesar()
-		Assert.assertArrayEquals(listaRecetas2 , usrDiabetico3.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)
 	}
 	
 	
@@ -71,11 +73,10 @@ class TestDecorator extends TestInstances{
 	def void postProcesOrdenadoCalorYfiltroConCondicySobrepDadoVuelta() {
 		usrDiabetico3.postProceso = postProcesoOrdenadoCalor
 		usrDiabetico3.filtro = filtroSobrep
-		usrDiabetico3.recetas = listaRecetas3.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetas3
-		usrDiabetico3.filtrarRecetas()
+		usrDiabetico3.recetas = listaRecetasCualquieraYDiabetico.toSet
+		usrDiabetico3.recetasPorFiltros = listaRecetasCualquieraYDiabetico
 		usrDiabetico3.postProcesar()
-		Assert.assertArrayEquals(listaRecetas2 , usrDiabetico3.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasDiabeticoYCualquiera , usrDiabetico3.recetasPorFiltros)
 	}
 	
 	
@@ -83,10 +84,10 @@ class TestDecorator extends TestInstances{
 	def void postProcesResultParesYfiltroConCondicySobrep() {
 		usrDiabetico3.postProceso = postProcesoResultadosPares
 		usrDiabetico3.filtro = filtroSobrep
-		usrDiabetico3.recetas = listaRecetas4.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetas4
+		usrDiabetico3.recetas = listaRecetasVeganoYDobleCualquiera.toSet
+		usrDiabetico3.recetasPorFiltros = listaRecetasVeganoYDobleCualquiera
 		usrDiabetico3.filtrarRecetas()
 		usrDiabetico3.postProcesar()
-		Assert.assertArrayEquals(listaRecetas2 , usrDiabetico3.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)
 	}
 }

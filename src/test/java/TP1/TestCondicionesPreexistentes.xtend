@@ -3,7 +3,7 @@ package TP1
 
 import org.junit.Assert
 import org.junit.Test
-import testeo.TestInstances
+import testeo.TestUsers
 
 //Punto 3 CONDICIONES PREEX
 
@@ -20,34 +20,34 @@ import testeo.TestInstances
 
 //Nuevas excepciones modificadas
 
-class TestCondicionesPreexistentes extends TestInstances{
+class TestCondicionesPreexistentes extends TestUsers{
 	@Test
 	def void Receta1NoAdecuadaParaVegano() {
-		Assert.assertFalse(receta1.esRecomendablePara(usrVegano1))
+		Assert.assertFalse(recetaAntiVegano.esRecomendablePara(usrVegano1))
 	}
 
 	@Test
 	def void Receta2NoAdecuadaParaDiabetico() {
-		Assert.assertFalse(receta2.esRecomendablePara(usrDiabetico1))
+		Assert.assertFalse(recetaAntiDiabetico.esRecomendablePara(usrDiabetico1))
 	}
 
 	@Test
 	def void Receta3AdecuadaParaTodosEjVegano() {
-		Assert.assertTrue(receta3.esRecomendablePara(usrVegano1))
+		Assert.assertTrue(recetaParaCualquiera.esRecomendablePara(usrVegano1))
 	}	
 
 	@Test
 	def void Receta3AdecuadaParaTodosEjDiabetico() {
-		Assert.assertTrue(receta3.esRecomendablePara(usrDiabetico1))
+		Assert.assertTrue(recetaParaCualquiera.esRecomendablePara(usrDiabetico1))
 	}
 	
 	@Test
 	def void Receta3AdecuadaParaTodosEjHipertenso() {
-		Assert.assertTrue(receta3.esRecomendablePara(usrHipertenso1))
+		Assert.assertTrue(recetaParaCualquiera.esRecomendablePara(usrHipertenso1))
 	}
 	
 	@Test
 	def void Receta3AdecuadaParaTodosEjCeliaco() {
-		Assert.assertTrue(receta3.esRecomendablePara(usrCeliaco))
+		Assert.assertTrue(recetaParaCualquiera.esRecomendablePara(usrCeliaco))
 	}
 }

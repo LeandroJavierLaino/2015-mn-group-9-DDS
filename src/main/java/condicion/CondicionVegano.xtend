@@ -8,11 +8,13 @@ import excepcion.CondPreexistenteExcepcion
 class CondicionVegano implements CondicionPreexistente {
 
 	override valido(Usuario unUsuario) {
-
-		!(unUsuario.comidaPreferida.contains("Carne") || unUsuario.comidaPreferida.contains("Pollo") ||
+		if(unUsuario.comidaPreferida.contains("Carne") || unUsuario.comidaPreferida.contains("Pollo") ||
 			unUsuario.comidaPreferida.contains("Chivito") || unUsuario.comidaPreferida.contains("Chori"))
-
-	}
+		{
+		throw new CondPreexistenteExcepcion("Le gusta una comida no valida para el vegano")
+		}
+	(unUsuario.sexo.equalsIgnoreCase("M") || unUsuario.sexo.equalsIgnoreCase("F")) //el chequeo del char no funciona
+}
 
 	override tieneRutinaSaludable(Usuario unUsuario) {
 

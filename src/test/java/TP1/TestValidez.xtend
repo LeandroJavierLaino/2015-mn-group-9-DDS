@@ -2,8 +2,9 @@ package TP1
 
 import excepcion.CondPreexistenteExcepcion
 import org.junit.Test
-import testeo.TestInstances
+import testeo.TestUsers
 import excepcion.UsuarioInvalidoExcepcion
+import excepcion.FechaInvalidaExcepcion
 
 //Punto 1 VALIDEZ
 
@@ -30,7 +31,7 @@ import excepcion.UsuarioInvalidoExcepcion
 
 //Nuevas excepciones modificadas
 
-class TestValidez extends TestInstances{
+class TestValidez extends TestUsers{
 
 	@Test
 	def void eriEsUnUsuarioValido() {
@@ -82,12 +83,12 @@ class TestValidez extends TestInstances{
 		usrInval4.validar
 	}
 
-	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //Fecha futura
+	@Test(expected=typeof(FechaInvalidaExcepcion)) //Fecha futura
 	def void usrInvalido5NoValidoFechaFutura() {
 		usrInval5.validar
 	}
 
-	@Test(expected=typeof(CondPreexistenteExcepcion)) //le gusta el pollo
+	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //le gusta el pollo
 	def void usrVeganoUnoNoValidoPorGustos() {
 		usrVegano1.validar
 	}
@@ -107,7 +108,7 @@ class TestValidez extends TestInstances{
 		usrHipertenso2.validar
 	}
 
-	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //sin Sexo
+	@Test(expected=typeof(CondPreexistenteExcepcion)) //sin Sexo
 	def void usrDiabeticoUnoNoValidoSinSexo() {
 		usrDiabetico1.validar
 	}
