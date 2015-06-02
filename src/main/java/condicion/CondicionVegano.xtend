@@ -9,8 +9,12 @@ class CondicionVegano implements CondicionPreexistente {
 
 	override valido(Usuario unUsuario) {
 
-		!(unUsuario.comidaPreferida.contains("Carne") || unUsuario.comidaPreferida.contains("Pollo") ||
-			unUsuario.comidaPreferida.contains("Chivito") || unUsuario.comidaPreferida.contains("Chori"))
+		if(unUsuario.comidaPreferida.contains("Carne") || unUsuario.comidaPreferida.contains("Pollo") || 
+			unUsuario.comidaPreferida.contains("Chivito") || unUsuario.comidaPreferida.contains("Chori")) {
+				
+			throw new CondPreexistenteExcepcion("Le gustan alimentos no propios de un vegano")
+		}
+		else true
 
 	}
 

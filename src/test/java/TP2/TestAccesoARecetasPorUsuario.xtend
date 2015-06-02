@@ -1,13 +1,13 @@
 package TP2
 
 import org.junit.Test
-import testeo.TestInstances
 import org.junit.Assert
 import receta.Receta
 import java.util.List
 import java.util.ArrayList
+import testeo.UsuariosExtras
 
-class TestAccesoARecetasPorUsuario extends TestInstances {
+class TestAccesoARecetasPorUsuario extends UsuariosExtras {
 
 	@Test
 	def void diegoTieneAccesoARecetaAntiDiabetico() {

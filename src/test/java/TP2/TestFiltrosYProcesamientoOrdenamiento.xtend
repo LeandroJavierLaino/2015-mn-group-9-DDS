@@ -1,7 +1,6 @@
 package TP2
 
 import org.junit.Test
-import testeo.TestInstances
 import filtro.FiltroPorGusto
 import filtro.FiltroPorExcesoDeCalorias
 import org.junit.Assert
@@ -9,8 +8,9 @@ import java.util.HashSet
 import receta.Receta
 import java.util.Set
 import procesamientoPosterior.ProcesamientoParaTomarLosPrimerosN
+import testeo.UsuariosPrincipales
 
-class TestFiltrosYProcesamientoOrdenamiento extends TestInstances {
+class TestFiltrosYProcesamientoOrdenamiento extends UsuariosPrincipales {
 	
 	FiltroPorGusto filtroGusto
 	FiltroPorExcesoDeCalorias filtroExceso

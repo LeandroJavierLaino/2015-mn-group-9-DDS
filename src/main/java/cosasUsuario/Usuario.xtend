@@ -48,18 +48,26 @@ class Usuario extends Entity{
 	def void agregarCondicion(CondicionPreexistente condicion) {
 		condicionesPreexistentes.add(condicion)
 	}
-
-	def void agregarComidaALista(List<String> lista, String comida) {
-		lista.add(comida)
-	}
-
+	
 	def validar() {
+		
+		if(!(altura > 0 && peso > 0 && nombre.length() >= CARACTERES_MINIMOS)) {
+			throw new UsuarioInvalidoExcepcion("Usuario no valido")
+		}
+		condicionesPreexistentesSonValidas()
+		
+		
+		fechaValida(fechaActual, fechaDeNacimiento)
+		
+	}
+	
+	/*def validar() {
 		if (altura > 0 && peso > 0 && nombre.length() >= CARACTERES_MINIMOS && condicionesPreexistentesSonValidas()) {
 			fechaValida(fechaActual, fechaDeNacimiento)
 		} else {
 			throw new UsuarioInvalidoExcepcion("Usuario no valido")
 		}
-	}
+	}*/
 
 	def tieneLaReceta(Receta receta) {
 		recetas.contains(receta)
@@ -91,15 +99,20 @@ class Usuario extends Entity{
 	def borrarReceta(Receta receta) {
 		recetas.remove(receta)
 	}
-
+	
 	def fechaValida(LocalDate fechaActual, LocalDate fechaSegunda) {
+		if (fechaActual.isBefore(fechaSegunda)) 
+			throw new FechaInvalidaExcepcion("Se Ingreso una fecha invalida")		
+	}
+
+	/*def fechaValida(LocalDate fechaActual, LocalDate fechaSegunda) {
 		if (fechaActual.getYear > fechaSegunda.getYear) {
 			throw new FechaInvalidaExcepcion("Se ingreso una fecha con año mayor al actual")
 		} else if (fechaActual.getMonthOfYear < fechaSegunda.getMonthOfYear) {
 			throw new FechaInvalidaExcepcion("Se ingreso una fecha con un mes mayor al actual")
 		} else if (fechaActual.getDayOfMonth > fechaSegunda.getDayOfMonth)
 			throw new FechaInvalidaExcepcion("Se ingreso un día mayor al actual")
-	}
+	}*/
 	
 	def contienteComidaQueDisgusta(Caracteristica comidaQueDisgusta) {
 		comidasQueDisgustan.contains(comidaQueDisgusta)

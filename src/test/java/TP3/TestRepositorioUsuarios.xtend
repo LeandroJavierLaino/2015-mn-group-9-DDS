@@ -8,10 +8,10 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import repositorioUsuarios.RepositorioUsuarios
-import testeo.TestInstances
+import testeo.UsuariosExtras
 
 @Accessors
-class TestRepositorioUsuarios extends TestInstances {
+class TestRepositorioUsuarios extends UsuariosExtras {
 
 	RepositorioUsuarios repousuarios
 	UsuarioAdministrador admin

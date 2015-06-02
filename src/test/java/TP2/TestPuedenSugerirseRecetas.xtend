@@ -2,9 +2,9 @@ package TP2
 
 import org.junit.Test
 import org.junit.Assert
-import testeo.TestInstances
+import testeo.Grupos
 
-class TestPuedenSugerirseRecetas extends TestInstances{
+class TestPuedenSugerirseRecetas extends Grupos{
 	
 	@Test
 	def void puedeSugerirseRecetaAntiVeganoADiego(){

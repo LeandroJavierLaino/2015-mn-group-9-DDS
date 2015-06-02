@@ -2,7 +2,7 @@ package TP1
 
 import org.junit.Assert
 import org.junit.Test
-import testeo.TestInstances
+import testeo.Grupos
 
 //Punto 4 PUEDE VER/MODIFICAR RECETAS
 
@@ -16,16 +16,16 @@ import testeo.TestInstances
 
 //Nuevas excepciones modificadas
 
-class TestPuedeVerOModificarRecetas extends TestInstances{
+class TestPuedeVerOModificarRecetas extends Grupos{
 	
 	@Test
 	def void leandroPuedeVerRecetaLean() {
-		Assert.assertTrue(getRecetaAntiDiabetico.puedeVerReceta(leandro))
+		Assert.assertTrue(recetaAntiDiabetico.puedeVerReceta(leandro))
 	}
 
 	@Test
 	def void eriNoPuedeVerRecetaLean() {
-		Assert.assertFalse(getRecetaAntiDiabetico.puedeVerReceta(eri))
+		Assert.assertFalse(recetaAntiDiabetico.puedeVerReceta(eri))
 	}
 
 

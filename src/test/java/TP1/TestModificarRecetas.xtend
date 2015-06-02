@@ -2,7 +2,7 @@ package TP1
 
 import excepcion.SinPermisosExcepcion
 import org.junit.Test
-import testeo.TestInstances
+import testeo.Grupos
 
 //Punto 4 MODIFICAR RECETAS
 
@@ -16,7 +16,7 @@ import testeo.TestInstances
 
 //Nuevas excepciones modificadas
 
-class TestModificarRecetas extends TestInstances{
+class TestModificarRecetas extends Grupos{
 	
 		@Test
 	def void leandroModificaRecetaAntiVegano() {

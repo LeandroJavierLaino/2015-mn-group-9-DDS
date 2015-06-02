@@ -2,7 +2,7 @@ package TP1
 
 import excepcion.RecetaInvalidaExcepcion
 import org.junit.Test
-import testeo.TestInstances
+import testeo.UsuariosExtras
 
 //Punto 3 CREAR RECETAS
 
@@ -17,7 +17,7 @@ import testeo.TestInstances
 
 //Nuevas excepciones modificadas
 	
-class TestCrearRecetas extends TestInstances{
+class TestCrearRecetas extends UsuariosExtras{
 	
 	@Test(expected=typeof(RecetaInvalidaExcepcion)) //sin Ingrediente
 	def void leandroCreaReceta() {

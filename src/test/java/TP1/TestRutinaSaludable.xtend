@@ -2,7 +2,7 @@ package TP1
 
 import org.junit.Assert
 import org.junit.Test
-import testeo.TestInstances
+import testeo.UsuariosExtras
 
 //Punto 2 RUTINA SALUDABLE
 
@@ -26,7 +26,7 @@ import testeo.TestInstances
 
 //Nuevas excepciones modificadas	
 
-class TestRutinaSaludable extends TestInstances{
+class TestRutinaSaludable extends UsuariosExtras{
 	@Test
 	def void leandroSigueUnaRutinaSaludable() {
 		Assert.assertTrue(leandro.sigueUnaRutinaSaludable())

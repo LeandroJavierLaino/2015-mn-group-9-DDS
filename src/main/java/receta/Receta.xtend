@@ -57,11 +57,11 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || creador.comparteGrupoCon(usuario)
+		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario))
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || creador.comparteGrupoCon(usuario)
+		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario))
 	}
 
 	def puedeModificarReceta(Usuario usuario) {
