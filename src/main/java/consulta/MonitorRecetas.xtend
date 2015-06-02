@@ -24,7 +24,7 @@ class MonitorRecetas implements Monitor {
 			}
 		]
 		
-		}
+	}
 		
 		override mostrarResultados() {
 			

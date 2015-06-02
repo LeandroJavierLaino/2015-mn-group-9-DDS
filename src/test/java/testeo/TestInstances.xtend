@@ -35,6 +35,7 @@ class TestInstances {
 	
 	Receta recetaSalchiPapa
 	Receta recetaPolloAlOreganato
+	Receta recetaLaComidaMasOrganicaDelMundo
 	
 	RutinaActiva rutinaActivaCorta
 	RutinaActiva rutinaActivaLarga
@@ -96,21 +97,20 @@ class TestInstances {
 		ingredientesAntiVegano.add(chori)
 		preparacionDefault.add("paso")
 
-		recetaAntiVegano = new Receta("antiVegano",ingredientesAntiVegano,condimentosParaCualquiera,preparacionDefault,150,
-			"Baja","Verano")
-		recetaAntiDiabetico = new Receta("antiDiabetico",ingredientesParaCualquiera,condimentosAntiDiabetico,preparacionDefault,250,
-			"Media","Invierno")
-		recetaParaCualquiera = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,150,
-			"Baja","Verano")
-		recetaSinIngrediente = new Receta("default",ingredientesVacios,condimentosParaCualquiera,preparacionDefault,150,
-			"Baja","Verano")
-		recetaCaloriasBajoRango = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,0,
-			"Baja","Verano")
-		recetaCaloriasMayorRango = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,100000000,
-			"Baja","Verano")
+		recetaAntiVegano = new Receta("antiVegano", ingredientesAntiVegano, condimentosParaCualquiera, preparacionDefault,150, "Baja","Verano")
+		recetaAntiDiabetico = new Receta("antiDiabetico", ingredientesParaCualquiera, condimentosAntiDiabetico, preparacionDefault,250, "Media","Invierno")
+		
+		recetaParaCualquiera = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,150, "Baja","Verano")
+		
+		recetaSinIngrediente = new Receta("default",ingredientesVacios,condimentosParaCualquiera,preparacionDefault,150, "Baja","Verano")
+		
+		recetaCaloriasBajoRango = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,0, "Baja","Verano")
+		recetaCaloriasMayorRango = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,100000000, "Baja","Verano")
 
 		recetaSalchiPapa = new Receta("SalchiPapa", ingredientesParaCualquiera, condimentosParaCualquiera, preparacionDefault, 150, "Baja", "Verano")
-		recetaPolloAlOreganato = new Receta("Pollo al Oreganato", ingredientesAntiVegano, condimentosParaCualquiera, preparacionDefault, 150, "Alta", "Invierno")			
+		recetaPolloAlOreganato = new Receta("Pollo al Oreganato", ingredientesAntiVegano, condimentosParaCualquiera, preparacionDefault, 150, "Alta", "Invierno")	
+		
+		recetaLaComidaMasOrganicaDelMundo = new Receta("Ensalada", ingredientesParaCualquiera, condimentosParaCualquiera, preparacionDefault, 150, "D", "Invierno")
 			
 		rutinaActivaCorta = new RutinaActiva => [
 			tiempo = 10
