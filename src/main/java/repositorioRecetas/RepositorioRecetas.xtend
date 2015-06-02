@@ -5,6 +5,7 @@ import java.util.ArrayList
 import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import receta.Receta
+import queComemos.entrega3.repositorio.BusquedaRecetas
 
 @Accessors
 class RepositorioRecetas {
@@ -24,6 +25,10 @@ class RepositorioRecetas {
 
 	def listarRecetas() {
 		recetas
+	}
+	
+	def nuevasRecetas(BusquedaRecetas busquedaRecetas){
+				recetas.map[receta|receta.convertir].join
 	}
 
 	def agregar(Receta receta) {

@@ -123,5 +123,16 @@ class Receta{
 	
 	def tieneIngredientesCaros(){
 		ingredientes.forall[ingrediente|ingrediente.esCaro]
-	}		
+	}
+	
+	def String convertir() {
+		nombrePlato+this.juntaIngredientesYCondimentos+creador//falta el tiempo de preparacion
+	}
+	
+	def String juntaIngredientesYCondimentos(){
+		var Iterable<String> nombreIngredientes
+		nombreIngredientes = (condimentos+ingredientes).map[condimento|condimento.nombre]
+		nombreIngredientes.join
+	}
+	
 }
