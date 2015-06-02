@@ -1,54 +1,36 @@
 package consulta
 
-import java.util.Set
-import javax.json.JsonObject
-import queComemos.entrega3.dominio.Receta
+import java.util.HashMap
+import java.util.Map
+import receta.Receta
 
 class MonitorRecetas implements Monitor {
 	
-	Set<Receta> contadorDeRecetas
-//	Map<Receta, Integer> contadorDeRecetas = new HashMap<Receta, Integer>
-	JsonObject jsonReceta
+//	Set<Receta> contadorDeRecetas
+	Map<Receta, Integer> contadorDeRecetas = new HashMap<Receta, Integer>
 		
 	override monitorear(Consulta consulta) {
 		
 		consulta.recetas.forEach[ receta |
 			
 			
-			
-			/*if(contadorDeRecetas.exists[par | par.key.equals(receta)]) {
-				parDeR = contadorDeRecetas.findFirst[par | par.key.equals(receta)]
+			if(contadorDeRecetas.containsKey(receta)) {
 				
-				contadorDeRecetas.remove(parDeR)
-				contadorDeRecetas.add(parDeR)
-				
-				var pos = contadorDeRecetas.size -1
-				var nCant = parDeR.value + 1
-				var <Receta, Integer> lpm = <receta, nCant>
-				
-				contadorDeRecetas.set(pos, nCant)
-				
-				
-	
-				
-			}*/
-			
-			/*if(contadorDeRecetas.containsKey(it)) {
-				
-				contadorDeRecetas.replace(it, contadorDeRecetas.get(it), contadorDeRecetas.get(it) + 1) 
+				contadorDeRecetas.replace(receta, contadorDeRecetas.get(receta), contadorDeRecetas.get(receta) + 1) 
 				
 			}
 			else {
-				contadorDeRecetas.put(it, 1)
-			}*/
+				contadorDeRecetas.put(receta, 1)
+			}
 		]
 		
-		
-//		contadorDeRecetas.filter[p1, p2| p2.equals(contadorDeRecetas.values.max)].forEach[p1, p2| p1.nombre].
 		}
 		
 		override mostrarResultados() {
-			throw new UnsupportedOperationException("TODO: auto-generated method stub")
+			
+//			System.out.println(contadorDeRecetas.filter[p1, p2| p2.equals(contadorDeRecetas.values.max)].keySet.head.nombrePlato)
+			contadorDeRecetas.filter[p1, p2| p2.equals(contadorDeRecetas.values.max)].keySet.head.nombrePlato
+			
 		}
 	
 }

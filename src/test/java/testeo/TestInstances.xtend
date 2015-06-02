@@ -33,6 +33,9 @@ class TestInstances {
 	Receta recetaCaloriasBajoRango
 	Receta recetaCaloriasMayorRango
 	
+	Receta recetaSalchiPapa
+	Receta recetaPolloAlOreganato
+	
 	RutinaActiva rutinaActivaCorta
 	RutinaActiva rutinaActivaLarga
 	RutinaSedentaria rutinaSedentaria
@@ -105,6 +108,9 @@ class TestInstances {
 			"Baja","Verano")
 		recetaCaloriasMayorRango = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,100000000,
 			"Baja","Verano")
+
+		recetaSalchiPapa = new Receta("SalchiPapa", ingredientesParaCualquiera, condimentosParaCualquiera, preparacionDefault, 150, "Baja", "Verano")
+		recetaPolloAlOreganato = new Receta("Pollo al Oreganato", ingredientesAntiVegano, condimentosParaCualquiera, preparacionDefault, 150, "Alta", "Invierno")			
 			
 		rutinaActivaCorta = new RutinaActiva => [
 			tiempo = 10

@@ -19,13 +19,13 @@ class MonitorHora implements Monitor {
 		if(contadorHoras.indexOf(hora).equals(null) ) {
 			contadorHoras.set(hora, 1)
 						
-			System.out.println(contadorHoras.indexOf(contadorHoras.max).toString)
+//			System.out.println(contadorHoras.indexOf(contadorHoras.max).toString)
 		}
 		else {
 			contadorHoras.set(hora, contadorHoras.get(hora) + 1)
 			
 			
-			System.out.println(contadorHoras.indexOf(contadorHoras.max).toString)
+//			System.out.println(contadorHoras.indexOf(contadorHoras.max).toString)
 		}
 
 	}

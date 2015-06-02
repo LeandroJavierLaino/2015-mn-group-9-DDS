@@ -20,7 +20,7 @@ class RepositorioRecetas {
 	}
 
 	def tieneLaReceta(Receta receta) {
-		recetas.contains(receta)
+		(!recetas.nullOrEmpty) && recetas.contains(receta)
 	}
 
 	def listarRecetas() {
