@@ -17,6 +17,9 @@ import procesamientoPosterior.ProcesamientoPosterior
 import repositorioRecetas.RepositorioRecetas
 import org.uqbar.commons.model.Entity
 import repositorioUsuarios.RepositorioUsuarios
+import condicion.CondicionVegano
+import consulta.Consulta
+import consulta.GestorDeConsultas
 
 @Accessors
 class Usuario extends Entity{
@@ -151,8 +154,9 @@ class Usuario extends Entity{
 	}
 	
 	def aplicarFiltros(){
-		var Set<Receta> busquedaReceta = new HashSet<Receta>
-		busquedaReceta = RepositorioRecetas.getInstance().listarRecetasVisiblesPara(this)
+		
+		var busquedaReceta = RepositorioRecetas.getInstance().listarRecetasVisiblesPara(this)
+		
 		for(filtro : filtrosAAplicar){
 			busquedaReceta = filtro.filtrar(busquedaReceta,this)
 		}
@@ -160,14 +164,22 @@ class Usuario extends Entity{
 	}
 	
 	def postProcesarRecetas(){
+		
 		var Set<Receta> recetasFiltradas = new HashSet<Receta>
-		recetasFiltradas = this.aplicarFiltros()
+		recetasFiltradas = aplicarFiltros()
+		
 		var ProcesamientoPosterior procesamiento = this.indicarProcesamientoPosterior()
 		recetasFiltradas = procesamiento.asociarProcesamiento(recetasFiltradas)
+		
 		if(habilitaSusFavoritos()){
 			recetasFavoritas.addAll(recetasFiltradas)
 			recetasFiltradas = recetasFavoritas
 		}
+		
+		//Se dispara el gestor de consultas
+		var consulta = new Consulta(this, recetasFiltradas)
+		GestorDeConsultas.getInstance.monitorear(consulta)
+		
 		recetasFiltradas
 	}
 	
@@ -177,6 +189,10 @@ class Usuario extends Entity{
 	
 	def solicitarIngresoASistema(){
 		RepositorioUsuarios.getInstance.agregarAListaPendientes(this)
+	}
+	
+	def Boolean esVegano() {
+		condicionesPreexistentes.contains(CondicionVegano)
 	}
 }
 
