@@ -2,6 +2,7 @@ package filtro
 
 import cosasUsuario.Usuario
 import receta.Receta
+import java.util.List
 
 class FiltroConCondicion extends FiltroDecorador {
 	
@@ -9,13 +10,10 @@ class FiltroConCondicion extends FiltroDecorador {
 		super(decorado)
 	}
 	
-	override filtrar(Usuario unUsuario,Receta unaReceta){
-		if(!unaReceta.esRecomendablePara(unUsuario) && unUsuario.conoceReceta(unaReceta)){
-			unUsuario.filtrar(unaReceta)
-		}
-		else{
-			decorado.filtrar(unUsuario,unaReceta)
-		}
+	override filtrar(List<Receta> recetasAFiltrar,Usuario unUsuario){
+	 var List<Receta> recetasFiltradas
+    recetasFiltradas = recetasAFiltrar.filter[receta| receta.esRecomendablePara(unUsuario)].toList
+	decorado.filtrar(recetasFiltradas,unUsuario)
 	}	
 	
 }

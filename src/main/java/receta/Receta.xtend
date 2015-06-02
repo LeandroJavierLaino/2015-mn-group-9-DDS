@@ -106,5 +106,10 @@ class Receta {
 	
 	def boolean tieneIngredientesCaros() {
 		ingredientes.forall[ingrediente|ingrediente.esIngredienteCaro()]
-	}	
+	}
+	
+	def boolean superaCalorias() {
+		totalCalorias>=500
+	}
+	
 }

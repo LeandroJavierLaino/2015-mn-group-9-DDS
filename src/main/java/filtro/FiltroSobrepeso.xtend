@@ -2,6 +2,7 @@ package filtro
 
 import cosasUsuario.Usuario
 import receta.Receta
+import java.util.List
 
 class FiltroSobrepeso extends FiltroDecorador{
 	
@@ -9,11 +10,17 @@ class FiltroSobrepeso extends FiltroDecorador{
 		super(decorador)
 	}
 
-	override filtrar(Usuario unUsuario,Receta unaReceta){
-		if(unUsuario.tieneSobrepeso() && unaReceta.cantidadMaximaCalorias >= 500 && unUsuario.conoceReceta(unaReceta)){
-			unUsuario.filtrar(unaReceta)
+	override filtrar(List<Receta> recetasAFiltrar,Usuario unUsuario){
+	var List<Receta> recetasFiltradas
+	if(unUsuario.tieneSobrepeso){
+    recetasFiltradas = recetasAFiltrar.filter[receta| receta.superaCalorias()].toList
+	decorado.filtrar(recetasFiltradas,unUsuario)
+	//	if(unUsuario.tieneSobrepeso() && unaReceta.cantidadMaximaCalorias >= 500 && unUsuario.conoceReceta(unaReceta)){
+	//		unUsuario.filtrar(unaReceta)
 		}
-		decorado.filtrar(unUsuario,unaReceta)
+	else{
+		decorado.filtrar(recetasAFiltrar,unUsuario)
+	}	
 	}
 	
 }

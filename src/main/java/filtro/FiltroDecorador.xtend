@@ -1,7 +1,9 @@
 package filtro
 
-import cosasUsuario.Usuario
+
 import receta.Receta
+import java.util.List
+import cosasUsuario.Usuario
 
 abstract class FiltroDecorador implements Filtro {
 	public Filtro decorado
@@ -10,7 +12,7 @@ abstract class FiltroDecorador implements Filtro {
 		decorado=filtro
 	}
 	
-	override filtrar(Usuario usuario,Receta receta){
-		decorado.filtrar(usuario,receta)
+	override filtrar(List<Receta> recetasAFiltrar,Usuario unUsuario){
+		decorado.filtrar(recetasAFiltrar,unUsuario)
 	}
 }

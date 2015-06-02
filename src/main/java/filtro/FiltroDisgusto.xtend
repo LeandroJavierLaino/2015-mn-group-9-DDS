@@ -1,8 +1,9 @@
 package filtro
 
-import cosasUsuario.Usuario
 import receta.Receta
-import excepcion.ExceptionReceta
+//import excepcion.ExceptionReceta
+import java.util.List
+import cosasUsuario.Usuario
 
 class FiltroDisgusto extends FiltroDecorador{
 	
@@ -10,12 +11,10 @@ class FiltroDisgusto extends FiltroDecorador{
 		super(decorado)
 	}
 	
-override filtrar(Usuario unUsuario,Receta unaReceta){
-	try unUsuario.leDisgusta(unaReceta) 
-	catch(ExceptionReceta error){
-		unUsuario.filtrar(unaReceta)
-	}
-	decorado.filtrar(unUsuario,unaReceta)
+override filtrar(List<Receta> recetasAFiltrar,Usuario unUsuario){
+    var List<Receta> recetasFiltradas
+    recetasFiltradas = recetasAFiltrar.filter[receta| unUsuario.leDisgusta(receta)].toList
+	decorado.filtrar(recetasFiltradas,unUsuario)	
 }
 	
 	

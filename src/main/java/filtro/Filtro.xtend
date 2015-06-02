@@ -1,8 +1,9 @@
 package filtro
 
-import cosasUsuario.Usuario
 import receta.Receta
+import java.util.List
+import cosasUsuario.Usuario
 
 interface Filtro {
-	 	def void filtrar(Usuario usuario,Receta receta)
+	 	def void filtrar(List<Receta> recetasAFiltrar,Usuario unUsuario)
 }

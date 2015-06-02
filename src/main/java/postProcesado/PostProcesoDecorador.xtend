@@ -2,7 +2,6 @@ package postProcesado
 
 import receta.Receta
 import java.util.List
-import cosasUsuario.Usuario
 
 abstract class PostProcesoDecorador implements PostProceso {
 	public PostProceso decorado
@@ -11,8 +10,8 @@ abstract class PostProcesoDecorador implements PostProceso {
 		decorado = postProceso
 	}
 	
-	override postProcesar(Usuario unUsuario, List <Receta> recetasAMostrar){
-		decorado.postProcesar(unUsuario, recetasAMostrar)
+	override postProcesar(List <Receta> recetasAMostrar){
+		decorado.postProcesar(recetasAMostrar)
 	}
 	
 }
