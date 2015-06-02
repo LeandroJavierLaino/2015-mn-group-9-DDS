@@ -160,6 +160,9 @@ class Usuario extends Entity{
 		for(filtro : filtrosAAplicar){
 			busquedaReceta = filtro.filtrar(busquedaReceta,this)
 		}
+		
+		System.out.println(nombre + " " + busquedaReceta.map[it.nombrePlato])
+		
 		busquedaReceta
 	}
 	
@@ -175,7 +178,7 @@ class Usuario extends Entity{
 			recetasFavoritas.addAll(recetasFiltradas)
 			recetasFiltradas = recetasFavoritas
 		}
-		
+		System.out.println(nombre + " " + recetasFavoritas.map[it.nombrePlato])
 		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
 		GestorDeConsultas.getInstance.monitorear(consulta)

@@ -57,7 +57,7 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario))
+		RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario)) || usuario.tieneLaReceta(this)
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
@@ -133,6 +133,9 @@ class Receta{
 		var Iterable<String> nombreIngredientes
 		nombreIngredientes = (condimentos+ingredientes).map[condimento|condimento.nombre]
 		nombreIngredientes.join
+	}
+	def isVeryDifficult() {
+		dificultad.equalsIgnoreCase("Alta") || dificultad.equalsIgnoreCase("A") || dificultad.equalsIgnoreCase("D")
 	}
 	
 }
