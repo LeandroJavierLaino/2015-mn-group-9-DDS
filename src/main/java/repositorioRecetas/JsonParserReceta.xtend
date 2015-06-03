@@ -7,6 +7,9 @@ import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import receta.Ingrediente
 import receta.Receta
+import com.eclipsesource.json.JsonObject
+import com.eclipsesource.json.JsonArray
+import com.eclipsesource.json.JsonValue
 
 @Accessors
 class JsonParserReceta {
@@ -32,6 +35,21 @@ class JsonParserReceta {
 			ingredientesTransformados.add(ingredienteTransformado)
 		}
 		ingredientesTransformados
+	}
+
+	def parsear(JsonObject object) {
+		var List<String> ingrediente = new ArrayList<String>
+		this.nombre = object.get("nombre").asString
+		var JsonArray ingredientes = object.get("ingredientes").asArray
+		for (JsonValue value2 : ingredientes) {
+			ingrediente.add(value2.asString)
+		}
+		this.tiempoPreparacion = object.get("tiempoPreparacion").asInt
+		this.totalCalorias = object.get("totalCalorias").asInt
+		this.dificultadReceta = object.get("dificultadReceta").asString
+		this.autor = object.get("autor").asString
+		this.anioReceta = object.get("anioReceta").asInt
+		this
 	}
 
 }
