@@ -181,8 +181,11 @@ class Usuario extends Entity{
 	def listarRecetasVisibles() {
 		var Set<Receta> recetasVisibles = recetas
 		recetasVisibles.addAll(RepositorioRecetas.getInstance.listarRecetas)
-
 		
+		if(grupoAlQuePertenece != null) {
+			recetasVisibles.addAll(grupoAlQuePertenece.todasLasRecetas)
+		
+		}
 		
 		recetasVisibles
 	}
