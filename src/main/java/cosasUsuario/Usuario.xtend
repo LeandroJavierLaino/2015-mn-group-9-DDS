@@ -20,7 +20,7 @@ import repositorioUsuarios.RepositorioUsuarios
 import condicion.CondicionVegano
 import consulta.Consulta
 import consulta.GestorDeConsultas
-	
+
 @Accessors
 class Usuario extends Entity{
 
@@ -159,6 +159,8 @@ class Usuario extends Entity{
 			recetasFavoritas.addAll(recetasFiltradas)
 			recetasFiltradas = recetasFavoritas
 		}
+		
+		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
 		GestorDeConsultas.getInstance.monitorear(consulta)
 		
@@ -174,7 +176,7 @@ class Usuario extends Entity{
 	}
 	
 	def Boolean esVegano() {
-		condicionesPreexistentes.contains(CondicionVegano)
+		condicionesPreexistentes.exists[cond | cond.class.equals(CondicionVegano)]
 	}
 	def listarRecetasVisibles() {
 		var Set<Receta> recetasVisibles = recetas
