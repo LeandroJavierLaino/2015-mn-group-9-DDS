@@ -11,6 +11,7 @@ import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import repositorioRecetas.RepositorioRecetas
+import condicion.CondicionPreexistente
 
 //Nuevas excepciones modificadas
 @Accessors
@@ -27,6 +28,7 @@ class Receta{
 	double cantidadMaximaCalorias = 5000
 	Set<Receta> subRecetas = new HashSet<Receta>
 	Usuario creador
+	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
 
 	new(String nombre, Set<Ingrediente> ingredientesCargados, Set<Condimento> condimentosCargados,
 		List<String> procesoPreparacionCargado, double caloriasCargadas, String dificultadCargada,
@@ -125,17 +127,17 @@ class Receta{
 		ingredientes.forall[ingrediente|ingrediente.esCaro]
 	}
 	
-	def String convertir() {
-		nombrePlato+this.juntaIngredientesYCondimentos+creador//falta el tiempo de preparacion
-	}
-	
-	def String juntaIngredientesYCondimentos(){
-		var Iterable<String> nombreIngredientes
-		nombreIngredientes = (condimentos+ingredientes).map[condimento|condimento.nombre]
-		nombreIngredientes.join
-	}
 	def isVeryDifficult() {
 		dificultad.equalsIgnoreCase("Alta") || dificultad.equalsIgnoreCase("A") || dificultad.equalsIgnoreCase("D")
+	}
+	
+	def asignarAutor(String string) {
+		creador = new Usuario
+		creador.nombre = string
+	}
+	
+	def esInadecuadaParaLasCondiciones(){
+		condicionesPreexistentes = condicionesPreexistentes.filter[condicion | condicion.tolera(this)].toSet
 	}
 	
 }

@@ -5,13 +5,17 @@ import java.util.ArrayList
 import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import receta.Receta
-//import queComemos.entrega3.repositorio.BusquedaRecetas
+import queComemos.entrega3.repositorio.BusquedaRecetas
+import java.util.List
 
 @Accessors
 class RepositorioRecetas {
 	Collection<Receta> recetas = new ArrayList<Receta>
 	static RepositorioRecetas instance = null
-
+	AdapterRepositorioRecetas adapter
+	
+	Collection<Receta> recetasTotales = new ArrayList<Receta>
+	
 	static def getInstance() {
 		if (instance == null) {
 			instance = new RepositorioRecetas()
@@ -24,7 +28,7 @@ class RepositorioRecetas {
 	}
 
 	def listarRecetas() {
-		recetas
+		recetasTotales
 	}
 
 	def agregar(Receta receta) {
@@ -39,8 +43,11 @@ class RepositorioRecetas {
 		listarRecetas.filter[unaReceta|unaReceta.puedeVerReceta(usuario)].toSet
 	}
 	
-	def obtenerRecetasExternas(Collection<Receta> recetasExternas) {
+	def obtenerRecetasExternas(BusquedaRecetas busquedaRecetas) {
+		var List<Receta> recetasExternas = new ArrayList<Receta>
+		recetasExternas = adapter.obtenerRecetas(busquedaRecetas)
 		recetas.addAll(recetasExternas)
+		recetasTotales = recetas
 	}
 	
 }

@@ -20,7 +20,7 @@ import repositorioUsuarios.RepositorioUsuarios
 import condicion.CondicionVegano
 import consulta.Consulta
 import consulta.GestorDeConsultas
-
+	
 @Accessors
 class Usuario extends Entity{
 
@@ -161,8 +161,6 @@ class Usuario extends Entity{
 			busquedaReceta = filtro.filtrar(busquedaReceta,this)
 		}
 		
-		System.out.println(nombre + " " + busquedaReceta.map[it.nombrePlato])
-		
 		busquedaReceta
 	}
 	
@@ -178,7 +176,6 @@ class Usuario extends Entity{
 			recetasFavoritas.addAll(recetasFiltradas)
 			recetasFiltradas = recetasFavoritas
 		}
-		System.out.println(nombre + " " + recetasFavoritas.map[it.nombrePlato])
 		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
 		GestorDeConsultas.getInstance.monitorear(consulta)
