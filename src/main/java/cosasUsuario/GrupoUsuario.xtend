@@ -13,6 +13,7 @@ class GrupoUsuario {
 	List<Caracteristica> palabrasClave = new ArrayList<Caracteristica>
 	Set<Usuario> usuarios = new HashSet<Usuario>
 	String nombre
+	Set<Receta> recetas
 	
 	def perteneceALasPalabrasClave(Caracteristica caracteristica){
 		palabrasClave.contains(caracteristica)
@@ -37,5 +38,17 @@ class GrupoUsuario {
 	
 	def puedeSerSugeridaRecetaAlGrupo(Receta receta){
 		receta.tieneUnIngredienteOCondimentoQueGustaPara(this) && this.esApropiadoParaTodos(receta)
+	}
+	def todasLasRecetas() {
+		
+		var Set<Receta> todasLasRecetas = new HashSet
+		todasLasRecetas = emptySet
+		
+		for(usuario : usuarios) {
+			todasLasRecetas.addAll(usuario.recetas)
+		}
+		System.out.println(todasLasRecetas)
+		todasLasRecetas
+
 	}
 }
