@@ -10,7 +10,6 @@ import java.util.Set
 class FiltroPosta implements Filtro {
 
 	override filtrar(List<Receta> recetasAFiltrar,Usuario unUsuario) {
-		recetasAFiltrar.toSet
+		unUsuario.recetasPorFiltros = recetasAFiltrar
 	}
-
 }

@@ -47,16 +47,16 @@ class TestDecorator extends TestFiltersAndPostProc{
 	def void postProcesPostaYfiltroConCondicySobrep() {
 		usrDiabetico3.recetas = listaRecetasTriple.toSet
 		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
-		postProcesoPosta.postProcesar(filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3))//el postProceso tiene que recibir una lista pero hay que cambiar algo para que reciba un List en ves de un Set.
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)
+		filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)//el postProceso tiene que recibir una lista pero hay que cambiar algo para que reciba un List en ves de un Set.
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , postProcesoPosta.postProcesar(usrDiabetico3.recetasPorFiltros))
 }
 	
 	@Test
 	def void postProcesOrdenadoCalorYfiltroConCondicySobrep() {
 		usrDiabetico3.recetas = listaRecetasTriple.toSet
 		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
-		postProcesoOrdenadoCalor.postProcesar(filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3))
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)
+		filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , postProcesoOrdenadoCalor.postProcesar(usrDiabetico3.recetasPorFiltros))
 	}
 	
 	
@@ -64,11 +64,10 @@ class TestDecorator extends TestFiltersAndPostProc{
 	def void postProcesOrdenadoCalorYfiltroConCondicySobrepDadoVuelta() {
 	//	usrDiabetico3.postProceso = postProcesoOrdenadoCalor
 	//	usrDiabetico3.filtro = filtroSobrep
-		usrDiabetico3.recetas = listaRecetasCualquieraYDiabetico.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetasCualquieraYDiabetico
+		usrDiabetico3.recetas = listaRecetasCualquieraYVegano.toSet
+		usrDiabetico3.recetasPorFiltros = listaRecetasCualquieraYVegano
 		filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
-		postProcesoOrdenadoCalor.postProcesar(usrDiabetico3.recetasPorFiltros)
-		Assert.assertArrayEquals(listaRecetasDiabeticoYCualquiera , usrDiabetico3.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , postProcesoOrdenadoCalor.postProcesar(usrDiabetico3.recetasPorFiltros))
 	}
 	
 	
@@ -79,7 +78,6 @@ class TestDecorator extends TestFiltersAndPostProc{
 		usrDiabetico3.recetas = listaRecetasVeganoYDobleCualquiera.toSet
 		usrDiabetico3.recetasPorFiltros = listaRecetasVeganoYDobleCualquiera
 		filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
-		postProcesoResultadosPares.postProcesar(usrDiabetico3.recetasPorFiltros)
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , postProcesoResultadosPares.postProcesar(usrDiabetico3.recetasPorFiltros))
 	}
 }

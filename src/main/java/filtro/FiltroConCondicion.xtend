@@ -14,6 +14,6 @@ class FiltroConCondicion extends FiltroDecorador {
 	 var List<Receta> recetasFiltradas
     recetasFiltradas = recetasAFiltrar.filter[receta| receta.esRecomendablePara(unUsuario)].toList
 	decorado.filtrar(recetasFiltradas,unUsuario)
-	}	
-	
+	}
+
 }

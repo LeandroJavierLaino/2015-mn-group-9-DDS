@@ -49,6 +49,7 @@ abstract class TestInstances{
 	List<String> preparacionDefault = new ArrayList<String>
 	List<Receta> listaRecetasTriple = new ArrayList<Receta>
 	List<Receta> listaRecetasVeganoYCualquiera = new ArrayList<Receta>
+	List<Receta> listaRecetasCualquieraYVegano = new ArrayList<Receta>
 	List<Receta> listaRecetasCualquieraYDiabetico = new ArrayList<Receta>
 	List<Receta> listaRecetasDiabeticoYCualquiera = new ArrayList<Receta>
 	List<Receta> listaRecetasVeganoYDobleCualquiera = new ArrayList<Receta>
@@ -78,9 +79,9 @@ abstract class TestInstances{
 
 		recetaAntiVegano = new Receta("antiVegano",ingredientesAntiVegano,condimentosParaCualquiera,preparacionDefault,150,
 			"Baja","Verano")
+		recetaAntiVegano.cantidadMinimaCalorias = 2 //esta hardcodeado
 		recetaAntiDiabetico = new Receta("antiDiabetico",ingredientesParaCualquiera,condimentosAntiDiabetico,preparacionDefault,250,
 			"Media","Invierno")
-		recetaAntiDiabetico.cantidadMinimaCalorias = 2 //esta hardcodeado
 		recetaParaCualquiera = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,150,
 			"Baja","Verano")
 		recetaSinIngrediente = new Receta("default",ingredientesVacios,condimentosParaCualquiera,preparacionDefault,150,
@@ -97,8 +98,8 @@ abstract class TestInstances{
 		listaRecetasVeganoYCualquiera.add(recetaAntiVegano)
 		listaRecetasVeganoYCualquiera.add(recetaParaCualquiera)
 		
-		listaRecetasCualquieraYDiabetico.add(recetaParaCualquiera)
-		listaRecetasCualquieraYDiabetico.add(recetaAntiDiabetico)
+		listaRecetasCualquieraYVegano.add(recetaParaCualquiera)
+		listaRecetasCualquieraYVegano.add(recetaAntiVegano)
 		
 		listaRecetasDiabeticoYCualquiera.add(recetaAntiDiabetico)
 		listaRecetasDiabeticoYCualquiera.add(recetaParaCualquiera)

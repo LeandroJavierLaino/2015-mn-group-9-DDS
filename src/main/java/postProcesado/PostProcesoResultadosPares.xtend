@@ -5,21 +5,17 @@ import receta.Receta
 
 class PostProcesoResultadosPares extends PostProcesoDecorador{
 	
+	int i
+	
 	new(PostProceso decorado) {
 		super(decorado)
 	}
 	
 	override postProcesar(List<Receta> recetasAMostrar){
-		var i = 1 as int
-		var esPar=false
+		i=1
 		while(i<recetasAMostrar.size()){
-			if(esPar){
-			recetasAMostrar.get(i)
-			esPar=false
-			}
-			else{
-				esPar=true
-			}
+			recetasAMostrar.remove(i)
+			i = i + 2
 		}
 		decorado.postProcesar(recetasAMostrar)
 	}

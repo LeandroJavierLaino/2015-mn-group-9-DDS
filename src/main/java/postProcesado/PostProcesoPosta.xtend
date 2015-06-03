@@ -11,7 +11,7 @@ class PostProcesoPosta implements PostProceso {
 		throw new ExceptionReceta("no se obtuvo ninguna receta")
 		}
 		else{
-			recetasAMostrar.toList
+			return recetasAMostrar.toList
 		}
 	}
 }
