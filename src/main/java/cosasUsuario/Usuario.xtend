@@ -63,14 +63,6 @@ class Usuario extends Entity{
 		fechaValida(fechaActual, fechaDeNacimiento)
 		
 	}
-	
-	/*def validar() {
-		if (altura > 0 && peso > 0 && nombre.length() >= CARACTERES_MINIMOS && condicionesPreexistentesSonValidas()) {
-			fechaValida(fechaActual, fechaDeNacimiento)
-		} else {
-			throw new UsuarioInvalidoExcepcion("Usuario no valido")
-		}
-	}*/
 
 	def tieneLaReceta(Receta receta) {
 		recetas.contains(receta)
@@ -107,15 +99,6 @@ class Usuario extends Entity{
 		if (fechaActual.isBefore(fechaSegunda)) 
 			throw new FechaInvalidaExcepcion("Se Ingreso una fecha invalida")		
 	}
-
-	/*def fechaValida(LocalDate fechaActual, LocalDate fechaSegunda) {
-		if (fechaActual.getYear > fechaSegunda.getYear) {
-			throw new FechaInvalidaExcepcion("Se ingreso una fecha con año mayor al actual")
-		} else if (fechaActual.getMonthOfYear < fechaSegunda.getMonthOfYear) {
-			throw new FechaInvalidaExcepcion("Se ingreso una fecha con un mes mayor al actual")
-		} else if (fechaActual.getDayOfMonth > fechaSegunda.getDayOfMonth)
-			throw new FechaInvalidaExcepcion("Se ingreso un día mayor al actual")
-	}*/
 	
 	def contienteComidaQueDisgusta(Caracteristica comidaQueDisgusta) {
 		comidasQueDisgustan.contains(comidaQueDisgusta)
@@ -155,13 +138,11 @@ class Usuario extends Entity{
 	
 	def aplicarFiltros(){
 		
-		var busquedaReceta = RepositorioRecetas.getInstance().listarRecetasVisiblesPara(this)
+		var busquedaReceta = listarRecetasVisibles
 		
 		for(filtro : filtrosAAplicar){
 			busquedaReceta = filtro.filtrar(busquedaReceta,this)
 		}
-		
-		System.out.println(nombre + " " + busquedaReceta.map[it.nombrePlato])
 		
 		busquedaReceta
 	}
@@ -178,7 +159,7 @@ class Usuario extends Entity{
 			recetasFavoritas.addAll(recetasFiltradas)
 			recetasFiltradas = recetasFavoritas
 		}
-		System.out.println(nombre + " " + recetasFavoritas.map[it.nombrePlato])
+		
 		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
 		GestorDeConsultas.getInstance.monitorear(consulta)
@@ -196,6 +177,14 @@ class Usuario extends Entity{
 	
 	def Boolean esVegano() {
 		condicionesPreexistentes.contains(CondicionVegano)
+	}
+	def listarRecetasVisibles() {
+		var Set<Receta> recetasVisibles = recetas
+		recetasVisibles.addAll(RepositorioRecetas.getInstance.listarRecetas)
+
+		
+		
+		recetasVisibles
 	}
 }
 

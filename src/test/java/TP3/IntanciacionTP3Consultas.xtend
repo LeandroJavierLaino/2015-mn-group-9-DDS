@@ -1,24 +1,24 @@
 package TP3
 
-import testeo.Grupos
-import procesamientoPosterior.ProcesamientoParaTomarResultadosPares
-import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
 import consulta.GestorDeConsultas
-import filtro.FiltroPorGusto
-import filtro.FiltroPorExcesoDeCalorias
 import consulta.MonitorHora
 import consulta.MonitorRecetas
-import consulta.MonitorRecetasM
 import consulta.MonitorRecetasF
+import consulta.MonitorRecetasM
 import consulta.MonitorVegano
-import org.joda.time.DateTime
+import filtro.FiltroPorExcesoDeCalorias
+import filtro.FiltroPorGusto
 import java.util.HashSet
-import receta.Receta
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.DateTime
+import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
+import procesamientoPosterior.ProcesamientoParaTomarResultadosPares
+import receta.Receta
+import testeo.UsuariosExtras
 
 @Accessors
-class IntanciacionTP3Consultas extends Grupos {
+class IntanciacionTP3Consultas extends UsuariosExtras {
 	FiltroPorGusto filtroGusto
 	FiltroPorExcesoDeCalorias filtroExceso
 	Set<Receta> recetasFiltradas = new HashSet<Receta>
@@ -71,7 +71,6 @@ class IntanciacionTP3Consultas extends Grupos {
 		
 		pablo.procesamiento = new ProcesamientoParaTomarResultadosPares
 		pablo.filtrosAAplicar.add(filtroGusto)
-		pablo.recetasFavoritas.add(recetaAntiVegano)
 		pablo.postProcesarRecetas
 		
 		diego.procesamiento = new ProcesamientoOrdenarlosPorNombre
