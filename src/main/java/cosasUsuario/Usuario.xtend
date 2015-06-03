@@ -162,7 +162,7 @@ class Usuario extends Entity{
 		
 		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
-		GestorDeConsultas.getInstance.monitorear(consulta)
+		GestorDeConsultas.getInstance.realizar(consulta)
 		
 		recetasFiltradas
 	}

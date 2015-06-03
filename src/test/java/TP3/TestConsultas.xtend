@@ -19,24 +19,23 @@ class TestConsultas extends IntanciacionTP3Consultas {
 	@Test
 	def void verHorasMasConsultadas(){
 		
-		Assert.assertEquals(hora.toString ,monitor1.mostrarResultados)
+		Assert.assertEquals(hora.toString ,recetasPorHora.mostrarResultados)
 	}
 	@Test
 	def void RecetasMasConsultadas() {
 		
-		Assert.assertEquals("SalchiPapa", monitor2.mostrarResultados)
-		
+		Assert.assertEquals("SalchiPapa", recetasMasConsultadas.mostrarResultados)
 	}
 	@Test
 	def void recetasMasConsultadasPorHombres() {
-		Assert.assertEquals("SalchiPapa", monitorRecetasHombre.mostrarResultados)
+		Assert.assertEquals("SalchiPapa", recetasMasConsultadasM.mostrarResultados)
 	}
 	@Test
 	def void recetasMasConsultadasPorMujeres() {
-		Assert.assertEquals("Pollo al Oreganato", monitorRecetasMujer.mostrarResultados)
+		Assert.assertEquals("Pollo al Oreganato", recetasMasConsultadasF.mostrarResultados)
 	}
 	@Test
 	def void contadorDeVeganos() { //Y ESTA TAMBIEN ESTA POR QUEEEE
-		Assert.assertEquals("1", monitorVegano.mostrarResultados)
+		Assert.assertEquals("1", recetasVegano.mostrarResultados)
 	}
 }

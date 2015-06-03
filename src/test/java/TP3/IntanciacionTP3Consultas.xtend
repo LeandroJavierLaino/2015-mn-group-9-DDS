@@ -1,11 +1,11 @@
 package TP3
 
 import consulta.GestorDeConsultas
-import consulta.MonitorHora
-import consulta.MonitorRecetas
-import consulta.MonitorRecetasF
-import consulta.MonitorRecetasM
-import consulta.MonitorVegano
+import consulta.recetasPorHora
+import consulta.recetasMasConsultadas
+import consulta.recetasMasConsultadasM
+import consulta.recetasMasConsultadasF
+import consulta.recetasVegano
 import filtro.FiltroPorExcesoDeCalorias
 import filtro.FiltroPorGusto
 import java.util.HashSet
@@ -22,11 +22,11 @@ class IntanciacionTP3Consultas extends UsuariosExtras {
 	FiltroPorGusto filtroGusto
 	FiltroPorExcesoDeCalorias filtroExceso
 	Set<Receta> recetasFiltradas = new HashSet<Receta>
-	MonitorHora monitor1
-	MonitorRecetas monitor2
-	MonitorRecetasM monitorRecetasHombre
-	MonitorRecetasF monitorRecetasMujer
-	MonitorVegano monitorVegano
+	recetasPorHora recetasPorHora
+	recetasMasConsultadas recetasMasConsultadas
+	recetasMasConsultadasM recetasMasConsultadasM
+	recetasMasConsultadasF recetasMasConsultadasF
+	recetasVegano recetasVegano
 	DateTime time
 	int hora
 	
@@ -38,20 +38,20 @@ class IntanciacionTP3Consultas extends UsuariosExtras {
 		filtroGusto = new FiltroPorGusto
 		filtroExceso = new FiltroPorExcesoDeCalorias
 		
-		monitor1 = new MonitorHora
-		monitor2 = new MonitorRecetas
-		monitorRecetasHombre = new MonitorRecetasM
-		monitorRecetasMujer = new MonitorRecetasF
-		monitorVegano = new MonitorVegano
+		recetasPorHora = new recetasPorHora
+		recetasMasConsultadas = new recetasMasConsultadas
+		recetasMasConsultadasM = new recetasMasConsultadasM
+		recetasMasConsultadasF = new recetasMasConsultadasF
+		recetasVegano = new recetasVegano
 		
 		time = new DateTime()
 		hora = time.getHourOfDay()
 		
-		GestorDeConsultas.getInstance.monitores.add(monitor1)
-		GestorDeConsultas.getInstance.monitores.add(monitor2)
-		GestorDeConsultas.getInstance.monitores.add(monitorRecetasHombre)
-		GestorDeConsultas.getInstance.monitores.add(monitorRecetasMujer)
-		GestorDeConsultas.getInstance.monitores.add(monitorVegano)
+		recetasPorHora.activarRecetasPorHora(GestorDeConsultas.getInstance.consultasRecetasPorHora)
+		recetasMasConsultadas.activarRecetasMasConsultadas(GestorDeConsultas.getInstance.consultasRecetasMasConsultadas)
+		recetasMasConsultadasM.activarRecetasMasConsultadasM(GestorDeConsultas.getInstance.consultasRecetasMasConsultadasM)
+		recetasMasConsultadasF.activarRecetasMasConsultadasF(GestorDeConsultas.getInstance.consultasRecetasMasConsultadasF)
+		recetasVegano.activarRecetasVegano(GestorDeConsultas.getInstance.consultasRecetasVeganos)
 		
 		nicolas.recetasFavoritas.add(recetaSalchiPapa)
 		nicolas.agregarReceta(recetaAntiVegano)
