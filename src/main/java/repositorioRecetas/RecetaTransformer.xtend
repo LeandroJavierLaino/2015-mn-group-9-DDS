@@ -18,7 +18,7 @@ class JsonParserReceta {
 	String autor
 	int anioReceta
 
-	def transformarReceta(JsonParserReceta receta) {
+	def Receta transformarReceta(JsonParserReceta receta) {
 		var Receta recetaTransformada = new Receta(receta.nombre, this.transformarIngredientes(receta.ingredientes),
 			emptySet, emptyList, receta.totalCalorias as double, receta.dificultadReceta, "")
 		recetaTransformada.asignarAutor(receta.autor)
