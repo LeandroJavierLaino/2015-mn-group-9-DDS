@@ -5,5 +5,5 @@ import java.util.List
 import cosasUsuario.Usuario
 
 interface Filtro {
-	 	def void filtrar(List<Receta> recetasAFiltrar,Usuario unUsuario)
+	 	def List<Receta> filtrar(List<Receta> recetasAFiltrar,Usuario unUsuario)
 }

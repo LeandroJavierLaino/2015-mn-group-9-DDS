@@ -1,8 +1,10 @@
 package TP2xDecorator
 
-
+import java.util.ArrayList
+import java.util.List
 import org.junit.Assert
 import org.junit.Test
+import receta.Receta
 import testeo.TestFiltersAndPostProc
 
 class TestDecorator extends TestFiltersAndPostProc{
@@ -12,15 +14,14 @@ class TestDecorator extends TestFiltersAndPostProc{
 	@Test
 	def void filtroBasico() {
 		usrDiabetico3.recetas = listaRecetasTriple.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
-		filtroPos.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
-		Assert.assertArrayEquals(listaRecetasTriple , usrDiabetico3.recetasPorFiltros)
+		var List<Receta> result = new ArrayList<Receta>()
+		result = filtroPos.filtrar(usrDiabetico3.recetas.toList, usrDiabetico3)
+		Assert.assertArrayEquals(listaRecetasTriple , result)
 	}
 	
 	@Test
 	def void filtroConCondic() {
 		usrDiabetico3.recetas = listaRecetasTriple.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
 		filtroCond.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
 		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)//se espera que no devuelva la misma lista
 	}
