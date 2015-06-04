@@ -9,6 +9,7 @@ import org.junit.Before
 import org.junit.Test
 import repositorioUsuarios.RepositorioUsuarios
 import testeo.UsuariosExtras
+import org.junit.After
 
 @Accessors
 class TestRepositorioUsuarios extends UsuariosExtras {
@@ -35,6 +36,11 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		diego.solicitarIngresoASistema()
 		Assert.assertEquals(listaResultadoConDiego, repousuarios.listaPorAceptarse)
 	}
+	
+	@After
+	def void borrarLista(){
+		repousuarios.listaPorAceptarse.removeAll
+	}
 
 	@Test
 	def void aceptarSuscripcionDeDiegoYRechazarALeandro() {
@@ -44,6 +50,12 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		admin.rechazarSuscripcion(leandro, "no puso bien su nombre")
 		admin.aceptarSuscripcion(diego)
 		Assert.assertEquals(listaAceptados, repousuarios.allInstances)
+	}
+	
+	@After
+	def void borrarLista2(){
+		repousuarios.allInstances.removeAll
+		repousuarios.listaPorAceptarse.removeAll
 	}
 
 	@Test
@@ -57,6 +69,12 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		admin.aceptarSuscripcion(leandro)
 		usuarioDevuelto = repousuarios.get(usuarioPrototipo)
 		Assert.assertEquals(usuarioDevuelto, diego)
+	}
+	
+	@After
+	def void borrarLista3(){
+		repousuarios.allInstances.removeAll
+		repousuarios.listaPorAceptarse.removeAll
 	}
 
 	@Test

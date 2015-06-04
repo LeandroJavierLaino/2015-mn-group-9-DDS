@@ -12,9 +12,8 @@ class TestConsultas extends IntanciacionTP3Consultas {
 	}
 	
 	@Test
-	def void NicolasConsultaRecetas(){ //POR QUE DA 1?!!!!!
-		
-		Assert.assertEquals(3,recetasFiltradas.size)
+	def void NicolasConsultaRecetas(){ 
+		Assert.assertEquals(#[recetaAntiDiabetico,recetaAntiVegano,recetaSalchiPapa],recetasFiltradas.toList)
 	}
 	@Test
 	def void verHorasMasConsultadas(){
@@ -36,7 +35,7 @@ class TestConsultas extends IntanciacionTP3Consultas {
 		Assert.assertEquals("Pollo al Oreganato", monitorRecetasMujer.mostrarResultados)
 	}
 	@Test
-	def void contadorDeVeganos() { //Y ESTA TAMBIEN ESTA POR QUEEEE
+	def void contadorDeVeganos() { 
 		Assert.assertEquals("1", monitorVegano.mostrarResultados)
 	}
 }

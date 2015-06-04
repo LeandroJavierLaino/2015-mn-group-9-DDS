@@ -32,7 +32,7 @@ class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 	}
 
 	def get(Usuario usuario) {
-		this.searchByExample(usuario).toList.get(0)
+		this.searchByExample(usuario).toList.head
 		//allInstances.filter[usuarioLista|usuarioLista.nombre.equals(usuario.nombre)].toList.get(0)
 	}
 

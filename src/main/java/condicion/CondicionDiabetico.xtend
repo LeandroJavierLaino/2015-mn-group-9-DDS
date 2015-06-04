@@ -28,4 +28,8 @@ class CondicionDiabetico implements CondicionPreexistente {
 	override def tolera(Receta unaReceta) {
 		(!unaReceta.contieneComida("Azucar",100))
 	}
+	
+	override def esCondicionVegana(){
+		false
+	}
 }

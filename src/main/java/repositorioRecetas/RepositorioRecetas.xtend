@@ -12,7 +12,7 @@ import java.util.List
 class RepositorioRecetas {
 	Collection<Receta> recetas = new ArrayList<Receta>
 	static RepositorioRecetas instance = null
-	AdapterRepositorioRecetas adapter
+	AdapterRepositorioRecetas adapter = new AdapterRepositorioRecetas
 	
 	Collection<Receta> recetasTotales = new ArrayList<Receta>
 	
