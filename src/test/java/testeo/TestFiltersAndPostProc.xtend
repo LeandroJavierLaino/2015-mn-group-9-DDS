@@ -11,23 +11,23 @@ import org.junit.Before
 
 @Accessors
 class TestFiltersAndPostProc extends TestUsers{
-	FiltroPosta filtroPos
-	FiltroConCondicion filtroCond
-	FiltroSobrepeso filtroSobrep
+	FiltroPosta filtroPosta
+	FiltroConCondicion filtroCondicionPreex
+	FiltroSobrepeso filtroSobrepeso
 	PostProcesoPosta postProcesoPosta
-	PostProcesoOrdenadoCalor postProcesoOrdenadoCalor
+	PostProcesoOrdenadoCalor postProcesoOrdenadoCalorias
 	PostProcesoResultadosPares postProcesoResultadosPares
 		
 @Before
 	override void init() {
 		super.init()
 		
-		filtroPos = new FiltroPosta
-		filtroCond = new FiltroConCondicion(new FiltroPosta)
-		filtroSobrep = new FiltroSobrepeso(new FiltroConCondicion(new FiltroPosta))
+		filtroPosta = new FiltroPosta
+		filtroCondicionPreex = new FiltroConCondicion(new FiltroPosta)
+		filtroSobrepeso = new FiltroSobrepeso(new FiltroConCondicion(new FiltroPosta))
 		
 		postProcesoPosta = new PostProcesoPosta
-		postProcesoOrdenadoCalor = new PostProcesoOrdenadoCalor(new PostProcesoPosta)
+		postProcesoOrdenadoCalorias = new PostProcesoOrdenadoCalor(new PostProcesoPosta)
 		postProcesoResultadosPares = new PostProcesoResultadosPares(new PostProcesoPosta)
 	}
 }

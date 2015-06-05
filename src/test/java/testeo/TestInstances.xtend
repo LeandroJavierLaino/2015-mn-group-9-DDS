@@ -47,7 +47,7 @@ abstract class TestInstances{
 	Set<Ingrediente> ingredientesParaCualquiera = new HashSet<Ingrediente>
 	Set<Ingrediente> ingredientesAntiVegano = new HashSet<Ingrediente>
 	List<String> preparacionDefault = new ArrayList<String>
-	List<Receta> listaRecetasTriple = new ArrayList<Receta>
+	List<Receta> listaRecetasVeganoDiabeticoYCualquiera = new ArrayList<Receta>
 	List<Receta> listaRecetasVeganoYCualquiera = new ArrayList<Receta>
 	List<Receta> listaRecetasCualquieraYVegano = new ArrayList<Receta>
 	List<Receta> listaRecetasCualquieraYDiabetico = new ArrayList<Receta>
@@ -91,9 +91,9 @@ abstract class TestInstances{
 		recetaCaloriasMayorRango = new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,100000000,
 			"Baja","Verano")
 			
-		listaRecetasTriple.add(recetaAntiVegano)
-		listaRecetasTriple.add(recetaAntiDiabetico)
-		listaRecetasTriple.add(recetaParaCualquiera)
+		listaRecetasVeganoDiabeticoYCualquiera.add(recetaAntiVegano)
+		listaRecetasVeganoDiabeticoYCualquiera.add(recetaAntiDiabetico)
+		listaRecetasVeganoDiabeticoYCualquiera.add(recetaParaCualquiera)
 		
 		listaRecetasVeganoYCualquiera.add(recetaAntiVegano)
 		listaRecetasVeganoYCualquiera.add(recetaParaCualquiera)

@@ -1,84 +1,84 @@
 package TP2xDecorator
 
-import java.util.ArrayList
 import java.util.List
 import org.junit.Assert
 import org.junit.Test
 import receta.Receta
 import testeo.TestFiltersAndPostProc
 
+//Tests del Decorator
+
+	/* 
+	Casos de Prueba
+	
+	Lista de Recetas								Filtro/PostProceso						Resultado
+	[antiVegano, antiDiabetico, paraCualquiera] 	filtroPosta	   							devuelve la misma lista
+	[antiVegano, antiDiabetico, paraCualquiera]		filtroCondicionPreex					quita el antiDiabetico
+	[antiVegano, antiDiabetico, paraCualquiera]		filtroSobrepeso							quita el antiDiabetico
+	[antiVegano, antiDiabetico, paraCualquiera]		filtroSobrepeso/postProcesoPosta		solo filtra al antiDiabetico
+	[antiVegano, antiDiabetico, paraCualquiera]		filtroSobrepeso/postProcesoCalorias		filtra al antiDiabetico y ordena por calorias (igual)
+	[paraCualquiera, antiVegano]					filtroSobrepeso/postProcesoCalorias		ordena por calorias (dado vuelta)
+	[antiVegano, paraCualquiera, paraCualquiera]	filtroSobrepeso/postProcesoPosta		filtra y no postProcesa
+	[antiVegano, paraCualquiera, paraCualquiera]	filtroSobrepeso/postProcesoResultPares	quita a los resultados pares (paraCualquiera)
+	*/
+
+
 class TestDecorator extends TestFiltersAndPostProc{
 	
-	
-	
 	@Test
-	def void filtroBasico() {
-		usrDiabetico3.recetas = listaRecetasTriple.toSet
-		var List<Receta> result = new ArrayList<Receta>()
-		result = filtroPos.filtrar(usrDiabetico3.recetas.toList, usrDiabetico3)
-		Assert.assertArrayEquals(listaRecetasTriple , result)
+	def void filtroBasico() { //No filtra nada, es el filtro Posta
+		var List<Receta> result = filtroPosta.filtrar(listaRecetasVeganoDiabeticoYCualquiera, usrDiabetico3)
+		Assert.assertArrayEquals(listaRecetasVeganoDiabeticoYCualquiera , result)
+		
+	
 	}
 	
 	@Test
-	def void filtroConCondic() {
-		usrDiabetico3.recetas = listaRecetasTriple.toSet
-		filtroCond.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)//se espera que no devuelva la misma lista
+	def void filtroConCondicionesPreex() { //Al ser un user diabetico filtra la receta antiDiabetico
+		var List<Receta> result = filtroCondicionPreex.filtrar(listaRecetasVeganoDiabeticoYCualquiera, usrDiabetico3)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera, result)
 	}
 	
 	@Test
-	def void filtroConCondicySobrep() {
-		usrDiabetico3.recetas = listaRecetasTriple.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
-		filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrDiabetico3.recetasPorFiltros)//se espera que no devuelva la misma lista
+	def void filtroConCondicionesPreexYSobrepeso() { //Al ser un user diabetico filtra la receta antiDiabetico
+		var List<Receta> result = filtroSobrepeso.filtrar(listaRecetasVeganoDiabeticoYCualquiera,usrDiabetico3)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , result)
 	}
 	
 	
-/*	@Test
-	def void filtroConCondicySobrepNoCumple() {
-		usrInval2.filtro = filtroSobrep
-		usrInval2.recetas = listaRecetasTriple.toSet
-		usrInval2.recetasPorFiltros = listaRecetasTriple
-		usrInval2.filtrarRecetas()
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , usrInval2.recetasPorFiltros)
-	}*/
-	
 	@Test
-	def void postProcesPostaYfiltroConCondicySobrep() {
-		usrDiabetico3.recetas = listaRecetasTriple.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
-		filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)//el postProceso tiene que recibir una lista pero hay que cambiar algo para que reciba un List en ves de un Set.
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , postProcesoPosta.postProcesar(usrDiabetico3.recetasPorFiltros))
+	def void postProcesPostaYfiltroConCondicionesPreexYSobrepeso() { //Solo lo filtra, no PostProcesa, es el postProcesoPosta
+		var List<Receta> result = filtroSobrepeso.filtrar(listaRecetasVeganoDiabeticoYCualquiera,usrDiabetico3)
+		result = postProcesoPosta.postProcesar(result)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , result)
 }
 	
 	@Test
-	def void postProcesOrdenadoCalorYfiltroConCondicySobrep() {
-		usrDiabetico3.recetas = listaRecetasTriple.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetasTriple
-		filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , postProcesoOrdenadoCalor.postProcesar(usrDiabetico3.recetasPorFiltros))
+	def void postProcesOrdenadoCaloriasYfiltroConCondicionesPreexYSobrepeso() { //Filtra y luego ordena por calorias minimas (igual)
+		var List<Receta> result = filtroSobrepeso.filtrar(listaRecetasVeganoDiabeticoYCualquiera,usrDiabetico3)
+		result = postProcesoOrdenadoCalorias.postProcesar(result)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , result)
 	}
 	
 	
 	@Test
-	def void postProcesOrdenadoCalorYfiltroConCondicySobrepDadoVuelta() {
-	//	usrDiabetico3.postProceso = postProcesoOrdenadoCalor
-	//	usrDiabetico3.filtro = filtroSobrep
-		usrDiabetico3.recetas = listaRecetasCualquieraYVegano.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetasCualquieraYVegano
-		filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , postProcesoOrdenadoCalor.postProcesar(usrDiabetico3.recetasPorFiltros))
+	def void postProcesOrdenadoCaloriasYfiltroConCondicionesPreexYSobrepesoDadoVuelta() { //Filtra y ordena por calorias minimas (dado vuelta)
+		var List<Receta> result = filtroSobrepeso.filtrar(listaRecetasCualquieraYVegano,usrDiabetico3)
+		result = postProcesoOrdenadoCalorias.postProcesar(result)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , result)
 	}
 	
+	@Test
+	def void postProcesPostaInutilYfiltroConCondicionesPreexYSobrepeso() { //Filtra por Condicion y Sobrepeso y postProcesoPosta no hace nada
+		var List<Receta> result = filtroSobrepeso.filtrar(listaRecetasVeganoYDobleCualquiera,usrDiabetico3)
+		result = postProcesoPosta.postProcesar(result)
+		Assert.assertArrayEquals(listaRecetasVeganoYDobleCualquiera , result)
+	}
 	
 	@Test
-	def void postProcesResultParesYfiltroConCondicySobrep() {
-	//	usrDiabetico3.postProceso = postProcesoResultadosPares
-	//	usrDiabetico3.filtro = filtroSobrep
-		usrDiabetico3.recetas = listaRecetasVeganoYDobleCualquiera.toSet
-		usrDiabetico3.recetasPorFiltros = listaRecetasVeganoYDobleCualquiera
-		filtroSobrep.filtrar(usrDiabetico3.recetasPorFiltros,usrDiabetico3)
-		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , postProcesoResultadosPares.postProcesar(usrDiabetico3.recetasPorFiltros))
+	def void postProcesResultParesYfiltroConCondicionesPreexYSobrepeso() { //Filtra y quita de la lista los resultados Pares
+		var List<Receta> result = filtroSobrepeso.filtrar(listaRecetasVeganoYDobleCualquiera,usrDiabetico3)
+		result = postProcesoResultadosPares.postProcesar(result)
+		Assert.assertArrayEquals(listaRecetasVeganoYCualquiera , result)
 	}
 }
