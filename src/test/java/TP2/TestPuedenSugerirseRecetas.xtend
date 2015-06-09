@@ -2,27 +2,27 @@ package TP2
 
 import org.junit.Test
 import org.junit.Assert
-import testeo.TestInstances
+import testeo.Grupos
 
-class TestPuedenSugerirseRecetas extends TestInstances{
+class TestPuedenSugerirseRecetas extends Grupos{
 	
 	@Test
-	def void puedeSugerirseRecetaUnoADiego(){
-		Assert.assertTrue(repo.puedeSugerirseAUsuario(diego,receta1))
+	def void puedeSugerirseRecetaAntiVeganoADiego(){
+		Assert.assertTrue(diego.puedeSerSugeridaUnaReceta(getRecetaAntiVegano))
 	}
 	
 	@Test
-	def void noPuedeSugerirseRecetaUnoANicolas(){
-		Assert.assertFalse(repo.puedeSugerirseAUsuario(nicolas,receta1))
+	def void noPuedeSugerirseRecetaAntiVeganoANicolas(){
+		Assert.assertFalse(nicolas.puedeSerSugeridaUnaReceta(getRecetaAntiVegano))
 	}
 	
 	@Test
-	def void noPuedeSugerirseRecetaUnoAGrupoFlojito(){
-		Assert.assertFalse(repo.puedeSugerirseAGrupo(grupoFlojito,receta1))
+	def void noPuedeSugerirseRecetaAntiVeganoAGrupoFlojito(){
+		Assert.assertFalse(grupoFlojito.puedeSerSugeridaRecetaAlGrupo(getRecetaAntiVegano))
 	}
 	
 	@Test
-	def void puedeSugerirseRecetaUnoAGrupoDeLaMuertePorqueLeGustanLasCebollas(){
-		Assert.assertTrue(repo.puedeSugerirseAGrupo(grupoDeLaMuerte,receta1))
+	def void puedeSugerirseRecetaAntiveganoAGrupoDeLaMuertePorqueLeGustanLasCebollas(){
+		Assert.assertTrue(grupoDeLaMuerte.puedeSerSugeridaRecetaAlGrupo(getRecetaAntiVegano))
 	}
 }

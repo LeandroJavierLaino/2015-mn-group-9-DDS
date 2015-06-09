@@ -1,51 +1,52 @@
 package TP2
 
 import org.junit.Test
-import testeo.TestInstances
 import filtro.FiltroPorGusto
 import filtro.FiltroPorExcesoDeCalorias
 import org.junit.Assert
-import java.util.HashSet
+import testeo.UsuariosPrincipales
 import receta.Receta
+import java.util.HashSet
 import java.util.Set
 import procesamientoPosterior.ProcesamientoParaTomarLosPrimerosN
 
-class TestFiltrosYProcesamientoOrdenamiento extends TestInstances {
+
+class TestFiltrosYProcesamientoOrdenamiento extends UsuariosPrincipales {
 	
 	FiltroPorGusto filtroGusto
 	FiltroPorExcesoDeCalorias filtroExceso
 	Set<Receta> recetasFiltradas = new HashSet<Receta>
 	
 	@Test
-	def void filtroAnidado(){
+	def void aplicarVariosFiltros(){
 		filtroGusto = new FiltroPorGusto
 		filtroExceso = new FiltroPorExcesoDeCalorias
-		diego.filtrosAAplicar.add(filtroGusto)
-		diego.filtrosAAplicar.add(filtroExceso)
-		recetasFiltradas = repo.aplicarFiltro(diego)
+		diego.agregarFiltro(filtroGusto)
+		diego.agregarFiltro(filtroExceso)
+		recetasFiltradas = diego.aplicarFiltros
 		Assert.assertArrayEquals(diego.recetas,recetasFiltradas)
 	}
 	
 	@Test
-	def void filtroSimple(){
+	def void aplicarFiltroUnico(){
 		filtroGusto = new FiltroPorGusto
 		leandro.comidasQueDisgustan.add(chori)
-		leandro.agregarReceta(receta1)
+		leandro.agregarReceta(getRecetaAntiVegano)
 		leandro.agregarFiltro(filtroGusto)
-		recetasFiltradas = repo.aplicarFiltro(leandro)
+		recetasFiltradas = leandro.aplicarFiltros
 		Assert.assertNotEquals(recetasFiltradas,leandro.recetas)
 	}
 	
 	@Test
-	def void listarTrasFiltrarYPedirLosDiezPrimeros(){
+	def void listarTrasFiltrarPorVariosFiltrosYPedirLosDiezPrimeros(){
 		filtroGusto = new FiltroPorGusto
 		filtroExceso = new FiltroPorExcesoDeCalorias
 		diego.filtrosAAplicar.add(filtroGusto)
 		diego.filtrosAAplicar.add(filtroExceso)
-		diego.recetasFavoritas.add(receta2)
+		diego.recetasFavoritas.add(getRecetaAntiDiabetico)
 		diego.comidasQueDisgustan.add(chori)
 		diego.procesamiento = new ProcesamientoParaTomarLosPrimerosN
-		recetasFiltradas = repo.dameResultadosPara(diego)
+		recetasFiltradas = diego.postProcesarRecetas
 		Assert.assertEquals(1,recetasFiltradas.size)
 		
 	}

@@ -35,9 +35,10 @@ class Usuario {
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	GrupoUsuario grupoAlQuePertenece
 	
+	List<Filtro> filtros = new ArrayList<Filtro>
+	
 	boolean habilitarFavoritos = false
 
-	//Mensajes
 	def double calculaIMC() {
 		peso / (altura * altura)
 	}
@@ -132,6 +133,50 @@ class Usuario {
 	
 	def habilitaSusFavoritos() {
 		habilitarFavoritos = true	
+	}
+	
+	def puedeSerSugeridaUnaReceta(Receta receta) {
+		(!receta.tieneUnIngredienteOCondimentoQueDisgustaPara(this)) && this.condicionesPreexistentesSonValidas
+	}
+	
+
+	def dameTusResultados(){
+		var Set<Receta> recetaResultado = new HashSet<Receta>
+		recetaResultado = this.aplicarFiltros()
+		var ProcesamientoPosterior procesamiento = this.indicarProcesamientoPosterior
+		recetaResultado = procesamiento.asociarProcesamiento(this.recetas)
+		if(this.habilitaSusFavoritos){
+			this.recetasFavoritas.addAll(recetaResultado)
+			recetaResultado = this.recetasFavoritas
+		}
+		recetaResultado	
+	}
+	
+	
+	def aplicarFiltros(){
+		filtros.addAll(this.filtrosAAplicar)
+		var Set<Receta> recetasUsuario = new HashSet<Receta>
+		recetasUsuario = this.recetas
+		for(filtro : filtros){
+			recetasUsuario = filtro.filtrar(recetasUsuario,this)
+		}
+		recetasUsuario
+	}
+	
+	
+	def postProcesarRecetas(){
+		
+		var Set<Receta> recetasFiltradas = new HashSet<Receta>
+		recetasFiltradas = aplicarFiltros()
+		
+		var ProcesamientoPosterior procesamiento = this.indicarProcesamientoPosterior()
+		recetasFiltradas = procesamiento.asociarProcesamiento(recetasFiltradas)
+		
+		if(habilitaSusFavoritos()){
+			recetasFavoritas.addAll(recetasFiltradas)
+			recetasFiltradas = recetasFavoritas
+		}
+		
 	}
 	
 }

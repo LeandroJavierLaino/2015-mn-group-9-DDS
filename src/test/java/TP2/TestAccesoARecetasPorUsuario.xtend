@@ -1,19 +1,25 @@
 package TP2
 
-import org.junit.Test
-import testeo.TestInstances
 import org.junit.Assert
-import receta.Receta
-import java.util.List
-import java.util.ArrayList
+import org.junit.Test
+import testeo.Grupos
 
-class TestAccesoARecetasPorUsuario extends TestInstances {
+class TestAccesoARecetasPorUsuario extends Grupos {
 
 	@Test
-	def void diegoTieneAccesoAReceta2() {
-		var List<Receta> recetas = new ArrayList<Receta>
-		recetas.add(receta2)
-		receta2.crearReceta(leandro)
-		Assert.assertFalse(repo.listarRecetasVisiblesPara(diego).contains(receta2) && recetas.contains(receta2))
+	def void diegoTieneAccesoARecetaAntiDiabetico() {
+		
+		recetaAntiDiabetico.crearReceta(leandro)
+		
+		Assert.assertTrue(recetaAntiDiabetico.puedeVerReceta(diego))
+		
+	}
+	@Test
+	def void peroNicolasNo() {
+		
+		recetaAntiDiabetico.crearReceta(leandro)
+		
+		Assert.assertFalse(recetaAntiDiabetico.puedeVerReceta(nicolas))
+		
 	}
 }

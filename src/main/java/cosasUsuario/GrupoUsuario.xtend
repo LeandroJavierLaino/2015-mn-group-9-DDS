@@ -34,4 +34,8 @@ class GrupoUsuario {
 	def sacarUsuario(Usuario usuario){
 		usuarios.remove(usuario)
 	}
+	
+	def puedeSerSugeridaRecetaAlGrupo(Receta receta){
+		receta.tieneUnIngredienteOCondimentoQueGustaPara(this) && this.esApropiadoParaTodos(receta)
+	}
 }

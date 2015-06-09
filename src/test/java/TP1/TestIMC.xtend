@@ -2,8 +2,9 @@ package TP1
 
 import org.junit.Assert
 import org.junit.Test
-import testeo.TestInstances
 import excepcion.UsuarioInvalidoExcepcion
+import testeo.UsuariosExtras
+
 
 //Punto 2 IMC
 
@@ -17,7 +18,7 @@ import excepcion.UsuarioInvalidoExcepcion
 
 //Nuevas excepciones modificadas
 
-class TestIMC extends TestInstances{
+class TestIMC extends UsuariosExtras{
 
 	@Test
 	def void leandroCalculaSuIMC() {
@@ -47,13 +48,13 @@ class TestIMC extends TestInstances{
 
 	@Test (expected=typeof(UsuarioInvalidoExcepcion)) //sin altura
 	def void usrInval3CalculaSuIMC() {
-		usrInval3.validar
-		usrInval3.calculaIMC
+		getUsuarioSinAltura.validar
+		getUsuarioSinAltura.calculaIMC
 	}
 
 	@Test(expected=typeof(UsuarioInvalidoExcepcion)) //sin peso
 	def void usrInval4CalculaSuIMC() {
-		usrInval4.validar
-		usrInval4.calculaIMC
+		getUsuarioSinPeso.validar
+		getUsuarioSinPeso.calculaIMC
 	}
 }
