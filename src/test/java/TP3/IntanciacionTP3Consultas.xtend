@@ -22,8 +22,8 @@ class IntanciacionTP3Consultas extends UsuariosExtras {
 	FiltroPorGusto filtroGusto
 	FiltroPorExcesoDeCalorias filtroExceso
 	Set<Receta> recetasFiltradas = new HashSet<Receta>
-	MonitorHora monitor1
-	MonitorRecetas monitor2
+	MonitorHora monitorHora
+	MonitorRecetas monitorReceta
 	MonitorRecetasM monitorRecetasHombre
 	MonitorRecetasF monitorRecetasMujer
 	MonitorVegano monitorVegano
@@ -38,8 +38,8 @@ class IntanciacionTP3Consultas extends UsuariosExtras {
 		filtroGusto = new FiltroPorGusto
 		filtroExceso = new FiltroPorExcesoDeCalorias
 		
-		monitor1 = new MonitorHora
-		monitor2 = new MonitorRecetas
+		monitorHora = new MonitorHora
+		monitorReceta = new MonitorRecetas
 		monitorRecetasHombre = new MonitorRecetasM
 		monitorRecetasMujer = new MonitorRecetasF
 		monitorVegano = new MonitorVegano
@@ -47,8 +47,8 @@ class IntanciacionTP3Consultas extends UsuariosExtras {
 		time = new DateTime()
 		hora = time.getHourOfDay()
 		
-		GestorDeConsultas.getInstance.monitores.add(monitor1)
-		GestorDeConsultas.getInstance.monitores.add(monitor2)
+		GestorDeConsultas.getInstance.monitores.add(monitorHora)
+		GestorDeConsultas.getInstance.monitores.add(monitorReceta)
 		GestorDeConsultas.getInstance.monitores.add(monitorRecetasHombre)
 		GestorDeConsultas.getInstance.monitores.add(monitorRecetasMujer)
 		GestorDeConsultas.getInstance.monitores.add(monitorVegano)

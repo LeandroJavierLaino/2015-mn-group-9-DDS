@@ -19,12 +19,12 @@ class TestConsultas extends IntanciacionTP3Consultas {
 	@Test
 	def void verHorasMasConsultadas(){
 		
-		Assert.assertEquals(hora.toString ,monitor1.mostrarResultados)
+		Assert.assertEquals(hora.toString ,monitorHora.mostrarResultados)
 	}
 	@Test
 	def void RecetasMasConsultadas() {
 		
-		Assert.assertEquals("SalchiPapa", monitor2.mostrarResultados)
+		Assert.assertEquals("SalchiPapa", monitorReceta.mostrarResultados)
 		
 	}
 	@Test

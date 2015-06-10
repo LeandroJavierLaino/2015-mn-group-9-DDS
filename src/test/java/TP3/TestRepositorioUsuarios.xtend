@@ -23,10 +23,9 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		repousuarios = RepositorioUsuarios.getInstance
 		admin = new UsuarioAdministrador
 		diabeticoDiego = new Usuario => [
-			agregarCondicion(diabetico)
-			nombre = "diego"
+		agregarCondicion(diabetico)
+		nombre = "diego"
 		]
-
 	}
 
 	@Test
@@ -36,7 +35,7 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		Assert.assertEquals(listaResultadoConDiego, repousuarios.listaPorAceptarse)
 	}
 
-	@Test
+	/* @Test
 	def void aceptarSuscripcionDeDiegoYRechazarALeandro() {
 		var listaAceptados = new ArrayList(#[diego])
 		diego.solicitarIngresoASistema()
@@ -44,7 +43,7 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		admin.rechazarSuscripcion(leandro, "no puso bien su nombre")
 		admin.aceptarSuscripcion(diego)
 		Assert.assertEquals(listaAceptados, repousuarios.allInstances)
-	}
+	}*/
 
 	@Test
 	def void devolvermeUnUsuarioConNombreDiego() {
@@ -59,7 +58,7 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		Assert.assertEquals(usuarioDevuelto, diego)
 	}
 
-	@Test
+	 @Test
 	def void devolverListaConUsrDiabeticoDiegoPorCriterioDeNombreYCondicionDiabeticos() {
 		var usuarioPrototipo = new Usuario
 		usuarioPrototipo.nombre = "diego"
