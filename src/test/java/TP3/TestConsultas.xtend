@@ -12,31 +12,32 @@ class TestConsultas extends IntanciacionTP3Consultas {
 	}
 	
 	@Test
-	def void NicolasConsultaRecetas(){ //POR QUE DA 1?!!!!!
-		
+	def void NicolasConsultaRecetas(){ 
 		Assert.assertEquals(3,recetasFiltradas.size)
 	}
+	
 	@Test
 	def void verHorasMasConsultadas(){
-		
 		Assert.assertEquals(hora.toString ,monitorHora.mostrarResultados)
 	}
 	@Test
 	def void RecetasMasConsultadas() {
-		
 		Assert.assertEquals("SalchiPapa", monitorReceta.mostrarResultados)
-		
 	}
+	
 	@Test
 	def void recetasMasConsultadasPorHombres() {
 		Assert.assertEquals("SalchiPapa", monitorRecetasHombre.mostrarResultados)
 	}
+	
 	@Test
 	def void recetasMasConsultadasPorMujeres() {
 		Assert.assertEquals("Pollo al Oreganato", monitorRecetasMujer.mostrarResultados)
 	}
+	
 	@Test
-	def void contadorDeVeganos() { //Y ESTA TAMBIEN ESTA POR QUEEEE
+	def void contadorDeVeganos() { 
 		Assert.assertEquals("1", monitorVegano.mostrarResultados)
 	}
+	
 }
