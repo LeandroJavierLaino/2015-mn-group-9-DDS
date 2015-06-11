@@ -57,7 +57,6 @@ class UsuariosPrincipales extends TestInstances {
 			rutina = rutinaActivaLarga
 			condicionesPreexistentes = emptyList
 			comidasQueDisgustan.add(ajiMolido)	
-			
 		]
 
 		pablo = new Usuario => [

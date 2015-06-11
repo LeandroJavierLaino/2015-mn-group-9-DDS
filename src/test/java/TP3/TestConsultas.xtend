@@ -13,13 +13,34 @@ class TestConsultas extends IntanciacionTP3Consultas {
 	
 	@Test
 	def void NicolasConsultaRecetas(){ 
+		recetasFiltradas = nicolas.postProcesarRecetas
 		Assert.assertEquals(3,recetasFiltradas.size)
 	}
+		
+	@Test
+	def void DiegoConsultaRecetas(){ 
+		recetasFiltradas = diego.postProcesarRecetas
+		Assert.assertEquals(2,recetasFiltradas.size)
+	}
+	
+	@Test
+	def void usuarioHipertensoValidoConRutinaSedentariaConsultaRecetas(){ 
+		recetasFiltradas = usuarioHipertensoValidoConRutinaSedentaria.postProcesarRecetas
+		Assert.assertEquals(4,recetasFiltradas.size)
+	}
+	
+	@Test
+	def void usuariaHipertensaValidaConsultaRecetas(){ 
+		recetasFiltradas = usuariaHipertensaValida.postProcesarRecetas
+		Assert.assertEquals(4,recetasFiltradas.size)
+	}
+	
 	
 	@Test
 	def void verHorasMasConsultadas(){
 		Assert.assertEquals(hora.toString ,monitorHora.mostrarResultados)
 	}
+	
 	@Test
 	def void RecetasMasConsultadas() {
 		Assert.assertEquals("SalchiPapa", monitorReceta.mostrarResultados)

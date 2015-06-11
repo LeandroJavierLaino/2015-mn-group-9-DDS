@@ -59,9 +59,32 @@ class IntanciacionTP3Consultas extends UsuariosExtras {
 		
 		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		nicolas.postProcesarRecetas
-		recetasFiltradas = nicolas.postProcesarRecetas
 		
 		
+		diego.recetasFavoritas.add(recetaSalchiPapa)
+		diego.agregarReceta(recetaParaCualquiera)
+		
+		diego.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		diego.postProcesarRecetas
+		
+		
+		usuarioHipertensoValidoConRutinaSedentaria.recetasFavoritas.add(recetaSalchiPapa)
+		usuarioHipertensoValidoConRutinaSedentaria.agregarReceta(recetaCaloriasBajoRango)
+		usuarioHipertensoValidoConRutinaSedentaria.agregarReceta(recetaParaCualquiera)
+		usuarioHipertensoValidoConRutinaSedentaria.agregarReceta(recetaAntiDiabetico)
+		
+		usuarioHipertensoValidoConRutinaSedentaria.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		usuarioHipertensoValidoConRutinaSedentaria.postProcesarRecetas
+					
+		usuariaHipertensaValida.recetasFavoritas.add(recetaPolloAlOreganato)
+		usuariaHipertensaValida.agregarReceta(recetaCaloriasBajoRango)
+		usuariaHipertensaValida.agregarReceta(recetaParaCualquiera)
+		usuariaHipertensaValida.agregarReceta(recetaAntiDiabetico)
+		
+		usuariaHipertensaValida.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		usuariaHipertensaValida.postProcesarRecetas
+		
+				
 		leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		leandro.recetas.add(recetaSalchiPapa)
 		leandro.filtrosAAplicar.add(filtroGusto)
@@ -72,10 +95,7 @@ class IntanciacionTP3Consultas extends UsuariosExtras {
 		pablo.procesamiento = new ProcesamientoParaTomarResultadosPares
 		pablo.filtrosAAplicar.add(filtroGusto)
 		pablo.postProcesarRecetas
-		
-		diego.procesamiento = new ProcesamientoOrdenarlosPorNombre
-		diego.recetasFavoritas.add(recetaSalchiPapa)
-		
+			
 		eri.procesamiento = new ProcesamientoParaTomarResultadosPares
 		eri.filtrosAAplicar.add(filtroGusto)
 		eri.recetasFavoritas.add(recetaPolloAlOreganato)
