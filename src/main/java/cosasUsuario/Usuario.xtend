@@ -189,6 +189,11 @@ class Usuario extends Entity{
 		
 		recetasVisibles
 	}
+	
+	def agregarRecetasAFavoritas(Set<Receta> recetasConsultadas) {
+		recetas.addAll(recetasConsultadas)
+	}
+	
 }
 
 
