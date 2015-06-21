@@ -38,7 +38,7 @@ class JsonParserReceta {
 		ingredientesTransformados
 	}
 
-	def parsear(JsonObject object) {
+	def JsonParserReceta parsear(JsonObject object) {
 		var List<String> ingrediente = new ArrayList<String>
 		this.nombre = object.get("nombre").asString
 		var JsonArray ingredientes = object.get("ingredientes").asArray

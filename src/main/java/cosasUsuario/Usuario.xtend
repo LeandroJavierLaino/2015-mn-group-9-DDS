@@ -140,7 +140,7 @@ class Usuario extends Entity{
 		var busquedaReceta = listarRecetasVisibles
 		
 		for(filtro : filtrosAAplicar){
-			busquedaReceta = filtro.filtrar(busquedaReceta,this)
+			busquedaReceta = filtro.filtrar(busquedaReceta, this)
 		}
 		
 		busquedaReceta

@@ -13,8 +13,7 @@ class MonitorRecetasF extends MonitorRecetas {
 		
 		if(consulta.usuario.sexo != null && consulta.usuario.sexo.equalsIgnoreCase('F')) {
 			consulta.recetas.forEach[ receta |
-			
-			
+	
 				if(contadorDeRecetas.containsKey(receta)) {
 					
 					contadorDeRecetas.replace(receta, contadorDeRecetas.get(receta), contadorDeRecetas.get(receta) + 1) 

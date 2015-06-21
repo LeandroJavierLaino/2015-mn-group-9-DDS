@@ -12,19 +12,18 @@ class TestConsultas extends IntanciacionTP3Consultas {
 	}
 	
 	@Test
-	def void NicolasConsultaRecetas(){ 
-		Assert.assertEquals(#[recetaAntiDiabetico,recetaAntiVegano,recetaSalchiPapa],recetasFiltradas.toList)
+	def void NicolasConsultaRecetas(){
+		Assert.assertEquals(#[recetaAntiDiabetico,recetaAntiVegano,recetaSalchiPapa], recetasFiltradas.toList)
 	}
+	
 	@Test
-	def void verHorasMasConsultadas(){
-		
-		Assert.assertEquals(hora.toString ,monitor1.mostrarResultados)
+	def void verHorasMasConsultadas(){	
+		Assert.assertEquals(hora.toString, monitor1.mostrarResultados)
 	}
+	
 	@Test
 	def void RecetasMasConsultadas() {
-		
-		Assert.assertEquals("SalchiPapa", monitor2.mostrarResultados)
-		
+		Assert.assertEquals("SalchiPapa", monitor2.mostrarResultados)		
 	}
 	@Test
 	def void recetasMasConsultadasPorHombres() {

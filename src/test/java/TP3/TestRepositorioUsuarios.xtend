@@ -44,6 +44,7 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 
 	@Test
 	def void aceptarSuscripcionDeDiegoYRechazarALeandro() {
+		repousuarios.allInstances.removeAll
 		var listaAceptados = new ArrayList(#[diego])
 		diego.solicitarIngresoASistema()
 		leandro.solicitarIngresoASistema()

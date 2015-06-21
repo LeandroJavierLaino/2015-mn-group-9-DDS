@@ -4,9 +4,8 @@ import cosasUsuario.Usuario
 import java.util.ArrayList
 import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
-import receta.Receta
 import queComemos.entrega3.repositorio.BusquedaRecetas
-import java.util.List
+import receta.Receta
 
 @Accessors
 class RepositorioRecetas {
@@ -28,7 +27,7 @@ class RepositorioRecetas {
 	}
 
 	def listarRecetas() {
-		recetasTotales
+		recetas + obtenerRecetasExternas()
 	}
 
 	def agregar(Receta receta) {
@@ -44,10 +43,10 @@ class RepositorioRecetas {
 	}
 	
 	def obtenerRecetasExternas(BusquedaRecetas busquedaRecetas) {
-		var List<Receta> recetasExternas = new ArrayList<Receta>
-		recetasExternas = adapter.obtenerRecetas(busquedaRecetas)
-		recetas.addAll(recetasExternas)
-		recetasTotales = recetas
+		adapter.obtenerRecetas(busquedaRecetas)
+	}
+	def obtenerRecetasExternas() {
+		adapter.obtenerRecetas()
 	}
 	
 }

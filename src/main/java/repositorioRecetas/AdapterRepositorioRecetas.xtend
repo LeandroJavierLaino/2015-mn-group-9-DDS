@@ -16,7 +16,10 @@ class AdapterRepositorioRecetas extends RepoRecetas {
 	Receta recetaTransformada
 	List<Receta> recetasFinales = new ArrayList<Receta>
 
-	def obtenerRecetas(BusquedaRecetas busquedaRecetas) {
+	def List<Receta> obtenerRecetas() {
+		obtenerRecetas(new BusquedaRecetas())
+	}
+	def List<Receta> obtenerRecetas(BusquedaRecetas busquedaRecetas) {
 		var String s = this.getRecetas(busquedaRecetas)
 		parsearJSON(s)
 	}

@@ -61,7 +61,6 @@ class IntanciacionTP3Consultas extends UsuariosExtras {
 		nicolas.postProcesarRecetas
 		recetasFiltradas = nicolas.postProcesarRecetas
 		
-		
 		leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		leandro.recetas.add(recetaSalchiPapa)
 		leandro.filtrosAAplicar.add(filtroGusto)
