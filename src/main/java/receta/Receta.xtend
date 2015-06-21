@@ -137,7 +137,7 @@ class Receta{
 	}
 	
 	def esInadecuadaParaLasCondiciones(){
-		condicionesPreexistentes = condicionesPreexistentes.filter[condicion | condicion.tolera(this)].toSet
+		condicionesPreexistentes.filter[condicion | condicion.tolera(this)].toSet
 	}
 	
 }

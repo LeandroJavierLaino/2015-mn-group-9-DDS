@@ -14,4 +14,8 @@ class CondicionCeliaco implements CondicionPreexistente {
 	override tolera (Receta unaReceta) {
 		true
 	}
+	
+	override esCondicionVegana(){
+		false
+	}
 }

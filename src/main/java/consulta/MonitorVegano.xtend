@@ -13,6 +13,7 @@ class MonitorVegano implements Monitor {
 	
 	override mostrarResultados() {
 		contador.toString
+		
 	}
 	
 	

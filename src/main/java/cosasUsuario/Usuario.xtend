@@ -1,25 +1,24 @@
 package cosasUsuario
 
 import condicion.CondicionPreexistente
+import consulta.Consulta
+import consulta.GestorDeConsultas
 import excepcion.FechaInvalidaExcepcion
 import excepcion.UsuarioInvalidoExcepcion
+import filtro.Filtro
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
+import org.uqbar.commons.model.Entity
+import procesamientoPosterior.ProcesamientoPosterior
 import receta.Caracteristica
 import receta.Receta
-import rutina.Rutina
-import filtro.Filtro
-import procesamientoPosterior.ProcesamientoPosterior
 import repositorioRecetas.RepositorioRecetas
-import org.uqbar.commons.model.Entity
 import repositorioUsuarios.RepositorioUsuarios
-import condicion.CondicionVegano
-import consulta.Consulta
-import consulta.GestorDeConsultas
+import rutina.Rutina
 
 @Accessors
 class Usuario extends Entity{
@@ -187,7 +186,7 @@ class Usuario extends Entity{
 	}
 	
 	def Boolean esVegano() {
-		condicionesPreexistentes.exists[cond | cond.class.equals(CondicionVegano)]
+		condicionesPreexistentes.exists[condicion | condicion.esCondicionVegana]
 	}
 	def listarRecetasVisibles() {
 		var Set<Receta> recetasVisibles = recetas
@@ -201,5 +200,3 @@ class Usuario extends Entity{
 		recetasVisibles
 	}
 }
-
-
