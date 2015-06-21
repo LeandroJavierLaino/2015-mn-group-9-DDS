@@ -7,7 +7,7 @@ class CommandRecetasFavoritas implements CommandMonitor {
 		consulta.usuario.agregarRecetasAFavoritas(consulta.recetas)
 	}
 	
-	def comandRecetasFavoritas(Consulta unaConsulta){
+	def agregarConsulta(Consulta unaConsulta){
 		consulta=unaConsulta
 	}
 }

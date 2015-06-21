@@ -20,6 +20,7 @@ import repositorioUsuarios.RepositorioUsuarios
 import condicion.CondicionVegano
 import consulta.Consulta
 import consulta.GestorDeConsultas
+import consulta.CommandMonitor
 
 @Accessors
 class Usuario extends Entity{
@@ -40,6 +41,7 @@ class Usuario extends Entity{
 	Set<Receta> recetas = new HashSet<Receta>
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	GrupoUsuario grupoAlQuePertenece
+	CommandMonitor commandMonitor
 	
 	boolean habilitarFavoritos = false
 
@@ -160,6 +162,8 @@ class Usuario extends Entity{
 			recetasFiltradas = recetasFavoritas
 		}
 		
+		commandMonitor.execute()
+		
 		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
 		GestorDeConsultas.getInstance.monitorear(consulta)
@@ -192,6 +196,10 @@ class Usuario extends Entity{
 	
 	def agregarRecetasAFavoritas(Set<Receta> recetasConsultadas) {
 		recetas.addAll(recetasConsultadas)
+	}
+	
+	def agregarUnCommandMonitor(CommandMonitor unCommandMonitor){
+		commandMonitor = unCommandMonitor		 		
 	}
 	
 }
