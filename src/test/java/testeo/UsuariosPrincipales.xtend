@@ -46,7 +46,7 @@ class UsuariosPrincipales extends TestInstances {
 		.conNombre("Diego")
 		.deSexo("M")
 		.fechaDeNacimiento(new LocalDate(1980,1,1))
-		.conAltura(1.75)
+		.conAltura(1.70)
 		.conPeso(65)
 		.conRutina(rutinaActivaCorta)
 		.build

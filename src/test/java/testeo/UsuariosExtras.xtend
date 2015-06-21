@@ -162,12 +162,6 @@ class UsuariosExtras extends UsuariosPrincipales {
 			agregarCondicion(hipertenso)
 		]
 
-
-
-
-
-
-
 		usuarioDiabeticoSinSexoMasDe70KgYActivo = new Usuario => [
 			nombre = "DiabeticoUno"
 			sexo = ""

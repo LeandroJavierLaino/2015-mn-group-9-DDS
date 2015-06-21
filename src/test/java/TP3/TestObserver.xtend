@@ -15,6 +15,7 @@ import filtro.FiltroPorGusto
 import filtro.FiltroPorExcesoDeCalorias
 import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
 import procesamientoPosterior.ProcesamientoParaTomarResultadosPares
+import procesamientoPosterior.ProcesamientoOrdenarlosPorCalorias
 
 class TestObserver extends UsuariosExtras{
 	FiltroPorGusto filtroGusto
@@ -51,50 +52,74 @@ class TestObserver extends UsuariosExtras{
 	GestorDeConsultas.getInstance.monitores.add(monitorVegano)
 		
 	leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
-	leandro.recetas.add(recetaSalchiPapa)
-	leandro.filtrosAAplicar.add(filtroGusto)
+	leandro.agregarReceta(recetaSalchiPapa)
+	//leandro.agregarFiltro(filtroGusto)
 		
 	leandro.recetasFavoritas.add(recetaSalchiPapa)
-	leandro.postProcesarRecetas
+	
 		
-	pablo.procesamiento = new ProcesamientoParaTomarResultadosPares
-	pablo.filtrosAAplicar.add(filtroGusto)
-	pablo.postProcesarRecetas
+	pablo.procesamiento = new ProcesamientoOrdenarlosPorNombre
+	pablo.agregarReceta(recetaSalchiPapa)
+	//pablo.agregarFiltro(filtroGusto)
+	
+	nicolas.procesamiento = new ProcesamientoOrdenarlosPorCalorias
+	nicolas.agregarReceta(recetaSalchiPapa)
+	//nicolas.agregarFiltro(filtroGusto)
 			
-	eri.procesamiento = new ProcesamientoParaTomarResultadosPares
-	eri.filtrosAAplicar.add(filtroGusto)
+	eri.procesamiento = new ProcesamientoOrdenarlosPorNombre //ProcesamientoParaTomarResultadosPares
+	//eri.agregarFiltro(filtroGusto)
 	eri.recetasFavoritas.add(recetaPolloAlOreganato)
-	eri.postProcesarRecetas
+	
 		
 	usuarioVeganoValidoYLeGustaLaFruta.procesamiento = new ProcesamientoOrdenarlosPorNombre
 	usuarioVeganoValidoYLeGustaLaFruta.recetasFavoritas.add(recetaLaComidaMasOrganicaDelMundo)
-	usuarioVeganoValidoYLeGustaLaFruta.postProcesarRecetas
+	
 			
 	}	
 				
 				
 	@Test
 	def void verHorasMasConsultadas(){
+		leandro.postProcesarRecetas
+		pablo.postProcesarRecetas
+		eri.postProcesarRecetas
+		usuarioVeganoValidoYLeGustaLaFruta.postProcesarRecetas
 		Assert.assertEquals(hora.toString ,monitorHora.mostrarResultados)
 	}
 	
 	 @Test
 	def void RecetasMasConsultadas() {
-		Assert.assertEquals("Ensalada", monitorReceta.mostrarResultados)
+		leandro.postProcesarRecetas
+		pablo.postProcesarRecetas
+		eri.postProcesarRecetas
+		usuarioVeganoValidoYLeGustaLaFruta.postProcesarRecetas
+		Assert.assertEquals("SalchiPapa", monitorReceta.mostrarResultados)
 	}
 	
 	@Test
 	def void recetasMasConsultadasPorHombres() {
+		leandro.postProcesarRecetas
+		pablo.postProcesarRecetas
+		eri.postProcesarRecetas
+		usuarioVeganoValidoYLeGustaLaFruta.postProcesarRecetas
 		Assert.assertEquals("SalchiPapa",monitorRecetasHombre.mostrarResultados)
 	}
 	
 	@Test
 	def void recetasMasConsultadasPorMujeres() {
+		leandro.postProcesarRecetas
+		pablo.postProcesarRecetas
+		eri.postProcesarRecetas
+		usuarioVeganoValidoYLeGustaLaFruta.postProcesarRecetas
 		Assert.assertEquals("Pollo al Oreganato", monitorRecetasMujer.mostrarResultados)
 	}
 	
 	@Test
 	def void contadorDeVeganos() { 
+		leandro.postProcesarRecetas
+		pablo.postProcesarRecetas
+		eri.postProcesarRecetas
+		usuarioVeganoValidoYLeGustaLaFruta.postProcesarRecetas
 		Assert.assertEquals("1", monitorVegano.mostrarResultados)
 	}				
 	
