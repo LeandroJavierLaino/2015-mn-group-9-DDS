@@ -23,25 +23,36 @@ import consulta.GestorDeConsultas
 
 @Accessors
 class Usuario extends Entity{
-
+	
+	// Datos varops
+	LocalDate fechaActual = new LocalDate()
+	int CARACTERES_MINIMOS = 4
+	boolean habilitarFavoritos = false
+	
+	// Datos basicos
+	
+	String nombre
 	double altura
 	double peso
-	String nombre
-	String sexo
-	LocalDate fechaActual = new LocalDate()
 	LocalDate fechaDeNacimiento
-	int CARACTERES_MINIMOS = 4
-	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
-	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
-	List<String> comidaPreferida = new ArrayList<String>
-	ProcesamientoPosterior procesamiento
-	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
-	Rutina rutina
-	Set<Receta> recetas = new HashSet<Receta>
-	Set<Receta> recetasFavoritas = new HashSet<Receta>
+	
+	// Grupo
 	GrupoUsuario grupoAlQuePertenece
 	
-	boolean habilitarFavoritos = false
+	// Para condiciones preexistentes
+	
+	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
+	String sexo
+	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
+	List<String> comidaPreferida = new ArrayList<String>
+	Rutina rutina
+	
+	// Recetas
+	Set<Receta> recetas = new HashSet<Receta>
+	Set<Receta> recetasFavoritas = new HashSet<Receta>
+	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
+	ProcesamientoPosterior procesamiento
+	
 
 	//Mensajes
 	def double calculaIMC() {

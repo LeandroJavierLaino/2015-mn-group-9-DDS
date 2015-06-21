@@ -4,15 +4,6 @@ import java.util.Set
 import java.util.List
 
 class RecetaBuilder {
-
-	static RecetaBuilder instance = null
-	
-	def static getInstance() {
-		if(instance == null) {
-			instance = new RecetaBuilder()
-		}
-		else instance
-	}
 	
 	Receta receta = new Receta()
 	
