@@ -5,6 +5,7 @@ import org.junit.Before
 import cosasUsuario.Usuario
 import org.joda.time.LocalDate
 import org.eclipse.xtend.lib.annotations.Accessors
+import cosasUsuario.UsuarioBuilder
 
 @Accessors
 class UsuariosPrincipales extends TestInstances {
@@ -18,6 +19,60 @@ class UsuariosPrincipales extends TestInstances {
 	override void init() {
 		
 		super.init
+		
+		//METODO POR BUILDER
+		
+		leandro = new UsuarioBuilder()
+		.conNombre("Leandro")
+		.deSexo("M")
+		.fechaDeNacimiento(new LocalDate(1988,6,27))
+		.conPeso(70)
+		.conAltura(1.74)
+		.conRutina(rutinaActivaCorta)
+		.conReceta(recetaAntiDiabetico)
+		.build
+		
+		eri = new UsuarioBuilder()
+		.conNombre("Erika")
+		.deSexo("F")
+		.fechaDeNacimiento(new LocalDate(1980,1,1))
+		.conAltura(1.52)
+		.conPeso(60)
+		.conRutina(rutinaActivaLarga)
+		.conReceta(recetaParaCualquiera)
+		.build
+		
+		diego = new UsuarioBuilder()
+		.conNombre("Diego")
+		.deSexo("M")
+		.fechaDeNacimiento(new LocalDate(1980,1,1))
+		.conAltura(1.75)
+		.conPeso(65)
+		.conRutina(rutinaActivaCorta)
+		.build
+		
+		nicolas = new UsuarioBuilder()
+		.conNombre("Nicolas")
+		.deSexo("M")
+		.fechaDeNacimiento(new LocalDate(1980,11,10))
+		.conAltura(1.74)
+		.conPeso(60)
+		.conRutina(rutinaActivaLarga)
+		.leDisgusta(ajiMolido)
+		.build
+		
+		pablo = new UsuarioBuilder()
+		.conNombre("Pablo")
+		.deSexo("M")
+		.fechaDeNacimiento(new LocalDate(1980,2,2))
+		.conAltura(1.79)
+		.conPeso(72)
+		.conRutina(rutinaActivaCorta)
+		.build
+		
+		/*
+		 * METODO POR WITH
+		 
 		
 		leandro = new Usuario => [
 			nombre = "Leandro"
@@ -47,7 +102,7 @@ class UsuariosPrincipales extends TestInstances {
 			peso = 65
 			rutina = rutinaActivaCorta
 		]
-
+		
 		nicolas = new Usuario => [
 			nombre = "Nicolas"
 			sexo = 'M'
@@ -57,9 +112,8 @@ class UsuariosPrincipales extends TestInstances {
 			rutina = rutinaActivaLarga
 			condicionesPreexistentes = emptyList
 			comidasQueDisgustan.add(ajiMolido)	
-			
 		]
-
+		
 		pablo = new Usuario => [
 			nombre = "Pablo"
 			sexo = "M"
@@ -68,6 +122,6 @@ class UsuariosPrincipales extends TestInstances {
 			peso = 72
 			rutina = rutinaActivaCorta
 			
-		]	
+		]	*/
 	}
 }

@@ -14,8 +14,9 @@ class TestAccesoARecetasPorUsuario extends Grupos {
 		Assert.assertTrue(recetaAntiDiabetico.puedeVerReceta(diego))
 		
 	}
+	
 	@Test
-	def void peroNicolasNo() {
+	def void nicolasNoTieneAccesoARecetaAntidiabetico() {
 		
 		recetaAntiDiabetico.crearReceta(leandro)
 		

@@ -3,38 +3,72 @@ package TP3
 import org.junit.Assert
 import org.junit.Test
 import org.junit.Before
+import testeo.UsuariosExtras
+import filtro.FiltroPorGusto
+import filtro.FiltroPorExcesoDeCalorias
+import java.util.HashSet
+import receta.Receta
+import java.util.Set
+import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
 
-class TestConsultas extends IntanciacionTP3Consultas {
+class TestConsultas extends UsuariosExtras {
+	
+	FiltroPorGusto filtroGusto
+	FiltroPorExcesoDeCalorias filtroExceso
+	Set<Receta> recetasFiltradas = new HashSet<Receta>
 	
 	@Before
 	override void init() {
-		super.init
+		super.init()
+		
+		filtroGusto = new FiltroPorGusto
+		filtroExceso = new FiltroPorExcesoDeCalorias
+	}
+	
+	
+	@Test
+	def void NicolasConsultaRecetas(){ 
+		nicolas.recetasFavoritas.add(recetaSalchiPapa)
+		nicolas.agregarReceta(recetaAntiVegano)
+		nicolas.agregarReceta(recetaAntiDiabetico)
+		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		nicolas.postProcesarRecetas
+		recetasFiltradas = nicolas.postProcesarRecetas
+		Assert.assertEquals(3,recetasFiltradas.size)
 	}
 	
 	@Test
-	def void NicolasConsultaRecetas(){
-		Assert.assertEquals(#[recetaAntiDiabetico,recetaAntiVegano,recetaSalchiPapa], recetasFiltradas.toList)
+	def void DiegoConsultaRecetas(){ 
+		diego.recetasFavoritas.add(recetaSalchiPapa)
+		diego.agregarReceta(recetaParaCualquiera)
+		diego.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		diego.postProcesarRecetas
+		recetasFiltradas = diego.postProcesarRecetas
+		Assert.assertEquals(2,recetasFiltradas.size)
 	}
 	
 	@Test
-	def void verHorasMasConsultadas(){	
-		Assert.assertEquals(hora.toString, monitor1.mostrarResultados)
+	def void usuarioHipertensoValidoConRutinaSedentariaConsultaRecetas(){ 
+		usuarioHipertensoValidoConRutinaSedentaria.recetasFavoritas.add(recetaSalchiPapa)
+		usuarioHipertensoValidoConRutinaSedentaria.agregarReceta(recetaCaloriasBajoRango)
+		usuarioHipertensoValidoConRutinaSedentaria.agregarReceta(recetaParaCualquiera)
+		usuarioHipertensoValidoConRutinaSedentaria.agregarReceta(recetaAntiDiabetico)
+		usuarioHipertensoValidoConRutinaSedentaria.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		usuarioHipertensoValidoConRutinaSedentaria.postProcesarRecetas
+		recetasFiltradas = usuarioHipertensoValidoConRutinaSedentaria.postProcesarRecetas
+		Assert.assertEquals(4,recetasFiltradas.size)
 	}
 	
 	@Test
-	def void RecetasMasConsultadas() {
-		Assert.assertEquals("SalchiPapa", monitor2.mostrarResultados)		
+	def void usuariaHipertensaValidaConsultaRecetas(){ 
+		usuariaHipertensaValida.recetasFavoritas.add(recetaPolloAlOreganato)
+		usuariaHipertensaValida.agregarReceta(recetaCaloriasBajoRango)
+		usuariaHipertensaValida.agregarReceta(recetaParaCualquiera)
+		usuariaHipertensaValida.agregarReceta(recetaAntiDiabetico)
+		usuariaHipertensaValida.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		usuariaHipertensaValida.postProcesarRecetas
+		recetasFiltradas = usuariaHipertensaValida.postProcesarRecetas
+		Assert.assertEquals(4,recetasFiltradas.size)
 	}
-	@Test
-	def void recetasMasConsultadasPorHombres() {
-		Assert.assertEquals("SalchiPapa", monitorRecetasHombre.mostrarResultados)
-	}
-	@Test
-	def void recetasMasConsultadasPorMujeres() {
-		Assert.assertEquals("Pollo al Oreganato", monitorRecetasMujer.mostrarResultados)
-	}
-	@Test
-	def void contadorDeVeganos() { 
-		Assert.assertEquals("1", monitorVegano.mostrarResultados)
-	}
+
 }

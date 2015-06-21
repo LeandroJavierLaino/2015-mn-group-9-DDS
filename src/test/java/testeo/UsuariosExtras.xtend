@@ -22,6 +22,7 @@ class UsuariosExtras extends UsuariosPrincipales {
 	Usuario usuarioHipertensoSinPreferenciasYRutinaActivaConEjercicio //sin preferen	//tiene rutina activa c/ej adicional
 	Usuario usuarioHipertensoValidoConRutinaActivaYSinEjercicio //valido			//tiene rutina activa s/ej adicional
 	Usuario usuarioHipertensoValidoConRutinaSedentaria //valido			//tiene rutina sedentaria
+	Usuario usuariaHipertensaValida //ConRutinaSedentaria //valida		//tiene rutina sedentaria
 	Usuario usuarioDiabeticoSinSexoMasDe70KgYActivo //sin sexo 		//mas de 70kg pero activo
 	Usuario usuarioDiabeticoSinPreferenciaMenosDe70KgYActivo //sin preferen 	//menos de 70kg y activo
 	Usuario usuarioDiabeticoValidoMasDe70KgYSedentario //valido			//mas de 70kg y sedentario
@@ -148,6 +149,24 @@ class UsuariosExtras extends UsuariosPrincipales {
 			comidaPreferida.add("Pollo")
 			agregarCondicion(hipertenso)
 		]
+
+		usuariaHipertensaValida = new Usuario => [
+			nombre = "HipertensaCuatro"
+			sexo = "F"
+			fechaDeNacimiento = new LocalDate(2000,11,20)
+			altura = 1.70
+			peso = 67
+			rutina = rutinaSedentaria
+			comidaPreferida = new ArrayList<String>()
+			comidaPreferida.add("Pollo")
+			agregarCondicion(hipertenso)
+		]
+
+
+
+
+
+
 
 		usuarioDiabeticoSinSexoMasDe70KgYActivo = new Usuario => [
 			nombre = "DiabeticoUno"

@@ -10,6 +10,7 @@ import receta.Receta
 import com.eclipsesource.json.JsonObject
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
+import receta.RecetaBuilder
 
 
 @Accessors
@@ -23,8 +24,17 @@ class JsonParserReceta {
 	int anioReceta
 
 	def Receta transformarReceta(JsonParserReceta receta) {
-		var Receta recetaTransformada = new Receta(receta.nombre, this.transformarIngredientes(receta.ingredientes),
-			emptySet, emptyList, receta.totalCalorias as double, receta.dificultadReceta, "")
+		
+		var Receta recetaTransformada = new RecetaBuilder()
+		.nombre(receta.nombre)
+		.ingredientes(this.transformarIngredientes(receta.ingredientes))
+		.conCalorias(receta.totalCalorias as double)
+		.dificultad(receta.dificultadReceta)
+		.build //esto devuelve la receta que creo
+				
+		 /*new Receta(receta.nombre, this.transformarIngredientes(receta.ingredientes),
+			emptySet, emptyList, receta.totalCalorias as double, receta.dificultadReceta, "")*/
+			
 		recetaTransformada.asignarAutor(receta.autor)
 		recetaTransformada
 	}

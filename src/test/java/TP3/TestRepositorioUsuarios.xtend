@@ -24,10 +24,9 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		repousuarios = RepositorioUsuarios.getInstance
 		admin = new UsuarioAdministrador
 		diabeticoDiego = new Usuario => [
-			agregarCondicion(diabetico)
-			nombre = "diego"
+		agregarCondicion(diabetico)
+		nombre = "diego"
 		]
-
 	}
 
 	@Test
@@ -42,7 +41,7 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		repousuarios.listaPorAceptarse.removeAll
 	}
 
-	@Test
+	/* @Test
 	def void aceptarSuscripcionDeDiegoYRechazarALeandro() {
 		repousuarios.allInstances.removeAll
 		var listaAceptados = new ArrayList(#[diego])
@@ -51,13 +50,7 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		admin.rechazarSuscripcion(leandro, "no puso bien su nombre")
 		admin.aceptarSuscripcion(diego)
 		Assert.assertEquals(listaAceptados, repousuarios.allInstances)
-	}
-	
-	@After
-	def void borrarLista2(){
-		repousuarios.allInstances.removeAll
-		repousuarios.listaPorAceptarse.removeAll
-	}
+	}*/
 
 	@Test
 	def void devolvermeUnUsuarioConNombreDiego() {
@@ -78,7 +71,7 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 		repousuarios.listaPorAceptarse.removeAll
 	}
 
-	@Test
+	 @Test
 	def void devolverListaConUsrDiabeticoDiegoPorCriterioDeNombreYCondicionDiabeticos() {
 		var usuarioPrototipo = new Usuario
 		usuarioPrototipo.nombre = "diego"
