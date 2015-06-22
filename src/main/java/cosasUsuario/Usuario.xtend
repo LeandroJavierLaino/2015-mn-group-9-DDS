@@ -20,7 +20,7 @@ import repositorioUsuarios.RepositorioUsuarios
 import condicion.CondicionVegano
 import consulta.Consulta
 import consulta.GestorDeConsultas
-import consulta.CommandMonitor
+import command.CommandMonitor
 
 @Accessors
 class Usuario extends Entity{
@@ -41,6 +41,8 @@ class Usuario extends Entity{
 	Set<Receta> recetas = new HashSet<Receta>
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	GrupoUsuario grupoAlQuePertenece
+	
+	//Command
 	CommandMonitor commandMonitor
 	
 	boolean habilitarFavoritos = false

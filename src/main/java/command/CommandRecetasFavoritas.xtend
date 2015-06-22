@@ -1,4 +1,6 @@
-package consulta
+package command
+
+import consulta.Consulta
 
 class CommandRecetasFavoritas implements CommandMonitor {
 	Consulta consulta

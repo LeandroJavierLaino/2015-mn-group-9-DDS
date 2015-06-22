@@ -6,13 +6,19 @@ import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
 import receta.Receta
 import java.util.HashSet
 import java.util.Set
-import consulta.CommandRecetasFavoritas
 import org.junit.Assert
 import org.junit.Test
+import command.CommandRecetasFavoritas
+import consulta.Consulta
 
 class TestCommandRecetasConsultadasAFavoritas extends UsuariosExtras {
+	CommandRecetasFavoritas commandRecetasFavoritas
 	
 	Set<Receta> recetasFiltradas = new HashSet<Receta>
+	
+	Set<Receta> recetasAConsultar 
+	
+	Consulta consulta
 	
 	@Before
 	override void init() {
@@ -25,7 +31,9 @@ class TestCommandRecetasConsultadasAFavoritas extends UsuariosExtras {
 	def	void NicolasConsultaRecetasYLasAgregaComoFavoritas(){
 		nicolas.agregarReceta(recetaAntiVegano)
 		nicolas.agregarReceta(recetaAntiDiabetico)
-		commandRecetasFavoritas.agregarConsulta()
+		//Falta hacer la consulta
+		recetasAConsultar.addAll(recetaAntiVegano,recetaAntiDiabetico)
+		commandRecetasFavoritas.agregarConsulta(consulta)
 		nicolas.agregarUnCommandMonitor(commandRecetasFavoritas)
 		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		nicolas.postProcesarRecetas
@@ -44,4 +52,3 @@ class TestCommandRecetasConsultadasAFavoritas extends UsuariosExtras {
 	}*/		
 }
 
-}

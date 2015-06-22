@@ -1,4 +1,4 @@
-package consulta
+package command
 
 interface CommandMonitor {
 	def void execute()
