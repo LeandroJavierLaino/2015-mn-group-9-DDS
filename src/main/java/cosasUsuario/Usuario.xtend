@@ -173,6 +173,11 @@ class Usuario extends Entity{
 		recetasFiltradas
 	}
 	
+	/************************************************************* */
+	
+	
+	
+	
 	def puedeSerSugeridaUnaReceta(Receta receta){
 		(!receta.tieneUnIngredienteOCondimentoQueDisgustaPara(this)) && this.condicionesPreexistentesSonValidas
 	}

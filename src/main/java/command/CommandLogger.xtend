@@ -6,8 +6,7 @@ class CommandLogger implements CommandMonitor {
 	
 	override execute(){
 		
+		logger.warn("Mensaje" )
 	}
-	def loguearResultadosMayoresA100(){
-		logger.warn("Mensaje" )  
-	}
+
 }
