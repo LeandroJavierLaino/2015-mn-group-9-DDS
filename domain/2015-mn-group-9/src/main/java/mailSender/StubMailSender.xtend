@@ -1,0 +1,5 @@
+package mailSender
+
+class StubMailSender {
+	
+}
