@@ -20,7 +20,7 @@ import repositorioUsuarios.RepositorioUsuarios
 import condicion.CondicionVegano
 import consulta.Consulta
 import consulta.GestorDeConsultas
-import command.CommandMonitor
+import command.CommandConsulta
 import command.CommandLogger
 
 @Accessors
@@ -44,7 +44,7 @@ class Usuario extends Entity{
 	GrupoUsuario grupoAlQuePertenece
 	
 	//Command
-	CommandMonitor commandMonitor
+	CommandConsulta commandConsulta
 	CommandLogger loguear
 	
 	boolean habilitarFavoritos = false
@@ -166,7 +166,7 @@ class Usuario extends Entity{
 			recetasFiltradas = recetasFavoritas
 		}
 		
-		commandMonitor.execute()
+		commandConsulta.execute()
 
 		//cantidad de resultador mayor a 100
 		if(recetasFiltradas.size > 100){
@@ -209,8 +209,8 @@ class Usuario extends Entity{
 		recetas.addAll(recetasConsultadas)
 	}
 	
-	def agregarUnCommandMonitor(CommandMonitor unCommandMonitor){
-		commandMonitor = unCommandMonitor		 		
+	def agregarUnCommandMonitor(CommandConsulta unCommandMonitor){
+		commandConsulta = unCommandMonitor		 		
 	}
 	
 }

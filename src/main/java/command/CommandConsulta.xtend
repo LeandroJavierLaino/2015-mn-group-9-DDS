@@ -1,5 +1,5 @@
 package command
 
-interface CommandMonitor {
+interface CommandConsulta {
 	def void execute()
 }

@@ -2,7 +2,7 @@ package command
 
 import consulta.Consulta
 
-class CommandRecetasFavoritas implements CommandMonitor {
+class CommandRecetasFavoritas implements CommandConsulta {
 	Consulta consulta
 	
 	override execute() {
