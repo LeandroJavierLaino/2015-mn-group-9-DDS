@@ -21,6 +21,7 @@ import condicion.CondicionVegano
 import consulta.Consulta
 import consulta.GestorDeConsultas
 import command.CommandMonitor
+import command.CommandLogger
 
 @Accessors
 class Usuario extends Entity{
@@ -44,6 +45,7 @@ class Usuario extends Entity{
 	
 	//Command
 	CommandMonitor commandMonitor
+	CommandLogger loguear
 	
 	boolean habilitarFavoritos = false
 
@@ -165,17 +167,19 @@ class Usuario extends Entity{
 		}
 		
 		commandMonitor.execute()
-		
+
+		//cantidad de resultador mayor a 100
+		if(recetasFiltradas.size > 100){
+			loguear.execute()
+		}
+			
 		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
 		GestorDeConsultas.getInstance.monitorear(consulta)
 		
 		recetasFiltradas
+					
 	}
-	
-	/************************************************************* */
-	
-	
 	
 	
 	def puedeSerSugeridaUnaReceta(Receta receta){

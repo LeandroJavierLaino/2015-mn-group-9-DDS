@@ -3,15 +3,13 @@ package consulta
 import java.util.HashMap
 import java.util.Map
 import receta.Receta
-import command.CommandLogger
 
 class MonitorRecetas implements Monitor {
 	
 //	Set<Receta> contadorDeRecetas
 	Map<Receta, Integer> contadorDeRecetas = new HashMap<Receta, Integer>
 	
-	CommandLogger loguear
-		
+	
 	override monitorear(Consulta consulta) {
 		consulta.recetas.forEach[ receta |		
 			if(contadorDeRecetas.containsKey(receta)) {
@@ -21,12 +19,7 @@ class MonitorRecetas implements Monitor {
 				contadorDeRecetas.put(receta, 1)
 			}
 		]
-		
-		if(resultadoDeConsultaMayorA100(contadorDeRecetas)){
-				loguear.execute()
-				//commandMonitor.execute()
-		}
-		
+			
 	}
 		
 		override mostrarResultados() {
@@ -35,12 +28,4 @@ class MonitorRecetas implements Monitor {
 			
 		}
 		
-		
-		
-	//cantidad de recetas
-	def resultadoDeConsultaMayorA100(Map <Receta,Integer> contadorDeRecetas){
-		//acá hay que sacar el segundo campo y ver si supera a 100 
-		
-	}
-	
 }
