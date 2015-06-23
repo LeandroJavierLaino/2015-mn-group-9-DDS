@@ -14,8 +14,8 @@ import org.junit.Before
 import filtro.FiltroPorGusto
 import filtro.FiltroPorExcesoDeCalorias
 import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
-import procesamientoPosterior.ProcesamientoParaTomarResultadosPares
 import procesamientoPosterior.ProcesamientoOrdenarlosPorCalorias
+//import procesamientoPosterior.ProcesamientoParaTomarResultadosPares
 
 class TestObserver extends UsuariosExtras{
 	FiltroPorGusto filtroGusto
@@ -26,7 +26,6 @@ class TestObserver extends UsuariosExtras{
 	MonitorRecetasM monitorRecetasHombre
 	MonitorRecetasF monitorRecetasMujer
 	MonitorVegano monitorVegano
-	DateTime time
 	int hora	
 	
 	@Before
@@ -42,8 +41,7 @@ class TestObserver extends UsuariosExtras{
 	monitorRecetasMujer = new MonitorRecetasF
 	monitorVegano = new MonitorVegano
 		
-	time = new DateTime()
-	hora = time.getHourOfDay()
+	hora = new DateTime().getHourOfDay()
 		
 	GestorDeConsultas.getInstance.monitores.add(monitorHora)
 	GestorDeConsultas.getInstance.monitores.add(monitorReceta)
