@@ -10,6 +10,7 @@ import org.junit.Assert
 import org.junit.Test
 import command.CommandRecetasFavoritas
 import consulta.Consulta
+import command.CommandLogger
 
 class TestCommandRecetasConsultadasAFavoritas extends UsuariosExtras {
 	CommandRecetasFavoritas commandRecetasFavoritas
@@ -19,6 +20,8 @@ class TestCommandRecetasConsultadasAFavoritas extends UsuariosExtras {
 	Set<Receta> recetasAConsultar 
 	
 	Consulta consulta
+	
+	CommandLogger commandLoggerMocked = EasyMock.createMock(CommandLoggerMocked.class)
 	
 	@Before
 	override void init() {
@@ -50,5 +53,22 @@ class TestCommandRecetasConsultadasAFavoritas extends UsuariosExtras {
 	def	void usuarioConsultaRecetassAgregaAlgunasComoFavoritas(){
 		Assert.assertEquals(v,usuario.recetasFavoritas.size)//v es parte de las recetas consultadas
 	}*/		
+	
+	@Test
+	def void noSeCreaUnLogPorMenosDe100Recetas(){
+		leandro.agregarReceta(recetaAntiDiabetico)
+		leandro.agregarReceta(recetaParaCualquiera)
+		leandro.agregarReceta(recetaAntiVegano)
+		leandro.recetasFavoritas.add(recetaSalchiPapa)
+		leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		
+		leandro.agregarUnCommandMonitor(commandLoggerMocked)
+	}
+	
+	
+	@Test
+	def void seCreaUnLogPor100Recetas(){
+		
+	}
 }
 
