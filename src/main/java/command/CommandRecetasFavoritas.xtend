@@ -3,13 +3,9 @@ package command
 import consulta.Consulta
 
 class CommandRecetasFavoritas implements CommandConsulta {
-	Consulta consulta
 	
-	override execute() {
+	override execute(Consulta consulta) {
 		consulta.usuario.agregarRecetasAFavoritas(consulta.recetas)
 	}
 	
-	def agregarConsulta(Consulta unaConsulta){
-		consulta=unaConsulta
-	}
 }
