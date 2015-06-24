@@ -6,8 +6,9 @@ class CommandLogger implements CommandConsulta {
 	final static Logger logger = Logger.getLogger( "Logger")
 	
 	override execute(Consulta consulta){
-		
-		logger.warn("Mensaje" )
+		if(consulta.recetas.size >= 100){
+			logger.info("Se realizó una consulta con más de 100 resultados por el usuario:" + consulta.usuario)
+		}
 	}
 
 }

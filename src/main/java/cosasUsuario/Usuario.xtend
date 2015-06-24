@@ -41,8 +41,8 @@ class Usuario extends Entity{
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	GrupoUsuario grupoAlQuePertenece
 	boolean habilitarFavoritos = false
-	
 	List<Usuario> usuariosAEnviarMail = new ArrayList<Usuario>
+	boolean marcarFavoritas
 
 	//Mensajes
 	def double calculaIMC() {
@@ -197,6 +197,10 @@ class Usuario extends Entity{
 	
 	def esUnUsuarioAAvisarPorMail(){
 		usuariosAEnviarMail.contains(this)
+	}
+	
+	def quiereMarcarComoFavoritas() {
+		marcarFavoritas
 	}
 	
 	
