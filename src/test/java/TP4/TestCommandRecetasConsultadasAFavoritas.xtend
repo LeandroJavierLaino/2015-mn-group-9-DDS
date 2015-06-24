@@ -9,46 +9,34 @@ import java.util.Set
 import org.junit.Assert
 import org.junit.Test
 import command.CommandRecetasFavoritas
-import consulta.Consulta
+import filtro.FiltroPorGusto
+import consulta.GestorDeConsultas
 
 class TestCommandRecetasConsultadasAFavoritas extends UsuariosExtras {
-	CommandRecetasFavoritas commandRecetasFavoritas
-	
-	Set<Receta> recetasFiltradas = new HashSet<Receta>
-	
-	Set<Receta> recetasAConsultar 
-	
-	Consulta consulta
+	Set<Receta> recetasFavoritas = new HashSet<Receta>
+	FiltroPorGusto filtroGusto = new FiltroPorGusto 
+	GestorDeConsultas gestor = GestorDeConsultas.getInstance
 	
 	@Before
 	override void init() {
 		super.init()
 		
-		commandRecetasFavoritas = new CommandRecetasFavoritas => [] 	
+		nicolas.agregarReceta(recetaAntiVegano)
+		nicolas.agregarReceta(recetaParaCualquiera)			
 	}
+	
 	
 	@Test
 	def	void NicolasConsultaRecetasYLasAgregaComoFavoritas(){
-		nicolas.agregarReceta(recetaAntiVegano)
-		nicolas.agregarReceta(recetaAntiDiabetico)
-		//Falta hacer la consulta
-		recetasAConsultar.addAll(recetaAntiVegano,recetaAntiDiabetico)
-		commandRecetasFavoritas.agregarConsulta(consulta)
-		nicolas.agregarUnCommandMonitor(commandRecetasFavoritas)
+		var commandFavoritas = new CommandRecetasFavoritas
+		gestor.commands.add(commandFavoritas)
+		nicolas.agregarFiltro(filtroGusto)
 		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		nicolas.postProcesarRecetas
-		recetasFiltradas = nicolas.postProcesarRecetas
-		Assert.assertEquals(3,nicolas.recetasFavoritas.size)
-	}
-
-	/*@Test
-	def	void usuarioConsultaRecetasYNoLasAgregaComoFavoritas(){
-		Assert.assertEquals(0,usuario.recetasFavoritas.size)
+		gestor.ejecutarJob
+		recetasFavoritas = nicolas.postProcesarRecetas
+		Assert.assertEquals(2,nicolas.recetasFavoritas.size)
 	}
 	
-	@Test
-	def	void usuarioConsultaRecetassAgregaAlgunasComoFavoritas(){
-		Assert.assertEquals(v,usuario.recetasFavoritas.size)//v es parte de las recetas consultadas
-	}*/		
 }
 
