@@ -20,6 +20,7 @@ import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
 import org.apache.log4j.Logger
+import mailSender.MailSender
 
 @Accessors
 class Usuario extends Entity {
@@ -54,6 +55,8 @@ class Usuario extends Entity {
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
 	ProcesamientoPosterior procesamiento
+	
+	MailSender emailSender
 
 	//Mensajes
 	def double calculaIMC() {
@@ -160,7 +163,7 @@ class Usuario extends Entity {
 		recetasFiltradas = aplicarFiltros()
 		var ProcesamientoPosterior procesamiento = this.indicarProcesamientoPosterior()
 		if(esUnUsuarioAAvisarPorMail(this)){
-				
+			emailSender.almacenarUsuarioParaEnvioMail(this)	
 		}
 		recetasFiltradas = procesamiento.asociarProcesamiento(recetasFiltradas)
 		if(recetasFiltradas.size >=  100){

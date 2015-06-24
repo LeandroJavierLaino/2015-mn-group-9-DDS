@@ -1,5 +1,5 @@
 package mailSender
 
-class StubMailSender {
+interface Sender {
 	
 }
