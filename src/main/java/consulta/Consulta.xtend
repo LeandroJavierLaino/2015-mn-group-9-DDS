@@ -15,4 +15,8 @@ class Consulta {
 		usuario = usr
 		recetas = vRecetas
 	}
+	
+	def int cantRecetas(){
+		return recetas.size
+	}
 }

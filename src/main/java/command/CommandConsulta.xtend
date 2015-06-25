@@ -1,5 +1,7 @@
 package command
 
+import consulta.Consulta
+
 interface CommandConsulta {
-	def void execute()
+	def void execute(Consulta consulta)
 }

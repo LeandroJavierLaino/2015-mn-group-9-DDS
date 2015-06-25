@@ -1,27 +1,25 @@
-package cosasUsuario
+	package cosasUsuario
 
 import condicion.CondicionPreexistente
+import condicion.CondicionVegano
+import consulta.Consulta
+import consulta.GestorDeConsultas
 import excepcion.FechaInvalidaExcepcion
 import excepcion.UsuarioInvalidoExcepcion
+import filtro.Filtro
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
+import org.uqbar.commons.model.Entity
+import procesamientoPosterior.ProcesamientoPosterior
 import receta.Caracteristica
 import receta.Receta
-import rutina.Rutina
-import filtro.Filtro
-import procesamientoPosterior.ProcesamientoPosterior
 import repositorioRecetas.RepositorioRecetas
-import org.uqbar.commons.model.Entity
 import repositorioUsuarios.RepositorioUsuarios
-import condicion.CondicionVegano
-import consulta.Consulta
-import consulta.GestorDeConsultas
-import command.CommandConsulta
-import command.CommandLogger
+import rutina.Rutina
 
 @Accessors
 class Usuario extends Entity{
@@ -42,12 +40,9 @@ class Usuario extends Entity{
 	Set<Receta> recetas = new HashSet<Receta>
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	GrupoUsuario grupoAlQuePertenece
-	
-	//Command
-	CommandConsulta commandConsulta
-	CommandLogger loguear
-	
 	boolean habilitarFavoritos = false
+	List<Usuario> usuariosAEnviarMail = new ArrayList<Usuario>
+	boolean marcarFavoritas
 
 	//Mensajes
 	def double calculaIMC() {
@@ -154,10 +149,8 @@ class Usuario extends Entity{
 	}
 	
 	def postProcesarRecetas(){
-		
 		var Set<Receta> recetasFiltradas = new HashSet<Receta>
 		recetasFiltradas = aplicarFiltros()
-		
 		var ProcesamientoPosterior procesamiento = this.indicarProcesamientoPosterior()
 		recetasFiltradas = procesamiento.asociarProcesamiento(recetasFiltradas)
 		
@@ -165,20 +158,9 @@ class Usuario extends Entity{
 			recetasFavoritas.addAll(recetasFiltradas)
 			recetasFiltradas = recetasFavoritas
 		}
-		
-		commandConsulta.execute()
-
-		//cantidad de resultador mayor a 100
-		if(recetasFiltradas.size > 100){
-			loguear.execute()
-		}
-			
-		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
 		GestorDeConsultas.getInstance.monitorear(consulta)
-		
 		recetasFiltradas
-					
 	}
 	
 	
@@ -209,10 +191,17 @@ class Usuario extends Entity{
 		recetas.addAll(recetasConsultadas)
 	}
 	
-	def agregarUnCommandMonitor(CommandConsulta unCommandMonitor){
-		commandConsulta = unCommandMonitor		 		
+	def agregarUsuarioAMandarMail(Usuario usuario) {
+		usuariosAEnviarMail.add(usuario)
+	}	
+	
+	def esUnUsuarioAAvisarPorMail(){
+		usuariosAEnviarMail.contains(this)
 	}
 	
+	def quiereMarcarComoFavoritas() {
+		marcarFavoritas
+	}
+	
+	
 }
-
-

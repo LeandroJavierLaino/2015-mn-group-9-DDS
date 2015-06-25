@@ -1,12 +1,14 @@
 package command
  import org.apache.log4j.Logger
- 
+import consulta.Consulta
+
 class CommandLogger implements CommandConsulta {
-	final static Logger logger = Logger.getLogger( "Logger")
+	public Logger logger = Logger.getLogger("Logger")
 	
-	override execute(){
-		
-		logger.warn("Mensaje" )
+	override void execute(Consulta consulta){
+		if(consulta.cantRecetas() >= 100){
+			logger.info("Se realizó una consulta con más de 100 resultados por el usuario:" + consulta.usuario)
+		}
 	}
 
 }
