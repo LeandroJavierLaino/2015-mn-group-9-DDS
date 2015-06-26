@@ -5,10 +5,10 @@ import consulta.Consulta
 class CommandRecetasFavoritas implements CommandConsulta {
 
 	override execute(Consulta consulta) {
-		for (receta : consulta.recetas) {
-			if (consulta.usuario.recetasFavoritas.contains(receta) || !consulta.usuario.quiereMarcarComoFavoritas) {
+		if (consulta.usuario.quiereMarcarComoFavoritas) {			
+			for (receta : consulta.recetas) {
+				consulta.usuario.recetasFavoritas.add(receta)
 			}
-			consulta.usuario.recetasFavoritas.add(receta)
 		}
 	}
 }

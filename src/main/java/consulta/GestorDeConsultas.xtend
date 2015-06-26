@@ -31,7 +31,9 @@ class GestorDeConsultas {
 	}
 	
 	def void ejecutarJob(){
-		for(consulta : consultasAEjecutar)
-		commands.forEach[command | command.execute(consulta)]
+		consultasAEjecutar.forEach [ consulta |
+			commands.forEach[command | command.execute(consulta)]
+		]
+		consultasAEjecutar.clear
 	}
 }
