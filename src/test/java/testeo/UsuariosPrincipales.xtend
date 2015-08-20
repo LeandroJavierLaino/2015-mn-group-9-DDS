@@ -59,6 +59,9 @@ class UsuariosPrincipales extends TestInstances {
 		.conPeso(60)
 		.conRutina(rutinaActivaLarga)
 		.leDisgusta(ajiMolido)
+		.conReceta(recetaSalchiPapa)
+		.conReceta(recetaPolloAlOreganato)
+		.conReceta(recetaAntiVegano)
 		.build
 		
 		pablo = new UsuarioBuilder()
@@ -70,6 +73,9 @@ class UsuariosPrincipales extends TestInstances {
 		.conRutina(rutinaActivaCorta)
 		.build
 		
+		recetaSalchiPapa.creador = nicolas
+		recetaAntiVegano.creador = leandro
+		recetaPolloAlOreganato.creador = pablo
 		/*
 		 * METODO POR WITH
 		 

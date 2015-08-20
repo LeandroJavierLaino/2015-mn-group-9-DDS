@@ -38,7 +38,8 @@ public class TestObserver extends UsuariosExtras {
   
   private int hora;
   
-  @Before
+  @Override
+@Before
   public void init() {
     super.init();
     FiltroPorGusto _filtroPorGusto = new FiltroPorGusto();

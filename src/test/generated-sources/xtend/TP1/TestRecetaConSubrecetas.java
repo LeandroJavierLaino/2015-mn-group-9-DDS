@@ -15,7 +15,8 @@ import testeo.Grupos;
  */
 @SuppressWarnings("all")
 public class TestRecetaConSubrecetas extends Grupos {
-  @Before
+  @Override
+@Before
   public void init() {
     super.init();
     Receta _recetaAntiVegano = this.getRecetaAntiVegano();

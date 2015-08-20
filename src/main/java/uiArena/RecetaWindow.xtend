@@ -1,5 +1,6 @@
 package uiArena
 
+
 import org.uqbar.arena.windows.MainWindow
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
@@ -12,14 +13,22 @@ import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.bindings.NotNullObservable
 import receta.Ingrediente
+import receta.Receta
+import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.windows.WindowOwner
 
-class RecetaWindow extends MainWindow<QueComemosReceta>{
+class RecetaWindow extends TransactionalDialog<Receta>{
 
-	new() {
-		super(new QueComemosReceta)
+Receta receta1	
+	new(WindowOwner owner, Receta model) {
+		super(owner, model)
+		title = "Detalle de Receta"
 	}
+	
+	
 			
-	override createContents(Panel mainPanel){
+	override createFormPanel(Panel mainPanel){
+		
 		this.setTitle("Detalle de Receta")
 		mainPanel.setLayout(new VerticalLayout)
 	
@@ -37,7 +46,7 @@ class RecetaWindow extends MainWindow<QueComemosReceta>{
 		new Label(midPanel).bindValueToProperty("temporada")
 		new Label(midPanel).setText("Ingredientes")
 		new Label(midPanel).setText("Condimentos")
-		var table = new Table<Ingrediente>(midPanel, typeof(Ingrediente)) => [
+		/*var table = new Table<Ingrediente>(midPanel, typeof(Ingrediente)) => [
 			 	height = 200
     	  		width = 450
     	  		bindItemsToProperty("ingredientes")
@@ -75,10 +84,20 @@ class RecetaWindow extends MainWindow<QueComemosReceta>{
 			caption = "Volver"
 			onClick [ | modelObject.volver ]
 			bindEnabled(new NotNullObservable("volver"))
-		]	
-}	
-
-	def static main(String[] args) {
-		new RecetaWindow().startApplication()
+		]	*/
 	}	
+	override protected addActions(Panel actions) {
+		new Button(actions)
+			.setCaption("Cerrar")
+			.onClick [| this.close]
+			
+	}
+	def init() {
+		receta1 = new receta.RecetaBuilder()
+			.nombre("Nachos")
+			.conCalorias(500)
+			.dificultad("baja")
+			.temporada("Invierno")
+			.build
+	}
 }

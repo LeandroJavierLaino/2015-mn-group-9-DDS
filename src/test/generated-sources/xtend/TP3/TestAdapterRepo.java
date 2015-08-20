@@ -26,7 +26,8 @@ public class TestAdapterRepo extends UsuariosExtras {
   
   private RepoRecetas repositorio;
   
-  @Before
+  @Override
+@Before
   public void init() {
     super.init();
     BusquedaRecetas _busquedaRecetas = new BusquedaRecetas();

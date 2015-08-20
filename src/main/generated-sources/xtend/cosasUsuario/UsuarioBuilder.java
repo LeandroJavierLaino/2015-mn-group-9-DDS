@@ -8,6 +8,7 @@ import java.util.Set;
 import org.joda.time.LocalDate;
 import receta.Caracteristica;
 import receta.Receta;
+import repositorioUsuarios.RepositorioUsuarios;
 import rutina.Rutina;
 
 @SuppressWarnings("all")
@@ -119,6 +120,12 @@ public class UsuarioBuilder {
   }
   
   public Usuario build() {
-    return this.usuario;
+    Usuario _xblockexpression = null;
+    {
+      RepositorioUsuarios _instance = RepositorioUsuarios.getInstance();
+      _instance.add(this.usuario);
+      _xblockexpression = this.usuario;
+    }
+    return _xblockexpression;
   }
 }

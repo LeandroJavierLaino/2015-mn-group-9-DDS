@@ -9,38 +9,68 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.bindings.NotNullObservable
 import receta.Receta
+import cosasUsuario.Usuario
+import receta.RecetaBuilder
+import cosasUsuario.UsuarioBuilder
+import repositorioUsuarios.RepositorioUsuarios
 
 class QueComemosWindowPrincipal extends MainWindow<QueComemosPrincipal>{
+	
+	Usuario pepe
+	Receta recetaDePepe
 		
-	new() {
-		super(new QueComemosPrincipal)
+	new(Usuario usuario) {
+		super(new QueComemosPrincipal(usuario))
+		
+		recetaDePepe = new RecetaBuilder()
+			.nombre("Nachos con Queso")
+			.conCalorias(500)
+			.dificultad("Baja")
+			.temporada("Otoño")
+			.build
+		
+		pepe = new UsuarioBuilder()
+			.conNombre("Pepe")
+			.conReceta(recetaDePepe)
+			.build
+		
+		RepositorioUsuarios.getInstance.add(pepe)
 	}	
 	
 	override createContents(Panel mainPanel){
 		
-		this.setTitle("Bienvenido a �Que Comemos?")
+		this.setTitle("Bienvenido a ¿Que Comemos?")
 		mainPanel.setLayout(new VerticalLayout)
 		
 		new Label(mainPanel).setText("Estas fueron las ultimas consultas")
 		
-		var table = new Table<Receta>(mainPanel, typeof(Receta)) => [
- 	    	height = 200
-      		width = 450
-   			bindItemsToProperty("resultados")
-     		bindValueToProperty("recetaSeleccionada")
-     		bindEnabled(new NotNullObservable("ver"))                
-		] 
-	
+		this.createResultsGrid(mainPanel)
+		
+		new Button(mainPanel) => [ 
+			caption = "Ver"
+			onClick [ | new RecetaWindow(this, new Receta).open ]
+		]
+		
+	}
+	def protected createResultsGrid(Panel mainPanel) {
+			val table = new Table<Receta>(mainPanel, typeof(Receta)) => [
+				bindItemsToProperty("resultados")
+				bindValueToProperty("recetaSeleccionada")
+			]
+			this.describeResultsGrid(table)
+	}
+	def void describeResultsGrid(Table<Receta> table) {
+		
 		new Column<Receta> (table) => [
 			title = "Nombre"
 			fixedSize = 200
-			bindContentsToProperty("nombre")
+			bindContentsToProperty("nombrePlato")
 		]
 	
 		new Column<Receta> (table) => [
 			title = "Calorias"
 			fixedSize = 200
-			bindContentsToProperty("calorias")
+			bindContentsToProperty("totalCalorias")
 		]		
 	
 		new Column<Receta> (table) => [
@@ -54,16 +84,10 @@ class QueComemosWindowPrincipal extends MainWindow<QueComemosPrincipal>{
 			fixedSize = 200
 			bindContentsToProperty("temporada")
 		]	
-		
-		new Button(mainPanel) => [ 
-			caption = "Ver"
-			onClick [ | QueComemosPrincipal.ver ]
-			bindEnabled(new NotNullObservable("ver"))
-		]
-		
 	}
+		
 	
 	def static main(String[] args) {
-		new QueComemosWindowPrincipal().startApplication
+		new QueComemosWindowPrincipal(new Usuario).startApplication
 	}	
 }

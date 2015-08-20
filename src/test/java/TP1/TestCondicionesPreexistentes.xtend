@@ -4,6 +4,9 @@ import org.junit.Assert
 import org.junit.Test
 import testeo.UsuariosExtras
 import org.junit.Before
+import ui.QueComemosMainWindow
+import ui.UserRecipesModel
+import ui.UserRecipesWindow
 
 //Punto 3 CONDICIONES PREEX
 
@@ -28,6 +31,7 @@ class TestCondicionesPreexistentes extends UsuariosExtras{
 		
 		usuarioVeganoLeGustaPolloYNoLaFruta.comidaPreferida.add("Pollo")
 		usuarioVeganoLeGustaPolloYNoLaFruta.agregarCondicion(vegano)
+		
 	}
 	@Test
 	def void RecetaAntiveganoNoAdecuadaParaVegano() {
@@ -57,5 +61,9 @@ class TestCondicionesPreexistentes extends UsuariosExtras{
 	@Test
 	def void RecetaParaCualquieraAdecuadaParaCeliaco() {
 		Assert.assertTrue(getRecetaParaCualquiera.esRecomendablePara(getUsuarioCeliacoValido))
+	}
+	@Test
+	def void PruebaDeLogeo() {
+		new QueComemosMainWindow().startApplication
 	}
 }

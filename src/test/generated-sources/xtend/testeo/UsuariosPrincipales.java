@@ -75,7 +75,13 @@ public class UsuariosPrincipales extends TestInstances {
     UsuarioBuilder _conRutina_3 = _conPeso_3.conRutina(_rutinaActivaLarga_1);
     Condimento _ajiMolido = this.getAjiMolido();
     UsuarioBuilder _leDisgusta = _conRutina_3.leDisgusta(_ajiMolido);
-    Usuario _build_3 = _leDisgusta.build();
+    Receta _recetaSalchiPapa = this.getRecetaSalchiPapa();
+    UsuarioBuilder _conReceta_2 = _leDisgusta.conReceta(_recetaSalchiPapa);
+    Receta _recetaPolloAlOreganato = this.getRecetaPolloAlOreganato();
+    UsuarioBuilder _conReceta_3 = _conReceta_2.conReceta(_recetaPolloAlOreganato);
+    Receta _recetaAntiVegano = this.getRecetaAntiVegano();
+    UsuarioBuilder _conReceta_4 = _conReceta_3.conReceta(_recetaAntiVegano);
+    Usuario _build_3 = _conReceta_4.build();
     this.nicolas = _build_3;
     UsuarioBuilder _usuarioBuilder_4 = new UsuarioBuilder();
     UsuarioBuilder _conNombre_4 = _usuarioBuilder_4.conNombre("Pablo");
@@ -88,6 +94,12 @@ public class UsuariosPrincipales extends TestInstances {
     UsuarioBuilder _conRutina_4 = _conPeso_4.conRutina(_rutinaActivaCorta_2);
     Usuario _build_4 = _conRutina_4.build();
     this.pablo = _build_4;
+    Receta _recetaSalchiPapa_1 = this.getRecetaSalchiPapa();
+    _recetaSalchiPapa_1.setCreador(this.nicolas);
+    Receta _recetaAntiVegano_1 = this.getRecetaAntiVegano();
+    _recetaAntiVegano_1.setCreador(this.leandro);
+    Receta _recetaPolloAlOreganato_1 = this.getRecetaPolloAlOreganato();
+    _recetaPolloAlOreganato_1.setCreador(this.pablo);
   }
   
   @Pure

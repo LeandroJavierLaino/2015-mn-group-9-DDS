@@ -7,9 +7,14 @@ import cosasUsuario.Usuario
 
 @Accessors
 class QueComemosPrincipal {
+	Usuario usr
 	Set<Receta> resultados  
 	Receta seleccionada		
 	
+	new(Usuario usuario) {
+		super()
+		usr = usuario
+	}
 	def static String ver() {
 		
 	}

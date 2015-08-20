@@ -20,7 +20,8 @@ public class TestConsultas extends UsuariosExtras {
   
   private Set<Receta> recetasFiltradas = new HashSet<Receta>();
   
-  @Before
+  @Override
+@Before
   public void init() {
     super.init();
     FiltroPorGusto _filtroPorGusto = new FiltroPorGusto();

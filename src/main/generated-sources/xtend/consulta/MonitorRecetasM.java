@@ -18,7 +18,8 @@ import receta.Receta;
 public class MonitorRecetasM extends MonitorRecetas {
   private Map<Receta, Integer> contadorDeRecetas = new HashMap<Receta, Integer>();
   
-  public void monitorear(final Consulta consulta) {
+  @Override
+public void monitorear(final Consulta consulta) {
     boolean _and = false;
     Usuario _usuario = consulta.getUsuario();
     String _sexo = _usuario.getSexo();
@@ -50,7 +51,8 @@ public class MonitorRecetasM extends MonitorRecetas {
     }
   }
   
-  public String mostrarResultados() {
+  @Override
+public String mostrarResultados() {
     final Function2<Receta, Integer, Boolean> _function = new Function2<Receta, Integer, Boolean>() {
       public Boolean apply(final Receta p1, final Integer p2) {
         Collection<Integer> _values = MonitorRecetasM.this.contadorDeRecetas.values();

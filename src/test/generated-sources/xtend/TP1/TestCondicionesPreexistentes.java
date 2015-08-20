@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import receta.Receta;
 import testeo.UsuariosExtras;
+import ui.QueComemosMainWindow;
 
 /**
  * Casos de Prueba
@@ -78,5 +79,11 @@ public class TestCondicionesPreexistentes extends UsuariosExtras {
     Usuario _usuarioCeliacoValido = this.getUsuarioCeliacoValido();
     boolean _esRecomendablePara = _recetaParaCualquiera.esRecomendablePara(_usuarioCeliacoValido);
     Assert.assertTrue(_esRecomendablePara);
+  }
+  
+  @Test
+  public void PruebaDeLogeo() {
+    QueComemosMainWindow _queComemosMainWindow = new QueComemosMainWindow();
+    _queComemosMainWindow.startApplication();
   }
 }

@@ -15,7 +15,8 @@ import testeo.UsuariosExtras;
 @Accessors
 @SuppressWarnings("all")
 public class Grupos extends UsuariosExtras {
-  @Before
+  @Override
+@Before
   public void init() {
     super.init();
     GrupoUsuario _grupoUsuario = new GrupoUsuario();

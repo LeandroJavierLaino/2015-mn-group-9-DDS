@@ -5,6 +5,7 @@ import condicion.CondicionPreexistente
 import receta.Caracteristica
 import rutina.Rutina
 import receta.Receta
+import repositorioUsuarios.RepositorioUsuarios
 
 class UsuarioBuilder {
 	
@@ -55,6 +56,7 @@ class UsuarioBuilder {
 		this
 	}
 	def Usuario build(){
+		RepositorioUsuarios.instance.add(usuario)
 		usuario
 	}
 }

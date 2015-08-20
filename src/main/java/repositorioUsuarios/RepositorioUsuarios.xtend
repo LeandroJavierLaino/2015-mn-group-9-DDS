@@ -8,11 +8,17 @@ import org.apache.commons.collections15.functors.AndPredicate
 import org.uqbar.commons.model.CollectionBasedHome
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
+import cosasUsuario.UsuarioBuilder
+import receta.Receta
+import receta.RecetaBuilder
 
 @Accessors
 class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 
+	Usuario pepe
 	List<Usuario> listaPorAceptarse = new ArrayList<Usuario>
+	
+	Receta recetaDePepe
 
 	static RepositorioUsuarios instance = null
 
@@ -22,7 +28,20 @@ class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 		}
 		instance
 	}
-
+	
+	def init() {
+			
+		recetaDePepe = new RecetaBuilder()
+			.nombre("Nachos")
+			.conCalorias(500)
+			.dificultad("Baja")
+			.temporada("Invierno")
+			.build
+		pepe = new UsuarioBuilder()
+			.conNombre("Pepe")
+			.conReceta(recetaDePepe)
+			.build
+	}
 	def add(Usuario usuario) {
 		this.effectiveCreate(usuario)
 	}
@@ -34,6 +53,10 @@ class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 	def get(Usuario usuario) {
 		this.searchByExample(usuario).toList.head
 		//allInstances.filter[usuarioLista|usuarioLista.nombre.equals(usuario.nombre)].toList.get(0)
+	}
+	
+	def Usuario getUserByName(String vnombre) {
+		objects.findFirst[usr | usr.nombre == vnombre]
 	}
 
 	def list(Usuario usuario) {
