@@ -45,8 +45,7 @@ public class IntanciacionTP3Consultas extends UsuariosExtras {
   
   private int hora;
   
-  @Override
-public void init() {
+  public void init() {
     super.init();
     FiltroPorGusto _filtroPorGusto = new FiltroPorGusto();
     this.filtroGusto = _filtroPorGusto;

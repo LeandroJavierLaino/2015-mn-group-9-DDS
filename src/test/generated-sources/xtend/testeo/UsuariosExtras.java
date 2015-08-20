@@ -56,8 +56,7 @@ public class UsuariosExtras extends UsuariosPrincipales {
   
   private Usuario usuarioCeliacoValido;
   
-  @Override
-@Before
+  @Before
   public void init() {
     super.init();
     Usuario _usuario = new Usuario();

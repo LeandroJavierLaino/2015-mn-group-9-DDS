@@ -76,6 +76,7 @@ class UsuariosPrincipales extends TestInstances {
 		recetaSalchiPapa.creador = nicolas
 		recetaAntiVegano.creador = leandro
 		recetaPolloAlOreganato.creador = pablo
+		nicolas.recetasFavoritas.add(recetaPolloAlOreganato)
 		/*
 		 * METODO POR WITH
 		 

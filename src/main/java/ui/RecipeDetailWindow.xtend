@@ -12,6 +12,7 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.CheckBox
 
 class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 	
@@ -64,11 +65,50 @@ class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 		val ingredientesPanel = new Panel(midPanel)
 		ingredientesPanel.layout = new VerticalLayout
 		new Label(ingredientesPanel).text = "Ingredientes"
-		var ingredientesTable = new Table<Ingrediente>(ingredientesPanel, typeof(Ingrediente)) => [
+		createIngredientsGrid(ingredientesPanel)
 		
-//			bindItemsToProperty("ingredientes")
+		var condimentosPanel = new Panel(midPanel)
+		condimentosPanel.layout = new VerticalLayout
+		new Label(condimentosPanel).text = "Condimentos"
+		new List(condimentosPanel) => [
+			width = 150
+			allowNull(false)
+			bindValueToProperty("condimentos")
+		]
+		
+		val favPanel = new Panel(midPanel)
+		favPanel.layout = new HorizontalLayout
+		new Label(favPanel).text = "Favorita"
+		new CheckBox(favPanel).bindValueToProperty("esFavorita")
+		
+		val condPanel = new Panel(midPanel)
+		condPanel.layout = new VerticalLayout
+		new Label(condPanel).setText("Condiciones Preexistentes")	
+		new List(condPanel) => [
+			width = 150
+			allowNull(false)
+			bindValueToProperty("condicionesPreexistentes")
+		]
+		
+		var botPanel = new Panel(mainPanel) 
+		botPanel.setLayout(new VerticalLayout)
+		new Label(botPanel).setText("Proceso de Preparacion")
+		new Label(botPanel).bindValueToProperty("preparacion")
+	}
+	
+	def createIngredientsGrid(Panel panel) {
+		val ingredientesTable = new Table<Ingrediente>(panel, Ingrediente) => [
+			
+			width = 300
+			bindItemsToProperty("ingredientes")
 			bindValueToProperty("ingredienteSeleccionado")
 		]
+		describeResultsGrid(ingredientesTable)
+	}
+	
+	def describeResultsGrid(Table<Ingrediente> ingredientesTable) {
+		
+		modelObject.inspeccionarReceta
 		new Column<Ingrediente> (ingredientesTable) => [
 			title = "Dosis"
 			fixedSize = 100
@@ -77,17 +117,8 @@ class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 		new Column<Ingrediente> (ingredientesTable) => [
 			title = "Ingrediente"
 			fixedSize = 200
-			bindContentsToProperty("ingrediente")
+			bindContentsToProperty("nombre")
 		]
-		
-		var condimentosPanel = new Panel(midPanel)
-		condimentosPanel.layout = new VerticalLayout
-		new Label(condimentosPanel).text = "Condimentos"
-		new List(condimentosPanel) => [
-			allowNull(false)
-			bindValueToProperty("condimentos")
-		]
-		
 	}
 	
 }

@@ -6,14 +6,12 @@ import rutina.Rutina;
 @Accessors
 @SuppressWarnings("all")
 public class RutinaActiva extends Rutina {
-  @Override
-public boolean activaIntensa() {
+  public boolean activaIntensa() {
     int _tiempo = this.getTiempo();
     return (_tiempo > 30);
   }
   
-  @Override
-public boolean esActiva() {
+  public boolean esActiva() {
     return true;
   }
   

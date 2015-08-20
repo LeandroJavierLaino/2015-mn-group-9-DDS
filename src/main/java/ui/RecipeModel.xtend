@@ -17,9 +17,10 @@ class RecipeModel {
 	String nombrePlato
 	String dificultad
 	String temporada
+	String procedimiento
 	
-	List<Ingrediente> ingredientes
 	List<Condimento> condimentos
+	List<Ingrediente> ingredientes
 	List<String> procesoPreparacion
 	List<Receta> subRecetas
 	List<CondicionPreexistente> condicionesPreexistentes
@@ -27,11 +28,13 @@ class RecipeModel {
 	double totalCalorias
 	
 	Usuario creador
+	Usuario usuario
 	
 	Ingrediente ingredienteSeleccionado
 
-	new(Receta receta) {
+	new(Receta receta, Usuario user) {
 		recipe = receta
+		usuario = user
 	}
 	def inspeccionarReceta() {
 		nombrePlato = recipe.nombrePlato
@@ -44,5 +47,19 @@ class RecipeModel {
 		
 		ingredientes = recipe.ingredientes.toList
 		condimentos = recipe.condimentos.toList
+	}
+	def esFavorita() {
+		usuario.recetasFavoritas.contains(recipe)
+	}
+	def String preparacion() {
+		
+		procedimiento = ""
+		for(paso:procesoPreparacion) {
+			if(paso != procesoPreparacion.last)
+				procedimiento += paso + ", "
+			else
+				procedimiento += paso
+		}
+		procedimiento
 	}
 }

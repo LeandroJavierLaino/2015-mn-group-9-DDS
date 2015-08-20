@@ -24,7 +24,7 @@ class UserRecipesModel {
 		resultados = user.recetas.toList
 	}
 	def verReceta() {
-		val window = new RecipeDetailWindow(owner, new RecipeModel(seleccionada))
+		val window = new RecipeDetailWindow(owner, new RecipeModel(seleccionada, user))
 		window.open
 	}
 }

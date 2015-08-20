@@ -37,7 +37,7 @@ public class JsonParserReceta {
       RecetaBuilder _nombre = _recetaBuilder.nombre(receta.nombre);
       Set<Ingrediente> _transformarIngredientes = this.transformarIngredientes(receta.ingredientes);
       RecetaBuilder _ingredientes = _nombre.ingredientes(_transformarIngredientes);
-      RecetaBuilder _conCalorias = _ingredientes.conCalorias((receta.totalCalorias));
+      RecetaBuilder _conCalorias = _ingredientes.conCalorias(((double) receta.totalCalorias));
       RecetaBuilder _dificultad = _conCalorias.dificultad(receta.dificultadReceta);
       Receta recetaTransformada = _dificultad.build();
       recetaTransformada.asignarAutor(receta.autor);

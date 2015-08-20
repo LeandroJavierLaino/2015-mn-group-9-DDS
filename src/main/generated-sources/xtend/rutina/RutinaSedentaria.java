@@ -6,13 +6,11 @@ import rutina.Rutina;
 @Accessors
 @SuppressWarnings("all")
 public class RutinaSedentaria extends Rutina {
-  @Override
-public boolean activaIntensa() {
+  public boolean activaIntensa() {
     return false;
   }
   
-  @Override
-public boolean esActiva() {
+  public boolean esActiva() {
     return false;
   }
   

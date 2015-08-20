@@ -2,6 +2,7 @@ package testeo;
 
 import cosasUsuario.Usuario;
 import cosasUsuario.UsuarioBuilder;
+import java.util.Set;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.joda.time.LocalDate;
@@ -100,6 +101,9 @@ public class UsuariosPrincipales extends TestInstances {
     _recetaAntiVegano_1.setCreador(this.leandro);
     Receta _recetaPolloAlOreganato_1 = this.getRecetaPolloAlOreganato();
     _recetaPolloAlOreganato_1.setCreador(this.pablo);
+    Set<Receta> _recetasFavoritas = this.nicolas.getRecetasFavoritas();
+    Receta _recetaPolloAlOreganato_2 = this.getRecetaPolloAlOreganato();
+    _recetasFavoritas.add(_recetaPolloAlOreganato_2);
   }
   
   @Pure
