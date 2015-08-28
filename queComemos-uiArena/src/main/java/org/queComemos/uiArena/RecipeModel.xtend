@@ -1,4 +1,4 @@
-package ui
+package org.queComemos.uiArena
 
 import receta.Receta
 import receta.Ingrediente

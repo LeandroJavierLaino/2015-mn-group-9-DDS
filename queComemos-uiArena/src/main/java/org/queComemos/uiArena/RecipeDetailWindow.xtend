@@ -1,4 +1,4 @@
-package ui
+package org.queComemos.uiArena
 
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.windows.WindowOwner
@@ -13,7 +13,6 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.List
 import org.uqbar.arena.widgets.CheckBox
-import receta.Condimento
 
 class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 	

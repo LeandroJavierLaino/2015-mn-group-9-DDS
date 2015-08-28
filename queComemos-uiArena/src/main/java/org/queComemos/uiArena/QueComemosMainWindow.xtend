@@ -1,4 +1,4 @@
-package ui
+package org.queComemos.uiArena
 
 import org.uqbar.arena.windows.MainWindow
 import org.uqbar.arena.widgets.Panel
@@ -19,7 +19,6 @@ class QueComemosMainWindow extends MainWindow<MainWindowApplicationModel> {
 	
 	new() {
 		super(new MainWindowApplicationModel)
-		modelObject.owner = this
 		
 		recetaDePepe = new RecetaBuilder()
 			.nombre("Nachos con Queso")
@@ -34,6 +33,8 @@ class QueComemosMainWindow extends MainWindow<MainWindowApplicationModel> {
 			.build
 		
 		RepositorioUsuarios.getInstance.add(pepe)
+		
+		modelObject.owner = this
 	}
 	
 	override createContents(Panel mainPanel) {
@@ -53,9 +54,7 @@ class QueComemosMainWindow extends MainWindow<MainWindowApplicationModel> {
 		]
 		new Button(mainPanel) => [
 			caption = "Aceptar"
-			onClick [| /*usuario = modelObject.usuario
-				new UserRecipesWindow(owner, getUser(usuario), new UserRecipesModel(getUser(usuario))).open*/ modelObject.login
-			]
+			onClick [| modelObject.login]
 			setAsDefault
 		]
 		new Label(mainPanel) => [

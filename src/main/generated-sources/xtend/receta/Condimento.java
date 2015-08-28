@@ -20,6 +20,10 @@ public class Condimento extends Caracteristica {
     return _and;
   }
   
+  public String toString() {
+    return this.getNombre();
+  }
+  
   public Condimento(final String cNombre, final double cCantidad, final String cTipo) {
     super(cNombre, cCantidad, cTipo);
   }

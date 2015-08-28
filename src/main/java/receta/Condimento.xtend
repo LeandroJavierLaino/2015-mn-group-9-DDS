@@ -8,4 +8,7 @@ class Condimento extends Caracteristica{
 	def boolean esParteDe(String unCondimento,int unaCantidad){
 		cantidad >= unaCantidad && nombre.equalsIgnoreCase(unCondimento)
 	}
+	override toString() {
+		nombre
+	}
 }
