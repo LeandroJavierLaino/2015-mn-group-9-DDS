@@ -12,6 +12,7 @@ import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.tables.Column
 import receta.Receta
+import java.awt.Color
 
 @Observable
 @Accessors
@@ -58,23 +59,33 @@ class UserRecipesWindow extends TransactionalDialog<UserRecipesModel> {
 			title = "Nombre"
 			fixedSize = 200
 			bindContentsToProperty("nombrePlato")
+			bindBackground("creador.nombre").transformer = [Object autor | if ((autor as String).equalsIgnoreCase(modelObject.user.nombre)) Color.GRAY else Color.WHITE ]
 		]
 		new Column<Receta> (table) => [
 			title = "Calorias"
-			fixedSize = 200
+			fixedSize = 100
 			bindContentsToProperty("totalCalorias")
+			bindBackground("creador.nombre").transformer = [Object autor | if ((autor as String).equalsIgnoreCase(modelObject.user.nombre)) Color.GRAY else Color.WHITE ]
 		]		
 		new Column<Receta> (table) => [
 			title = "Dificultad"
-			fixedSize = 200
+			fixedSize = 100
 			bindContentsToProperty("dificultad")
+			bindBackground("creador.nombre").transformer = [Object autor | if ((autor as String).equalsIgnoreCase(modelObject.user.nombre)) Color.GRAY else Color.WHITE ]
 		] 
 					
 		new Column<Receta> (table) => [
 			title = "Temporada"
-			fixedSize = 200
+			fixedSize = 100
 			bindContentsToProperty("temporada")
+			bindBackground("creador.nombre").transformer = [Object autor | if ((autor as String).equalsIgnoreCase(modelObject.user.nombre)) Color.GRAY else Color.WHITE ]
 		]	
+		new Column<Receta> (table) => [
+			title = "Creador"
+			fixedSize = 100
+			bindContentsToProperty("creador.nombre").transformer = [Object autor | if((autor as String).equalsIgnoreCase(modelObject.user.nombre)) print("Vos") else print(autor as String)]
+			bindBackground("creador.nombre").transformer = [Object autor | if ((autor as String).equalsIgnoreCase(modelObject.user.nombre)) Color.GRAY else Color.WHITE ]
+		]
 	
 	}
 	

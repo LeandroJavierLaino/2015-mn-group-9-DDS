@@ -1,18 +1,18 @@
 package org.queComemos.uiArena
 
 import org.uqbar.arena.aop.windows.TransactionalDialog
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.HorizontalLayout
-import receta.Ingrediente
-import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.List
 import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.WindowOwner
+import receta.Ingrediente
 
 class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 	
@@ -114,8 +114,13 @@ class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 		modelObject.inspeccionarReceta
 		new Column<Ingrediente> (ingredientesTable) => [
 			title = "Dosis"
-			fixedSize = 100
+			fixedSize = 50
 			bindContentsToProperty("cantidad")
+		]
+		new Column<Ingrediente> (ingredientesTable) => [
+			title = "Tipo"
+			fixedSize = 50
+			bindContentsToProperty("tipo")
 		]
 		new Column<Ingrediente> (ingredientesTable) => [
 			title = "Ingrediente"
