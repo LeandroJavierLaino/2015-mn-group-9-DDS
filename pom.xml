@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.edu.frba.dds-mn.grupo9left4dead</groupId>
 	<artifactId>TP_queComemos</artifactId>
-	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>QueComemos</name>
+	<packaging>pom</packaging>
 
 	<parent>
 		<groupId>org.uqbar-project</groupId>
@@ -14,11 +13,11 @@
 	</parent>
 
 	<dependencies>
-       <dependency>
-           <groupId>org.uqbar-project</groupId>
-           <artifactId>arena-jface</artifactId>
-           <version>3.5.1</version>
-       </dependency>	
+		<dependency>
+			<groupId>org.uqbar-project</groupId>
+			<artifactId>arena-jface</artifactId>
+			<version>3.5.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -43,21 +42,21 @@
 			<artifactId>minimal-json</artifactId>
 			<version>0.9.2</version>
 		</dependency>
-		
+
 		<dependency>
-        	<groupId>org.apache.logging.log4j</groupId>
-        	<artifactId>log4j-api</artifactId>
-        	<version>2.3</version>
-     	</dependency>
-     	 
-     	<dependency>
-       		<groupId>org.apache.logging.log4j</groupId>
-        	<artifactId>log4j-core</artifactId>
-        	<version>2.3</version>
-      	</dependency> 
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.3</version>
+		</dependency>
 	</dependencies>
 
-  <modules>
-    <module>queComemos-uiArena</module>
-  </modules>
+	<modules>
+		<module>queComemos-uiArena</module>
+	</modules>
 </project>
