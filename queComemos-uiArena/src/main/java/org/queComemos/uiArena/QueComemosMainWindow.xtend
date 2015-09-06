@@ -11,6 +11,7 @@ import cosasUsuario.Usuario
 import cosasUsuario.UsuarioBuilder
 import receta.Receta
 import receta.RecetaBuilder
+import AppModel.MainWindowApplicationModel
 
 class QueComemosMainWindow extends MainWindow<MainWindowApplicationModel> {
 	

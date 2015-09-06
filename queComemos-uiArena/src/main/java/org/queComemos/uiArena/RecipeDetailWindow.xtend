@@ -1,5 +1,6 @@
 package org.queComemos.uiArena
 
+import AppModel.RecipeModel
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
@@ -35,7 +36,10 @@ class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 		
 		val topPanel = new Panel(mainPanel)
 		topPanel.layout = new VerticalLayout
-		new Label(topPanel).bindValueToProperty("nombrePlato")
+		new Label(topPanel) => [
+			fontSize = 24
+			bindValueToProperty("nombrePlato")
+		]
 		
 		val subTopPanel = new Panel(topPanel)
 		subTopPanel.layout = new HorizontalLayout
@@ -43,11 +47,23 @@ class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 		val caloriasPanel = new Panel(subTopPanel)
 		caloriasPanel.layout = new HorizontalLayout
 		
-		new Label(caloriasPanel).text = "Calorias: "
-		new Label(caloriasPanel).bindValueToProperty("totalCalorias")
+		new Label(caloriasPanel) => [
+			text = "Calorias: "
+			fontSize = 12	
+		]
+		new Label(caloriasPanel) => [
+			fontSize = 12
+			bindValueToProperty("totalCalorias")			
+		]
 		
-		new Label(subTopPanel).text = "Creado por: "
-		new Label(subTopPanel).bindValueToProperty("creador.nombre")
+		new Label(subTopPanel) => [
+			fontSize = 12
+			text = "Creado por: "
+		]
+		new Label(subTopPanel) => [
+			fontSize = 12
+			bindValueToProperty("creador.nombre")
+		]
 		
 		val midPanel = new Panel(mainPanel)
 		midPanel.layout = new ColumnLayout(2)
@@ -101,7 +117,7 @@ class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 	
 	def createIngredientsGrid(Panel panel) {
 		val ingredientesTable = new Table<Ingrediente>(panel, Ingrediente) => [
-			
+			minHeight = 200
 			width = 300
 			bindItemsToProperty("ingredientes")
 			bindValueToProperty("ingredienteSeleccionado")
@@ -114,14 +130,15 @@ class RecipeDetailWindow extends TransactionalDialog<RecipeModel> {
 		modelObject.inspeccionarReceta
 		new Column<Ingrediente> (ingredientesTable) => [
 			title = "Dosis"
-			fixedSize = 50
-			bindContentsToProperty("cantidad")
+			fixedSize = 50 
+			bindContentsToProperty("cantidad").transformer = [Object cant | println(cant + " " /*+ bindContentsToProperty("tipo").class*/) ]
+			
 		]
-		new Column<Ingrediente> (ingredientesTable) => [
-			title = "Tipo"
-			fixedSize = 50
-			bindContentsToProperty("tipo")
-		]
+//		new Column<Ingrediente> (ingredientesTable) => [
+//			title = "Tipo"
+//			fixedSize = 50
+//			bindContentsToProperty("tipo")
+//		]
 		new Column<Ingrediente> (ingredientesTable) => [
 			title = "Ingrediente"
 			fixedSize = 200

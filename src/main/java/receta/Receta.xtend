@@ -30,18 +30,6 @@ class Receta{
 	Usuario creador
 	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
 
-	/*new(String nombre, Set<Ingrediente> ingredientesCargados, Set<Condimento> condimentosCargados,
-		List<String> procesoPreparacionCargado, double caloriasCargadas, String dificultadCargada,
-		String temporadaCargada) {
-		nombrePlato = nombre
-		ingredientes = ingredientesCargados
-		condimentos = condimentosCargados
-		procesoPreparacion = procesoPreparacionCargado
-		totalCalorias = caloriasCargadas
-		dificultad = dificultadCargada
-		temporada = temporadaCargada
-	}*/
-
 	def puedeSerCreada(Receta receta) {
 		if (hayUnIngrediente(receta.ingredientes) && totalDeCaloriasEnRango(receta.totalCalorias)) {
 			receta

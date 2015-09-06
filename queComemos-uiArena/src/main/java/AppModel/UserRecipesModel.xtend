@@ -1,4 +1,4 @@
-package org.queComemos.uiArena
+package AppModel
 
 import cosasUsuario.Usuario
 import org.uqbar.commons.utils.Observable
@@ -24,7 +24,7 @@ class UserRecipesModel {
 		resultados = user.recetas.toList
 	}
 	def verReceta() {
-		val window = new RecipeDetailWindow(owner, new RecipeModel(seleccionada, user))
+		val window = new org.queComemos.uiArena.RecipeDetailWindow(owner, new AppModel.RecipeModel(seleccionada, user))
 		window.open
 	}
 }

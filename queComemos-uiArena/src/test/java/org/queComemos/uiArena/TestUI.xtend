@@ -7,6 +7,6 @@ class TestUI extends Grupos {
 
 	@Test
 	def void PruebaDeLogeo() {
-		new QueComemosMainWindow().startApplication
+		new org.queComemos.uiArena.QueComemosMainWindow().startApplication
 	}
 }

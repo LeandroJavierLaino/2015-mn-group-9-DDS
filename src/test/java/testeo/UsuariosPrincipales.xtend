@@ -77,58 +77,5 @@ class UsuariosPrincipales extends TestInstances {
 		recetaAntiVegano.creador = leandro
 		recetaPolloAlOreganato.creador = pablo
 		nicolas.recetasFavoritas.add(recetaPolloAlOreganato)
-		/*
-		 * METODO POR WITH
-		 
-		
-		leandro = new Usuario => [
-			nombre = "Leandro"
-			sexo = "M"
-			fechaDeNacimiento = new LocalDate(1988,6,27)
-			altura = 1.74
-			peso = 70
-			rutina = rutinaActivaCorta
-			agregarReceta(recetaAntiDiabetico)
-		]
-
-		eri = new Usuario => [
-			nombre = "Erika"
-			sexo = "F"
-			fechaDeNacimiento = new LocalDate(1980,1,1)
-			altura = 1.52
-			peso = 60
-			rutina = rutinaActivaLarga
-			agregarReceta(recetaParaCualquiera)
-		]
-
-		diego = new Usuario => [
-			nombre = "Diego"
-			sexo = "M"
-			fechaDeNacimiento = new LocalDate(1980,1,1)
-			altura = 1.70
-			peso = 65
-			rutina = rutinaActivaCorta
-		]
-		
-		nicolas = new Usuario => [
-			nombre = "Nicolas"
-			sexo = 'M'
-			fechaDeNacimiento = new LocalDate(1980,11,10)
-			altura = 1.74
-			peso = 60
-			rutina = rutinaActivaLarga
-			condicionesPreexistentes = emptyList
-			comidasQueDisgustan.add(ajiMolido)	
-		]
-		
-		pablo = new Usuario => [
-			nombre = "Pablo"
-			sexo = "M"
-			fechaDeNacimiento = new LocalDate(1980,2,2)
-			altura = 1.79
-			peso = 72
-			rutina = rutinaActivaCorta
-			
-		]	*/
 	}
 }

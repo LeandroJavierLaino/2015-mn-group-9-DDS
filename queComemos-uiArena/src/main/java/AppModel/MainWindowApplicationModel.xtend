@@ -1,4 +1,4 @@
-package org.queComemos.uiArena
+package AppModel
 
 import repositorioUsuarios.RepositorioUsuarios
 import cosasUsuario.Usuario
@@ -11,7 +11,7 @@ class MainWindowApplicationModel {
 	
 	String usuario
 	String contrasenia
-	QueComemosMainWindow owner
+	org.queComemos.uiArena.QueComemosMainWindow owner
 	String logro
 	
 	def init() {
@@ -22,7 +22,7 @@ class MainWindowApplicationModel {
 		if(RepositorioUsuarios.instance.objects.exists[it.nombre == usuario] && contrasenia == "123") {
 			
 			logro = "Acceso Permitido"
-			val window = new UserRecipesWindow(owner, new UserRecipesModel(getUser(usuario)))
+			val window = new org.queComemos.uiArena.UserRecipesWindow(owner, new AppModel.UserRecipesModel(getUser(usuario)))
 			window.open
 			
 			owner.close

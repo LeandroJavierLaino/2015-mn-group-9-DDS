@@ -13,6 +13,7 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.tables.Column
 import receta.Receta
 import java.awt.Color
+import AppModel.UserRecipesModel
 
 @Observable
 @Accessors
@@ -25,7 +26,7 @@ class UserRecipesWindow extends TransactionalDialog<UserRecipesModel> {
 	
 	override protected addActions(Panel actionsPanel) {
 		new Button(actionsPanel) => [
-			caption = "Ver"
+			caption = "Ver"		
 			onClick [| modelObject.verReceta()]
 		]
 	}
@@ -88,5 +89,4 @@ class UserRecipesWindow extends TransactionalDialog<UserRecipesModel> {
 		]
 	
 	}
-	
 }
