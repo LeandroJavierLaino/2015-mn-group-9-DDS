@@ -1,0 +1,67 @@
+<html lang="es" ng-app="logeoApp">
+<head>
+<meta charset="UTF-8">
+<title>Que Comemos Oficial</title>
+<script src="node_modules/angular/angular.min.js"></script>
+
+<!-- JQUERY -->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+<!-- BOOTSTRAP -->
+<link rel="stylesheet"
+	href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="node_modules/underscore/underscore-min.js"></script>
+
+<!-- ANGULAR -->
+<script src="node_modules/angular/angular.min.js"></script>
+
+<!-- BOOTBOX (dialogos de confirmacion) http://bootboxjs.com/ -->
+<script src="node_modules/bootbox/bootbox.min.js"></script>
+
+<!-- ANGULAR  -->
+<script src="node_modules/angular-animate/angular-animate.js"></script>
+
+<!-- LOADING BAR -->
+<script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
+<link rel="stylesheet"
+	href="node_modules/angular-loading-bar/build/loading-bar.min.css" />
+
+</head>
+<body ng-controller="logeoCtrl as logeo">
+	<div style="text-align: center">
+		<h1>Que Comemos</h1>
+		<h2>Autentificacion</h2>
+		<form class="well well-lg form-inline">
+			<div class="form-group">
+				<label class="col-sm-8" for="usuario">Usuario</label> <input
+					class="form-control" name="usuario" ng-model="logeo.usuario"
+					placeholder="Ingrese su usuario" autofocus="autofocus">
+			</div>
+			<div class="form-group">
+				<label class="col-sm-8" for="password">Contraseña</label> <input
+					class="form-control" name="password" type="password"
+					ng-model="logeo.password" placeholder="Ingrese su contraseña"
+					autofocus="autofocus">
+			</div>
+			<div class="form-group">
+				<button type="submit" ng-click="logeo.acceder()"
+					class="btn btn-primary form-control">Acceder</button>
+			</div>
+			<p ng-show="logeo.mostrar" style="text-align: center"
+				class="well well-lg">
+				Bienvenido <span ng-bind="logeo.usuario"></span>
+			</p>
+
+		</form>
+	</div>
+	<script src="js/receta.js"></script>
+	<script src="js/usuario.js"></script>
+	<script src="js/repoUsuarios.js"></script>
+	<script src="js/logeo.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>

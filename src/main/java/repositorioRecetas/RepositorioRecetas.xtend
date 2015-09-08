@@ -6,6 +6,7 @@ import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import receta.Receta
+import testeo.Grupos
 
 @Accessors
 class RepositorioRecetas {
@@ -20,6 +21,9 @@ class RepositorioRecetas {
 			instance = new RepositorioRecetas()
 		}
 		instance
+	}
+	new() {
+		new Grupos
 	}
 
 	def tieneLaReceta(Receta receta) {

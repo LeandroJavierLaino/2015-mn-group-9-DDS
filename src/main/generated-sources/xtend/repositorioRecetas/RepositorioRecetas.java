@@ -14,6 +14,7 @@ import org.eclipse.xtext.xbase.lib.Pure;
 import queComemos.entrega3.repositorio.BusquedaRecetas;
 import receta.Receta;
 import repositorioRecetas.AdapterRepositorioRecetas;
+import testeo.Grupos;
 
 @Accessors
 @SuppressWarnings("all")
@@ -37,6 +38,10 @@ public class RepositorioRecetas {
       _xblockexpression = RepositorioRecetas.instance;
     }
     return _xblockexpression;
+  }
+  
+  public RepositorioRecetas() {
+    new Grupos();
   }
   
   public boolean tieneLaReceta(final Receta receta) {

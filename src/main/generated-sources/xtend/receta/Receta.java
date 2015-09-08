@@ -47,19 +47,6 @@ public class Receta {
   
   private Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>();
   
-  /**
-   * new(String nombre, Set<Ingrediente> ingredientesCargados, Set<Condimento> condimentosCargados,
-   * List<String> procesoPreparacionCargado, double caloriasCargadas, String dificultadCargada,
-   * String temporadaCargada) {
-   * nombrePlato = nombre
-   * ingredientes = ingredientesCargados
-   * condimentos = condimentosCargados
-   * procesoPreparacion = procesoPreparacionCargado
-   * totalCalorias = caloriasCargadas
-   * dificultad = dificultadCargada
-   * temporada = temporadaCargada
-   * }
-   */
   public Receta puedeSerCreada(final Receta receta) {
     try {
       Receta _xifexpression = null;

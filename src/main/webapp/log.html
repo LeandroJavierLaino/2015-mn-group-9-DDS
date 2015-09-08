@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang = "es" ng-app = "appLog">
+<head>
+<meta charset = "UTF-8">
+	<title>Log - Que Comemos?</title>
+	<script src="node_modules/angular/angular.min.js"></script>
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body ng-controller = " logController as Log">
+	<h1> Que Comemos? <small> Log </small></h1>
+	<div>
+		<form>
+			<label for = "usuario"> Usuario </label>
+			<input type= "string" name= "usuario" ng-model = "Log.usuario"
+				placeholder= "Ingrese un usuario"
+				autofocus= "autofocus"
+				class="form-control">
+			<label for = "contrasenia"> Contrasenya </label>
+			<input type= "string" name= "contrasenia" ng-model = "Log.contrasenia"
+				placeholder= "Ingrese una contrasenya"
+				autofocus= "autofocus"
+				class="form-control">	
+		</form>
+	</div>
+	<button ng-change = "Log.puedeIngresar">Loggear</button>
+
+<script src="log.js"></script>	
+<script src="appLog.js"></script>
+</body>
+</html>
