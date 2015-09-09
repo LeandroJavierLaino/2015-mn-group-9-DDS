@@ -106,7 +106,7 @@ class TestInstances {
 		.conCalorias(150)
 		.dificultad("Baja")
 		.temporada("Verano")
-		.build//new Receta("antiVegano", ingredientesAntiVegano, condimentosParaCualquiera, preparacionDefault,150, "Baja","Verano")
+		.build
 		
 		recetaAntiDiabetico = new RecetaBuilder()
 		.nombre("antiDiabetico")
@@ -116,7 +116,7 @@ class TestInstances {
 		.conCalorias(250)
 		.dificultad("Media")
 		.temporada("Invierno")
-		.build//new Receta("antiDiabetico", ingredientesParaCualquiera, condimentosAntiDiabetico, preparacionDefault,250, "Media","Invierno")
+		.build
 		
 		recetaParaCualquiera = new RecetaBuilder()
 		.nombre("default")
@@ -126,7 +126,7 @@ class TestInstances {
 		.conCalorias(150)
 		.dificultad("Baja")
 		.temporada("Verano")
-		.build//new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,150, "Baja","Verano")
+		.build
 		
 		recetaSinIngrediente = new RecetaBuilder()
 		.nombre("default")
@@ -136,7 +136,7 @@ class TestInstances {
 		.conCalorias(150)
 		.dificultad("Baja")
 		.temporada("Verano")
-		.build//new Receta("default",ingredientesVacios,condimentosParaCualquiera,preparacionDefault,150, "Baja","Verano")
+		.build
 		
 		recetaCaloriasBajoRango = new RecetaBuilder()
 		.nombre("default")
@@ -146,7 +146,7 @@ class TestInstances {
 		.conCalorias(0)
 		.dificultad("Baja")
 		.temporada("Verano")
-		.build//new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,0, "Baja","Verano")
+		.build
 		
 		recetaCaloriasMayorRango = new RecetaBuilder()
 		.nombre("default")
@@ -156,8 +156,8 @@ class TestInstances {
 		.conCalorias(100000000)
 		.dificultad("Baja")
 		.temporada("Verano")
-		.build//new Receta("default",ingredientesParaCualquiera,condimentosParaCualquiera,preparacionDefault,100000000, "Baja","Verano")
-
+		.build
+		
 		recetaSalchiPapa = new RecetaBuilder()
 		.nombre("SalchiPapa")
 		.ingredientes(ingredientesParaCualquiera)
@@ -166,8 +166,8 @@ class TestInstances {
 		.conCalorias(150)
 		.dificultad("Baja")
 		.temporada("Verano")
-		.build//new Receta("SalchiPapa", ingredientesParaCualquiera, condimentosParaCualquiera, preparacionDefault, 150, "Baja", "Verano")
-		
+		.build
+				
 		recetaPolloAlOreganato = new RecetaBuilder()
 		.nombre("Pollo al Oreganato")
 		.ingredientes(ingredientesAntiVegano)
@@ -176,7 +176,7 @@ class TestInstances {
 		.conCalorias(150)
 		.dificultad("Alta")
 		.temporada("Invierno")
-		.build//new Receta("Pollo al Oreganato", ingredientesAntiVegano, condimentosParaCualquiera, preparacionDefault, 150, "Alta", "Invierno")	
+		.build
 		
 		recetaLaComidaMasOrganicaDelMundo = new RecetaBuilder()
 		.nombre("Ensalada")
@@ -186,7 +186,7 @@ class TestInstances {
 		.conCalorias(150)
 		.dificultad("D")
 		.temporada("Invierno")
-		.build//new Receta("Ensalada", ingredientesParaCualquiera, condimentosParaCualquiera, preparacionDefault, 150, "D", "Invierno")
+		.build
 			
 		rutinaActivaCorta = new RutinaActiva => [
 			tiempo = 10

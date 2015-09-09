@@ -2,6 +2,8 @@
 
 var logeoApp = angular.module('logeoApp', []);
 
-logeoApp.controller('logeoCtrl', function(){
-	return new Logeo();
-});
+var recetaApp = angular.module('recetaApp', [ /*'ui.router'*/ ]);
+
+var recipeDetailApp = angular.module('recipeDetailApp', []);
+
+var recipeApp = angular.module('recipeApp', []);

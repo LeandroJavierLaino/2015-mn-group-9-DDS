@@ -1,36 +1,17 @@
 'use strict'
 
-var recetaApp = angular.module('recetaApp', []);
+var recetaApp = angular.module('recetaApp', [ /*'ui.router'*/ ]);
 
-function transformarAReceta(jsonReceta) {
-	return angular.extend(new Receta(), jsonReceta);
-}
+/*recetaApp.config(function($stateProvider, $urlRouterProvider) {
 
-recetaApp.controller('recetaCtrl', function(recetaSrvc) {
+	$urlRouterProvider.otherwise("/tareas");
 
-	var self = this;
-	this.recetas = null;
-	this.recetaSeleccionada = null;
-	this.nombreABuscar = null;
-	this.mostrarError = false;
-	this.mostrarTabla = false;
-
-	this.buscar = function(busqueda) {
-		
-		recetaSrvc.buscar(self.nombreABuscar, function(data) {
-			self.recetaSeleccionada = JSON.parse(data);
-		});
-		
-		if (self.recetaSeleccionada == null)
-			this.mostrarError = true;
-		else
-			this.mostrarTabla = true;
-		
-	}
-	this.buscarVarias = function() {
-		recetaSrvc.buscarVarias(self.nombreABuscar, function(data) {
-			self.tareas = _.map(data, transformarAReceta);
-		});
-	}
-
-})
+	$stateProvider.state('recetas', {
+		url : '/recetas',
+		templateUrl : 'templates/recetas2.html',
+		controller : 'RecetasController as recetasCtrl',
+		data : {},
+		resolve : {}
+	})
+});
+*/

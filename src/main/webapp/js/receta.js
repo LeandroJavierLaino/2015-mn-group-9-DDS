@@ -1,11 +1,16 @@
 function Receta() {
-	this.nombre = null;
+	this.nombrePlato = null;
 	this.ingredientes = null;
-	this.calorias = null;
+	this.totalCalorias = null;
 	this.dificultad = null;
 	this.temporada = null;
 	this.condimentos = null;
-	this.instrucciones = null;
+	this.procesoPreparacion = null;
+	this.cantidadMinimaCalorias = null;
+	this.cantidadMaximaCalorias = null;
+	this.subRecetas = null;
+	this.condicionesPreexistentes = null;
+	this.veryDifficult = null;
 	this.creador = null;
 }
 
