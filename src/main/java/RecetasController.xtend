@@ -1,4 +1,3 @@
-import cosasUsuario.Usuario
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
 import org.uqbar.xtrest.api.annotation.Controller
@@ -7,6 +6,8 @@ import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
+import receta.Receta
+import java.util.List
 
 @Controller
 class RecetasController {
@@ -38,11 +39,11 @@ class RecetasController {
 		val recetas = RepositorioRecetas.instance.listarRecetas.filter[recipe | recipe.nombrePlato.contains(nombre)].toList
 		ok(recetas.toJson)
 	}
-	@Get('/usuario/buscarRecetasDe/:nombre')
+	@Get('/usuarios/r/:nombre')
 	def Result buscarRecetasDeUsuario() {
 		response.contentType = ContentType.APPLICATION_JSON
-		val usuario = RepositorioUsuarios.instance.getUserByName(nombre)
-		val recetas = RepositorioRecetas.instance.listarRecetasVisiblesPara(usuario).toList
+		var usuario = RepositorioUsuarios.instance.getUserByName(nombre)
+		var List<Receta> recetas = RepositorioRecetas.instance.listarRecetasVisiblesPara(usuario).toList
 		ok(recetas.toJson)
 	}
 	//BUSQUEDA DE USUARIOS
@@ -50,6 +51,12 @@ class RecetasController {
 	def Result buscarUsuario() {
 		val usuario = RepositorioUsuarios.instance.getUserByName(nombre)
 		ok(usuario.toJson)
+	}
+	@Get('/usuarios/search/:parteDelNombre')
+	def Result buscarUsuarios() {
+		response.contentType = ContentType.APPLICATION_JSON
+		val usuarios = RepositorioUsuarios.instance.objects.filter[user | user.nombre.contains(parteDelNombre) ].toList
+		ok(usuarios.toJson)
 	}
 	
 	def static void main(String[] args) {

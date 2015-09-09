@@ -35,6 +35,8 @@ public class RepositorioRecetas {
   
   private Usuario nicolas;
   
+  private Usuario leandro;
+  
   private Ingrediente salchicha;
   
   private Condimento ketchup;
@@ -78,6 +80,15 @@ public class RepositorioRecetas {
     UsuarioBuilder _conPeso = _conAltura.conPeso(60);
     Usuario _build_1 = _conPeso.build();
     this.nicolas = _build_1;
+    UsuarioBuilder _usuarioBuilder_1 = new UsuarioBuilder();
+    UsuarioBuilder _conNombre_1 = _usuarioBuilder_1.conNombre("Leandro");
+    UsuarioBuilder _deSexo_1 = _conNombre_1.deSexo("M");
+    LocalDate _localDate_1 = new LocalDate(1988, 6, 27);
+    UsuarioBuilder _fechaDeNacimiento_1 = _deSexo_1.fechaDeNacimiento(_localDate_1);
+    UsuarioBuilder _conPeso_1 = _fechaDeNacimiento_1.conPeso(70);
+    UsuarioBuilder _conAltura_1 = _conPeso_1.conAltura(1.74);
+    Usuario _build_2 = _conAltura_1.build();
+    this.leandro = _build_2;
     this.recetaSalchiPapa.setCreador(this.nicolas);
   }
   
@@ -169,6 +180,15 @@ public class RepositorioRecetas {
   
   public void setNicolas(final Usuario nicolas) {
     this.nicolas = nicolas;
+  }
+  
+  @Pure
+  public Usuario getLeandro() {
+    return this.leandro;
+  }
+  
+  public void setLeandro(final Usuario leandro) {
+    this.leandro = leandro;
   }
   
   @Pure

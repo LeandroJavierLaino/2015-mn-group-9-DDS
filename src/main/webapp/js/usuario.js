@@ -4,6 +4,11 @@ function Usuario() {
 	this.password = null;
 	this.recetas = null;
 	this.recetaSeleccionada = null;
+	this.peso = null;
+	this.altura = null;
+	this.fechaDeNacimiento = null;
+	this.condicionesPreexistentes = null;
+	this.sexo = null;
 }
 
 var pepe = new Usuario();

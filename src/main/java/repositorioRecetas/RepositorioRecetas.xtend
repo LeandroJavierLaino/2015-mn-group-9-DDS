@@ -23,6 +23,7 @@ class RepositorioRecetas {
 	//PARA EL EJEMPLO
 	Receta recetaSalchiPapa
 	Usuario nicolas
+	Usuario leandro
 	Ingrediente salchicha
 	Condimento ketchup
 	
@@ -56,6 +57,14 @@ class RepositorioRecetas {
 		.fechaDeNacimiento(new LocalDate(1980,11,10))
 		.conAltura(1.74)
 		.conPeso(60)
+		.build
+		
+		leandro = new UsuarioBuilder()
+		.conNombre("Leandro")
+		.deSexo("M")
+		.fechaDeNacimiento(new LocalDate(1988,6,27))
+		.conPeso(70)
+		.conAltura(1.74)
 		.build
 		
 		recetaSalchiPapa.creador = nicolas

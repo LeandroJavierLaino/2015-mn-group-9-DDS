@@ -1,6 +1,9 @@
 function transformarAReceta(jsonReceta) {
 	return angular.extend(new Receta(), jsonReceta);
 }
+function transformarAUsuario(jsonUsuario) {
+	return angular.extend(new Usuario(), jsonUsuario);
+}
 
 recetaApp.controller('RecetasController', [ 'recetaSrvc', function(recetaSrvc) {
 
@@ -48,31 +51,54 @@ logeoApp.controller('logeoCtrl', function(){
 recipeDetailApp.controller('recipeDetailCtrl', function(){
 
 	var recipe = JSON.parse(sessionStorage.getItem('recetaAVer'));
-
-	//var recipe = window.parent.receta;
 	
 	return recipe;
 })
 
-recipeApp.controller('recipeCtrl', function(){
-
-	//Este solo lo pude hacer Funcionar en Firefox y Opera
-	//console.log(JSON.parse(localStorage.getItem('usuario'))); 
-	//Usar la consola es malo.
-
+recipeApp.controller('recipeCtrl', ['recipeSrvc',  function(recipeSrvc){
+	
 	var user = JSON.parse(sessionStorage.getItem('usuario1'));
-
-	//Metodo por Frame
-	//var user = window.parent.usuario;
 
 	user.verReceta = function() {
 		sessionStorage.setItem('recetaAVer', JSON.stringify(user.recetaSeleccionada));
 		window.parent.receta = user.recetaSeleccionada;
 		window.open("detallereceta.html", "_self");
 	} 
-	
+	user.listarRecetas = function() {
+		recipeSrvc.listarRecetas(user.nombre, function(data) {
+			user.recetas = data.map(transformarAReceta);
+		})
+		return user.recetas;
+	}
+	user.abrirReceta = function(receta) {
+		sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
+		
+		window.open("detallereceta.html", "_self");
+	}
 	return user;
-	/*Esto funciona en EDGE pero requiere un frame (y en Opera tira error)*/
 
 	
-})
+}])
+usuariosApp.controller('UsuariosController', ['usuariosSrvc', function(usuariosSrvc) {
+	
+	var self = this;
+	this.usuarios = null;
+	this.mostrarError = false;
+	this.mostrarTabla = false;
+	this.nombreABuscar = null;
+	
+	this.buscar = function() {
+		usuariosSrvc.buscar(self.nombreABuscar, function(data) {
+			self.usuarios = _.map(data, transformarAUsuario);
+		});
+		if (self.usuarios == null)
+			this.mostrarError = true;
+		else
+			this.mostrarTabla = true;
+	}
+	this.abrirPerfil = function(usuario) {
+		sessionStorage.setItem('usuario1', JSON.stringify(usuario));
+		
+		window.open("recetas.html", "_self");
+	}
+}])
