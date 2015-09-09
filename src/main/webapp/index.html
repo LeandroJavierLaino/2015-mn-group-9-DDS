@@ -38,7 +38,7 @@
 		<form class="well well-lg form-inline">
 			<div class="form-group">
 				<label class="col-sm-8" for="usuario">Usuario</label> <input
-					class="form-control" name="usuario" ng-model="logeo.usuario"
+					class="form-control" name="usuario" ng-model="logeo.nombre"
 					placeholder="Ingrese su usuario" autofocus="autofocus">
 			</div>
 			<div class="form-group">
@@ -53,7 +53,7 @@
 			</div>
 			<p ng-show="logeo.mostrar" style="text-align: center"
 				class="well well-lg">
-				Bienvenido <span ng-bind="logeo.usuario"></span>
+				Bienvenido <span ng-bind="logeo.usuario.nombre"></span>
 			</p>
 
 		</form>

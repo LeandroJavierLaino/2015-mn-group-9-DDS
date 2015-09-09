@@ -19,3 +19,8 @@ recipeApp.service('recipeSrvc', function($http) {
 		$http.get('recetas').success(callback);
 	}
 })
+logeoApp.service('logeoSrvc', function($http) {
+	this.getUsuario = function(nombre, callback) {
+		$http.get('usuarios/' + nombre).success(callback);
+	}
+})

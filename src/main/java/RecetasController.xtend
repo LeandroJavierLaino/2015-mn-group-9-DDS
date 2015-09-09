@@ -47,7 +47,7 @@ class RecetasController {
 		ok(recetas.toJson)
 	}
 	//BUSQUEDA DE USUARIOS
-	@Get('/usuario/:nombre')
+	@Get('/usuarios/:nombre')
 	def Result buscarUsuario() {
 		val usuario = RepositorioUsuarios.instance.getUserByName(nombre)
 		ok(usuario.toJson)

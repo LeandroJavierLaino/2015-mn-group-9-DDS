@@ -4,6 +4,19 @@ function transformarAReceta(jsonReceta) {
 function transformarAUsuario(jsonUsuario) {
 	return angular.extend(new Usuario(), jsonUsuario);
 }
+var jsonify = function(obj) {
+    var seen = [];
+    var json = JSON.stringify(obj, function(key, value){
+        if (typeof value === 'object') {
+            if ( !seen.indexOf(value) ) {
+                return '__cycle__' + (typeof value) + '[' + key + ']'; 
+            }
+            seen.push(value);
+        }
+        return value;
+    }, 4);
+    return json;
+};
 
 recetaApp.controller('RecetasController', [ 'recetaSrvc', function(recetaSrvc) {
 
@@ -44,14 +57,57 @@ recetaApp.controller('RecetasController', [ 'recetaSrvc', function(recetaSrvc) {
 
 } ])
 
-logeoApp.controller('logeoCtrl', function(){
-	return new Logeo();
-});
+logeoApp.controller('logeoCtrl', ['logeoSrvc', function(logeoSrvc){
+	
+	var self = this
+	this.usuario = null;
+	this.nombre = null;
+	this.password = null;
+	this.mostrar = false;
+	
+	this.getUsuario = function() {
+		logeoSrvc.getUsuario(self.nombre, function(data) {
+			self.usuario = transformarAUsuario(data);
+		});
+		return self.usuario;
+	}
+
+	this.acceder = function() {
+
+		//var busq = repo.buscarUsuario(this.usuario);
+		var usuario = self.getUsuario()
+		if(usuario != null && this.password == "123") {
+
+			//METODO por LOCALSTORAGE
+			sessionStorage.setItem('usuario1', jsonify(usuario));
+
+			/*METODO por IFRAME*/	
+			//window.parent.usuario = busq; 
+
+			this.mostrar = true;
+			console.log(usuario);
+			var myWindow =  window.open("recetas.html", "_self");
+		}
+
+		else alert("Error: el usuario o la contraseña son erroneos");
+		
+	}
+}]);
 
 recipeDetailApp.controller('recipeDetailCtrl', function(){
 
 	var recipe = JSON.parse(sessionStorage.getItem('recetaAVer'));
 	
+	
+	recipe.volver = function() {
+		window.open("recetas.html", "_self");
+	}
+	recipe.buscarUsuario = function() {
+		window.open("buscarUsuario.html", "_self");
+	}
+	recipe.buscarReceta = function() {
+		window.open("buscarReceta.html", "_self");
+	}
 	return recipe;
 })
 
@@ -74,6 +130,12 @@ recipeApp.controller('recipeCtrl', ['recipeSrvc',  function(recipeSrvc){
 		sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
 		
 		window.open("detallereceta.html", "_self");
+	}
+	user.buscarUsuario = function() {
+		window.open("buscarUsuario.html", "_self");
+	}
+	user.buscarReceta = function() {
+		window.open("buscarReceta.html", "_self");
 	}
 	return user;
 
