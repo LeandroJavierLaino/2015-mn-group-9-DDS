@@ -98,6 +98,18 @@ recipeDetailApp.controller('recipeDetailCtrl', function(){
 
 	var recipe = JSON.parse(sessionStorage.getItem('recetaAVer'));
 	
+	recipe.nombrePlatoPendiente = null;
+	recipe.totalCaloriasPendiente = null;
+	recipe.procesoNuevo = null;
+	recipe.procesoPreparacionClon = recipe.procesoPreparacion;
+	recipe.mostrarDivNuevoCondimento = false;
+	
+	recipe.agregarPaso = function() {
+		recipe.procesoPreparacionClon.push(recipe.procesoNuevo);
+	}
+	recipe.nuevoCondimento = function() {
+		recipe.mostrarDivNuevoCondimento = !recipe.mostrarDivNuevoCondimento;
+	}
 	
 	recipe.volver = function() {
 		window.open("recetas.html", "_self");
