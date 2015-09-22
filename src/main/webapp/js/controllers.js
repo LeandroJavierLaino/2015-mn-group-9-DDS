@@ -124,6 +124,7 @@ recipeApp.controller('recipeCtrl', ['recipeSrvc',  function(recipeSrvc){
 		recipeSrvc.listarRecetas(user.nombre, function(data) {
 			user.recetas = data.map(transformarAReceta);
 		})
+		$state.go("listarRecetas");
 		return user.recetas;
 	}
 	user.abrirReceta = function(receta) {
