@@ -24,3 +24,8 @@ logeoApp.service('logeoSrvc', function($http) {
 		$http.get('usuarios/' + nombre).success(callback);
 	}
 })
+recipeDetailApp.service('recipeDetailSrvc', function($http) {
+	this.guardarReceta = function(receta, callback) {
+		$http.put('recetas/' + receta.nombrePlato, receta).success(callback)
+	}
+})

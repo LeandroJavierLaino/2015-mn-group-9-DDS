@@ -94,7 +94,7 @@ logeoApp.controller('logeoCtrl', ['logeoSrvc', function(logeoSrvc){
 	}
 }]);
 
-recipeDetailApp.controller('recipeDetailCtrl', function(){
+recipeDetailApp.controller('recipeDetailCtrl', function(recipeDetailSrvc){
 
 	var recipe = JSON.parse(sessionStorage.getItem('recetaAVer'));
 	
@@ -103,6 +103,17 @@ recipeDetailApp.controller('recipeDetailCtrl', function(){
 	recipe.procesoNuevo = null;
 	recipe.procesoPreparacionClon = recipe.procesoPreparacion;
 	recipe.mostrarDivNuevoCondimento = false;
+	recipe.condimentosProvisorios
+	
+	recipe.condimentoAAgregar = function(){
+		this.nombre = null;
+		this.cantidad = null;
+		this.tipo = null;
+	}
+	
+	recipe.agregarCondimentoProvisorio = function() {
+		recipe.condimentosProvisorios.push(condimentoAAgregar);
+	}
 	
 	recipe.agregarPaso = function() {
 		recipe.procesoPreparacionClon.push(recipe.procesoNuevo);
@@ -110,7 +121,16 @@ recipeDetailApp.controller('recipeDetailCtrl', function(){
 	recipe.nuevoCondimento = function() {
 		recipe.mostrarDivNuevoCondimento = !recipe.mostrarDivNuevoCondimento;
 	}
-	
+	recipe.guardar = function() {
+		val recetaClon = recipe;
+		
+		if(recipe.totalCaloriasPendiente != null)
+			recetaClon.totalCalorias = recipe.totalCaloriasPendiente;
+		
+		recetaClon.procesoPreparacion = recipe.procesoPreparacionClon;
+		
+		recipeDetailSrvc.guardarReceta()
+	}
 	recipe.volver = function() {
 		window.open("recetas.html", "_self");
 	}
