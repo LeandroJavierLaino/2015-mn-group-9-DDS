@@ -129,7 +129,9 @@ recipeDetailApp.controller('recipeDetailCtrl', function(recipeDetailSrvc){
 		
 		recetaClon.procesoPreparacion = recipe.procesoPreparacionClon;
 		
-		recipeDetailSrvc.guardarReceta()
+		recipeDetailSrvc.guardarReceta(receta, function(){
+			alert("Cambios guardados");
+		})
 	}
 	recipe.volver = function() {
 		window.open("recetas.html", "_self");

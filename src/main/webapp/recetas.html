@@ -43,23 +43,24 @@
 				<th>Calorias</th>
 				<th>Dificultad</th>
 				<th>Temporada</th>
-				<th><button type="submit" class="form-group btn btn-primary"
-						ng-click="user.listarRecetas()">Actualizar</button>
+				<th><button type="submit" class="form-group glyphicon glyphicon-repeat"
+						ng-click="user.listarRecetas()">
 			</tr>
 		</thead>
 		<tbody style="font-size: 12px">
-			<tr ng-repeat="receta in user.recetas">
+			<tr ng-repeat="receta in user.recetas" class="active">
 				<td ng-bind="receta.nombrePlato"></td>
 				<td ng-bind="receta.totalCalorias"></td>
 				<td ng-bind="receta.dificultad"></td>
 				<td ng-bind="receta.temporada"></td>
 				<td><button type="submit" ng-click="user.abrirReceta(receta)"
-						class="btn btn-primary form-control">Ver</button>
+						class="glyphicon glyphicon-chevron-right form-control">
 			</tr>
 	</table>
 	<script src="js/receta.js"></script>
 	<script src="js/usuario.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/routes.js"></script>
 	<script src="js/services.js"></script>
 	<script src="js/controllers.js"></script>
 </body>

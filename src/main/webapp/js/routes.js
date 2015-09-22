@@ -7,6 +7,6 @@ recipeApp.config(function ($stateProvider, $urlRouterProvider) {
    .state('listarRecetas', {
      url: "/",
      templateUrl: "recetasBis.html",
-     controller: "listarRecetasController as recipeCtrl"
+     controller: "recipeCtrl as user"
    })
 });
