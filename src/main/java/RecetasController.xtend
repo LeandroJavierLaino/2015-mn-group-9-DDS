@@ -8,6 +8,8 @@ import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import receta.Receta
 import java.util.List
+import org.uqbar.xtrest.api.annotation.Put
+import org.uqbar.xtrest.api.annotation.Body
 
 @Controller
 class RecetasController {
@@ -57,6 +59,22 @@ class RecetasController {
 		response.contentType = ContentType.APPLICATION_JSON
 		val usuarios = RepositorioUsuarios.instance.objects.filter[user | user.nombre.contains(parteDelNombre) ].toList
 		ok(usuarios.toJson)
+	}
+	
+	//ACTUALIZAR RECETA
+	@Put('/recetas/:nombre')
+	def Result actualizar(@Body String body) {
+		try {
+			val recetaActualizada = body.fromJson(Receta)
+			val recetaVieja = RepositorioRecetas.instance.listarRecetas.findFirst[it.nombrePlato.equals(recetaActualizada.nombrePlato)]
+			RepositorioRecetas.instance.quitar(recetaVieja)
+			RepositorioRecetas.instance.agregar(recetaActualizada)
+
+			ok('{ "status" : "OK" }');
+			
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
 	}
 	
 	def static void main(String[] args) {
