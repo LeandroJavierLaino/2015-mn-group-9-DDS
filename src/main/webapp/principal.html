@@ -1,0 +1,57 @@
+<html lang="es">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bienvenido a Que Comemos?</title>
+<script src="node_modules/angular/angular.min.js"></script>
+
+<!-- JQUERY -->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+<!-- BOOTSTRAP -->
+<link rel="stylesheet"
+	href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script
+	src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+</head>
+<body>
+	<h1 align="center">
+		Bienvenido a <big>Que Comemos?</big>
+	</h1>
+
+	<form>
+		<menu align="left" style="width: 20%">
+			<br>
+			<div>
+				<button class="form-group btn btn-primary" type="submit">Ver
+					Perfil Usuario</button>
+			</div>
+			<br>
+			<div>
+				<button class="form-group btn btn-primary" type="submit">Consulta
+					Recetas</button>
+			</div>
+			<br>
+			<div>
+				<button class="form-group btn btn-primary" type="submit">Monitoreo
+					De Consultas</button>
+			</div>
+			<br>
+		</menu>
+		
+		<div align="center">
+			<div ui-view>Primero mostramos las Recetas</div>
+			<br>
+			<div ui-view>Luego el perfil del usuario</div>
+			<br>
+			<div ui-view>Consulta Recetas</div>
+			<br>
+			<div ui-view>Resultados del monitoreo de
+				consultas</div>
+		</div>
+	</form>
+
+</body>
+</html>

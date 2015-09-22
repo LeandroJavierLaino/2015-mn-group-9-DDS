@@ -86,7 +86,7 @@ logeoApp.controller('logeoCtrl', ['logeoSrvc', function(logeoSrvc){
 
 			this.mostrar = true;
 			console.log(usuario);
-			var myWindow =  window.open("recetas.html", "_self");
+			var myWindow =  window.open("recetas.html", "_self");//deberiamos llevarlo a principal.html
 		}
 
 		else alert("Error: el usuario o la contraseña son erroneos");
