@@ -223,6 +223,7 @@ recipeApp.controller('recipeCtrl', [
 
 				window.open("detallereceta.html", "_self");
 			}
+			
 			user.buscarUsuario = function() {
 				window.open("buscarUsuario.html", "_self");
 			}
@@ -252,6 +253,36 @@ usuariosApp.controller('UsuariosController', [ 'usuariosSrvc',
 			}
 			this.abrirPerfil = function(usuario) {
 				sessionStorage.setItem('usuario1', JSON.stringify(usuario));
+	user.verReceta = function() {
+		sessionStorage.setItem('recetaAVer', JSON.stringify(user.recetaSeleccionada));
+		window.parent.receta = user.recetaSeleccionada;
+		window.open("detallereceta.html", "_self");
+	} 
+	user.listarRecetas = function() {
+		recipeSrvc.listarRecetas(user.nombre, function(data) {
+			user.recetas = data.map(transformarAReceta);
+		})
+		$state.go("listarRecetas");
+		return user.recetas;
+	}
+	user.abrirReceta = function(receta) {
+		sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
+		
+		window.open("detallereceta.html", "_self");
+	}
+	user.verUsuario  = function() {
+		window.open("verUsuario.html", "_self");
+	}
+	user.monitorDeConsultas = function() {
+		window.open("monitorDeConsultas", "_self");
+	}
+	user.buscarUsuario = function() {
+		window.open("buscarUsuario.html", "_self");
+	}
+	user.buscarReceta = function() {
+		window.open("buscarReceta.html", "_self");
+	}
+	return user;
 
 				window.open("recetas.html", "_self");
 			}

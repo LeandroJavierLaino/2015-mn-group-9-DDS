@@ -35,22 +35,64 @@
 		<h1>Que Comemos</h1>
 		<h2>Buscar receta</h2>
 		<form class="well well-lg form-inline">
-			<div class="form-group">
-				<input class="form-control" name="nombrePlato"
-					ng-model="buscador.nombreABuscar"
-					placeholder="Ingrese el nombre de la receta" autofocus="autofocus">
+			<div class="form-group" align="left">
+				<div>
+					<label>Nombre: </label><input class="form-control"
+						name="nombrePlato" ng-model="buscador.nombreABuscar"
+						placeholder="Ingrese el nombre de la receta" autofocus="autofocus">
+					<label>Calorias</label> <label><small>De:</small> </label> <input
+						class="form-control" name="caloriasMinimas"
+						ng-model="buscador.caloriasMinimas"
+						placeholder="Ingrese el calorias minimas" autofocus="autofocus">
+					<label><small>Hasta:</small> </label> <input class="form-control"
+						name="caloriasMaximas" ng-model="buscador.caloriasMaximas"
+						placeholder="Ingrese el calorias maximas" autofocus="autofocus">
+				</div>
+				<br>
+				<div>
+					<label>Dificultad </label> <select name="dificultad"
+						class="form-control" ng-model="buscador.dificultad">
+						<option value=""> </option>
+						<option value="facil">Facil</option>
+						<option value="media">Media</option>
+						<option value="dificil">Dificil</option>
+					</select> <label>Temporada </label> <select name="temporada"
+						class="form-control" ng-model="buscador.temporada">
+						<option value=""> </option>
+						<option value="verano">Verano</option>
+						<option value="otonio">Otoño</option>
+						<option value="invierno">Invierno</option>
+						<option value="primavera">Primavera</option>
+						<option value="todoElAnio">Todo el año</option>
+					</select>
+				</div>
+				<br>
+				<div>
+					<label>Que contenga ingrediente </label> <input
+						class="form-control" name="ingrediente"
+						ng-model="buscador.ingrediente"
+						placeholder="Ingrese un ingrediente" autofocus="autofocus">
+					<input class="form-control" name="filtros"
+						ng-model="buscador.filtros" type="checkbox"> <label>aplicar
+						filtros del perfil de usuario</label>
+				</div>
 			</div>
+			<br> <br>
 			<div class="form-group">
 				<button type="submit" ng-click="buscador.buscarVarias()"
-					class="btn btn-primary form-control glyphicon glyphicon-search">
+					class="btn btn-primary form-control glyphicon glyphicon-search"
+					style=""></button>
+				<button type="submit" ng-click="buscador.volver()"
+					class="btn btn-primary form-control glyphicon glyphicon-triangle-left"
+					style=""></button>
 			</div>
 		</form>
 		<p ng-show="buscador.mostrarError" style="text-align: center"
 			class="well well-lg">No se encontro ninguna receta</p>
 
-		<table table cellpadding="0" cellspacing="0" border='1' align="center"
-			class="table table-striped table-bordered table-hover"
-			style="width: 85%" ng-show="buscador.mostrarTabla">
+		<table table="" class="table table-striped table-bordered table-hover"
+			style="width: 85%" ng-show="buscador.mostrarTabla" align="center"
+			border="1" cellpadding="0" cellspacing="0">
 			<thead>
 				<tr>
 					<th>Nombre</th>
@@ -65,8 +107,11 @@
 					<td ng-bind="receta.totalCalorias"></td>
 					<td ng-bind="receta.dificultad"></td>
 					<td ng-bind="receta.temporada"></td>
-					<td><button type="submit" ng-click="buscador.abrirReceta(receta)" class="btn btn-primary form-control">Ver</button>
+					<td><button type="submit"
+							ng-click="buscador.abrirReceta(receta)"
+							class="btn btn-primary form-control">Ver</button></td>
 				</tr>
+			</tbody>
 		</table>
 	</div>
 	<script src="js/receta.js"></script>
