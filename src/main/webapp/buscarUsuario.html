@@ -65,10 +65,11 @@
 					<td ng-bind="usuario.altura"></td>
 					<td ng-bind="usuario.peso"></td>
 					<td ng-bind="usuario.sexo"></td>
-					<td><button type="submit" ng-click="buscador.abrirPerfil(usuario)" class="btn btn-primary form-control">Ver</button>
+					<td><button type="submit" ng-click="buscador.abrirPerfil(usuario)" class="glyphicon glyphicon-eye-open btn btn-default"></button>
 				</tr>
 		</table>
 	</div>
+	<div ui-view></div>
 	<script src="js/receta.js"></script>
 	<script src="js/usuario.js"></script>
 	<script src="js/app.js"></script>

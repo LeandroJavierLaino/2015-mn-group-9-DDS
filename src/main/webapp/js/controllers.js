@@ -49,11 +49,18 @@ recetaApp.controller('RecetasController', [ 'recetaSrvc', function(recetaSrvc) {
 		recetaSrvc.buscarVarias(self.nombreABuscar, function(data) {
 			self.recetas = _.map(data, transformarAReceta);
 		});
-		if (self.recetas == null)
+		if (self.recetas == null) {
+			
 			this.mostrarError = true;
-		else
+			this.mostrarTabla = false;
+		}
+		else {
 			this.mostrarTabla = true;
+			this.mostrarError = false;
+		}
+			
 	}
+	this.listarRecetas = this.buscarVarias();
 
 	this.abrirReceta = function(receta) {
 		sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
@@ -177,13 +184,7 @@ recipeDetailApp.controller('recipeDetailCtrl', function(recipeDetailSrvc) {
 		recipe.mostrarDivNuevoIngrediente = !recipe.mostrarDivNuevoIngrediente;
 	}
 	recipe.guardar = function() {
-
-		console.log(recipe.recetaClon.nombrePlato)
-		console.log(recipe.recetaClon.totalCalorias)
-		console.log(recipe.recetaClon.ingredientes);
-		console.log(recipe.recetaClon.condimentos)
-		// console.log(jsonify(recipe.recetaClon))
-
+		recipe.recetaClon.veryDifficult = null;
 		console.log("guardar usuario: " + recipe.user.nombre)
 		recipeDetailSrvc.cambiarFavorito(recipe.recetaClon, recipe.user.nombre,
 				function() {
@@ -242,8 +243,7 @@ recipeApp.controller('recipeCtrl', [
 			return user;
 
 		} ])
-usuariosApp.controller('UsuariosController', [
-		'usuariosSrvc',
+usuariosApp.controller('UsuariosController', [ 'usuariosSrvc',
 		function(usuariosSrvc) {
 
 			var self = this;
@@ -256,46 +256,17 @@ usuariosApp.controller('UsuariosController', [
 				usuariosSrvc.buscar(self.nombreABuscar, function(data) {
 					self.usuarios = _.map(data, transformarAUsuario);
 				});
-				if (self.usuarios == null)
+				if (self.usuarios == null) {
 					this.mostrarError = true;
-				else
+					this.mostrarTable = false;
+				} else {
 					this.mostrarTabla = true;
+					this.mostrarError = false;
+				}
 			}
 			this.abrirPerfil = function(usuario) {
 				sessionStorage.setItem('usuario1', JSON.stringify(usuario));
-				user.verReceta = function() {
-					sessionStorage.setItem('recetaAVer', JSON
-							.stringify(user.recetaSeleccionada));
-					window.parent.receta = user.recetaSeleccionada;
-					window.open("detallereceta.html", "_self");
-				}
-				user.listarRecetas = function() {
-					recipeSrvc.listarRecetas(user.nombre, function(data) {
-						user.recetas = data.map(transformarAReceta);
-					})
-					$state.go("listarRecetas");
-					return user.recetas;
-				}
-				user.abrirReceta = function(receta) {
-					sessionStorage
-							.setItem('recetaAVer', JSON.stringify(receta));
-
-					window.open("detallereceta.html", "_self");
-				}
-				user.verUsuario = function() {
-					window.open("verUsuario.html", "_self");
-				}
-				user.monitorDeConsultas = function() {
-					window.open("monitorDeConsultas", "_self");
-				}
-				user.buscarUsuario = function() {
-					window.open("buscarUsuario.html", "_self");
-				}
-				user.buscarReceta = function() {
-					window.open("buscarReceta.html", "_self");
-				}
-				return user;
-
 				window.open("recetas.html", "_self");
+
 			}
 		} ])
