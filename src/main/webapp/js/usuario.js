@@ -12,7 +12,7 @@ function Usuario() {
 	this.recetasFavoritas = null;
 }
 
-var pepe = new Usuario();
+/*var pepe = new Usuario();
 pepe.nombre = "Pepe";
 pepe.password = "123";
 pepe.recetas = [recetaCarne, recetaFideos, recetaVegetales];
@@ -20,4 +20,4 @@ pepe.recetas = [recetaCarne, recetaFideos, recetaVegetales];
 
 recetaFideos.creador = pepe;
 recetaCarne.creador = pepe;
-recetaVegetales.creador = pepe;
+recetaVegetales.creador = pepe;*/

@@ -4,8 +4,11 @@ function transformarAReceta(jsonReceta) {
 function transformarAUsuario(jsonUsuario) {
 	return angular.extend(new Usuario(), jsonUsuario);
 }
-function transformarACaracteristica(jsonCaracteristica) {
-	return angular.extend(new Caracteristica(), jsonCaracteristica);
+function transformarACondimento(jsonCondimento) {
+	return angular.extend(new Condimento("", 0, ""), jsonCondimento);
+}
+function transformarAIngrediente(jsonIngrediente) {
+	return angular.extend(new Ingrediente("", 0, ""), jsonIngrediente);
 }
 var jsonify = function(obj) {
 	var seen = [];
@@ -20,28 +23,28 @@ var jsonify = function(obj) {
 	}, 4);
 	return json;
 };
+function contains(objecto, lista) {
+	var i = 0
+	if (lista == null)
+		return false
+
+	while (i < lista.length) {
+		if (objecto.nombrePlato.toUpperCase == lista[i].nombrePlato.toUpperCase)
+			return true;
+		i++;
+	}
+	return false;
+}
 
 recetaApp.controller('RecetasController', [ 'recetaSrvc', function(recetaSrvc) {
 
 	var self = this;
 	this.recetas = null;
-	this.recetaSeleccionada = null;
 	this.nombreABuscar = null;
 	this.mostrarError = false;
 	this.mostrarTabla = false;
+	var user = JSON.parse(sessionStorage.getItem('usuario1'));
 
-	this.buscar = function() {
-
-		recetaSrvc.buscar(self.nombreABuscar, function(data) {
-			self.recetaSeleccionada = JSON.parse(data);
-		});
-
-		if (self.recetaSeleccionada == null)
-			this.mostrarError = true;
-		else
-			this.mostrarTabla = true;
-
-	}
 	this.buscarVarias = function() {
 		recetaSrvc.buscarVarias(self.nombreABuscar, function(data) {
 			self.recetas = _.map(data, transformarAReceta);
@@ -54,7 +57,7 @@ recetaApp.controller('RecetasController', [ 'recetaSrvc', function(recetaSrvc) {
 
 	this.abrirReceta = function(receta) {
 		sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
-
+		sessionStorage.setItem('usuario1', jsonify(user));
 		window.open("detallereceta.html", "_self");
 	}
 
@@ -89,8 +92,8 @@ logeoApp.controller('logeoCtrl', [ 'logeoSrvc', function(logeoSrvc) {
 			this.mostrar = true;
 			console.log(usuario);
 			var myWindow = window.open("recetas.html", "_self");// deberiamos
-																// llevarlo a
-																// principal.html
+			// llevarlo a
+			// principal.html
 		}
 
 		else
@@ -100,54 +103,52 @@ logeoApp.controller('logeoCtrl', [ 'logeoSrvc', function(logeoSrvc) {
 } ]);
 
 recipeDetailApp.controller('recipeDetailCtrl', function(recipeDetailSrvc) {
-	
-	function contains(a, obj) {
-	    for (var i = 0; i < a.length; i++) {
-	        if (a[i] == obj) {
-	            return true;
-	        }
-	    }
-	    return false;
-	}
-	
+
 	var recipe = JSON.parse(sessionStorage.getItem('recetaAVer'));
 	recipe.recetaClon = recipe;
-	
+
 	recipe.user = JSON.parse(sessionStorage.getItem('usuario1'));
-	recipe.esFavorita = contains(recipe.user.recetasFavoritas, recipe.recetaClon)
-	console.log(recipe.recetaClon.esFavorita)
-	
-	recipe.favoritos = function() {
-		if(recipe.esFavorita) {
-			recipe.user.recetasFavoritas.splice(indexOf(recipe.recetaClon), 1)
-		}
-		else {
-			recipe.user.recetasFavoritas.push(recipe.recetaClon);
-			console.log(recipe.recetaClon.esFavorita)
-			console.log(recipe.user.recetasFavoritas)
-		}
-	}
-	recipe.tEsFavorita = function() {
-		if(recipe.esFavorita) {
-			return "Eliminar de Favoritas";
-		}
-		else return "Agregar a Favoritas";
-	}
+	console.log(recipe.user.nombre)
+	recipe.ingredientes = recipe.ingredientes.map(transformarAIngrediente)
+	recipe.condimentos = recipe.condimentos.map(transformarACondimento)
+
+	console.log(contains(recipe.recetaClon, recipe.user.recetasFavoritas))
 
 	recipe.mostrarDivNuevoCondimento = false;
 	recipe.mostrarDivNuevoIngrediente = false;
 	recipe.nuevoPaso = null;
 
-	recipe.condimentoAAgregar = new Caracteristica;
-	recipe.ingredienteAAgregar = new Caracteristica
-	
+	recipe.condimentoAAgregar = new Condimento;
+	recipe.ingredienteAAgregar = new Ingrediente;
+
 	recipe.mostrarPrep = true;
-	
+
+	recipe.favoritos = function() {
+
+		if (recipe.user.recetasFavoritas == null) {
+			recipe.user.recetasFavoritas = [ recipe.recetaClon ];
+		} else if (!contains(recipe.recetaClon, recipe.user.recetasFavoritas)) {
+			recipe.user.recetasFavoritas.push(recipe.recetaClon);
+		} else if (contains(recipe.recetaClon, recipe.user.recetasFavoritas)) {
+			recipe.user.recetasFavoritas.splice(recipe.user.recetasFavoritas
+					.indexOf(recipe.recetaClon), 1)
+		}
+
+		console.log(contains(recipe.recetaClon, recipe.user.recetasFavoritas))
+		console.log(recipe.user.recetasFavoritas)
+	}
+	recipe.tEsFavorita = function() {
+		if (contains(recipe.recetaClon, recipe.user.recetasFavoritas)) {
+			return "Eliminar de Favoritas";
+		} else
+			return "Agregar a Favoritas";
+	}
+
 	recipe.agregarPaso = function() {
 		console.log(recipe.nuevoPaso)
 		if (recipe.nuevoPaso == null)
 			alert("debe llenar el campo");
-		
+
 		else {
 			recipe.procesoPreparacion.push(recipe.nuevoPaso);
 			console.log(recipe.recetaClon.procesoPreparacion.toString())
@@ -157,35 +158,42 @@ recipeDetailApp.controller('recipeDetailCtrl', function(recipeDetailSrvc) {
 	}
 	recipe.nuevoCondimento = function() {
 		recipe.mostrarDivNuevoCondimento = !recipe.mostrarDivNuevoCondimento;
-		recipe.condimentoAAgregar = new Caracteristica;
+		recipe.condimentoAAgregar = new Condimento("", 0, "");
 	}
 	recipe.agregarCondimento = function() {
 		recipe.recetaClon.condimentos.push(recipe.condimentoAAgregar);
 		console.log(recipe.recetaClon.condimentos)
-		recipe.condimentoAAgregar = new Caracteristica;
+		recipe.condimentoAAgregar = new Condimento("", 0, "");
 		recipe.mostrarDivNuevoCondimento = !recipe.mostrarDivNuevoCondimento;
 	}
 	recipe.nuevoIngrediente = function() {
 		recipe.mostrarDivNuevoIngrediente = !recipe.mostrarDivNuevoIngrediente;
-		recipe.condimentoAAgregar = new Caracteristica;
+		recipe.ingredienteAAgregar = new Ingrediente("", 0, "");
 	}
 	recipe.agregarIngrediente = function() {
 		recipe.recetaClon.ingredientes.push(recipe.ingredienteAAgregar)
 		console.log(recipe.recetaClon.ingredientes);
-		recipe.ingredienteAAgregar = new Caracteristica;
+		recipe.ingredienteAAgregar = new Ingrediente("", 0, "");
 		recipe.mostrarDivNuevoIngrediente = !recipe.mostrarDivNuevoIngrediente;
 	}
 	recipe.guardar = function() {
-		
+
 		console.log(recipe.recetaClon.nombrePlato)
 		console.log(recipe.recetaClon.totalCalorias)
 		console.log(recipe.recetaClon.ingredientes);
 		console.log(recipe.recetaClon.condimentos)
-		console.log(jsonify(recipe.recetaClon))
-		
-		recipeDetailSrvc.guardarReceta(jsonify(recipe.recetaClon), function() {
+		// console.log(jsonify(recipe.recetaClon))
+
+		console.log("guardar usuario: " + recipe.user.nombre)
+		recipeDetailSrvc.cambiarFavorito(recipe.recetaClon, recipe.user.nombre,
+				function() {
+					alert("el usuario fue actualizado")
+				})
+
+		recipeDetailSrvc.guardarReceta(recipe.recetaClon, function() {
 			alert("Cambios guardados");
 		})
+
 	}
 	recipe.volver = function() {
 		window.open("recetas.html", "_self");
@@ -220,10 +228,11 @@ recipeApp.controller('recipeCtrl', [
 			}
 			user.abrirReceta = function(receta) {
 				sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
+				sessionStorage.setItem('usuario1', jsonify(user));
 
 				window.open("detallereceta.html", "_self");
 			}
-			
+
 			user.buscarUsuario = function() {
 				window.open("buscarUsuario.html", "_self");
 			}
@@ -233,7 +242,8 @@ recipeApp.controller('recipeCtrl', [
 			return user;
 
 		} ])
-usuariosApp.controller('UsuariosController', [ 'usuariosSrvc',
+usuariosApp.controller('UsuariosController', [
+		'usuariosSrvc',
 		function(usuariosSrvc) {
 
 			var self = this;
@@ -253,36 +263,38 @@ usuariosApp.controller('UsuariosController', [ 'usuariosSrvc',
 			}
 			this.abrirPerfil = function(usuario) {
 				sessionStorage.setItem('usuario1', JSON.stringify(usuario));
-	user.verReceta = function() {
-		sessionStorage.setItem('recetaAVer', JSON.stringify(user.recetaSeleccionada));
-		window.parent.receta = user.recetaSeleccionada;
-		window.open("detallereceta.html", "_self");
-	} 
-	user.listarRecetas = function() {
-		recipeSrvc.listarRecetas(user.nombre, function(data) {
-			user.recetas = data.map(transformarAReceta);
-		})
-		$state.go("listarRecetas");
-		return user.recetas;
-	}
-	user.abrirReceta = function(receta) {
-		sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
-		
-		window.open("detallereceta.html", "_self");
-	}
-	user.verUsuario  = function() {
-		window.open("verUsuario.html", "_self");
-	}
-	user.monitorDeConsultas = function() {
-		window.open("monitorDeConsultas", "_self");
-	}
-	user.buscarUsuario = function() {
-		window.open("buscarUsuario.html", "_self");
-	}
-	user.buscarReceta = function() {
-		window.open("buscarReceta.html", "_self");
-	}
-	return user;
+				user.verReceta = function() {
+					sessionStorage.setItem('recetaAVer', JSON
+							.stringify(user.recetaSeleccionada));
+					window.parent.receta = user.recetaSeleccionada;
+					window.open("detallereceta.html", "_self");
+				}
+				user.listarRecetas = function() {
+					recipeSrvc.listarRecetas(user.nombre, function(data) {
+						user.recetas = data.map(transformarAReceta);
+					})
+					$state.go("listarRecetas");
+					return user.recetas;
+				}
+				user.abrirReceta = function(receta) {
+					sessionStorage
+							.setItem('recetaAVer', JSON.stringify(receta));
+
+					window.open("detallereceta.html", "_self");
+				}
+				user.verUsuario = function() {
+					window.open("verUsuario.html", "_self");
+				}
+				user.monitorDeConsultas = function() {
+					window.open("monitorDeConsultas", "_self");
+				}
+				user.buscarUsuario = function() {
+					window.open("buscarUsuario.html", "_self");
+				}
+				user.buscarReceta = function() {
+					window.open("buscarReceta.html", "_self");
+				}
+				return user;
 
 				window.open("recetas.html", "_self");
 			}

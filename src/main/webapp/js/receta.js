@@ -10,11 +10,13 @@ function Receta() {
 	this.cantidadMaximaCalorias = null;
 	this.subRecetas = null;
 	this.condicionesPreexistentes = null;
-	this.veryDifficult = null;
+	this.isVeryDificult = false;
 	this.creador = null;
 }
 
 var recetaCarne = new Receta();
+
+/*
 recetaCarne.nombre = "Carnes Variadas";
 recetaCarne.ingredientes = ["Carne de Ternera", "Carne de Pollo", "Carne de Cerdo"];
 recetaCarne.calorias = 200;
@@ -35,3 +37,5 @@ recetaVegetales.ingredientes = ["Lechuga", "Tomate"];
 recetaVegetales.calorias = 100;
 recetaVegetales.temporada = "Verano";
 recetaVegetales.dificultad = "Alta";
+
+*/
