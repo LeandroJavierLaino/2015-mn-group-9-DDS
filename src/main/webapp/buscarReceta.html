@@ -37,8 +37,8 @@
 </head>
 <body ng-controller="RecetasController as buscador">
 	<div style="text-align: center">
-		<h1>Que Comemos</h1>
-		<h2>Buscar receta</h2>
+		<h1>Que Comemos <small>Buscar receta</small></h1>
+		
 		<form class="well well-lg form-inline">
 			<div class="form-group" align="left">
 				<div>
@@ -107,7 +107,7 @@
 				</tr>
 			</thead>
 			<tbody style="font-size: 12px">
-				<tr ng-repeat="receta in buscador.recetas">
+				<tr ng-repeat="receta in buscador.recetas" class="active" ng-click="buscador.abrirReceta(receta)">
 					<td ng-bind="receta.nombrePlato"></td>
 					<td ng-bind="receta.totalCalorias"></td>
 					<td ng-bind="receta.dificultad"></td>
@@ -118,6 +118,8 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<div ui-view ng-controller="RecetasController as user"></div>
 	</div>
 	<script src="js/caracteristica.js"></script>
 	<script src="js/receta.js"></script>

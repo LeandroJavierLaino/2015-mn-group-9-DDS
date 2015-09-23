@@ -8,6 +8,9 @@ recetaApp.service('recetaSrvc', function($http) {
 	this.buscarVarias = function(parteDelNombre, callback) {
 		$http.get('recetas/search/' + parteDelNombre).success(callback);
 	}
+	this.buscarConFiltros = function(nombre, calMin, calMax, dif, temp, ingred, callback) {
+		$http.get('/recetas/search?' + nombre + '&' + calMin + '&' + calMax + '&' + dif + '&' + temp + '&' + ingred).success(callback);
+	}
 })
 usuariosApp.service('usuariosSrvc', function($http) {
 	this.buscar = function(parteDelNombre, callback) {
@@ -31,4 +34,5 @@ recipeDetailApp.service('recipeDetailSrvc', function($http) {
 	this.cambiarFavorito = function(receta, usuario, callback) {
 		$http.put('usuario/' + usuario + '/favoritos', jsonify(receta)).success(callback)
 	}
+	
 })

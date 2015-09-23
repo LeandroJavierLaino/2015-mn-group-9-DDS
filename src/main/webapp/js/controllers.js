@@ -36,39 +36,65 @@ function contains(objecto, lista) {
 	return false;
 }
 
-recetaApp.controller('RecetasController', [ 'recetaSrvc', function(recetaSrvc) {
+recetaApp.controller('RecetasController', [
+		'recetaSrvc',
+		function(recetaSrvc) {
 
-	var self = this;
-	this.recetas = null;
-	this.nombreABuscar = null;
-	this.mostrarError = false;
-	this.mostrarTabla = false;
-	var user = JSON.parse(sessionStorage.getItem('usuario1'));
+			var self = this;
+			this.recetas = null;
+			this.nombreABuscar = null;
+			this.caloriasMinimas = null;
+			this.caloriasMaximas = null;
+			this.dificultad = null;
+			this.temporada = null;
+			this.ingrediente = null;
 
-	this.buscarVarias = function() {
-		recetaSrvc.buscarVarias(self.nombreABuscar, function(data) {
-			self.recetas = _.map(data, transformarAReceta);
-		});
-		if (self.recetas == null) {
-			
-			this.mostrarError = true;
-			this.mostrarTabla = false;
-		}
-		else {
-			this.mostrarTabla = true;
 			this.mostrarError = false;
-		}
-			
-	}
-	this.listarRecetas = this.buscarVarias();
+			this.mostrarTabla = false;
+			var user = JSON.parse(sessionStorage.getItem('usuario1'));
 
-	this.abrirReceta = function(receta) {
-		sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
-		sessionStorage.setItem('usuario1', jsonify(user));
-		window.open("detallereceta.html", "_self");
-	}
+			this.buscarVarias = function() {
+				recetaSrvc.buscarVarias(self.nombreABuscar, function(data) {
+					self.recetas = _.map(data, transformarAReceta);
+				});
+				if (self.recetas == null) {
 
-} ])
+					this.mostrarError = true;
+					this.mostrarTabla = false;
+				} else {
+					this.mostrarTabla = true;
+					this.mostrarError = false;
+				}
+
+			}
+			this.buscarConFiltros = function() {
+				recetaSrvc.buscarConFiltros(self.nombreABuscar,
+						this.caloriasMinimas, this.caloriasMaximas,
+						this.dificultad, this.temporada, this.ingrediente,
+						function(data) {
+							self.recetas = _.map(data, transformarAReceta);
+						});
+				if (self.recetas == null) {
+
+					this.mostrarError = true;
+					this.mostrarTabla = false;
+				} else {
+					this.mostrarTabla = true;
+					this.mostrarError = false;
+				}
+			}
+			this.listarRecetas = this.recetas;
+
+			this.abrirReceta = function(receta) {
+				sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
+				sessionStorage.setItem('usuario1', jsonify(user));
+				window.open("detallereceta.html", "_self");
+			}
+			this.volver = function() {
+				window.open("recetas.html", "_self");
+			}
+
+		} ])
 
 logeoApp.controller('logeoCtrl', [ 'logeoSrvc', function(logeoSrvc) {
 
