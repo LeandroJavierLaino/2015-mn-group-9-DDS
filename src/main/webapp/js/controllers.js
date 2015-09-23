@@ -26,6 +26,12 @@ recetaApp.controller('RecetasController', [ 'recetaSrvc', function(recetaSrvc) {
 	this.nombreABuscar = null;
 	this.mostrarError = false;
 	this.mostrarTabla = false;
+	this.caloriasMinimas = null;
+	this.caloriasMaximas = null;
+	this.dificultad = null;
+	this.temporada = null;
+	this.ingrediente = null;
+	this.filtros = false;
 
 	this.buscar = function() {
 
@@ -40,7 +46,7 @@ recetaApp.controller('RecetasController', [ 'recetaSrvc', function(recetaSrvc) {
 
 	}
 	this.buscarVarias = function() {
-		recetaSrvc.buscarVarias(self.nombreABuscar, function(data) {
+		recetaSrvc.buscarVarias( self.nombreABuscar, self.caloriasMinimas, self.caloriasMaximas, self.dificultad, self.temporada, self.ingrediente, self.filtros, function(data) {
 			self.recetas = _.map(data, transformarAReceta);
 		});
 		if (self.recetas == null)
@@ -163,6 +169,12 @@ recipeApp.controller('recipeCtrl', ['recipeSrvc',  function(recipeSrvc){
 		sessionStorage.setItem('recetaAVer', JSON.stringify(receta));
 		
 		window.open("detallereceta.html", "_self");
+	}
+	user.verUsuario  = function() {
+		window.open("verUsuario.html", "_self");
+	}
+	user.monitorDeConsultas = function() {
+		window.open("monitorDeConsultas", "_self");
 	}
 	user.buscarUsuario = function() {
 		window.open("buscarUsuario.html", "_self");
