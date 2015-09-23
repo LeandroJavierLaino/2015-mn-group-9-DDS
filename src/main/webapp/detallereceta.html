@@ -37,13 +37,13 @@
 			ng-click="recipe.favoritos()" ng-bind="recipe.tEsFavorita()"></button>
 	</div>
 	<form style="text-align: center" class="well well-lg">
-		<div class="col-sm-3">
+		<div class="col-sm-2">
 			<label class="form-group">Nombre de la Receta</label>
 			<input class="form-control" type="text"
 				ng-model="recipe.recetaClon.nombrePlato">
 		</div>
 
-		<div class="col-sm-3">
+		<div class="col-sm-2">
 			<label class="form-group">Calorias</label>
 			<input class="form-control" type="number"
 				ng-model="recipe.recetaClon.totalCalorias">
@@ -51,15 +51,23 @@
 
 
 
-		<div class="col-sm-3" ng-show="recipe.mostrarPrep">
-			<label class="form-group">Preparacion</label>
-			<p ng-bind="recipe.procesoPreparacion"></p>
+		<div class="col-sm-2" ng-show="recipe.mostrarPrep">
+		<label class="form-group">Preparacion</label>
+			<div class="form-inline">
+
 			<input class="form-control" type="text" ng-model="recipe.nuevoPaso">
 			<button type="submit" ng-click="recipe.agregarPaso()"
-				class="glyphicon glyphicon glyphicon-plus btn btn-primary">
+				class="glyphicon glyphicon glyphicon-plus btn btn-primary"></button>
+				
+			</div>
+			<div>
+			<ul>
+				<li ng-repeat="paso in recipe.procesoPreparacion" ng-bind="paso"></li>
+			</ul>
+			</div>
 		</div>
 
-		<div class="col-sm-3" ng-show="!recipe.mostrarDivNuevoIngrediente" >
+		<div class="col-sm-2" ng-show="!recipe.mostrarDivNuevoIngrediente" >
 			<label class="form-group">Ingredientes</label>
 			<table table cellpadding="0" cellspacing="0" border='1'
 				align="center"
@@ -80,7 +88,7 @@
 			<button type="submit" ng-click="recipe.nuevoIngrediente()"
 				class="glyphicon glyphicon glyphicon-plus btn btn-primary">
 		</div>
-		<div ng-show="recipe.mostrarDivNuevoIngrediente" class="col-sm-3">
+		<div ng-show="recipe.mostrarDivNuevoIngrediente" class="col-sm-2">
 		
 			<input class="form-control" placeholder="Nombre del nuevo ingrediente"
 				ng-model="recipe.ingredienteAAgregar.nombre"> 
@@ -97,7 +105,7 @@
 				class="btn btn-primary">Cancelar</button>
 		</div>
 		
-		<div class="col-sm-3" ng-show="!recipe.mostrarDivNuevoCondimento">
+		<div class="col-sm-2" ng-show="!recipe.mostrarDivNuevoCondimento">
 			<label class="form-group">Condimentos</label>
 			<table table cellpadding="0" cellspacing="0" border='1'
 				align="center"
@@ -118,7 +126,7 @@
 			<button type="submit" ng-click="recipe.nuevoCondimento()"
 				class="glyphicon glyphicon glyphicon-plus btn btn-primary">
 		</div>
-		<div ng-show="recipe.mostrarDivNuevoCondimento" class="col-sm-3">
+		<div ng-show="recipe.mostrarDivNuevoCondimento" class="col-sm-2">
 		
 			<input class="form-control" placeholder="Nombre del nuevo condimento"
 				ng-model="recipe.condimentoAAgregar.nombre"> 
