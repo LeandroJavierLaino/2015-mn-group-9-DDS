@@ -9,6 +9,7 @@ function Usuario() {
 	this.fechaDeNacimiento = null;
 	this.condicionesPreexistentes = null;
 	this.sexo = null;
+	this.recetasFavoritas = null;
 }
 
 var pepe = new Usuario();

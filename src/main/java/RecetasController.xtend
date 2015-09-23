@@ -65,9 +65,16 @@ class RecetasController {
 	@Put('/recetas/:nombre')
 	def Result actualizar(@Body String body) {
 		try {
-			val recetaActualizada = body.fromJson(Receta)
-			val recetaVieja = RepositorioRecetas.instance.listarRecetas.findFirst[it.nombrePlato.equals(recetaActualizada.nombrePlato)]
-			RepositorioRecetas.instance.quitar(recetaVieja)
+			
+			val Receta recetaActualizada =  body.fromJson(Receta)
+			/*recetaActualizada.nombrePlato = body.getPropertyValue("nombrePlato")
+			recetaActualizada.totalCalorias = Integer.valueOf(body.getPropertyValue("totalCalorias"))
+			recetaActualizada.procesoPreparacion = body.getPropertyValue("procesoPreparacion")*/
+			val Receta recetaVieja = RepositorioRecetas.instance.listarRecetas.findFirst[it.nombrePlato.equals(recetaActualizada.nombrePlato)]
+			
+			if(recetaVieja != null)
+				RepositorioRecetas.instance.quitar(recetaVieja)
+				
 			RepositorioRecetas.instance.agregar(recetaActualizada)
 
 			ok('{ "status" : "OK" }');

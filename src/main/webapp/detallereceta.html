@@ -33,32 +33,33 @@
 			ng-click="recipe.volver()">Volver</button>
 		<button type="submit" class="form-group btn btn-link"
 			ng-click="recipe.guardar()">Guardar</button>
+		<button type="submit" class="form-group btn btn-link"
+			ng-click="recipe.favoritos()" ng-bind="recipe.tEsFavorita()"></button>
 	</div>
 	<form style="text-align: center" class="well well-lg">
 		<div class="col-sm-3">
 			<label class="form-group">Nombre de la Receta</label>
-			<p>
-				<span ng-bind="recipe.nombrePlato"></span>
-			</p>
 			<input class="form-control" type="text"
-				ng-model="recipe.nombrePlatoPendiente" ng-init="recipe.nombrePlato">
+				ng-model="recipe.recetaClon.nombrePlato">
 		</div>
+
 		<div class="col-sm-3">
 			<label class="form-group">Calorias</label>
-			<p ng-bind="recipe.totalCalorias"></p>
 			<input class="form-control" type="number"
-				ng-model="recipe.totalCaloriasPendiente"
-				ng-init="recipe.totalCalorias">
+				ng-model="recipe.recetaClon.totalCalorias">
 		</div>
-		<div class="col-sm-3">
+
+
+
+		<div class="col-sm-3" ng-show="recipe.mostrarPrep">
 			<label class="form-group">Preparacion</label>
-			<p ng-bind="recipe.procesoPreparacionClon"></p>
-			<input class="form-control" type="text"
-				ng-model="recipe.procesoNuevo">
+			<p ng-bind="recipe.procesoPreparacion"></p>
+			<input class="form-control" type="text" ng-model="recipe.nuevoPaso">
 			<button type="submit" ng-click="recipe.agregarPaso()"
 				class="glyphicon glyphicon glyphicon-plus btn btn-primary">
 		</div>
-		<div class="col-sm-3">
+
+		<div class="col-sm-3" ng-show="!recipe.mostrarDivNuevoIngrediente" >
 			<label class="form-group">Ingredientes</label>
 			<table table cellpadding="0" cellspacing="0" border='1'
 				align="center"
@@ -76,9 +77,26 @@
 						<td>{{ingrediente.cantidad}} {{ingrediente.tipo}}</td>
 					</tr>
 			</table>
-			<button type="submit" ng-click="recipe.agregarIngrediente()"
+			<button type="submit" ng-click="recipe.nuevoIngrediente()"
 				class="glyphicon glyphicon glyphicon-plus btn btn-primary">
 		</div>
+		<div ng-show="recipe.mostrarDivNuevoIngrediente" class="col-sm-3">
+		
+			<input class="form-control" placeholder="Nombre del nuevo ingrediente"
+				ng-model="recipe.ingredienteAAgregar.nombre"> 
+			<input
+				class="form-control" placeholder="Cantidad del nuevo ingrediente"
+				ng-model="recipe.ingredienteAAgregar.cantidad">
+			<input
+				class="form-control" placeholder="Medida del nuevo ingrediente"
+				ng-model="recipe.ingredienteAAgregar.tipo">
+				
+			<button type="submit" ng-click="recipe.agregarIngrediente()"
+				class="btn btn-primary">Aceptar</button>
+			<button type="submit" ng-click="recipe.nuevoIngrediente()"
+				class="btn btn-primary">Cancelar</button>
+		</div>
+		
 		<div class="col-sm-3" ng-show="!recipe.mostrarDivNuevoCondimento">
 			<label class="form-group">Condimentos</label>
 			<table table cellpadding="0" cellspacing="0" border='1'
@@ -100,21 +118,25 @@
 			<button type="submit" ng-click="recipe.nuevoCondimento()"
 				class="glyphicon glyphicon glyphicon-plus btn btn-primary">
 		</div>
-		<div ng-show="recipe.mostrarDivNuevoCondimento" class="col-sm-3" >
-			<input class="form-control"
-				placeholder="nombre del nuevo condimento"
-				ng-model="recipe.condimentoAAgregar.nombre"> <input
-				class="form-control" placeholder="cantidad del nuevo condimento"
-				ng-model="recipe.condimentoAAgregar.cantidad"> <input
-				class="form-control" placeholder="medida del nuevo condimento"
-				ng-model="recipe.ncondimentoAAgregar.tipo">
-			<button type="submit" ng-click="recipe.agregarCondimentoProvisorio()"
+		<div ng-show="recipe.mostrarDivNuevoCondimento" class="col-sm-3">
+		
+			<input class="form-control" placeholder="Nombre del nuevo condimento"
+				ng-model="recipe.condimentoAAgregar.nombre"> 
+			<input
+				class="form-control" placeholder="Cantidad del nuevo condimento"
+				ng-model="recipe.condimentoAAgregar.cantidad">
+			<input
+				class="form-control" placeholder="Medida del nuevo condimento"
+				ng-model="recipe.condimentoAAgregar.tipo">
+				
+			<button type="submit" ng-click="recipe.agregarCondimento()"
 				class="btn btn-primary">Aceptar</button>
 			<button type="submit" ng-click="recipe.nuevoCondimento()"
 				class="btn btn-primary">Cancelar</button>
 		</div>
 	</form>
 
+	<script src="js/caracteristica.js"></script>
 	<script src="js/receta.js"></script>
 	<script src="js/usuario.js"></script>
 	<script src="js/repoUsuarios.js"></script>

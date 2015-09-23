@@ -3,6 +3,7 @@
 <meta charset="UTF-8">
 <title>Que Comemos Oficial</title>
 <script src="node_modules/angular/angular.min.js"></script>
+ <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
 
 <!-- JQUERY -->
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -43,18 +44,18 @@
 				<th>Calorias</th>
 				<th>Dificultad</th>
 				<th>Temporada</th>
-				<th><button type="submit" class="form-group glyphicon glyphicon-repeat"
+				<th><button type="submit" class="form-group glyphicon glyphicon-repeat btn btn-default"
 						ng-click="user.listarRecetas()">
 			</tr>
 		</thead>
 		<tbody style="font-size: 12px">
-			<tr ng-repeat="receta in user.recetas" class="active">
+			<tr ng-repeat="receta in user.recetas" class="active" ng-click="user.abrirReceta(receta)">
 				<td ng-bind="receta.nombrePlato"></td>
 				<td ng-bind="receta.totalCalorias"></td>
 				<td ng-bind="receta.dificultad"></td>
 				<td ng-bind="receta.temporada"></td>
 				<td><button type="submit" ng-click="user.abrirReceta(receta)"
-						class="glyphicon glyphicon-chevron-right form-control">
+						class="glyphicon glyphicon-eye-open btn btn-default">
 			</tr>
 	</table>
 	<script src="js/receta.js"></script>
