@@ -55,6 +55,10 @@ class UsuarioBuilder {
 		usuario.recetas.add(receta)
 		this
 	}
+	def UsuarioBuilder conPass(String password) {
+		usuario.password = password
+		this
+	}
 	def Usuario build(){
 		RepositorioUsuarios.instance.add(usuario)
 		usuario

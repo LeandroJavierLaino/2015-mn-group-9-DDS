@@ -33,43 +33,6 @@ class RepositorioRecetas {
 		}
 		instance
 	}
-	new() {
-		
-		salchicha = new Ingrediente("Salchichas", 12, "unidades")
-		ketchup = new Condimento("ketchup", 200, "mililitros")
-		
-		recetaSalchiPapa = new RecetaBuilder()
-		.nombre("SalchiPapa")
-		.conCalorias(150)
-		.dificultad("Baja")
-		.pasoInstruccion("Hervir Salchichas")
-		.pasoInstruccion("Freir Papas")
-		.ingrediente(salchicha)
-		.condimento(ketchup)
-		.temporada("Verano")
-		.build
-		
-		recetas.add(recetaSalchiPapa)
-		
-		nicolas = new UsuarioBuilder()
-		.conNombre("Nicolas")
-		.deSexo("M")
-		.fechaDeNacimiento(new LocalDate(1980,11,10))
-		.conAltura(1.74)
-		.conPeso(60)
-		.build
-		
-		leandro = new UsuarioBuilder()
-		.conNombre("Leandro")
-		.deSexo("M")
-		.fechaDeNacimiento(new LocalDate(1988,6,27))
-		.conPeso(70)
-		.conAltura(1.74)
-		.build
-		
-		recetaSalchiPapa.creador = nicolas
-
-	}
 	
 	def tieneLaReceta(Receta receta) {
 		(!recetas.nullOrEmpty) && recetas.contains(receta)

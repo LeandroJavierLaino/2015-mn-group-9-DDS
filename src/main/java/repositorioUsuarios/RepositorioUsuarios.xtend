@@ -58,6 +58,9 @@ class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 	def Usuario getUserByName(String vnombre) {
 		objects.findFirst[usr | usr.nombre == vnombre]
 	}
+	def List<Usuario> searchByName(String vName) {
+		objects.filter[it.nombre.toLowerCase.contains(vName)].toList
+	}
 
 	def list(Usuario usuario) {
 		this.searchByExample(usuario)

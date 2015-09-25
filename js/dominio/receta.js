@@ -10,7 +10,7 @@ function Receta() {
 	this.cantidadMaximaCalorias = null;
 	this.subRecetas = null;
 	this.condicionesPreexistentes = null;
-	this.veryDifficult = false;
+	this.esDificil = false;
 	this.creador = null;
 }
 

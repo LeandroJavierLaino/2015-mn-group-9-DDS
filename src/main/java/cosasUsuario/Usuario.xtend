@@ -19,8 +19,10 @@ import receta.Receta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
 class Usuario extends Entity{
 	
 	// Datos varops
@@ -34,6 +36,7 @@ class Usuario extends Entity{
 	double altura
 	double peso
 	LocalDate fechaDeNacimiento
+	String password 
 	
 	// Grupo
 	GrupoUsuario grupoAlQuePertenece

@@ -12,9 +12,11 @@ import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import repositorioRecetas.RepositorioRecetas
 import condicion.CondicionPreexistente
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 //Nuevas excepciones modificadas
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
 class Receta{
 
 	String nombrePlato
@@ -115,7 +117,7 @@ class Receta{
 		ingredientes.forall[ingrediente|ingrediente.esCaro]
 	}
 	
-	def isVeryDifficult() {
+	def esDificil() {
 		dificultad.equalsIgnoreCase("Alta") || dificultad.equalsIgnoreCase("A") || dificultad.equalsIgnoreCase("D")
 	}
 	

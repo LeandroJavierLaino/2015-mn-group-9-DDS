@@ -1,0 +1,171 @@
+<div class="well well-lg text-center" ng-init="receta.cargarReceta()">
+
+	<form style="text-align: center">
+		<div class="col-md-2">
+			<label class="form-group">Nombre de la Receta</label> <input
+				class="form-control" type="text"
+				ng-model="receta.receta.nombrePlato">
+		</div>
+
+		<div class="col-md-2">
+			<label class="form-group">Calorias</label> <input
+				class="form-control" type="number"
+				ng-model="receta.receta.totalCalorias">
+		</div>
+
+		<div class="col-md-2">
+			<label class="form-group">Preparacion</label>
+			<div class="form-inline"></div>
+			<div>
+				<ul class="list-group">
+					<li class="list-group-item"><div class="form-inline">
+							<input class="form-control" type="text"
+								ng-model="receta.nuevoPaso">
+							<button type="submit" ng-click="receta.agregarPaso()"
+								class="glyphicon glyphicon glyphicon-plus btn btn-primary"></button>
+						</div></li>
+					<li class="list-group-item"
+						ng-repeat="paso in receta.receta.procesoPreparacion">{{paso}}
+						<button type="submit"
+							class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
+							ng-click="receta.borrarPaso(paso)"></button>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<label class="form-group">Ingredientes</label>
+			<div>
+				<table table cellpadding="0" cellspacing="0" border='1'
+					align="center"
+					class="table table-striped table-bordered table-hover"
+					style="width: 85%">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Cantidad</th>
+						</tr>
+					</thead>
+					<tbody style="font-size: 12px">
+						<tr ng-repeat="ingrediente in receta.receta.ingredientes">
+							<td ng-bind="ingrediente.nombre"></td>
+							<td>{{ingrediente.cantidad}} {{ingrediente.tipo}}</td>
+							<td><button type="submit"
+									class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
+									ng-click="receta.borrarIngrediente(ingrediente)"></button></td>
+						</tr>
+				</table>
+				<button type="submit"
+					class="glyphicon glyphicon glyphicon-plus btn btn-primary"
+					data-toggle="modal" data-target="#modalIngrediente">
+			</div>
+		</div>
+		<div class="modal fade" id="modalIngrediente">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Cerrar">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4>Agregar Ingrediente</h4>
+
+					</div>
+					<div class="modal-body">
+						<div>
+							<ul class="list-group">
+								<li class="list-group-item"><input class="form-control"
+									placeholder="Nombre del nuevo ingrediente"
+									ng-model="receta.ingrediente.nombre"></li>
+								<li class="list-group-item"><input class="form-control"
+									placeholder="Cantidad del nuevo ingrediente"
+									ng-model="receta.ingrediente.cantidad"></li>
+								<li class="list-group-item"><input class="form-control"
+									placeholder="Medida del nuevo ingrediente"
+									ng-model="receta.ingrediente.tipo"></li>
+							</ul>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" ng-click="receta.agregarIngrediente()"
+								class="glyphicon glyphicon-ok btn btn-success"
+								data-dismiss="modal"></button>
+							<button type="submit"
+								class="glyphicon glyphicon-remove btn btn-danger"
+								data-dismiss="modal"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<label class="form-group">Condimentos</label>
+			<table table cellpadding="0" cellspacing="0" border='1'
+				align="center"
+				class="table table-striped table-bordered table-hover"
+				style="width: 85%">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Cantidad</th>
+					</tr>
+				</thead>
+				<tbody style="font-size: 12px">
+					<tr ng-repeat="condimento in receta.receta.condimentos">
+						<td ng-bind="condimento.nombre"></td>
+						<td>{{condimento.cantidad}} {{condimento.tipo}}</td>
+						<td><button type="submit"
+								class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
+								ng-click="receta.borrarCondimento(condimento)"></button>
+					</tr>
+			</table>
+			<button type="submit" data-toggle="modal"
+				data-target="#modalCondimento"
+				class="glyphicon glyphicon glyphicon-plus btn btn-primary">
+		</div>
+		<div class="modal fade" id="modalCondimento">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Cerrar">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4>Agregar Condimento</h4>
+					</div>
+					<div class="modal-body">
+						<ul class="list-group">
+							<li class="list-group-item"><input class="form-control"
+								placeholder="Nombre del nuevo condimento"
+								ng-model="receta.condimento.nombre"></li>
+							<li class="list-group-item"><input class="form-control"
+								placeholder="Cantidad del nuevo condimento"
+								ng-model="receta.condimento.cantidad"></li>
+							<li class="list-group-item"><input class="form-control"
+								placeholder="Medida del nuevo condimento"
+								ng-model="receta.condimento.tipo"></li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" ng-click="receta.agregarCondimento()"
+							class="glyphicon glyphicon-ok btn btn-success"
+							data-dismiss="modal"></button>
+						<button type="submit"
+							class="glyphicon glyphicon-remove btn btn-danger"
+							data-dismiss="modal"></button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</form>
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<button type="submit" ng-click="receta.guardarReceta()"
+								class="glyphicon glyphicon-ok btn btn-success"></button>
+			<button type="submit" ui-sref="listarRecetas"
+								class="btn btn-danger">Cancelar</button>
+		</div>
+	</nav>
+</div>

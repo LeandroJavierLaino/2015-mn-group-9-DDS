@@ -1,10 +1,12 @@
-<html lang="es" ng-app="logeoApp">
+<!DOCTYPE html>
+<html lang="es" ng-app="indexApp">
 <head>
-<meta charset="UTF-8">
-<title>Que Comemos Oficial</title>
+<meta charset="ISO-8859-1">
+<title>¿Qué comemos? Web App</title>
+
+<!-- ANGULAR -->
 <script src="node_modules/angular/angular.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+
 <!-- JQUERY -->
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 
@@ -17,9 +19,6 @@
 
 <script src="node_modules/underscore/underscore-min.js"></script>
 
-<!-- ANGULAR -->
-<script src="node_modules/angular/angular.min.js"></script>
-
 <!-- BOOTBOX (dialogos de confirmacion) http://bootboxjs.com/ -->
 <script src="node_modules/bootbox/bootbox.min.js"></script>
 
@@ -30,38 +29,143 @@
 <script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
 <link rel="stylesheet"
 	href="node_modules/angular-loading-bar/build/loading-bar.min.css" />
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
 
 </head>
-<body ng-controller="logeoCtrl as logeo">
-	<div style="text-align: center">
-		<h1>Que Comemos</h1>
-		<h2>Autentificacion</h2>
-		<form class="well well-lg form-inline">
-			<div class="form-group">
-				<input class="form-control" name="usuario" ng-model="logeo.nombre"
-					placeholder="Ingrese su usuario" autofocus="autofocus">
+<body ng-controller="indexCtrl as index">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand">¿Qué comemos?</a>
 			</div>
-			<div class="form-group">
-				<input class="form-control" name="password" type="password"
-					ng-model="logeo.password" placeholder="Ingrese su contraseÃ±a"
-					autofocus="autofocus">
-			</div>
-			<div class="form-group">
-				<button type="submit" ng-click="logeo.acceder()"
-					class="btn btn-primary form-control">Acceder</button>
-			</div>
-			<p ng-show="logeo.mostrar" style="text-align: center"
-				class="well well-lg">
-				Bienvenido <span ng-bind="logeo.usuario.nombre"></span>
-			</p>
 
-		</form>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input ng-model="index.aBuscar" type="text" class="form-control"
+							placeholder="Buscar">
+					</div>
+					<button data-toggle="modal" data-target="#modalConsulta"
+						type="submit" class="glyphicon glyphicon-list btn btn-default">
+
+						<button ng-click="index.buscarUsuarios()" type="submit"
+							class="glyphicon glyphicon-user btn btn-default"></button>
+				</form>
+				<form class="navbar-form navbar-right">
+					<div ng-show="!index.logeo.exito" class="form-inline">
+						<div class="form-group">
+							<input class="form-control" ng-model="index.usuario.nombre"
+								placeholder="Ingrese su usuario" name="usuario">
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="password" name="password"
+								ng-model="index.usuario.password"
+								placeholder="Ingrese su contraseña">
+						</div>
+						<div class="form-group">
+							<button type="submit" ng-click="index.acceder()"
+								class="glyphicon glyphicon-user btn btn-primary"></button>
+						</div>
+					</div>
+					<div ng-show="index.logeo.exito">
+						<a class="navbar-brand"
+							ui-sref="listarRecetas({nombre: index.logeo.usuarioCompleto.nombre})"
+							ng-bind="index.logeo.usuarioCompleto.nombre"></a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</nav>
+	<div class="modal fade" id="modalConsulta" tabindex="-1" role="dialog"
+		aria-labelledby="miConsulta">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Cerrar">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Realizar Consulta</h4>
+				</div>
+				<div class="modal-body">
+					<form class="well well-lg form-inline">
+						<div class="form-group" align="left">
+							<div>
+								<label>Nombre: </label><input class="form-control"
+									name="nombrePlato" ng-model="index.consulta.receta.nombrePlato"
+									placeholder="Ingrese el nombre de la receta"
+									autofocus="autofocus"> <label>Calorias</label> <label><small>De:</small>
+								</label> <input class="form-control" name="caloriasMinimas"
+									ng-model="index.consulta.caloriasMinimas"
+									placeholder="Ingrese el calorias minimas" autofocus="autofocus">
+								<label><small>Hasta:</small> </label> <input
+									class="form-control" name="caloriasMaximas"
+									ng-model="buscador.caloriasMaximas"
+									placeholder="Ingrese el calorias maximas" autofocus="autofocus">
+							</div>
+
+							<div>
+								<label>Dificultad </label> <select name="dificultad"
+									class="form-control" ng-model="buscador.dificultad">
+									<option value=""></option>
+									<option value="facil">Facil</option>
+									<option value="media">Media</option>
+									<option value="dificil">Dificil</option>
+								</select> <label>Temporada </label> <select name="temporada"
+									class="form-control" ng-model="buscador.temporada">
+									<option value=""></option>
+									<option value="verano">Verano</option>
+									<option value="otonio">Otoño</option>
+									<option value="invierno">Invierno</option>
+									<option value="primavera">Primavera</option>
+									<option value="todoElAnio">Todo el año</option>
+								</select>
+							</div>
+
+							<div>
+								<label>Que contenga ingrediente </label> <input
+									class="form-control" name="ingrediente"
+									ng-model="buscador.ingrediente"
+									placeholder="Ingrese un ingrediente" autofocus="autofocus">
+								<input class="form-control" name="filtros"
+									ng-model="buscador.filtros" type="checkbox"> <label>aplicar
+									filtros del perfil de usuario</label>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" ng-click="index.realizarConsulta">Buscar</button>
+				</div>
+			</div>
+		</div>
 	</div>
-	<script src="js/receta.js"></script>
-	<script src="js/usuario.js"></script>
-	<script src="js/app.js"></script>
-	<script src="js/services.js"></script>
-	<script src="js/controllers.js"></script>
+
+	<div ui-view></div>
+
+	<script src="js/dominio/caracteristica.js"></script>
+	<script src="js/dominio/receta.js"></script>
+	<script src="js/dominio/usuario.js"></script>
+	<script src="js/dominio/consulta.js"></script>
+	<script src="js/funcionesAuxiliares.js"></script>
+	<script src="js/dominio/logeo.js"></script>
+	<script src="js/appQueComemos.js"></script>
+	<script src="js/services/index_service.js"></script>
+	<script src="js/controllers/index_controller.js"></script>
+	<script src="js/controllers/buscadorDeUsuarios_controller.js"></script>
+	<script src="js/controllers/listadoDeRecetas_controller.js"></script>
+	<script src="js/controllers/receta_controller.js"></script>
 
 </body>
 </html>

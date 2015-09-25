@@ -10,6 +10,14 @@ function Usuario() {
 	this.condicionesPreexistentes = null;
 	this.sexo = null;
 	this.recetasFavoritas = null;
+	
+	
+	this.setNombre= function(nuevoNombre) {
+		this.nombre = nuevoNombre;
+	}
+	this.setPass = function(nuevoPass) {
+		this.password = nuevoPass
+	}
 }
 
 /*var pepe = new Usuario();

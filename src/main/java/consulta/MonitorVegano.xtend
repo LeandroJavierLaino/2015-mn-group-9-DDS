@@ -6,7 +6,7 @@ class MonitorVegano implements Monitor {
 	
 	override monitorear(Consulta consulta) {
 		
-		if(consulta.usuario.esVegano && consulta.recetas.exists[it.veryDifficult]) {
+		if(consulta.usuario.esVegano && consulta.recetas.exists[it.esDificil]) {
 			contador++
 		}
 	}
