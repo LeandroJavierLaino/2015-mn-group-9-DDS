@@ -57,25 +57,11 @@ class RecetasController {
 			toList
 		ok(recetas.toJson)
 	}
-	@Get('/recetas/search?:nombre&:calMin&:calMax&:dificultad&:temporada&:ingrediente')
+	
+	@Get('/recetas/search/:consulta')
 	def Result buscarConFiltros() {
 		response.contentType = ContentType.APPLICATION_JSON
-		val recetas = RepositorioRecetas.instance.listarRecetas.filter[recipe|
-			(if(nombre!= null)
-				recipe.nombrePlato.contains(nombre)
-			else recipe.nombrePlato != null) &&
-			(if(calMin != null) 
-				recipe.totalCalorias > Integer.valueOf(calMin)) &&
-			(if(calMax != null)
-				recipe.totalCalorias < Integer.valueOf(calMax)) &&
-			(if(dificultad != null)
-				recipe.dificultad.equalsIgnoreCase(dificultad)) &&
-			(if(temporada != null)
-				recipe.temporada.equalsIgnoreCase(temporada)) &&
-			(if(ingrediente != null)
-				recipe.ingredientes.filter[ingr | ingr.nombre.equalsIgnoreCase(ingrediente)].length > 0	)
-			
-		].toList
+		val recetas = RepositorioRecetas.instance.buscarRecetas(consulta).toList
 		ok(recetas.toJson)
 	}
 

@@ -3,4 +3,7 @@ function Consulta() {
 	this.receta;
 	this.caloriasMinimas;
 	this.caloriasMaximas;
+	this.temporada;
+	this.dificultad;
+	this.filtros;
 }

@@ -10,6 +10,9 @@ function transformarACondimento(jsonCondimento) {
 function transformarAIngrediente(jsonIngrediente) {
 	return angular.extend(new Ingrediente("", 0, ""), jsonIngrediente);
 }
+function transformarAConsulta(jsonConsulta){
+	return angular.extend(new BuscaReceta(), jsonConsulta);   
+}
 var jsonify = function(obj) {
 	var seen = [];
 	var json = JSON.stringify(obj, function(key, value) {
