@@ -1,5 +1,6 @@
 package procesamientoPosterior;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import procesamientoPosterior.ProcesamientoPosterior;
 import receta.Receta;
 
+@JsonSerialize
 @SuppressWarnings("all")
 public class ProcesamientoOrdenarlosPorNombre implements ProcesamientoPosterior {
   public Set<Receta> asociarProcesamiento(final Set<Receta> recetas) {

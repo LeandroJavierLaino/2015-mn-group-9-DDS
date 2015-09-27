@@ -3,7 +3,6 @@ package repositorioRecetas;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import cosasUsuario.Usuario;
-import cosasUsuario.UsuarioBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,13 +11,13 @@ import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.joda.time.LocalDate;
 import queComemos.entrega3.repositorio.BusquedaRecetas;
-import receta.Condimento;
 import receta.Ingrediente;
 import receta.Receta;
-import receta.RecetaBuilder;
+import repositorioRecetas.AdapterConsultaRecetas;
 import repositorioRecetas.AdapterRepositorioRecetas;
+import repositorioRecetas.BuscaReceta;
+import repositorioUsuarios.RepositorioUsuarios;
 
 @Accessors
 @SuppressWarnings("all")
@@ -31,15 +30,7 @@ public class RepositorioRecetas {
   
   private Collection<Receta> recetasTotales = new ArrayList<Receta>();
   
-  private Receta recetaSalchiPapa;
-  
-  private Usuario nicolas;
-  
-  private Usuario leandro;
-  
-  private Ingrediente salchicha;
-  
-  private Condimento ketchup;
+  private AdapterConsultaRecetas adapterConsulta = new AdapterConsultaRecetas();
   
   public static RepositorioRecetas getInstance() {
     RepositorioRecetas _xblockexpression = null;
@@ -52,44 +43,6 @@ public class RepositorioRecetas {
       _xblockexpression = RepositorioRecetas.instance;
     }
     return _xblockexpression;
-  }
-  
-  public RepositorioRecetas() {
-    Ingrediente _ingrediente = new Ingrediente("Salchichas", 12, "unidades");
-    this.salchicha = _ingrediente;
-    Condimento _condimento = new Condimento("ketchup", 200, "mililitros");
-    this.ketchup = _condimento;
-    RecetaBuilder _recetaBuilder = new RecetaBuilder();
-    RecetaBuilder _nombre = _recetaBuilder.nombre("SalchiPapa");
-    RecetaBuilder _conCalorias = _nombre.conCalorias(150);
-    RecetaBuilder _dificultad = _conCalorias.dificultad("Baja");
-    RecetaBuilder _pasoInstruccion = _dificultad.pasoInstruccion("Hervir Salchichas");
-    RecetaBuilder _pasoInstruccion_1 = _pasoInstruccion.pasoInstruccion("Freir Papas");
-    RecetaBuilder _ingrediente_1 = _pasoInstruccion_1.ingrediente(this.salchicha);
-    RecetaBuilder _condimento_1 = _ingrediente_1.condimento(this.ketchup);
-    RecetaBuilder _temporada = _condimento_1.temporada("Verano");
-    Receta _build = _temporada.build();
-    this.recetaSalchiPapa = _build;
-    this.recetas.add(this.recetaSalchiPapa);
-    UsuarioBuilder _usuarioBuilder = new UsuarioBuilder();
-    UsuarioBuilder _conNombre = _usuarioBuilder.conNombre("Nicolas");
-    UsuarioBuilder _deSexo = _conNombre.deSexo("M");
-    LocalDate _localDate = new LocalDate(1980, 11, 10);
-    UsuarioBuilder _fechaDeNacimiento = _deSexo.fechaDeNacimiento(_localDate);
-    UsuarioBuilder _conAltura = _fechaDeNacimiento.conAltura(1.74);
-    UsuarioBuilder _conPeso = _conAltura.conPeso(60);
-    Usuario _build_1 = _conPeso.build();
-    this.nicolas = _build_1;
-    UsuarioBuilder _usuarioBuilder_1 = new UsuarioBuilder();
-    UsuarioBuilder _conNombre_1 = _usuarioBuilder_1.conNombre("Leandro");
-    UsuarioBuilder _deSexo_1 = _conNombre_1.deSexo("M");
-    LocalDate _localDate_1 = new LocalDate(1988, 6, 27);
-    UsuarioBuilder _fechaDeNacimiento_1 = _deSexo_1.fechaDeNacimiento(_localDate_1);
-    UsuarioBuilder _conPeso_1 = _fechaDeNacimiento_1.conPeso(70);
-    UsuarioBuilder _conAltura_1 = _conPeso_1.conAltura(1.74);
-    Usuario _build_2 = _conAltura_1.build();
-    this.leandro = _build_2;
-    this.recetaSalchiPapa.setCreador(this.nicolas);
   }
   
   public boolean tieneLaReceta(final Receta receta) {
@@ -105,9 +58,11 @@ public class RepositorioRecetas {
     return _and;
   }
   
-  public Iterable<Receta> listarRecetas() {
+  public Collection<Receta> cargarTodasLasRecetas() {
     List<Receta> _obtenerRecetasExternas = this.obtenerRecetasExternas();
-    return Iterables.<Receta>concat(this.recetas, _obtenerRecetasExternas);
+    Iterable<Receta> _plus = Iterables.<Receta>concat(this.recetas, _obtenerRecetasExternas);
+    List<Receta> _list = IterableExtensions.<Receta>toList(_plus);
+    return this.recetas = _list;
   }
   
   public boolean agregar(final Receta receta) {
@@ -119,13 +74,12 @@ public class RepositorioRecetas {
   }
   
   public Set<Receta> listarRecetasVisiblesPara(final Usuario usuario) {
-    Iterable<Receta> _listarRecetas = this.listarRecetas();
     final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
       public Boolean apply(final Receta unaReceta) {
         return Boolean.valueOf(unaReceta.puedeVerReceta(usuario));
       }
     };
-    Iterable<Receta> _filter = IterableExtensions.<Receta>filter(_listarRecetas, _function);
+    Iterable<Receta> _filter = IterableExtensions.<Receta>filter(this.recetas, _function);
     return IterableExtensions.<Receta>toSet(_filter);
   }
   
@@ -135,6 +89,128 @@ public class RepositorioRecetas {
   
   public List<Receta> obtenerRecetasExternas() {
     return this.adapter.obtenerRecetas();
+  }
+  
+  public Receta buscarPorNombre(final String nombreDeReceta) {
+    final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
+      public Boolean apply(final Receta it) {
+        String _nombrePlato = it.getNombrePlato();
+        return Boolean.valueOf(_nombrePlato.equals(nombreDeReceta));
+      }
+    };
+    return IterableExtensions.<Receta>findFirst(this.recetas, _function);
+  }
+  
+  public Collection<Receta> quitarPorNombre(final String nombreDeReceta) {
+    final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
+      public Boolean apply(final Receta it) {
+        String _nombrePlato = it.getNombrePlato();
+        boolean _equals = _nombrePlato.equals(nombreDeReceta);
+        return Boolean.valueOf((!_equals));
+      }
+    };
+    Iterable<Receta> _filter = IterableExtensions.<Receta>filter(this.recetas, _function);
+    List<Receta> _list = IterableExtensions.<Receta>toList(_filter);
+    return this.recetas = _list;
+  }
+  
+  public Collection<Receta> buscarRecetas(final String consulta) {
+    BuscaReceta consultaTransformada = this.adapterConsulta.obtenerConsulta(consulta);
+    Collection<Receta> recetasABuscar = IterableExtensions.<Receta>toList(this.recetas);
+    String _nombre = consultaTransformada.getNombre();
+    boolean _notEquals = (!Objects.equal(_nombre, null));
+    if (_notEquals) {
+      final String nombreConsultado = consultaTransformada.getNombre();
+      final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          String _nombrePlato = receta.getNombrePlato();
+          return Boolean.valueOf(_nombrePlato.contains(nombreConsultado));
+        }
+      };
+      Iterable<Receta> _filter = IterableExtensions.<Receta>filter(recetasABuscar, _function);
+      List<Receta> _list = IterableExtensions.<Receta>toList(_filter);
+      recetasABuscar = _list;
+    }
+    int _caloriasMinimas = consultaTransformada.getCaloriasMinimas();
+    boolean _notEquals_1 = (_caloriasMinimas != (-1));
+    if (_notEquals_1) {
+      final int caloriasMinimas = consultaTransformada.getCaloriasMinimas();
+      final Function1<Receta, Boolean> _function_1 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          double _totalCalorias = receta.getTotalCalorias();
+          return Boolean.valueOf((_totalCalorias > caloriasMinimas));
+        }
+      };
+      Iterable<Receta> _filter_1 = IterableExtensions.<Receta>filter(recetasABuscar, _function_1);
+      List<Receta> _list_1 = IterableExtensions.<Receta>toList(_filter_1);
+      recetasABuscar = _list_1;
+    }
+    int _caloriasMaximas = consultaTransformada.getCaloriasMaximas();
+    boolean _notEquals_2 = (_caloriasMaximas != (-1));
+    if (_notEquals_2) {
+      final int caloriasMaximas = consultaTransformada.getCaloriasMaximas();
+      final Function1<Receta, Boolean> _function_2 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          double _totalCalorias = receta.getTotalCalorias();
+          return Boolean.valueOf((_totalCalorias < caloriasMaximas));
+        }
+      };
+      Iterable<Receta> _filter_2 = IterableExtensions.<Receta>filter(recetasABuscar, _function_2);
+      List<Receta> _list_2 = IterableExtensions.<Receta>toList(_filter_2);
+      recetasABuscar = _list_2;
+    }
+    String _dificultad = consultaTransformada.getDificultad();
+    boolean _notEquals_3 = (!Objects.equal(_dificultad, null));
+    if (_notEquals_3) {
+      final String dificultad = consultaTransformada.getDificultad();
+      final Function1<Receta, Boolean> _function_3 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          String _dificultad = receta.getDificultad();
+          return Boolean.valueOf(_dificultad.contains(dificultad));
+        }
+      };
+      Iterable<Receta> _filter_3 = IterableExtensions.<Receta>filter(recetasABuscar, _function_3);
+      List<Receta> _list_3 = IterableExtensions.<Receta>toList(_filter_3);
+      recetasABuscar = _list_3;
+    }
+    String _temporada = consultaTransformada.getTemporada();
+    boolean _notEquals_4 = (!Objects.equal(_temporada, null));
+    if (_notEquals_4) {
+      final String temporada = consultaTransformada.getTemporada();
+      final Function1<Receta, Boolean> _function_4 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          String _temporada = receta.getTemporada();
+          return Boolean.valueOf(_temporada.contains(temporada));
+        }
+      };
+      Iterable<Receta> _filter_4 = IterableExtensions.<Receta>filter(recetasABuscar, _function_4);
+      List<Receta> _list_4 = IterableExtensions.<Receta>toList(_filter_4);
+      recetasABuscar = _list_4;
+    }
+    String _ingrediente = consultaTransformada.getIngrediente();
+    boolean _notEquals_5 = (!Objects.equal(_ingrediente, null));
+    if (_notEquals_5) {
+      final String ingrediente = consultaTransformada.getIngrediente();
+      final Function1<Receta, Boolean> _function_5 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          Set<Ingrediente> _ingredientes = receta.getIngredientes();
+          return Boolean.valueOf(_ingredientes.contains(ingrediente));
+        }
+      };
+      Iterable<Receta> _filter_5 = IterableExtensions.<Receta>filter(recetasABuscar, _function_5);
+      List<Receta> _list_5 = IterableExtensions.<Receta>toList(_filter_5);
+      recetasABuscar = _list_5;
+    }
+    boolean _isFiltros = consultaTransformada.isFiltros();
+    boolean _notEquals_6 = (!Objects.equal(Boolean.valueOf(_isFiltros), Integer.valueOf(0)));
+    if (_notEquals_6) {
+      RepositorioUsuarios _instance = RepositorioUsuarios.getInstance();
+      String _usuario = consultaTransformada.getUsuario();
+      Usuario usuario = _instance.getUserByName(_usuario);
+      Set<Receta> _aplicarFiltros = usuario.aplicarFiltros();
+      recetasABuscar = _aplicarFiltros;
+    }
+    return recetasABuscar;
   }
   
   @Pure
@@ -165,47 +241,11 @@ public class RepositorioRecetas {
   }
   
   @Pure
-  public Receta getRecetaSalchiPapa() {
-    return this.recetaSalchiPapa;
+  public AdapterConsultaRecetas getAdapterConsulta() {
+    return this.adapterConsulta;
   }
   
-  public void setRecetaSalchiPapa(final Receta recetaSalchiPapa) {
-    this.recetaSalchiPapa = recetaSalchiPapa;
-  }
-  
-  @Pure
-  public Usuario getNicolas() {
-    return this.nicolas;
-  }
-  
-  public void setNicolas(final Usuario nicolas) {
-    this.nicolas = nicolas;
-  }
-  
-  @Pure
-  public Usuario getLeandro() {
-    return this.leandro;
-  }
-  
-  public void setLeandro(final Usuario leandro) {
-    this.leandro = leandro;
-  }
-  
-  @Pure
-  public Ingrediente getSalchicha() {
-    return this.salchicha;
-  }
-  
-  public void setSalchicha(final Ingrediente salchicha) {
-    this.salchicha = salchicha;
-  }
-  
-  @Pure
-  public Condimento getKetchup() {
-    return this.ketchup;
-  }
-  
-  public void setKetchup(final Condimento ketchup) {
-    this.ketchup = ketchup;
+  public void setAdapterConsulta(final AdapterConsultaRecetas adapterConsulta) {
+    this.adapterConsulta = adapterConsulta;
   }
 }

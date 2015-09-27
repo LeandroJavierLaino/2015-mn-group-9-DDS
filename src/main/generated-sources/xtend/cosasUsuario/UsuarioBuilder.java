@@ -119,6 +119,15 @@ public class UsuarioBuilder {
     return _xblockexpression;
   }
   
+  public UsuarioBuilder conPass(final String password) {
+    UsuarioBuilder _xblockexpression = null;
+    {
+      this.usuario.setPassword(password);
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
+  }
+  
   public Usuario build() {
     Usuario _xblockexpression = null;
     {

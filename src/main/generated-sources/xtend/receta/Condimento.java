@@ -23,8 +23,4 @@ public class Condimento extends Caracteristica {
   public String toString() {
     return this.getNombre();
   }
-  
-  public Condimento(final String cNombre, final double cCantidad, final String cTipo) {
-    super(cNombre, cCantidad, cTipo);
-  }
 }

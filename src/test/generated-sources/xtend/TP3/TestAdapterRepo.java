@@ -1,5 +1,6 @@
 package TP3;
 
+import java.util.Collection;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -35,6 +36,8 @@ public class TestAdapterRepo extends UsuariosExtras {
     this.adapter = _adapterRepositorioRecetas;
     JsonParserReceta _jsonParserReceta = new JsonParserReceta();
     this.parser = _jsonParserReceta;
+    RepositorioRecetas _repo = this.getRepo();
+    _repo.cargarTodasLasRecetas();
   }
   
   @Test
@@ -44,14 +47,14 @@ public class TestAdapterRepo extends UsuariosExtras {
     RepositorioRecetas _repo = this.getRepo();
     _repo.obtenerRecetasExternas(this.busqueda);
     RepositorioRecetas _repo_1 = this.getRepo();
-    Iterable<Receta> _listarRecetas = _repo_1.listarRecetas();
+    Collection<Receta> _recetas = _repo_1.getRecetas();
     final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
       public Boolean apply(final Receta receta) {
         String _nombrePlato = receta.getNombrePlato();
         return Boolean.valueOf(_nombrePlato.equals("flan casero"));
       }
     };
-    boolean _exists = IterableExtensions.<Receta>exists(_listarRecetas, _function);
+    boolean _exists = IterableExtensions.<Receta>exists(_recetas, _function);
     Assert.assertTrue(_exists);
   }
   

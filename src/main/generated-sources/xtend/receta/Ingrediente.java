@@ -27,8 +27,4 @@ public class Ingrediente extends Caracteristica {
   public boolean esCaro() {
     return Ingrediente.ingredientesCaros.contains(this);
   }
-  
-  public Ingrediente(final String cNombre, final double cCantidad, final String cTipo) {
-    super(cNombre, cCantidad, cTipo);
-  }
 }

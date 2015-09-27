@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.eclipse.xtend.lib.annotations.Accessors;
+import org.eclipse.xtext.xbase.lib.ObjectExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.Pure;
 import receta.Ingrediente;
 import receta.Receta;
@@ -52,7 +54,15 @@ public class JsonParserReceta {
       Set<Ingrediente> ingredientesTransformados = new HashSet<Ingrediente>();
       for (final String ingrediente : ingredientes) {
         {
-          Ingrediente ingredienteTransformado = new Ingrediente(ingrediente, 0, "");
+          Ingrediente _ingrediente = new Ingrediente();
+          final Procedure1<Ingrediente> _function = new Procedure1<Ingrediente>() {
+            public void apply(final Ingrediente it) {
+              JsonParserReceta.this.nombre = "";
+              it.setCantidad(0);
+              it.setTipo("");
+            }
+          };
+          Ingrediente ingredienteTransformado = ObjectExtensions.<Ingrediente>operator_doubleArrow(_ingrediente, _function);
           ingredientesTransformados.add(ingredienteTransformado);
         }
       }

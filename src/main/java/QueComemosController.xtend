@@ -11,8 +11,6 @@ import org.uqbar.xtrest.json.JSONUtils
 import receta.Receta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
-import java.util.Set
-import receta.Ingrediente
 
 @Controller
 class QueComemosController {
@@ -60,16 +58,16 @@ class QueComemosController {
 	@Get('/receta/:nombre')
 	def Result getReceta() {
 		response.contentType = ContentType.APPLICATION_JSON
-		System.out.println(nombre)
 		val Receta receta = RepositorioRecetas.instance.recetas.findFirst[it.nombrePlato.equals(nombre)]
-		System.out.println(receta.nombrePlato)
 		ok(receta.toJson)
 	}
+
 	@Put('/receta/')
 	def Result guardarReceta(@Body String body) {
 		val Receta receta = body.fromJson(Receta)
+		
 		val recetaVieja = RepositorioRecetas.instance.recetas.findFirst[it.nombrePlato.equals(receta.nombrePlato)]
-		System.out.println(recetaVieja.nombrePlato + recetaVieja.totalCalorias)
+		
 		if(recetaVieja != null) {
 			RepositorioRecetas.instance.quitarPorNombre(receta.nombrePlato)
 			RepositorioRecetas.instance.agregar(receta)

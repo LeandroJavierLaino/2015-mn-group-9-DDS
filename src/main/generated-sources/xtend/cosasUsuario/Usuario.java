@@ -1,7 +1,8 @@
 package cosasUsuario;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Objects;
-import com.google.common.collect.Iterables;
 import condicion.CondicionPreexistente;
 import consulta.Consulta;
 import consulta.GestorDeConsultas;
@@ -27,7 +28,9 @@ import repositorioRecetas.RepositorioRecetas;
 import repositorioUsuarios.RepositorioUsuarios;
 import rutina.Rutina;
 
+@JsonSerialize
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
 @SuppressWarnings("all")
 public class Usuario extends Entity {
   private LocalDate fechaActual = new LocalDate();
@@ -43,6 +46,8 @@ public class Usuario extends Entity {
   private double peso;
   
   private LocalDate fechaDeNacimiento;
+  
+  private String password;
   
   private GrupoUsuario grupoAlQuePertenece;
   
@@ -197,8 +202,15 @@ public class Usuario extends Entity {
     return _or;
   }
   
-  public boolean comparteGrupoCon(final Usuario usuario) {
-    return this.grupoAlQuePertenece.tieneUnUsuario(usuario);
+  public boolean comparteGrupoCon(final String usuario) {
+    boolean _xifexpression = false;
+    boolean _equals = Objects.equal(usuario, null);
+    if (_equals) {
+      _xifexpression = false;
+    } else {
+      _xifexpression = this.grupoAlQuePertenece.tieneUnUsuario(usuario);
+    }
+    return _xifexpression;
   }
   
   public boolean marcarComoFavorita(final Receta receta) {
@@ -293,8 +305,8 @@ public class Usuario extends Entity {
     {
       Set<Receta> recetasVisibles = this.recetas;
       RepositorioRecetas _instance = RepositorioRecetas.getInstance();
-      Iterable<Receta> _listarRecetas = _instance.listarRecetas();
-      Iterables.<Receta>addAll(recetasVisibles, _listarRecetas);
+      Set<Receta> _listarRecetasVisiblesPara = _instance.listarRecetasVisiblesPara(this);
+      recetasVisibles.addAll(_listarRecetasVisiblesPara);
       boolean _notEquals = (!Objects.equal(this.grupoAlQuePertenece, null));
       if (_notEquals) {
         Set<Receta> _dasLasRecetas = this.grupoAlQuePertenece.todasLasRecetas();
@@ -366,6 +378,15 @@ public class Usuario extends Entity {
   
   public void setFechaDeNacimiento(final LocalDate fechaDeNacimiento) {
     this.fechaDeNacimiento = fechaDeNacimiento;
+  }
+  
+  @Pure
+  public String getPassword() {
+    return this.password;
+  }
+  
+  public void setPassword(final String password) {
+    this.password = password;
   }
   
   @Pure

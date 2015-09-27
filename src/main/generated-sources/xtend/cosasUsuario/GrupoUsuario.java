@@ -1,5 +1,6 @@
 package cosasUsuario;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import cosasUsuario.Usuario;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import receta.Caracteristica;
 import receta.Receta;
 
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
 @SuppressWarnings("all")
 public class GrupoUsuario {
   private List<Caracteristica> palabrasClave = new ArrayList<Caracteristica>();
@@ -37,8 +39,14 @@ public class GrupoUsuario {
     return Boolean.valueOf(IterableExtensions.<Usuario>forall(this.usuarios, _function));
   }
   
-  public boolean tieneUnUsuario(final Usuario usuario) {
-    return this.usuarios.contains(usuario);
+  public boolean tieneUnUsuario(final String usuario) {
+    final Function1<Usuario, Boolean> _function = new Function1<Usuario, Boolean>() {
+      public Boolean apply(final Usuario it) {
+        String _nombre = it.getNombre();
+        return Boolean.valueOf(_nombre.equalsIgnoreCase(usuario));
+      }
+    };
+    return IterableExtensions.<Usuario>exists(this.usuarios, _function);
   }
   
   public void agregarUsuario(final Usuario usuario) {

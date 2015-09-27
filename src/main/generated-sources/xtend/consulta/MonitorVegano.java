@@ -22,7 +22,7 @@ public class MonitorVegano implements Monitor {
       Set<Receta> _recetas = consulta.getRecetas();
       final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
         public Boolean apply(final Receta it) {
-          return Boolean.valueOf(it.isVeryDifficult());
+          return Boolean.valueOf(it.esDificil());
         }
       };
       boolean _exists = IterableExtensions.<Receta>exists(_recetas, _function);

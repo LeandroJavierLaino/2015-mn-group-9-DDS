@@ -5,6 +5,7 @@ import java.util.Set;
 import receta.Condimento;
 import receta.Ingrediente;
 import receta.Receta;
+import repositorioRecetas.RepositorioRecetas;
 
 @SuppressWarnings("all")
 public class RecetaBuilder {
@@ -107,6 +108,12 @@ public class RecetaBuilder {
   }
   
   public Receta build() {
-    return this.receta;
+    Receta _xblockexpression = null;
+    {
+      RepositorioRecetas _instance = RepositorioRecetas.getInstance();
+      _instance.agregar(this.receta);
+      _xblockexpression = this.receta;
+    }
+    return _xblockexpression;
   }
 }

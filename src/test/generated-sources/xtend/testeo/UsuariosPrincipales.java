@@ -96,11 +96,14 @@ public class UsuariosPrincipales extends TestInstances {
     Usuario _build_4 = _conRutina_4.build();
     this.pablo = _build_4;
     Receta _recetaSalchiPapa_1 = this.getRecetaSalchiPapa();
-    _recetaSalchiPapa_1.setCreador(this.nicolas);
+    String _nombre = this.nicolas.getNombre();
+    _recetaSalchiPapa_1.setCreador(_nombre);
     Receta _recetaAntiVegano_1 = this.getRecetaAntiVegano();
-    _recetaAntiVegano_1.setCreador(this.leandro);
+    String _nombre_1 = this.leandro.getNombre();
+    _recetaAntiVegano_1.setCreador(_nombre_1);
     Receta _recetaPolloAlOreganato_1 = this.getRecetaPolloAlOreganato();
-    _recetaPolloAlOreganato_1.setCreador(this.pablo);
+    String _nombre_2 = this.pablo.getNombre();
+    _recetaPolloAlOreganato_1.setCreador(_nombre_2);
     Set<Receta> _recetasFavoritas = this.nicolas.getRecetasFavoritas();
     Receta _recetaPolloAlOreganato_2 = this.getRecetaPolloAlOreganato();
     _recetasFavoritas.add(_recetaPolloAlOreganato_2);

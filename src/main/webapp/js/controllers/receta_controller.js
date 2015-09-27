@@ -26,7 +26,7 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	}
 	this.agregarCondimento = function() {
 		self.receta.condimentos.push(self.condimento);
-		self.nuevoCondimento();
+		self.condimento = new Condimento();
 	}
 	this.borrarPaso = function(paso) {
 		var index = self.receta.procesoPreparacion.indexOf(paso);
@@ -42,8 +42,7 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	}
 	
 	this.guardarReceta = function() {
-		
-		console.log(self.receta)
+
 		indexSrvc.guardarReceta(self.receta, function(data) {
 			console.log(data);
 		})

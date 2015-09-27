@@ -1,5 +1,7 @@
 package receta;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Objects;
 import condicion.CondicionPreexistente;
 import cosasUsuario.GrupoUsuario;
@@ -16,11 +18,14 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 import receta.Condimento;
 import receta.Ingrediente;
 import repositorioRecetas.RepositorioRecetas;
 
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize
 @SuppressWarnings("all")
 public class Receta {
   private String nombrePlato;
@@ -43,7 +48,7 @@ public class Receta {
   
   private Set<Receta> subRecetas = new HashSet<Receta>();
   
-  private Usuario creador;
+  private String creador;
   
   private Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>();
   
@@ -87,11 +92,12 @@ public class Receta {
       _or_1 = true;
     } else {
       boolean _and = false;
-      boolean _notEquals = (!Objects.equal(this.creador, null));
-      if (!_notEquals) {
+      boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(this.creador);
+      boolean _not = (!_isNullOrEmpty);
+      if (!_not) {
         _and = false;
       } else {
-        boolean _comparteGrupoCon = this.creador.comparteGrupoCon(usuario);
+        boolean _comparteGrupoCon = usuario.comparteGrupoCon(this.creador);
         _and = _comparteGrupoCon;
       }
       _or_1 = _and;
@@ -124,7 +130,7 @@ public class Receta {
       if (!_notEquals) {
         _and = false;
       } else {
-        boolean _comparteGrupoCon = this.creador.comparteGrupoCon(usuario);
+        boolean _comparteGrupoCon = usuario.comparteGrupoCon(this.creador);
         _and = _comparteGrupoCon;
       }
       _or = _and;
@@ -198,12 +204,13 @@ public class Receta {
     return this.subRecetas.add(receta);
   }
   
-  public Usuario crearReceta(final Usuario usuario) {
-    Usuario _xblockexpression = null;
+  public String crearReceta(final Usuario usuario) {
+    String _xblockexpression = null;
     {
       this.puedeSerCreada(this);
       usuario.agregarReceta(this);
-      _xblockexpression = this.creador = usuario;
+      String _nombre = usuario.getNombre();
+      _xblockexpression = this.creador = _nombre;
     }
     return _xblockexpression;
   }
@@ -293,7 +300,7 @@ public class Receta {
     return IterableExtensions.<Ingrediente>forall(this.ingredientes, _function);
   }
   
-  public boolean isVeryDifficult() {
+  public boolean esDificil() {
     boolean _or = false;
     boolean _or_1 = false;
     boolean _equalsIgnoreCase = this.dificultad.equalsIgnoreCase("Alta");
@@ -312,10 +319,8 @@ public class Receta {
     return _or;
   }
   
-  public void asignarAutor(final String string) {
-    Usuario _usuario = new Usuario();
-    this.creador = _usuario;
-    this.creador.setNombre(string);
+  public String asignarAutor(final String string) {
+    return this.creador = string;
   }
   
   public Set<CondicionPreexistente> esInadecuadaParaLasCondiciones() {
@@ -419,11 +424,11 @@ public class Receta {
   }
   
   @Pure
-  public Usuario getCreador() {
+  public String getCreador() {
     return this.creador;
   }
   
-  public void setCreador(final Usuario creador) {
+  public void setCreador(final String creador) {
     this.creador = creador;
   }
   

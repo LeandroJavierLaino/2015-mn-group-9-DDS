@@ -12,6 +12,9 @@ public abstract class Caracteristica {
   
   private String tipo;
   
+  public Caracteristica() {
+  }
+  
   public Caracteristica(final String cNombre, final double cCantidad, final String cTipo) {
     this.nombre = cNombre;
     this.cantidad = cCantidad;

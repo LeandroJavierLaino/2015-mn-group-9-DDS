@@ -38,8 +38,16 @@ class Iniciador {
 	
 	new() {
 		
-		salchicha = new Ingrediente("Salchicha", 12, "unidades")
-		ketchup = new Condimento("ketchup", 200, "mililitros")
+		salchicha = new Ingrediente => [
+			nombre = "Salchicha"
+			cantidad = 12
+			tipo =  "unidades"
+		]
+		ketchup = new Condimento => [ 
+			nombre = "ketchup"
+			cantidad = 200
+			tipo =  "mililitros"	
+		]
 		
 		recetaSalchiPapa = new RecetaBuilder()
 		.nombre("SalchiPapa")

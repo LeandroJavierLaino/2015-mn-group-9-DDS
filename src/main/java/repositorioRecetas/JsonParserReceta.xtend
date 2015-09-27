@@ -42,7 +42,11 @@ class JsonParserReceta {
 	def transformarIngredientes(List<String> ingredientes) {
 		var Set<Ingrediente> ingredientesTransformados = new HashSet<Ingrediente>
 		for (ingrediente : ingredientes) {
-			var Ingrediente ingredienteTransformado = new Ingrediente(ingrediente, 0, "")
+			var Ingrediente ingredienteTransformado = new Ingrediente => [
+				nombre = ""
+				cantidad = 0
+				tipo = ""
+			]
 			ingredientesTransformados.add(ingredienteTransformado)
 		}
 		ingredientesTransformados

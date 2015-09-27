@@ -84,6 +84,19 @@ public class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
     return IterableExtensions.<Usuario>findFirst(_objects, _function);
   }
   
+  public List<Usuario> searchByName(final String vName) {
+    List<Usuario> _objects = this.getObjects();
+    final Function1<Usuario, Boolean> _function = new Function1<Usuario, Boolean>() {
+      public Boolean apply(final Usuario it) {
+        String _nombre = it.getNombre();
+        String _lowerCase = _nombre.toLowerCase();
+        return Boolean.valueOf(_lowerCase.contains(vName));
+      }
+    };
+    Iterable<Usuario> _filter = IterableExtensions.<Usuario>filter(_objects, _function);
+    return IterableExtensions.<Usuario>toList(_filter);
+  }
+  
   public List<Usuario> list(final Usuario usuario) {
     return this.searchByExample(usuario);
   }
