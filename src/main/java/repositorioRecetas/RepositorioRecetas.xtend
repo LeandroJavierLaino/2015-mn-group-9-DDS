@@ -20,9 +20,6 @@ class RepositorioRecetas {
 	AdapterRepositorioRecetas adapter = new AdapterRepositorioRecetas
 	Collection<Receta> recetasTotales = new ArrayList<Receta>
 	AdapterConsultaRecetas adapterConsulta = new AdapterConsultaRecetas
-
-	//PARA LA CONSULTA
-	
 	
 	//PARA EL EJEMPLO
 	Receta recetaSalchiPapa

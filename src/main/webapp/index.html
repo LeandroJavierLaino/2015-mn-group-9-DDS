@@ -58,8 +58,8 @@
 					<button data-toggle="modal" data-target="#modalConsulta"
 						type="submit" class="glyphicon glyphicon-list btn btn-default"></button>
 
-						<button ng-click="index.buscarUsuarios()" type="submit"
-							class="glyphicon glyphicon-user btn btn-default"></button>
+					<button ng-click="index.buscarUsuarios()" type="submit"
+						class="glyphicon glyphicon-user btn btn-default"></button>
 				</form>
 				<form class="navbar-form navbar-right">
 					<div ng-show="!index.logeo.exito" class="form-inline">
@@ -88,7 +88,7 @@
 	</nav>
 	<div class="modal fade" id="modalConsulta" tabindex="-1" role="dialog"
 		aria-labelledby="miConsulta">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog" role="document" style="width: 75%" align="center">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -115,20 +115,11 @@
 							</div>
 
 							<div>
-								<label>Dificultad </label> <select name="dificultad"
-									class="form-control" ng-model="index.consulta.dificultad">
-									<option value=""></option>
-									<option value="facil">Facil</option>
-									<option value="media">Media</option>
-									<option value="dificil">Dificil</option>
-								</select> <label>Temporada </label> <select name="temporada"
-									class="form-control" ng-model="index.consulta.temporada">
-									<option value=""></option>
-									<option value="verano">Verano</option>
-									<option value="otonio">Otoño</option>
-									<option value="invierno">Invierno</option>
-									<option value="primavera">Primavera</option>
-									<option value="todoElAnio">Todo el año</option>
+								<label>Dificultad </label> 
+								<select name="dificultad" class="form-control" ng-model="index.consulta.dificultad" >
+									<option ng-repeat="dificultad in index.dificultades" ng-bind="dificultad"></option>
+								</select> <label>Temporada </label> <select name="temporada" class="form-control" ng-model="index.consulta.temporada" >
+									<option ng-repeat="temporada in index.temporadas" ng-bind="dificultad"></option>
 								</select>
 							</div>
 
@@ -146,7 +137,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-primary" ng-click="index.realizarConsulta">Buscar</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="index.realizarConsulta">Buscar</button>
 				</div>
 			</div>
 		</div>

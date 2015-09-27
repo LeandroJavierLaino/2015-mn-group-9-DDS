@@ -6,17 +6,15 @@ function Receta() {
 	this.temporada = null;
 	this.condimentos = null;
 	this.procesoPreparacion = null;
-	this.cantidadMinimaCalorias = null;
-	this.cantidadMaximaCalorias = null;
 	this.subRecetas = null;
 	this.condicionesPreexistentes = null;
 	this.esDificil = false;
 	this.creador = null;
 }
-
+/*
 var recetaCarne = new Receta();
 
-/*
+
 recetaCarne.nombre = "Carnes Variadas";
 recetaCarne.ingredientes = ["Carne de Ternera", "Carne de Pollo", "Carne de Cerdo"];
 recetaCarne.calorias = 200;

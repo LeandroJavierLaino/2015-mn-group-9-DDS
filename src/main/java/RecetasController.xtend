@@ -59,7 +59,7 @@ class RecetasController {
 	}
 	
 	@Get('/recetas/search/:consulta')
-	def Result buscarConFiltros() {
+	def Result realizarConsulta() {
 		response.contentType = ContentType.APPLICATION_JSON
 		val recetas = RepositorioRecetas.instance.buscarRecetas(consulta).toList
 		ok(recetas.toJson)
