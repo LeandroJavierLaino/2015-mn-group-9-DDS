@@ -1,5 +1,3 @@
-
-
 import receta.Receta
 import cosasUsuario.Usuario
 import receta.Ingrediente
@@ -7,6 +5,18 @@ import receta.Condimento
 import cosasUsuario.UsuarioBuilder
 import receta.RecetaBuilder
 import org.joda.time.LocalDate
+import consulta.MonitorRecetas
+import consulta.MonitorHora
+import consulta.MonitorRecetasM
+import consulta.MonitorRecetasF
+import org.joda.time.DateTime
+import consulta.GestorDeConsultas
+import filtro.FiltroPorGusto
+import filtro.FiltroPorExcesoDeCalorias
+import java.util.Set
+import java.util.HashSet
+import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
+import repositorioRecetas.RepositorioRecetas
 
 class Iniciador {
 	
@@ -15,6 +25,16 @@ class Iniciador {
 	Usuario leandro
 	Ingrediente salchicha
 	Condimento ketchup
+	
+	FiltroPorGusto filtroGusto
+	FiltroPorExcesoDeCalorias filtroExceso
+	Set<Receta> recetasFiltradas = new HashSet<Receta>
+	MonitorHora monitorHora
+	MonitorRecetas monitorRecetas
+	MonitorRecetasM monitorRecetasHombre
+	MonitorRecetasF monitorRecetasMujer
+	DateTime time
+	int hora
 	
 	new() {
 		
@@ -51,6 +71,34 @@ class Iniciador {
 		.conPass("123")
 		.build
 		
-		recetaSalchiPapa.creador = nicolas
+		recetaSalchiPapa.creador = nicolas.nombre
+		RepositorioRecetas.instance.cargarTodasLasRecetas
+		
+		//CONSULTAS
+		filtroGusto = new FiltroPorGusto
+		filtroExceso = new FiltroPorExcesoDeCalorias
+		
+		monitorHora = new MonitorHora
+		monitorRecetas = new MonitorRecetas
+		monitorRecetasHombre = new MonitorRecetasM
+		monitorRecetasMujer = new MonitorRecetasF
+		
+		time = new DateTime()
+		hora = time.getHourOfDay()
+		
+		GestorDeConsultas.getInstance.monitores.add(monitorHora)
+		GestorDeConsultas.getInstance.monitores.add(monitorRecetas)
+		GestorDeConsultas.getInstance.monitores.add(monitorRecetasHombre)
+		GestorDeConsultas.getInstance.monitores.add(monitorRecetasMujer)
+		
+		nicolas.recetasFavoritas.add(recetaSalchiPapa)
+		nicolas.habilitarFavoritos = true
+		
+		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		
+		leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
+		leandro.recetas.add(recetaSalchiPapa)
+		leandro.filtrosAAplicar.add(filtroGusto)
+		
 	}
 }

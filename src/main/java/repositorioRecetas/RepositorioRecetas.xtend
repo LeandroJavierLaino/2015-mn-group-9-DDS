@@ -11,6 +11,7 @@ import cosasUsuario.UsuarioBuilder
 import org.joda.time.LocalDate
 import receta.Ingrediente
 import receta.Condimento
+import org.uqbar.commons.model.CollectionBasedHome
 
 @Accessors
 class RepositorioRecetas {
@@ -37,9 +38,8 @@ class RepositorioRecetas {
 	def tieneLaReceta(Receta receta) {
 		(!recetas.nullOrEmpty) && recetas.contains(receta)
 	}
-
-	def listarRecetas() {
-		recetas + obtenerRecetasExternas()
+	def cargarTodasLasRecetas() {
+		recetas = (recetas + obtenerRecetasExternas()).toList
 	}
 
 	def agregar(Receta receta) {
@@ -51,7 +51,7 @@ class RepositorioRecetas {
 	}
 
 	def listarRecetasVisiblesPara(Usuario usuario) {
-		listarRecetas.filter[unaReceta|unaReceta.puedeVerReceta(usuario)].toSet
+		recetas.filter[unaReceta|unaReceta.puedeVerReceta(usuario)].toSet
 	}
 	
 	def obtenerRecetasExternas(BusquedaRecetas busquedaRecetas) {
@@ -60,5 +60,10 @@ class RepositorioRecetas {
 	def obtenerRecetasExternas() {
 		adapter.obtenerRecetas()
 	}
-	
+	def buscarPorNombre(String nombreDeReceta) {
+		recetas.findFirst[it.nombrePlato.equals(nombreDeReceta)]
+	}
+	def quitarPorNombre(String nombreDeReceta) {
+		recetas = recetas.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
+	}
 }

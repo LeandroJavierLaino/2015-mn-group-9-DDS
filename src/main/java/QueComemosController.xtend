@@ -11,6 +11,8 @@ import org.uqbar.xtrest.json.JSONUtils
 import receta.Receta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
+import java.util.Set
+import receta.Ingrediente
 
 @Controller
 class QueComemosController {
@@ -19,7 +21,7 @@ class QueComemosController {
 	
 	@Get("/recetas")
 	def Result recetas() {
-		val recetas = RepositorioRecetas.instance.listarRecetas.toList
+		val recetas = RepositorioRecetas.instance.recetas.toList
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(recetas.toJson)
 	}
@@ -58,15 +60,18 @@ class QueComemosController {
 	@Get('/receta/:nombre')
 	def Result getReceta() {
 		response.contentType = ContentType.APPLICATION_JSON
-		val Receta receta = RepositorioRecetas.instance.listarRecetas.findFirst[it.nombrePlato.equals(nombre)]
+		System.out.println(nombre)
+		val Receta receta = RepositorioRecetas.instance.recetas.findFirst[it.nombrePlato.equals(nombre)]
+		System.out.println(receta.nombrePlato)
 		ok(receta.toJson)
 	}
-	@Put('/receta/:nombre')
+	@Put('/receta/')
 	def Result guardarReceta(@Body String body) {
 		val Receta receta = body.fromJson(Receta)
-		val recetaVieja = RepositorioRecetas.instance.listarRecetas.findFirst[it.nombrePlato.equals(receta.nombrePlato)]
+		val recetaVieja = RepositorioRecetas.instance.recetas.findFirst[it.nombrePlato.equals(receta.nombrePlato)]
+		System.out.println(recetaVieja.nombrePlato + recetaVieja.totalCalorias)
 		if(recetaVieja != null) {
-			RepositorioRecetas.instance.quitar(recetaVieja)
+			RepositorioRecetas.instance.quitarPorNombre(receta.nombrePlato)
 			RepositorioRecetas.instance.agregar(receta)
 		}
 		else RepositorioRecetas.instance.agregar(receta)
@@ -80,8 +85,8 @@ class QueComemosController {
 		val Usuario usuario = body.getPropertyValue("usuario").fromJson(Usuario)
 		
 		val respuesta = usuario.postProcesarRecetas.filter[
-			it.totalCalorias < Integer.valueOf(body.getPropertyValue("caloriasMinimas")) &&
-			it.totalCalorias > Integer.valueOf(body.getPropertyValue("caloriasMaximas")) &&
+			it.cantidadMinimaCalorias < Integer.valueOf(body.getPropertyValue("caloriasMinimas")) &&
+			it.cantidadMaximaCalorias > Integer.valueOf(body.getPropertyValue("caloriasMaximas")) &&
 			it.nombrePlato.toLowerCase.contains(recetaProto.nombrePlato.toLowerCase) &&
 			it.dificultad.equalsIgnoreCase(recetaProto.dificultad) &&
 			it.temporada.equalsIgnoreCase(recetaProto.temporada)

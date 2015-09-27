@@ -4,7 +4,9 @@ import java.util.Set
 import receta.Receta
 import java.util.List
 import java.util.ArrayList
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 
+@JsonSerialize
 class ProcesamientoOrdenarlosPorNombre implements ProcesamientoPosterior {
 	
 	override asociarProcesamiento(Set<Receta> recetas) {

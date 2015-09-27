@@ -13,10 +13,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import repositorioRecetas.RepositorioRecetas
 import condicion.CondicionPreexistente
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 
 //Nuevas excepciones modificadas
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize
 class Receta{
 
 	String nombrePlato
@@ -29,7 +31,7 @@ class Receta{
 	double cantidadMinimaCalorias = 10
 	double cantidadMaximaCalorias = 5000
 	Set<Receta> subRecetas = new HashSet<Receta>
-	Usuario creador
+	String creador
 	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
 
 	def puedeSerCreada(Receta receta) {
@@ -49,11 +51,11 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario)) || usuario.tieneLaReceta(this)
+		RepositorioRecetas.getInstance.tieneLaReceta(this) || (!creador.nullOrEmpty && usuario.comparteGrupoCon(creador)) || usuario.tieneLaReceta(this)
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario))
+		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && usuario.comparteGrupoCon(creador))
 	}
 
 	def puedeModificarReceta(Usuario usuario) {
@@ -79,7 +81,7 @@ class Receta{
 	def crearReceta(Usuario usuario) {
 		puedeSerCreada(this)
 		usuario.agregarReceta(this)
-		creador = usuario
+		creador = usuario.nombre
 	}
 
 	def modificarReceta(Usuario usuario, Receta recetaModificada) {
@@ -122,8 +124,7 @@ class Receta{
 	}
 	
 	def asignarAutor(String string) {
-		creador = new Usuario
-		creador.nombre = string
+		creador = string
 	}
 	
 	def esInadecuadaParaLasCondiciones(){

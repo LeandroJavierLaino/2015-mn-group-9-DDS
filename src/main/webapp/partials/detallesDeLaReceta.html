@@ -5,6 +5,7 @@
 			<label class="form-group">Nombre de la Receta</label> <input
 				class="form-control" type="text"
 				ng-model="receta.receta.nombrePlato">
+				<label class="form-group">Creada por {{receta.receta.creador}}</label>
 		</div>
 
 		<div class="col-md-2">
@@ -160,7 +161,7 @@
 
 		</div>
 	</form>
-	<nav class="navbar navbar-default navbar-fixed-bottom">
+	<nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
 		<div class="container">
 			<button type="submit" ng-click="receta.guardarReceta()"
 								class="glyphicon glyphicon-ok btn btn-success"></button>

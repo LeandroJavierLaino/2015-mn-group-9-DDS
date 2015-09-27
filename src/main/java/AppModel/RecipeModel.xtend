@@ -27,7 +27,7 @@ class RecipeModel {
 	
 	double totalCalorias
 	
-	Usuario creador
+	String creador
 	Usuario usuario
 	
 	Ingrediente ingredienteSeleccionado

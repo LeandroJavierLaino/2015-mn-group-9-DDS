@@ -23,6 +23,7 @@ class TestAdapterRepo extends UsuariosExtras{
 		busqueda = new BusquedaRecetas
 		adapter = new AdapterRepositorioRecetas
 		parser = new JsonParserReceta
+		repo.cargarTodasLasRecetas
 	}
 	
 	@Test
@@ -30,7 +31,7 @@ class TestAdapterRepo extends UsuariosExtras{
 		busqueda.nombre = "flan casero"
 		adapter.obtenerRecetas(busqueda)
 		repo.obtenerRecetasExternas(busqueda)
-		Assert.assertTrue(repo.listarRecetas.exists[receta | receta.nombrePlato.equals("flan casero")])
+		Assert.assertTrue(repo.recetas.exists[receta | receta.nombrePlato.equals("flan casero")])
 	}
 	
 }

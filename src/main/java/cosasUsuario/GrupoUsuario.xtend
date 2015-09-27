@@ -7,8 +7,10 @@ import receta.Caracteristica
 import receta.Receta
 import java.util.HashSet
 import java.util.Set
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
 class GrupoUsuario {
 	List<Caracteristica> palabrasClave = new ArrayList<Caracteristica>
 	Set<Usuario> usuarios = new HashSet<Usuario>
@@ -23,8 +25,9 @@ class GrupoUsuario {
 		usuarios.forall[usuario|usuario.esRecomendable(receta)]
 	}
 	
-	def tieneUnUsuario(Usuario usuario){
-		usuarios.contains(usuario)
+	def tieneUnUsuario(String usuario){
+		//usuarios.contains(usuario)
+		usuarios.exists[it.nombre.equalsIgnoreCase(usuario)]
 	}
 	
 	def agregarUsuario(Usuario usuario){

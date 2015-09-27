@@ -4,8 +4,8 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	var self = this;
 	this.receta;
 	this.nuevoPaso;
-	this.ingrediente;
-	this.condimento;
+	this.ingrediente = new Ingrediente;
+	this.condimento = new Condimento;
 	this.mostrarDivNuevoIngrediente = false;
 	this.mostrarDivNuevoCondimento = false;
 	
@@ -21,7 +21,8 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	
 	this.agregarIngrediente = function() {
 		self.receta.ingredientes.push(self.ingrediente);
-		self.ingrediente = new Ingrediente;
+		console.log(self.ingrediente)
+		self.ingrediente = new Ingrediente();
 	}
 	this.agregarCondimento = function() {
 		self.receta.condimentos.push(self.condimento);
@@ -41,10 +42,10 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	}
 	
 	this.guardarReceta = function() {
-		var receta = self.receta
-		console.log(receta)
-		indexSrvc.guardarReceta(receta, function(data) {
-			console.log(data.nombrePlato);
+		
+		console.log(self.receta)
+		indexSrvc.guardarReceta(self.receta, function(data) {
+			console.log(data);
 		})
 	}
 })

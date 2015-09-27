@@ -20,7 +20,9 @@ import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 
+@JsonSerialize
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
 class Usuario extends Entity{
@@ -121,8 +123,9 @@ class Usuario extends Entity{
 		noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tolera(receta)]
 	}
 	
-	def comparteGrupoCon(Usuario usuario) {
-		grupoAlQuePertenece.tieneUnUsuario(usuario)
+	def comparteGrupoCon(String usuario) {
+		if(usuario == null) false
+		else grupoAlQuePertenece.tieneUnUsuario(usuario)
 	}
 	
 	def marcarComoFavorita(Receta receta){
@@ -193,7 +196,7 @@ class Usuario extends Entity{
 	}
 	def listarRecetasVisibles() {
 		var Set<Receta> recetasVisibles = recetas
-		recetasVisibles.addAll(RepositorioRecetas.getInstance.listarRecetas)
+		recetasVisibles.addAll(RepositorioRecetas.getInstance.listarRecetasVisiblesPara(this))
 		
 		if(grupoAlQuePertenece != null) {
 			recetasVisibles.addAll(grupoAlQuePertenece.todasLasRecetas)

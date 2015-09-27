@@ -27,5 +27,3 @@ indexApp.config(function($stateProvider, $urlRouterProvider) {
 		controller : "buscadorDeUsuariosController as buscador"
 	})
 });
-
-

@@ -73,9 +73,9 @@ class UsuariosPrincipales extends TestInstances {
 		.conRutina(rutinaActivaCorta)
 		.build
 		
-		recetaSalchiPapa.creador = nicolas
-		recetaAntiVegano.creador = leandro
-		recetaPolloAlOreganato.creador = pablo
+		recetaSalchiPapa.creador = nicolas.nombre
+		recetaAntiVegano.creador = leandro.nombre
+		recetaPolloAlOreganato.creador = pablo.nombre
 		nicolas.recetasFavoritas.add(recetaPolloAlOreganato)
 	}
 }
