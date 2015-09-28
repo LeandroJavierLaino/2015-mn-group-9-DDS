@@ -26,4 +26,9 @@ indexApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "partials/listadoUsuarios.html",
 		controller : "buscadorDeUsuariosController as buscador"
 	})
+	.state('realizarConsulta', {
+		url : "/",
+		templateUrl : "partials/listadoRecetas.html",
+		controller : "consultasController as buscador"
+	})
 });
