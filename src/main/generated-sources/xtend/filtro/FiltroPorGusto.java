@@ -1,5 +1,7 @@
 package filtro;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import cosasUsuario.Usuario;
 import filtro.Filtro;
 import java.util.Set;
@@ -7,6 +9,8 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import receta.Receta;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize
 @SuppressWarnings("all")
 public class FiltroPorGusto implements Filtro {
   public Set<Receta> filtrar(final Set<Receta> recetas, final Usuario usuario) {

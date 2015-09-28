@@ -2,7 +2,6 @@ package receta;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.google.common.base.Objects;
 import condicion.CondicionPreexistente;
 import cosasUsuario.GrupoUsuario;
 import cosasUsuario.Usuario;
@@ -52,6 +51,8 @@ public class Receta {
   
   private Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>();
   
+  private Boolean esPublica;
+  
   public Receta puedeSerCreada(final Receta receta) {
     try {
       Receta _xifexpression = null;
@@ -74,6 +75,10 @@ public class Receta {
     }
   }
   
+  public Boolean init() {
+    return this.esPublica = Boolean.valueOf(true);
+  }
+  
   public boolean hayUnIngrediente(final Collection<Ingrediente> ingredientes) {
     int _size = ingredientes.size();
     return (_size >= 1);
@@ -86,9 +91,7 @@ public class Receta {
   public boolean puedeVerReceta(final Usuario usuario) {
     boolean _or = false;
     boolean _or_1 = false;
-    RepositorioRecetas _instance = RepositorioRecetas.getInstance();
-    boolean _tieneLaReceta = _instance.tieneLaReceta(this);
-    if (_tieneLaReceta) {
+    if ((this.esPublica).booleanValue()) {
       _or_1 = true;
     } else {
       boolean _and = false;
@@ -97,41 +100,43 @@ public class Receta {
       if (!_not) {
         _and = false;
       } else {
+        boolean _or_2 = false;
         boolean _comparteGrupoCon = usuario.comparteGrupoCon(this.creador);
-        _and = _comparteGrupoCon;
+        if (_comparteGrupoCon) {
+          _or_2 = true;
+        } else {
+          String _nombre = usuario.getNombre();
+          boolean _equals = this.creador.equals(_nombre);
+          _or_2 = _equals;
+        }
+        _and = _or_2;
       }
       _or_1 = _and;
     }
     if (_or_1) {
       _or = true;
     } else {
-      boolean _tieneLaReceta_1 = usuario.tieneLaReceta(this);
-      _or = _tieneLaReceta_1;
+      boolean _tieneLaReceta = usuario.tieneLaReceta(this);
+      _or = _tieneLaReceta;
     }
     return _or;
   }
   
   public boolean tienePermisosParaModificarReceta(final Usuario usuario) {
     boolean _or = false;
-    boolean _or_1 = false;
     boolean _tieneLaReceta = usuario.tieneLaReceta(this);
     if (_tieneLaReceta) {
-      _or_1 = true;
-    } else {
-      RepositorioRecetas _instance = RepositorioRecetas.getInstance();
-      boolean _tieneLaReceta_1 = _instance.tieneLaReceta(this);
-      _or_1 = _tieneLaReceta_1;
-    }
-    if (_or_1) {
       _or = true;
     } else {
       boolean _and = false;
-      boolean _notEquals = (!Objects.equal(this.creador, null));
-      if (!_notEquals) {
+      RepositorioRecetas _instance = RepositorioRecetas.getInstance();
+      boolean _tieneLaReceta_1 = _instance.tieneLaReceta(this);
+      if (!_tieneLaReceta_1) {
         _and = false;
       } else {
-        boolean _comparteGrupoCon = usuario.comparteGrupoCon(this.creador);
-        _and = _comparteGrupoCon;
+        String _nombre = usuario.getNombre();
+        boolean _equals = this.creador.equals(_nombre);
+        _and = _equals;
       }
       _or = _and;
     }
@@ -439,5 +444,14 @@ public class Receta {
   
   public void setCondicionesPreexistentes(final Set<CondicionPreexistente> condicionesPreexistentes) {
     this.condicionesPreexistentes = condicionesPreexistentes;
+  }
+  
+  @Pure
+  public Boolean getEsPublica() {
+    return this.esPublica;
+  }
+  
+  public void setEsPublica(final Boolean esPublica) {
+    this.esPublica = esPublica;
   }
 }

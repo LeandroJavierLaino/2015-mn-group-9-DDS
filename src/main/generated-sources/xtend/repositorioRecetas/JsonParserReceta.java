@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.eclipse.xtend.lib.annotations.Accessors;
-import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.uqbar.xtrest.json.JSONUtils;
 import receta.Ingrediente;
 import receta.Receta;
 import receta.RecetaBuilder;
@@ -32,6 +32,9 @@ public class JsonParserReceta {
   
   private int anioReceta;
   
+  @Extension
+  private JSONUtils _jSONUtils = new JSONUtils();
+  
   public Receta transformarReceta(final JsonParserReceta receta) {
     Receta _xblockexpression = null;
     {
@@ -41,7 +44,8 @@ public class JsonParserReceta {
       RecetaBuilder _ingredientes = _nombre.ingredientes(_transformarIngredientes);
       RecetaBuilder _conCalorias = _ingredientes.conCalorias(((double) receta.totalCalorias));
       RecetaBuilder _dificultad = _conCalorias.dificultad(receta.dificultadReceta);
-      Receta recetaTransformada = _dificultad.build();
+      RecetaBuilder _esPublica = _dificultad.esPublica();
+      Receta recetaTransformada = _esPublica.build();
       recetaTransformada.asignarAutor(receta.autor);
       _xblockexpression = recetaTransformada;
     }
@@ -54,15 +58,7 @@ public class JsonParserReceta {
       Set<Ingrediente> ingredientesTransformados = new HashSet<Ingrediente>();
       for (final String ingrediente : ingredientes) {
         {
-          Ingrediente _ingrediente = new Ingrediente();
-          final Procedure1<Ingrediente> _function = new Procedure1<Ingrediente>() {
-            public void apply(final Ingrediente it) {
-              JsonParserReceta.this.nombre = "";
-              it.setCantidad(0);
-              it.setTipo("");
-            }
-          };
-          Ingrediente ingredienteTransformado = ObjectExtensions.<Ingrediente>operator_doubleArrow(_ingrediente, _function);
+          Ingrediente ingredienteTransformado = this._jSONUtils.<Ingrediente>fromJson(ingrediente, Ingrediente.class);
           ingredientesTransformados.add(ingredienteTransformado);
         }
       }
@@ -165,5 +161,14 @@ public class JsonParserReceta {
   
   public void setAnioReceta(final int anioReceta) {
     this.anioReceta = anioReceta;
+  }
+  
+  @Pure
+  public JSONUtils get_jSONUtils() {
+    return this._jSONUtils;
+  }
+  
+  public void set_jSONUtils(final JSONUtils _jSONUtils) {
+    this._jSONUtils = _jSONUtils;
   }
 }

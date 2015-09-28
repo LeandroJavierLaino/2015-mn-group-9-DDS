@@ -204,8 +204,15 @@ public class Usuario extends Entity {
   
   public boolean comparteGrupoCon(final String usuario) {
     boolean _xifexpression = false;
+    boolean _or = false;
     boolean _equals = Objects.equal(usuario, null);
     if (_equals) {
+      _or = true;
+    } else {
+      boolean _equals_1 = Objects.equal(this.grupoAlQuePertenece, null);
+      _or = _equals_1;
+    }
+    if (_or) {
       _xifexpression = false;
     } else {
       _xifexpression = this.grupoAlQuePertenece.tieneUnUsuario(usuario);

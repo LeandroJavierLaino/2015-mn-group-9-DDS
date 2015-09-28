@@ -107,6 +107,33 @@ public class RecetaBuilder {
     return _xblockexpression;
   }
   
+  public RecetaBuilder esPublica() {
+    RecetaBuilder _xblockexpression = null;
+    {
+      this.receta.setEsPublica(Boolean.valueOf(true));
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
+  }
+  
+  public RecetaBuilder esPrivada() {
+    RecetaBuilder _xblockexpression = null;
+    {
+      this.receta.setEsPublica(Boolean.valueOf(false));
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
+  }
+  
+  public RecetaBuilder creadaPor(final String creador) {
+    RecetaBuilder _xblockexpression = null;
+    {
+      this.receta.setCreador(creador);
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
+  }
+  
   public Receta build() {
     Receta _xblockexpression = null;
     {

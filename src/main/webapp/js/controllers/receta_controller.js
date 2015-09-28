@@ -12,6 +12,14 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	this.puedeEditar = false;
 	
 	this.cargarReceta = function() {
+<<<<<<< HEAD
+=======
+		/*indexSrvc.getReceta($stateParams.nombre, function(data) {
+			self.receta = transformarAReceta(data);
+			self.usuario = indexSrvc.usuario;
+			self.puedeEditar = (self.usuario != null && self.receta.creador == self.usuario.nombre);
+		})*/
+>>>>>>> branch 'Entrega5_UI' of https://github.com/dds-utn/2015-mn-group-9.git
 		self.receta = indexSrvc.recetaSeleccionada;
 		self.usuario = indexSrvc.usuario;
 		self.puedeEditar = (self.usuario != null && self.receta.creador == self.usuario.nombre);
