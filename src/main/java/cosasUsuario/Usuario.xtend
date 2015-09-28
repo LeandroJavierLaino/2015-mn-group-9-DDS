@@ -21,42 +21,44 @@ import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import repositorioRecetas.AdapterConsultaRecetas
+import java.util.Collection
 
 @JsonSerialize
 @Accessors
-@JsonIgnoreProperties(ignoreUnknown = true)
-class Usuario extends Entity{
-	
+@JsonIgnoreProperties(ignoreUnknown=true)
+class Usuario extends Entity {
+
 	// Datos varops
 	LocalDate fechaActual = new LocalDate()
 	int CARACTERES_MINIMOS = 4
 	boolean habilitarFavoritos = false
-	
+
 	// Datos basicos
-	
 	String nombre
 	double altura
 	double peso
 	LocalDate fechaDeNacimiento
-	String password 
-	
+	String password
+
 	// Grupo
 	GrupoUsuario grupoAlQuePertenece
-	
+
 	// Para condiciones preexistentes
-	
 	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
 	String sexo
 	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
 	List<String> comidaPreferida = new ArrayList<String>
 	Rutina rutina
-	
+
 	// Recetas
 	Set<Receta> recetas = new HashSet<Receta>
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
 	ProcesamientoPosterior procesamiento
-	
+
+	//Consultas
+	AdapterConsultaRecetas adapterConsulta = new AdapterConsultaRecetas
 
 	//Mensajes
 	def double calculaIMC() {
@@ -66,17 +68,16 @@ class Usuario extends Entity{
 	def void agregarCondicion(CondicionPreexistente condicion) {
 		condicionesPreexistentes.add(condicion)
 	}
-	
+
 	def validar() {
-		
-		if(!(altura > 0 && peso > 0 && nombre.length() >= CARACTERES_MINIMOS)) {
+
+		if (!(altura > 0 && peso > 0 && nombre.length() >= CARACTERES_MINIMOS)) {
 			throw new UsuarioInvalidoExcepcion("Usuario no valido")
 		}
 		condicionesPreexistentesSonValidas()
-		
-		
+
 		fechaValida(fechaActual, fechaDeNacimiento)
-		
+
 	}
 
 	def tieneLaReceta(Receta receta) {
@@ -109,100 +110,141 @@ class Usuario extends Entity{
 	def borrarReceta(Receta receta) {
 		recetas.remove(receta)
 	}
-	
+
 	def fechaValida(LocalDate fechaActual, LocalDate fechaSegunda) {
-		if (fechaActual.isBefore(fechaSegunda)) 
-			throw new FechaInvalidaExcepcion("Se Ingreso una fecha invalida")		
+		if (fechaActual.isBefore(fechaSegunda))
+			throw new FechaInvalidaExcepcion("Se Ingreso una fecha invalida")
 	}
-	
+
 	def contienteComidaQueDisgusta(Caracteristica comidaQueDisgusta) {
 		comidasQueDisgustan.contains(comidaQueDisgusta)
 	}
-	
-	def esRecomendable(Receta receta){
+
+	def esRecomendable(Receta receta) {
 		noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tolera(receta)]
 	}
-	
+
 	def comparteGrupoCon(String usuario) {
-		if(usuario == null || grupoAlQuePertenece == null) false
-		else grupoAlQuePertenece.tieneUnUsuario(usuario)
+		if(usuario == null || grupoAlQuePertenece == null) false else grupoAlQuePertenece.tieneUnUsuario(usuario)
 	}
-	
-	def marcarComoFavorita(Receta receta){
+
+	def marcarComoFavorita(Receta receta) {
 		recetasFavoritas.add(receta)
 	}
-	
-	def agregarFiltro(Filtro filtro){
+
+	def agregarFiltro(Filtro filtro) {
 		filtrosAAplicar.add(filtro)
 	}
-	
-	def tieneSobrepeso(){
+
+	def tieneSobrepeso() {
 		calculaIMC > 500
 	}
-	
+
 	def indicarProcesamientoPosterior() {
 		procesamiento
 	}
-	
-	def elegirProcesamiento(ProcesamientoPosterior procesamientoProcesado){
+
+	def elegirProcesamiento(ProcesamientoPosterior procesamientoProcesado) {
 		procesamiento = procesamientoProcesado
 	}
-	
+
 	def habilitaSusFavoritos() {
-		habilitarFavoritos = true	
+		habilitarFavoritos = true
 	}
-	
-	def aplicarFiltros(){
-		
+
+	def aplicarFiltros() {
+
 		var busquedaReceta = listarRecetasVisibles
-		
-		for(filtro : filtrosAAplicar){
-			busquedaReceta = filtro.filtrar(busquedaReceta,this)
+
+		for (filtro : filtrosAAplicar) {
+			busquedaReceta = filtro.filtrar(busquedaReceta, this)
 		}
-		
+
 		busquedaReceta
 	}
-	
-	def postProcesarRecetas(){
-		
+
+	def postProcesarRecetas() {
+
 		var Set<Receta> recetasFiltradas = new HashSet<Receta>
 		recetasFiltradas = aplicarFiltros()
-		
+
 		var ProcesamientoPosterior procesamiento = this.indicarProcesamientoPosterior()
 		recetasFiltradas = procesamiento.asociarProcesamiento(recetasFiltradas)
-		
-		if(habilitaSusFavoritos()){
+
+		if (habilitaSusFavoritos()) {
 			recetasFavoritas.addAll(recetasFiltradas)
 			recetasFiltradas = recetasFavoritas
 		}
-		
+
 		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
 		GestorDeConsultas.getInstance.monitorear(consulta)
-		
+
 		recetasFiltradas
 	}
-	
-	def puedeSerSugeridaUnaReceta(Receta receta){
+
+	def puedeSerSugeridaUnaReceta(Receta receta) {
 		(!receta.tieneUnIngredienteOCondimentoQueDisgustaPara(this)) && this.condicionesPreexistentesSonValidas
 	}
-	
-	def solicitarIngresoASistema(){
+
+	def solicitarIngresoASistema() {
 		RepositorioUsuarios.getInstance.agregarAListaPendientes(this)
 	}
-	
+
 	def Boolean esVegano() {
-		condicionesPreexistentes.exists[condicion | condicion.esCondicionVegana]
+		condicionesPreexistentes.exists[condicion|condicion.esCondicionVegana]
 	}
+
 	def listarRecetasVisibles() {
 		var Set<Receta> recetasVisibles = recetas
 		recetasVisibles.addAll(RepositorioRecetas.getInstance.listarRecetasVisiblesPara(this))
-		
-		if(grupoAlQuePertenece != null) {
+
+		if (grupoAlQuePertenece != null) {
 			recetasVisibles.addAll(grupoAlQuePertenece.todasLasRecetas)
-		
+
+		}
+
+		recetasVisibles
+	}
+
+	def List<Receta> consultar(String consulta) {
+		var consultaTransformada = adapterConsulta.obtenerConsulta(consulta)
+		var Collection<Receta> recetasABuscar = listarRecetasVisibles
+
+		if (consultaTransformada.filtros != 0) {
+			recetasABuscar = postProcesarRecetas
 		}
 		
-		recetasVisibles
+		if (consultaTransformada.nombre != null) {
+			val nombreConsultado = consultaTransformada.nombre
+			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toList
+		}
+
+		if (consultaTransformada.caloriasMinimas != -1) {
+			val caloriasMinimas = consultaTransformada.caloriasMinimas
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias > caloriasMinimas].toList
+		}
+
+		if (consultaTransformada.caloriasMaximas != -1) {
+			val caloriasMaximas = consultaTransformada.caloriasMaximas
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias < caloriasMaximas].toList
+		}
+
+		if (consultaTransformada.dificultad != null) {
+			val dificultad = consultaTransformada.dificultad
+			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toList
+		}
+
+		if (consultaTransformada.temporada != null) {
+			val temporada = consultaTransformada.temporada
+			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.contains(temporada)].toList
+		}
+
+		if (consultaTransformada.ingrediente != null) {
+			val ingrediente = consultaTransformada.ingrediente
+			recetasABuscar = recetasABuscar.filter[receta|receta.ingredientes.contains(ingrediente)].toList
+		}
+
+		return recetasABuscar.toList
 	}
 }

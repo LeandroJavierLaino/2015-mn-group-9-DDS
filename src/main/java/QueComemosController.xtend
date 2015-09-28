@@ -79,16 +79,9 @@ class QueComemosController {
 	@Get('/receta/consulta')
 	def Result consultar(@Body String body) {
 		response.contentType = ContentType.APPLICATION_JSON
-		val Receta recetaProto = body.getPropertyValue("receta").fromJson(Receta)
 		val Usuario usuario = body.getPropertyValue("usuario").fromJson(Usuario)
 		
-		val respuesta = usuario.postProcesarRecetas.filter[
-			it.cantidadMinimaCalorias < Integer.valueOf(body.getPropertyValue("caloriasMinimas")) &&
-			it.cantidadMaximaCalorias > Integer.valueOf(body.getPropertyValue("caloriasMaximas")) &&
-			it.nombrePlato.toLowerCase.contains(recetaProto.nombrePlato.toLowerCase) &&
-			it.dificultad.equalsIgnoreCase(recetaProto.dificultad) &&
-			it.temporada.equalsIgnoreCase(recetaProto.temporada)
-		].toList
+		val respuesta = usuario.consultar(body).toList
 		ok(respuesta.toJson)
 	}
 	
