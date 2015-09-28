@@ -7,16 +7,13 @@ function Logeo(indexSrvc) {
 	this.usuarioCompleto = new Usuario;
 	this.recetas;
 
-	this.acceder = function(usuario, $state, $stateParams) {
-		
-		
+	this.acceder = function(usuario, $state, $stateParams) {	
 
 		indexSrvc.getUsuario(usuario, function(data) {
 
 			self.usuarioCompleto = transformarAUsuario(data);
 			self.exito = true;
 			indexSrvc.usuario = self.usuarioCompleto;
-			console.log(indexSrvc.usuario);
 			
 			$state.go('listarRecetas', {"nombre" : self.usuarioCompleto.nombre});
 

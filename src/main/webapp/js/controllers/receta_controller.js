@@ -12,11 +12,9 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	this.puedeEditar = false;
 	
 	this.cargarReceta = function() {
-		indexSrvc.getReceta($stateParams.nombre, function(data) {
-			self.receta = transformarAReceta(data);
-			self.usuario = indexSrvc.usuario;
-			self.puedeEditar = (self.usuario != null && self.receta.creador == self.usuario.nombre);
-		})
+		self.receta = indexSrvc.recetaSeleccionada;
+		self.usuario = indexSrvc.usuario;
+		self.puedeEditar = (self.usuario != null && self.receta.creador == self.usuario.nombre);
 	}
 	this.agregarPaso = function() {
 		self.receta.procesoPreparacion.push(self.nuevoPaso);
