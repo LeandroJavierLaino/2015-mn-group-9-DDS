@@ -33,6 +33,7 @@ class Receta{
 	Set<Receta> subRecetas = new HashSet<Receta>
 	String creador
 	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
+	Boolean esPublica
 
 	def puedeSerCreada(Receta receta) {
 		if (hayUnIngrediente(receta.ingredientes) && totalDeCaloriasEnRango(receta.totalCalorias)) {
@@ -40,6 +41,9 @@ class Receta{
 		} else {
 			throw new RecetaInvalidaExcepcion("No está en el rango de calorías o no tiene un ingrediente la receta")
 		}
+	}
+	def init() {
+		esPublica = true
 	}
 
 	def hayUnIngrediente(Collection<Ingrediente> ingredientes) {
@@ -51,11 +55,12 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		RepositorioRecetas.getInstance.tieneLaReceta(this) || (!creador.nullOrEmpty && usuario.comparteGrupoCon(creador)) || usuario.tieneLaReceta(this)
+		esPublica || (!creador.nullOrEmpty && (usuario.comparteGrupoCon(creador) || creador.equals(usuario.nombre))) || usuario.tieneLaReceta(this)
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && usuario.comparteGrupoCon(creador))
+		usuario.tieneLaReceta(this) || (RepositorioRecetas.getInstance.tieneLaReceta(this) && creador.equals(usuario.nombre))
+		// || (creador != null && usuario.comparteGrupoCon(creador))
 	}
 
 	def puedeModificarReceta(Usuario usuario) {

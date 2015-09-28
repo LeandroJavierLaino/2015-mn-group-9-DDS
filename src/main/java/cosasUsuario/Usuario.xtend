@@ -124,7 +124,7 @@ class Usuario extends Entity{
 	}
 	
 	def comparteGrupoCon(String usuario) {
-		if(usuario == null) false
+		if(usuario == null || grupoAlQuePertenece == null) false
 		else grupoAlQuePertenece.tieneUnUsuario(usuario)
 	}
 	

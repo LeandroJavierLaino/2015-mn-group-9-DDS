@@ -12,3 +12,18 @@ class Condimento extends Caracteristica{
 		nombre
 	}
 }
+class CondimentoBuilder {
+	
+	Condimento condimento
+	
+	new(String pNombre, double pCantidad, String pTipo) {
+		condimento = new Condimento => [
+			nombre = pNombre
+			cantidad = pCantidad
+			tipo = pTipo
+		]
+	}
+	def Condimento build() {
+		condimento
+	}
+}

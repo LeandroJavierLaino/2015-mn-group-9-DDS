@@ -163,10 +163,10 @@
 	</form>
 	<nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
 		<div class="container">
-			<button type="submit" ng-click="receta.guardarReceta()"
+			<button type="submit" ng-click="receta.guardarReceta()" ng-show="receta.puedeEditar"
 								class="glyphicon glyphicon-ok btn btn-success"></button>
 			<button type="submit" ui-sref="listarRecetas"
-								class="btn btn-danger">Cancelar</button>
+								class="btn btn-danger">Volver</button>
 		</div>
 	</nav>
 </div>

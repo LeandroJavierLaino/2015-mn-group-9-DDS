@@ -8,11 +8,14 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	this.condimento = new Condimento;
 	this.mostrarDivNuevoIngrediente = false;
 	this.mostrarDivNuevoCondimento = false;
-	
+	this.usuario = null;
+	this.puedeEditar = false;
 	
 	this.cargarReceta = function() {
 		indexSrvc.getReceta($stateParams.nombre, function(data) {
 			self.receta = transformarAReceta(data);
+			self.usuario = indexSrvc.usuario;
+			self.puedeEditar = (self.usuario != null && self.receta.creador == self.usuario.nombre);
 		})
 	}
 	this.agregarPaso = function() {
@@ -39,6 +42,9 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	this.borrarCondimento = function(condimento) {
 		var index = self.receta.condimentos.indexOf(condimento);
 		self.receta.condimentos.splice(index, 1);
+	}
+	this.puedeEditar = function() {
+		
 	}
 	
 	this.guardarReceta = function() {

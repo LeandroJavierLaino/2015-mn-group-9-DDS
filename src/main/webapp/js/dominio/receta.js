@@ -9,6 +9,7 @@ function Receta() {
 	this.subRecetas = null;
 	this.condicionesPreexistentes = null;
 	this.esDificil = false;
+	this.esPublica;
 	this.creador = null;
 }
 /*

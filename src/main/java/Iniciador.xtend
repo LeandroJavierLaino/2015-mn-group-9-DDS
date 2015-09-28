@@ -58,6 +58,8 @@ class Iniciador {
 		.ingrediente(salchicha)
 		.condimento(ketchup)
 		.temporada("Verano")
+		.esPrivada
+		.creadaPor("Nicolas")
 		.build
 		
 		
@@ -79,7 +81,6 @@ class Iniciador {
 		.conPass("123")
 		.build
 		
-		recetaSalchiPapa.creador = nicolas.nombre
 		RepositorioRecetas.instance.cargarTodasLasRecetas
 		
 		//CONSULTAS
@@ -105,8 +106,7 @@ class Iniciador {
 		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		
 		leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
-		leandro.recetas.add(recetaSalchiPapa)
-		leandro.filtrosAAplicar.add(filtroGusto)
+		leandro.filtrosAAplicar.add(filtroGusto) 
 		
 	}
 }

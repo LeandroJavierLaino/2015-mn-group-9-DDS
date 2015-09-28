@@ -16,3 +16,18 @@ class Ingrediente extends Caracteristica {
 		ingredientesCaros.contains(this)
 	}
 }
+class IngredienteBuilder {
+	
+	Ingrediente ingrediente
+	
+	new(String pNombre, double pCantidad, String pTipo) {
+		ingrediente = new Ingrediente => [
+			nombre = pNombre
+			cantidad = pCantidad
+			tipo = pTipo
+		]
+	}
+	def Ingrediente build() {
+		ingrediente
+	}
+}

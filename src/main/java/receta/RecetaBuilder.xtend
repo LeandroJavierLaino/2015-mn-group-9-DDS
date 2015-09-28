@@ -48,7 +48,18 @@ class RecetaBuilder {
 		receta.temporada = temporada
 		this
 	}
-	
+	def RecetaBuilder esPublica() {
+		receta.esPublica = true
+		this
+	}
+	def RecetaBuilder esPrivada() {
+		receta.esPublica = false
+		this
+	}
+	def RecetaBuilder creadaPor(String creador) {
+		receta.creador = creador
+		this
+	}
 	def Receta build() {
 		RepositorioRecetas.instance.agregar(receta)
 		receta
