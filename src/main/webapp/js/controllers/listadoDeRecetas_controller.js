@@ -13,6 +13,7 @@ indexApp.controller('listadoDeRecetasController', function(indexSrvc, $state, $s
 		});
 	}
 	this.abrirReceta = function(receta) {
+		indexSrvc.recetaSeleccionada = receta;
 		$state.go('verReceta', {"nombre": receta.nombrePlato})
 	}
 })

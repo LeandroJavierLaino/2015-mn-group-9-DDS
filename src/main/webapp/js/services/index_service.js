@@ -2,6 +2,7 @@
 indexApp.service('indexSrvc', function($http) {
 	
 	this.usuario;
+	this.recetaSeleccionada;
 	
 	this.getUsuario = function(usuario, callback) {
 		$http.get('usuario/' + usuario.nombre, usuario.password).success(callback);
