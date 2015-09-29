@@ -83,7 +83,7 @@ class QueComemosController {
 		var Usuario usuario = body.getPropertyValue("usuario").fromJson(Usuario)
 		var BuscaReceta consulta = body.fromJson(BuscaReceta)
 		
-		var List<Receta> respuesta = usuario.consultar(consulta).toList
+		var List<Receta> respuesta = usuario.consultar(consulta)
 		ok(respuesta.toJson)
 	}
 	
