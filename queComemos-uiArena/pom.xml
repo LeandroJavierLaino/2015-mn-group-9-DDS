@@ -6,8 +6,10 @@
 		<artifactId>TP_queComemos</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+	
 	<artifactId>queComemos-uiArena</artifactId>
 	<url>http://maven.apache.org</url>
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
