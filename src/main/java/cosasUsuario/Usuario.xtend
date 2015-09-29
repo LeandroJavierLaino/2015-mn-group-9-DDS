@@ -21,8 +21,8 @@ import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import repositorioRecetas.AdapterConsultaRecetas
 import java.util.Collection
+import repositorioRecetas.BuscaReceta
 
 @JsonSerialize
 @Accessors
@@ -56,9 +56,6 @@ class Usuario extends Entity {
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
 	ProcesamientoPosterior procesamiento
-
-	//Consultas
-	AdapterConsultaRecetas adapterConsulta = new AdapterConsultaRecetas
 
 	//Mensajes
 	def double calculaIMC() {
@@ -207,41 +204,40 @@ class Usuario extends Entity {
 		recetasVisibles
 	}
 
-	def List<Receta> consultar(String consulta) {
-		var consultaTransformada = adapterConsulta.obtenerConsulta(consulta)
+	def List<Receta> consultar(BuscaReceta consulta) {
 		var Collection<Receta> recetasABuscar = listarRecetasVisibles
 
-		if (consultaTransformada.filtros != 0) {
+		if (consulta.filtros != 0) {
 			recetasABuscar = postProcesarRecetas
 		}
-		
-		if (consultaTransformada.nombre != null) {
-			val nombreConsultado = consultaTransformada.nombre
+
+		if (consulta.nombre != null) {
+			val nombreConsultado = consulta.nombre
 			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toList
 		}
 
-		if (consultaTransformada.caloriasMinimas != -1) {
-			val caloriasMinimas = consultaTransformada.caloriasMinimas
+		if (consulta.caloriasMinimas != -1) {
+			val caloriasMinimas = consulta.caloriasMinimas
 			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias > caloriasMinimas].toList
 		}
 
-		if (consultaTransformada.caloriasMaximas != -1) {
-			val caloriasMaximas = consultaTransformada.caloriasMaximas
+		if (consulta.caloriasMaximas != -1) {
+			val caloriasMaximas = consulta.caloriasMaximas
 			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias < caloriasMaximas].toList
 		}
 
-		if (consultaTransformada.dificultad != null) {
-			val dificultad = consultaTransformada.dificultad
+		if (consulta.dificultad != null) {
+			val dificultad = consulta.dificultad
 			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toList
 		}
 
-		if (consultaTransformada.temporada != null) {
-			val temporada = consultaTransformada.temporada
+		if (consulta.temporada != null) {
+			val temporada = consulta.temporada
 			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.contains(temporada)].toList
 		}
 
-		if (consultaTransformada.ingrediente != null) {
-			val ingrediente = consultaTransformada.ingrediente
+		if (consulta.ingrediente != null) {
+			val ingrediente = consulta.ingrediente
 			recetasABuscar = recetasABuscar.filter[receta|receta.ingredientes.contains(ingrediente)].toList
 		}
 

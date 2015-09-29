@@ -11,6 +11,7 @@ import org.uqbar.xtrest.json.JSONUtils
 import receta.Receta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
+import repositorioRecetas.BuscaReceta
 
 @Controller
 class QueComemosController {
@@ -76,12 +77,13 @@ class QueComemosController {
 		
 		ok('{ "status" : "OK" }')
 	}
-	@Get('/receta/consulta')
-	def Result consultar(@Body String body) {
+	@Get('/recetas/consulta')
+	def Result realizarConsulta(@Body String body) {
 		response.contentType = ContentType.APPLICATION_JSON
-		val Usuario usuario = body.getPropertyValue("usuario").fromJson(Usuario)
+		var Usuario usuario = body.getPropertyValue("usuario").fromJson(Usuario)
+		var BuscaReceta consulta = body.fromJson(BuscaReceta)
 		
-		val respuesta = usuario.consultar(body).toList
+		var List<Receta> respuesta = usuario.consultar(consulta).toList
 		ok(respuesta.toJson)
 	}
 	

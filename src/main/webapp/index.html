@@ -79,16 +79,17 @@
 					</div>
 				</form>
 				<div ng-show="index.logeo.exito" class="navbar-right">
-						<a class="navbar-brand"
-							ui-sref="listarRecetas({nombre: index.logeo.usuarioCompleto.nombre})"
-							ng-bind="index.logeo.usuarioCompleto.nombre"></a>
-					</div>
+					<a class="navbar-brand"
+						ui-sref="listarRecetas({nombre: index.logeo.usuarioCompleto.nombre})"
+						ng-bind="index.logeo.usuarioCompleto.nombre"></a>
+				</div>
 			</div>
 		</div>
 	</nav>
 	<div class="modal fade" id="modalConsulta" tabindex="-1" role="dialog"
 		aria-labelledby="miConsulta">
-		<div class="modal-dialog" role="document" style="width: 75%" align="center">
+		<div class="modal-dialog" role="document" style="width: 75%"
+			align="center">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -115,11 +116,14 @@
 							</div>
 
 							<div>
-								<label>Dificultad </label> 
-								<select name="dificultad" class="form-control" ng-model="index.consulta.dificultad" >
-									<option ng-repeat="dificultad in index.dificultades" ng-bind="dificultad"></option>
-								</select> <label>Temporada </label> <select name="temporada" class="form-control" ng-model="index.consulta.temporada" >
-									<option ng-repeat="temporada in index.temporadas" ng-bind="temporada"></option>
+								<label>Dificultad </label> <select name="dificultad"
+									class="form-control" ng-model="index.consulta.dificultad">
+									<option ng-repeat="dificultad in index.dificultades"
+										ng-bind="dificultad"></option>
+								</select> <label>Temporada </label> <select name="temporada"
+									class="form-control" ng-model="index.consulta.temporada">
+									<option ng-repeat="temporada in index.temporadas"
+										ng-bind="temporada"></option>
 								</select>
 							</div>
 
@@ -158,6 +162,7 @@
 	<script src="js/controllers/buscadorDeUsuarios_controller.js"></script>
 	<script src="js/controllers/listadoDeRecetas_controller.js"></script>
 	<script src="js/controllers/receta_controller.js"></script>
+	<script src="js/controllers/consultasController.js"></script>
 
 </body>
 </html>

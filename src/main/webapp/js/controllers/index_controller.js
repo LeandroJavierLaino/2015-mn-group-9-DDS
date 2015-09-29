@@ -8,7 +8,7 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 	this.listadoDeUsuarios;
 	this.consulta = new Consulta;
 	this.resultadoDeLaConsulta;
-	this.dificultades = ["","baja","media","alta"];
+	this.dificultades = ["","facil","media","dificil"];
 	this.temporadas = ["","verano","otonio","invierno","primavera","todoElAnio"];
 	
 	this.acceder = function() {
@@ -22,7 +22,7 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 	this.realizarConsulta = function() {
 		indexSrvc.realizarConsulta(self.consulta, function(data) {
 			self.resultadoDeLaConsulta = _.map(data, transformarAReceta);
-			indexSrvc.recetasRecibidas = self.resultadoDeLaConsulta;
+			indexSrvc.recetasRecibidas = self.resultadoDeLaConsulta;	
 			$state.go('realizarConsulta');
 		})
 	}
