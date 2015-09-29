@@ -4,7 +4,12 @@
 	<groupId>ar.edu.frba.dds-mn.grupo9left4dead</groupId>
 	<artifactId>TP_queComemos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
 	<packaging>pom</packaging>
+	  <modules>
+        <module>../Domain</module>
+       
+    </modules>
 
 	<parent>
 		<groupId>org.uqbar-project</groupId>
