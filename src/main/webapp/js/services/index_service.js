@@ -17,10 +17,10 @@ indexApp.service('indexSrvc', function($http) {
 	this.getReceta = function(nombre, callback) {
 		$http.get('receta/' + nombre).success(callback);
 	}
-	this.guardarReceta = function(receta, callback) {	
-		$http.put('/receta/', receta).success(callback);
+	this.guardarReceta = function(receta, callback, errorHandler) {	
+		$http.put('/receta/', receta).then(callback, errorHandler);
 	}
-	this.realizarConsulta = function(consulta, callback) {
-		$http.get('/recetas/consulta', consulta).success(callback);
+	this.recetas = function(callback) {
+		$http.get('/recetas').success(callback);
 	}
 })

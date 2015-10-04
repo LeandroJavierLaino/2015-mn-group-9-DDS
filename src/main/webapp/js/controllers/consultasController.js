@@ -3,7 +3,7 @@ indexApp.controller('consultasController', function(indexSrvc, $state, $statePar
 	this.recetas;
 
 	this.obtenerConsulta = function() {
-		self.recetas=indexSrvc.recetasRecibidas
+		self.recetas = indexSrvc.recetasRecibidas;
 	}
 	
 })

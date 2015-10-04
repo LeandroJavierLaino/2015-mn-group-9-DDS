@@ -35,9 +35,9 @@ class Receta{
 	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
 	Boolean esPublica
 
-	def puedeSerCreada(Receta receta) {
-		if (hayUnIngrediente(receta.ingredientes) && totalDeCaloriasEnRango(receta.totalCalorias)) {
-			receta
+	def puedeSerCreada() {
+		if (hayUnIngrediente(this.ingredientes) && totalDeCaloriasEnRango(this.totalCalorias)) {
+			this
 		} else {
 			throw new RecetaInvalidaExcepcion("No está en el rango de calorías o no tiene un ingrediente la receta")
 		}
@@ -55,7 +55,7 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		esPublica || (!creador.nullOrEmpty && (usuario.comparteGrupoCon(creador) || creador.equals(usuario.nombre))) || usuario.tieneLaReceta(this)
+		esPublica || (!creador.nullOrEmpty && (usuario.comparteGrupoCon(creador) || creador.equals(usuario.nombre)) || usuario.tieneLaReceta(this))
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
@@ -84,7 +84,7 @@ class Receta{
 	}
 
 	def crearReceta(Usuario usuario) {
-		puedeSerCreada(this)
+		puedeSerCreada()
 		usuario.agregarReceta(this)
 		creador = usuario.nombre
 	}

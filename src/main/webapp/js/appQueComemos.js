@@ -27,7 +27,7 @@ indexApp.config(function($stateProvider, $urlRouterProvider) {
 		controller : "buscadorDeUsuariosController as buscador"
 	})
 	.state('realizarConsulta', {
-		url : "/",
+		url : "/consulta",
 		templateUrl : "partials/listadoRecetas.html",
 		controller : "consultasController as buscador"
 	})

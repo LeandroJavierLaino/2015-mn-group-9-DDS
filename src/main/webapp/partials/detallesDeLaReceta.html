@@ -1,5 +1,7 @@
 <div class="well well-lg text-center" ng-init="receta.cargarReceta()">
-
+	<div class="example-animate-container" style="padding-top:10px">
+         <div class="alert alert-danger animate-repeat" ng-repeat="error in receta.errores">{{error}}</div>
+    </div>
 	<form style="text-align: center">
 		<div class="col-md-2">
 			<label class="form-group">Nombre de la Receta</label> <input

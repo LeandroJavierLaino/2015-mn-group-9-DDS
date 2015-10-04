@@ -13,8 +13,6 @@ import org.joda.time.DateTime
 import consulta.GestorDeConsultas
 import filtro.FiltroPorGusto
 import filtro.FiltroPorExcesoDeCalorias
-import java.util.Set
-import java.util.HashSet
 import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
 import repositorioRecetas.RepositorioRecetas
 
@@ -28,7 +26,6 @@ class Iniciador {
 	
 	FiltroPorGusto filtroGusto
 	FiltroPorExcesoDeCalorias filtroExceso
-	Set<Receta> recetasFiltradas = new HashSet<Receta>
 	MonitorHora monitorHora
 	MonitorRecetas monitorRecetas
 	MonitorRecetasM monitorRecetasHombre

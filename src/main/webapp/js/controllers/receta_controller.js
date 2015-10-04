@@ -10,6 +10,11 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 	this.mostrarDivNuevoCondimento = false;
 	this.usuario = null;
 	this.puedeEditar = false;
+	this.errores = [];
+	
+	function notificarError(message) {
+		self.errores.push(message);
+	}
 	
 	this.cargarReceta = function() {
 		self.receta = indexSrvc.recetaSeleccionada;
@@ -49,6 +54,6 @@ indexApp.controller('recetaController', function(indexSrvc, $state, $stateParams
 
 		indexSrvc.guardarReceta(self.receta, function(data) {
 			console.log(data);
-		})
+		}, notificarError);
 	}
 })
