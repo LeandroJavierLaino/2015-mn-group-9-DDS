@@ -1,5 +1,7 @@
 package cosasUsuario
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import condicion.CondicionPreexistente
 import consulta.Consulta
 import consulta.GestorDeConsultas
@@ -19,10 +21,6 @@ import receta.Receta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import java.util.Collection
-import repositorioRecetas.BuscaReceta
 
 @JsonSerialize
 @Accessors
@@ -202,45 +200,5 @@ class Usuario extends Entity {
 		}
 
 		recetasVisibles
-	}
-
-	def List<Receta> consultar(BuscaReceta consulta) {
-		var Collection<Receta> recetasABuscar = listarRecetasVisibles
-
-		if (consulta.filtros != 0) {
-			recetasABuscar = postProcesarRecetas
-		}
-
-		if (consulta.nombre != null) {
-			val nombreConsultado = consulta.nombre
-			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toList
-		}
-
-		if (consulta.caloriasMinimas != -1) {
-			val caloriasMinimas = consulta.caloriasMinimas
-			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias > caloriasMinimas].toList
-		}
-
-		if (consulta.caloriasMaximas != -1) {
-			val caloriasMaximas = consulta.caloriasMaximas
-			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias < caloriasMaximas].toList
-		}
-
-		if (consulta.dificultad != null) {
-			val dificultad = consulta.dificultad
-			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toList
-		}
-
-		if (consulta.temporada != null) {
-			val temporada = consulta.temporada
-			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.contains(temporada)].toList
-		}
-
-		if (consulta.ingrediente != null) {
-			val ingrediente = consulta.ingrediente
-			recetasABuscar = recetasABuscar.filter[receta|receta.ingredientes.contains(ingrediente)].toList
-		}
-
-		return recetasABuscar.toList
 	}
 }

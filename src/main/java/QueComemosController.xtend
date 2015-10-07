@@ -1,18 +1,19 @@
 import cosasUsuario.Usuario
+import excepcion.RecetaInvalidaExcepcion
 import java.util.List
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
 import org.uqbar.xtrest.api.annotation.Body
 import org.uqbar.xtrest.api.annotation.Controller
 import org.uqbar.xtrest.api.annotation.Get
+import org.uqbar.xtrest.api.annotation.Post
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
 import receta.Receta
+import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
-import repositorioRecetas.BuscaReceta
-import excepcion.RecetaInvalidaExcepcion
 
 @Controller
 class QueComemosController {
@@ -73,22 +74,29 @@ class QueComemosController {
 
 		val recetaVieja = RepositorioRecetas.instance.recetas.findFirst[it.nombrePlato.equals(receta.nombrePlato)]
 		try {
-			
+
 			receta.puedeSerCreada()
-			
+
 			if (recetaVieja != null) {
 				RepositorioRecetas.instance.quitarPorNombre(receta.nombrePlato)
 				RepositorioRecetas.instance.agregar(receta)
 			} else
 				RepositorioRecetas.instance.agregar(receta)
-				
+
 			ok('{ "status" : "OK" }')
-			
-		} catch(RecetaInvalidaExcepcion e) {
+
+		} catch (RecetaInvalidaExcepcion e) {
 			badRequest(e.message)
 		}
+	}
+	
+	@Post('/consulta/recetas')
+	def Result realizarConsulta(@Body String body){
+		response.contentType = ContentType.APPLICATION_JSON
+		var BuscaReceta consulta = body.fromJson(BuscaReceta)
 		
-		
+		var List<Receta> recetasConsultadas = RepositorioRecetas.instance.consultar(consulta)
+		ok(recetasConsultadas.toJson)
 	}
 
 	def static void main(String[] args) {

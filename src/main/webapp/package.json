@@ -25,5 +25,10 @@
     "http-server": "^0.8.0",
     "jquery": "^2.1.4",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-karma": "^0.12.1",
+    "karma": "^0.13.10"
   }
 }

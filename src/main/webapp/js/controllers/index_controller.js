@@ -20,14 +20,6 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 	}
 	
 	this.realizarConsulta = function() {
-		
-		self.consulta.ingredientes.push(self.consulta.ingrediente);
-		self.consulta.ingrediente = null;
-		
-		console.log(self.usuario.nombre);
-		console.log(self.consulta);
-		console.log(jsonify(self.consulta));
-		
 		indexSrvc.recetas(function(data) {
 			indexSrvc.recetasRecibidas = _.map(data, transformarAReceta);
 			$state.go('realizarConsulta');
