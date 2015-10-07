@@ -121,8 +121,8 @@ public class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
         Function1<Usuario, Boolean> _criterioPorCondicionesPreexistentes = this.getCriterioPorCondicionesPreexistentes(_condicionesPreexistentes_1);
         final Function1<Usuario, Boolean> _final_criterioPorCondicionesPreexistentes = _criterioPorCondicionesPreexistentes;
         AndPredicate<Usuario> _andPredicate_1 = new AndPredicate<Usuario>(resultado, new Predicate<Usuario>() {
-            public boolean evaluate(Usuario object) {
-              return _final_criterioPorCondicionesPreexistentes.apply(object);
+            public boolean evaluate(Usuario arg0) {
+              return _final_criterioPorCondicionesPreexistentes.apply(arg0);
             }
         });
         resultado = _andPredicate_1;
@@ -151,8 +151,8 @@ public class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
       }
     };
     return ((Predicate<Usuario>) new Predicate<Usuario>() {
-        public boolean evaluate(Usuario object) {
-          return _function.apply(object);
+        public boolean evaluate(Usuario arg0) {
+          return _function.apply(arg0);
         }
     });
   }

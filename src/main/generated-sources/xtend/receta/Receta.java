@@ -53,19 +53,19 @@ public class Receta {
   
   private Boolean esPublica;
   
-  public Receta puedeSerCreada(final Receta receta) {
+  public Receta puedeSerCreada() {
     try {
       Receta _xifexpression = null;
       boolean _and = false;
-      boolean _hayUnIngrediente = this.hayUnIngrediente(receta.ingredientes);
+      boolean _hayUnIngrediente = this.hayUnIngrediente(this.ingredientes);
       if (!_hayUnIngrediente) {
         _and = false;
       } else {
-        boolean _talDeCaloriasEnRango = this.totalDeCaloriasEnRango(receta.totalCalorias);
+        boolean _talDeCaloriasEnRango = this.totalDeCaloriasEnRango(this.totalCalorias);
         _and = _talDeCaloriasEnRango;
       }
       if (_and) {
-        _xifexpression = receta;
+        _xifexpression = this;
       } else {
         throw new RecetaInvalidaExcepcion("No está en el rango de calorías o no tiene un ingrediente la receta");
       }
@@ -90,10 +90,10 @@ public class Receta {
   
   public boolean puedeVerReceta(final Usuario usuario) {
     boolean _or = false;
-    boolean _or_1 = false;
     if ((this.esPublica).booleanValue()) {
-      _or_1 = true;
+      _or = true;
     } else {
+      boolean _or_1 = false;
       boolean _and = false;
       boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(this.creador);
       boolean _not = (!_isNullOrEmpty);
@@ -111,13 +111,13 @@ public class Receta {
         }
         _and = _or_2;
       }
-      _or_1 = _and;
-    }
-    if (_or_1) {
-      _or = true;
-    } else {
-      boolean _tieneLaReceta = usuario.tieneLaReceta(this);
-      _or = _tieneLaReceta;
+      if (_and) {
+        _or_1 = true;
+      } else {
+        boolean _tieneLaReceta = usuario.tieneLaReceta(this);
+        _or_1 = _tieneLaReceta;
+      }
+      _or = _or_1;
     }
     return _or;
   }
@@ -212,7 +212,7 @@ public class Receta {
   public String crearReceta(final Usuario usuario) {
     String _xblockexpression = null;
     {
-      this.puedeSerCreada(this);
+      this.puedeSerCreada();
       usuario.agregarReceta(this);
       String _nombre = usuario.getNombre();
       _xblockexpression = this.creador = _nombre;
