@@ -12,12 +12,8 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 import queComemos.entrega3.repositorio.BusquedaRecetas;
-import receta.Ingrediente;
 import receta.Receta;
-import repositorioRecetas.AdapterConsultaRecetas;
 import repositorioRecetas.AdapterRepositorioRecetas;
-import repositorioRecetas.BuscaReceta;
-import repositorioUsuarios.RepositorioUsuarios;
 
 @Accessors
 @SuppressWarnings("all")
@@ -30,7 +26,7 @@ public class RepositorioRecetas {
   
   private Collection<Receta> recetasTotales = new ArrayList<Receta>();
   
-  private AdapterConsultaRecetas adapterConsulta = new AdapterConsultaRecetas();
+  private Collection<Receta> listarRecetasVisibles;
   
   public static RepositorioRecetas getInstance() {
     RepositorioRecetas _xblockexpression = null;
@@ -114,105 +110,6 @@ public class RepositorioRecetas {
     return this.recetas = _list;
   }
   
-  public Collection<Receta> buscarRecetas(final String consulta) {
-    BuscaReceta consultaTransformada = this.adapterConsulta.obtenerConsulta(consulta);
-    Collection<Receta> recetasABuscar = IterableExtensions.<Receta>toList(this.recetas);
-    String _nombre = consultaTransformada.getNombre();
-    boolean _notEquals = (!Objects.equal(_nombre, null));
-    if (_notEquals) {
-      final String nombreConsultado = consultaTransformada.getNombre();
-      final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
-        public Boolean apply(final Receta receta) {
-          String _nombrePlato = receta.getNombrePlato();
-          return Boolean.valueOf(_nombrePlato.contains(nombreConsultado));
-        }
-      };
-      Iterable<Receta> _filter = IterableExtensions.<Receta>filter(recetasABuscar, _function);
-      List<Receta> _list = IterableExtensions.<Receta>toList(_filter);
-      recetasABuscar = _list;
-    }
-    int _caloriasMinimas = consultaTransformada.getCaloriasMinimas();
-    boolean _notEquals_1 = (_caloriasMinimas != (-1));
-    if (_notEquals_1) {
-      final int caloriasMinimas = consultaTransformada.getCaloriasMinimas();
-      final Function1<Receta, Boolean> _function_1 = new Function1<Receta, Boolean>() {
-        public Boolean apply(final Receta receta) {
-          double _totalCalorias = receta.getTotalCalorias();
-          return Boolean.valueOf((_totalCalorias > caloriasMinimas));
-        }
-      };
-      Iterable<Receta> _filter_1 = IterableExtensions.<Receta>filter(recetasABuscar, _function_1);
-      List<Receta> _list_1 = IterableExtensions.<Receta>toList(_filter_1);
-      recetasABuscar = _list_1;
-    }
-    int _caloriasMaximas = consultaTransformada.getCaloriasMaximas();
-    boolean _notEquals_2 = (_caloriasMaximas != (-1));
-    if (_notEquals_2) {
-      final int caloriasMaximas = consultaTransformada.getCaloriasMaximas();
-      final Function1<Receta, Boolean> _function_2 = new Function1<Receta, Boolean>() {
-        public Boolean apply(final Receta receta) {
-          double _totalCalorias = receta.getTotalCalorias();
-          return Boolean.valueOf((_totalCalorias < caloriasMaximas));
-        }
-      };
-      Iterable<Receta> _filter_2 = IterableExtensions.<Receta>filter(recetasABuscar, _function_2);
-      List<Receta> _list_2 = IterableExtensions.<Receta>toList(_filter_2);
-      recetasABuscar = _list_2;
-    }
-    String _dificultad = consultaTransformada.getDificultad();
-    boolean _notEquals_3 = (!Objects.equal(_dificultad, null));
-    if (_notEquals_3) {
-      final String dificultad = consultaTransformada.getDificultad();
-      final Function1<Receta, Boolean> _function_3 = new Function1<Receta, Boolean>() {
-        public Boolean apply(final Receta receta) {
-          String _dificultad = receta.getDificultad();
-          return Boolean.valueOf(_dificultad.contains(dificultad));
-        }
-      };
-      Iterable<Receta> _filter_3 = IterableExtensions.<Receta>filter(recetasABuscar, _function_3);
-      List<Receta> _list_3 = IterableExtensions.<Receta>toList(_filter_3);
-      recetasABuscar = _list_3;
-    }
-    String _temporada = consultaTransformada.getTemporada();
-    boolean _notEquals_4 = (!Objects.equal(_temporada, null));
-    if (_notEquals_4) {
-      final String temporada = consultaTransformada.getTemporada();
-      final Function1<Receta, Boolean> _function_4 = new Function1<Receta, Boolean>() {
-        public Boolean apply(final Receta receta) {
-          String _temporada = receta.getTemporada();
-          return Boolean.valueOf(_temporada.contains(temporada));
-        }
-      };
-      Iterable<Receta> _filter_4 = IterableExtensions.<Receta>filter(recetasABuscar, _function_4);
-      List<Receta> _list_4 = IterableExtensions.<Receta>toList(_filter_4);
-      recetasABuscar = _list_4;
-    }
-    String _ingrediente = consultaTransformada.getIngrediente();
-    boolean _notEquals_5 = (!Objects.equal(_ingrediente, null));
-    if (_notEquals_5) {
-      final String ingrediente = consultaTransformada.getIngrediente();
-      final Function1<Receta, Boolean> _function_5 = new Function1<Receta, Boolean>() {
-        public Boolean apply(final Receta receta) {
-          Set<Ingrediente> _ingredientes = receta.getIngredientes();
-          return Boolean.valueOf(_ingredientes.contains(ingrediente));
-        }
-      };
-      Iterable<Receta> _filter_5 = IterableExtensions.<Receta>filter(recetasABuscar, _function_5);
-      List<Receta> _list_5 = IterableExtensions.<Receta>toList(_filter_5);
-      recetasABuscar = _list_5;
-    }
-    boolean _isFiltros = consultaTransformada.isFiltros();
-    boolean _notEquals_6 = (!Objects.equal(Boolean.valueOf(_isFiltros), Integer.valueOf(0)));
-    if (_notEquals_6) {
-      RepositorioUsuarios _instance = RepositorioUsuarios.getInstance();
-      String _usuario = consultaTransformada.getUsuario();
-      Usuario usuario = _instance.getUserByName(_usuario);
-      Set<Receta> _aplicarFiltros = usuario.aplicarFiltros();
-      recetasABuscar = _aplicarFiltros;
-    }
-    return recetasABuscar;
-  }
-  
   @Pure
   public Collection<Receta> getRecetas() {
     return this.recetas;
@@ -241,11 +138,11 @@ public class RepositorioRecetas {
   }
   
   @Pure
-  public AdapterConsultaRecetas getAdapterConsulta() {
-    return this.adapterConsulta;
+  public Collection<Receta> getListarRecetasVisibles() {
+    return this.listarRecetasVisibles;
   }
   
-  public void setAdapterConsulta(final AdapterConsultaRecetas adapterConsulta) {
-    this.adapterConsulta = adapterConsulta;
+  public void setListarRecetasVisibles(final Collection<Receta> listarRecetasVisibles) {
+    this.listarRecetasVisibles = listarRecetasVisibles;
   }
 }

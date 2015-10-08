@@ -17,7 +17,6 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.eclipse.xtext.xbase.lib.StringExtensions;
 import receta.Condimento;
 import receta.Ingrediente;
 import repositorioRecetas.RepositorioRecetas;
@@ -53,19 +52,19 @@ public class Receta {
   
   private Boolean esPublica;
   
-  public Receta puedeSerCreada(final Receta receta) {
+  public Receta puedeSerCreada() {
     try {
       Receta _xifexpression = null;
       boolean _and = false;
-      boolean _hayUnIngrediente = this.hayUnIngrediente(receta.ingredientes);
+      boolean _hayUnIngrediente = this.hayUnIngrediente(this.ingredientes);
       if (!_hayUnIngrediente) {
         _and = false;
       } else {
-        boolean _talDeCaloriasEnRango = this.totalDeCaloriasEnRango(receta.totalCalorias);
+        boolean _talDeCaloriasEnRango = this.totalDeCaloriasEnRango(this.totalCalorias);
         _and = _talDeCaloriasEnRango;
       }
       if (_and) {
-        _xifexpression = receta;
+        _xifexpression = this;
       } else {
         throw new RecetaInvalidaExcepcion("No está en el rango de calorías o no tiene un ingrediente la receta");
       }
@@ -89,37 +88,7 @@ public class Receta {
   }
   
   public boolean puedeVerReceta(final Usuario usuario) {
-    boolean _or = false;
-    boolean _or_1 = false;
-    if ((this.esPublica).booleanValue()) {
-      _or_1 = true;
-    } else {
-      boolean _and = false;
-      boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(this.creador);
-      boolean _not = (!_isNullOrEmpty);
-      if (!_not) {
-        _and = false;
-      } else {
-        boolean _or_2 = false;
-        boolean _comparteGrupoCon = usuario.comparteGrupoCon(this.creador);
-        if (_comparteGrupoCon) {
-          _or_2 = true;
-        } else {
-          String _nombre = usuario.getNombre();
-          boolean _equals = this.creador.equals(_nombre);
-          _or_2 = _equals;
-        }
-        _and = _or_2;
-      }
-      _or_1 = _and;
-    }
-    if (_or_1) {
-      _or = true;
-    } else {
-      boolean _tieneLaReceta = usuario.tieneLaReceta(this);
-      _or = _tieneLaReceta;
-    }
-    return _or;
+    return (this.esPublica).booleanValue();
   }
   
   public boolean tienePermisosParaModificarReceta(final Usuario usuario) {
@@ -212,7 +181,7 @@ public class Receta {
   public String crearReceta(final Usuario usuario) {
     String _xblockexpression = null;
     {
-      this.puedeSerCreada(this);
+      this.puedeSerCreada();
       usuario.agregarReceta(this);
       String _nombre = usuario.getNombre();
       _xblockexpression = this.creador = _nombre;
