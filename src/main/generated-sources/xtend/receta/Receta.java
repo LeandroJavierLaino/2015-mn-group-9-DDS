@@ -2,6 +2,7 @@ package receta;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.base.Objects;
 import condicion.CondicionPreexistente;
 import cosasUsuario.GrupoUsuario;
 import cosasUsuario.Usuario;
@@ -17,6 +18,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 import receta.Condimento;
 import receta.Ingrediente;
 import repositorioRecetas.RepositorioRecetas;
@@ -88,7 +90,44 @@ public class Receta {
   }
   
   public boolean puedeVerReceta(final Usuario usuario) {
-    return (this.esPublica).booleanValue();
+    boolean _or = false;
+    if ((this.esPublica).booleanValue()) {
+      _or = true;
+    } else {
+      boolean _and = false;
+      boolean _or_1 = false;
+      boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(this.creador);
+      boolean _not = (!_isNullOrEmpty);
+      if (_not) {
+        _or_1 = true;
+      } else {
+        boolean _notEquals = (!Objects.equal(usuario, null));
+        _or_1 = _notEquals;
+      }
+      if (!_or_1) {
+        _and = false;
+      } else {
+        boolean _or_2 = false;
+        boolean _or_3 = false;
+        boolean _comparteGrupoCon = usuario.comparteGrupoCon(this.creador);
+        if (_comparteGrupoCon) {
+          _or_3 = true;
+        } else {
+          String _nombre = usuario.getNombre();
+          boolean _equals = this.creador.equals(_nombre);
+          _or_3 = _equals;
+        }
+        if (_or_3) {
+          _or_2 = true;
+        } else {
+          boolean _tieneLaReceta = usuario.tieneLaReceta(this);
+          _or_2 = _tieneLaReceta;
+        }
+        _and = _or_2;
+      }
+      _or = _and;
+    }
+    return _or;
   }
   
   public boolean tienePermisosParaModificarReceta(final Usuario usuario) {

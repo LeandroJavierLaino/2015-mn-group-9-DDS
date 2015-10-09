@@ -94,10 +94,11 @@ class QueComemosController {
 	@Post('/consulta/recetas')
 	def Result realizarConsulta(@Body String body){
 		response.contentType = ContentType.APPLICATION_JSON
+		var Usuario usuario = body.getPropertyValue("usuario").fromJson(Usuario)
 		var BuscaReceta consulta = body.fromJson(BuscaReceta)
-		var String nombreUsuario = body.getPropertyValue("usuario.nombre")
+		
 				
-		var Usuario usuario = RepositorioUsuarios.instance.getUserByName(nombreUsuario)
+		//var Usuario usuario = RepositorioUsuarios.instance.getUserByName(nombreUsuario)
 		var Set<Receta> recetasConsultadas = usuario.consultar(consulta).toSet
 		ok(recetasConsultadas.toJson)
 	}

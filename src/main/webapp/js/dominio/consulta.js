@@ -1,8 +1,9 @@
 function Consulta() {
+	this.nombre;
 	this.usuario;
-	this.receta;
 	this.caloriasMinimas;
 	this.caloriasMaximas;
+	this.ingrediente;
 	this.temporada;
 	this.dificultad;
 	this.filtros;
