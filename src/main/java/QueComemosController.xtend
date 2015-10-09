@@ -21,12 +21,12 @@ class QueComemosController {
 	extension JSONUtils = new JSONUtils
 	extension JSONPropertyUtils = new JSONPropertyUtils
 
-	@Get("/recetas")
-	def Result recetas() {
-		val recetas = RepositorioRecetas.instance.recetas.toList
-		response.contentType = ContentType.APPLICATION_JSON
-		ok(recetas.toJson)
-	}
+//	@Get("/recetas")
+//	def Result recetas() {
+//		val recetas = RepositorioRecetas.instance.recetas.toList
+//		response.contentType = ContentType.APPLICATION_JSON
+//		ok(recetas.toJson)
+//	}
 
 	@Get('/usuarios')
 	def Result usuarios() {
@@ -95,10 +95,10 @@ class QueComemosController {
 	def Result realizarConsulta(@Body String body){
 		response.contentType = ContentType.APPLICATION_JSON
 		var BuscaReceta consulta = body.fromJson(BuscaReceta)
-		var String nombreUsuario = body.getPropertyValue("usuario.nombre")
+		var Usuario usuario = body.getPropertyValue("usuario").fromJson(Usuario)
 				
-		var Usuario usuario = RepositorioUsuarios.instance.getUserByName(nombreUsuario)
-		var Set<Receta> recetasConsultadas = usuario.consultar(consulta).toSet
+	//	var Usuario usuarioPosta = RepositorioUsuarios.instance.getUserByName(usuario.nombre)
+		var Set<Receta> recetasConsultadas = usuario/*Posta*/.consultar(consulta).toSet
 		ok(recetasConsultadas.toJson)
 	}
 

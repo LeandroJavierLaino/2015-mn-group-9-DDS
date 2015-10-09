@@ -55,7 +55,7 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		esPublica //|| (!creador.nullOrEmpty && usuario.comparteGrupoCon(creador)) || creador.equals(usuario.nombre) || usuario.tieneLaReceta(this)
+		esPublica //|| usuario.comparteGrupoCon(creador) || this.creador == usuario.nombre || usuario.tieneLaReceta(this) 
 		//TODO revisar todo lo que hay despues de esPublica trae conflictos con la app Web
 	}
 
