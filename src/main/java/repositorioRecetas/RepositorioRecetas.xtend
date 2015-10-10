@@ -6,6 +6,7 @@ import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import receta.Receta
+import repositorioUsuarios.RepositorioUsuarios
 
 @Accessors
 class RepositorioRecetas {
@@ -59,5 +60,45 @@ class RepositorioRecetas {
 	def quitarPorNombre(String nombreDeReceta) {
 		recetas = recetas.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
 	}
+
+	def consultar(BuscaReceta consulta) {
+		var Collection<Receta> recetasABuscar = listarRecetasVisibles
+		val Usuario usuario = RepositorioUsuarios.instance.getUserByName(consulta.usuario)
+
+		if (consulta.filtros != false) {
+			recetasABuscar = usuario.postProcesarRecetas
+		}
+
+		if (consulta.nombre != null) {
+			val nombreConsultado = consulta.nombre
+			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toList
+		}
+
+		if (consulta.caloriasMinimas != -1) {
+			val caloriasMinimas = consulta.caloriasMinimas
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias > caloriasMinimas].toList
+		}
+
+		if (consulta.caloriasMaximas != -1) {
+			val caloriasMaximas = consulta.caloriasMaximas
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias < caloriasMaximas].toList
+		}
+
+		if (consulta.dificultad != null) {
+			val dificultad = consulta.dificultad
+			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toList
+		}
+
+		if (consulta.temporada != null) {
+			val temporada = consulta.temporada
+			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.contains(temporada)].toList
+		}
+
+		if (consulta.ingrediente != null) {
+			val ingrediente = consulta.ingrediente
+			recetasABuscar = recetasABuscar.filter[receta|receta.ingredientes.contains(ingrediente)].toList
+		}
+
+		return recetasABuscar.toSet
+	}
 }
-	

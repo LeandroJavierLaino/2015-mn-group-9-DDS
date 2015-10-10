@@ -9,7 +9,6 @@ import excepcion.FechaInvalidaExcepcion
 import excepcion.UsuarioInvalidoExcepcion
 import filtro.Filtro
 import java.util.ArrayList
-import java.util.Collection
 import java.util.HashSet
 import java.util.List
 import java.util.Set
@@ -19,7 +18,6 @@ import org.uqbar.commons.model.Entity
 import procesamientoPosterior.ProcesamientoPosterior
 import receta.Caracteristica
 import receta.Receta
-import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
@@ -204,44 +202,44 @@ class Usuario extends Entity {
 		recetasVisibles
 	}
 
-	def Set<Receta> consultar(BuscaReceta consulta) {
-		var Collection<Receta> recetasABuscar = listarRecetasVisibles
-
-		if (consulta.filtros != 0) {
-			recetasABuscar = this.postProcesarRecetas
-		}
-
-		if (consulta.nombre != null) {
-			val nombreConsultado = consulta.nombre
-			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toList
-		}
-
-		if (consulta.caloriasMinimas != -1) {
-			val caloriasMinimas = consulta.caloriasMinimas
-			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias > caloriasMinimas].toList
-		}
-
-		if (consulta.caloriasMaximas != -1) {
-			val caloriasMaximas = consulta.caloriasMaximas
-			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias < caloriasMaximas].toList
-		}
-
-		if (consulta.dificultad != null) {
-			val dificultad = consulta.dificultad
-			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toList
-		}
-
-		if (consulta.temporada != null) {
-			val temporada = consulta.temporada
-			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.contains(temporada)].toList
-		}
-
-		if (consulta.ingrediente != null) {
-			val ingrediente = consulta.ingrediente
-			recetasABuscar = recetasABuscar.filter[receta|receta.ingredientes.contains(ingrediente)].toList
-		}
-
-		return recetasABuscar.toSet
-	}
+//	def Set<Receta> consultar(BuscaReceta consulta) {
+//		var Collection<Receta> recetasABuscar = listarRecetasVisibles
+//
+//		if (consulta.filtros != 0) {
+//			recetasABuscar = this.postProcesarRecetas
+//		}
+//
+//		if (consulta.nombre != null) {
+//			val nombreConsultado = consulta.nombre
+//			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toList
+//		}
+//
+//		if (consulta.caloriasMinimas != -1) {
+//			val caloriasMinimas = consulta.caloriasMinimas
+//			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias > caloriasMinimas].toList
+//		}
+//
+//		if (consulta.caloriasMaximas != -1) {
+//			val caloriasMaximas = consulta.caloriasMaximas
+//			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias < caloriasMaximas].toList
+//		}
+//
+//		if (consulta.dificultad != null) {
+//			val dificultad = consulta.dificultad
+//			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toList
+//		}
+//
+//		if (consulta.temporada != null) {
+//			val temporada = consulta.temporada
+//			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.contains(temporada)].toList
+//		}
+//
+//		if (consulta.ingrediente != null) {
+//			val ingrediente = consulta.ingrediente
+//			recetasABuscar = recetasABuscar.filter[receta|receta.ingredientes.contains(ingrediente)].toList
+//		}
+//
+//		return recetasABuscar.toSet
+//	}
 
 }
