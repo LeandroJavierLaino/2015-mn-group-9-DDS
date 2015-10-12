@@ -1,15 +1,15 @@
 package testeo;
 
-import cosasUsuario.Usuario;
-import cosasUsuario.UsuarioBuilder;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.cosasUsuario.UsuarioBuilder;
+import ar.edu.domain.receta.Condimento;
+import ar.edu.domain.receta.Receta;
+import ar.edu.domain.rutina.RutinaActiva;
 import java.util.Set;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.joda.time.LocalDate;
 import org.junit.Before;
-import receta.Condimento;
-import receta.Receta;
-import rutina.RutinaActiva;
 import testeo.TestInstances;
 
 @Accessors

@@ -14,8 +14,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-import static uiWeb.TestUIWeb.*
-
 @Accessors
 class TestUIWeb {
 	private static final int PUERTO_HTTP = 9000;

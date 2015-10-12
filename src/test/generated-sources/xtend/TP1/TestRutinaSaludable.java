@@ -1,6 +1,6 @@
 package TP1;
 
-import cosasUsuario.Usuario;
+import ar.edu.domain.cosasUsuario.Usuario;
 import org.junit.Assert;
 import org.junit.Test;
 import testeo.UsuariosExtras;

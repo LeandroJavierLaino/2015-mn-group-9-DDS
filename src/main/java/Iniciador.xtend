@@ -1,20 +1,20 @@
-import receta.Receta
-import cosasUsuario.Usuario
-import receta.Ingrediente
-import receta.Condimento
-import cosasUsuario.UsuarioBuilder
-import receta.RecetaBuilder
+import ar.edu.domain.receta.Receta
+import ar.edu.domain.cosasUsuario.Usuario
+import ar.edu.domain.receta.Ingrediente
+import ar.edu.domain.receta.Condimento
+import ar.edu.domain.cosasUsuario.UsuarioBuilder
+import ar.edu.domain.receta.RecetaBuilder
 import org.joda.time.LocalDate
-import consulta.MonitorRecetas
-import consulta.MonitorHora
-import consulta.MonitorRecetasM
-import consulta.MonitorRecetasF
+import ar.edu.domain.consulta.MonitorRecetas
+import ar.edu.domain.consulta.MonitorHora
+import ar.edu.domain.consulta.MonitorRecetasM
+import ar.edu.domain.consulta.MonitorRecetasF
 import org.joda.time.DateTime
-import consulta.GestorDeConsultas
-import filtro.FiltroPorGusto
-import filtro.FiltroPorExcesoDeCalorias
-import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
-import repositorioRecetas.RepositorioRecetas
+import ar.edu.domain.consulta.GestorDeConsultas
+import ar.edu.domain.filtro.FiltroPorGusto
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias
+import ar.edu.domain.procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
+import ar.edu.domain.repositorioRecetas.RepositorioRecetas
 
 class Iniciador {
 	

@@ -1,7 +1,7 @@
 package testeo
 
 import testeo.UsuariosPrincipales
-import cosasUsuario.Usuario
+import ar.edu.domain.cosasUsuario.Usuario
 import org.joda.time.LocalDate
 import java.util.ArrayList
 import org.junit.Before

@@ -1,5 +1,9 @@
 package TP3;
 
+import ar.edu.domain.receta.Receta;
+import ar.edu.domain.repositorioRecetas.AdapterRepositorioRecetas;
+import ar.edu.domain.repositorioRecetas.JsonParserReceta;
+import ar.edu.domain.repositorioRecetas.RepositorioRecetas;
 import java.util.Collection;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -10,10 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import queComemos.entrega3.repositorio.BusquedaRecetas;
 import queComemos.entrega3.repositorio.RepoRecetas;
-import receta.Receta;
-import repositorioRecetas.AdapterRepositorioRecetas;
-import repositorioRecetas.JsonParserReceta;
-import repositorioRecetas.RepositorioRecetas;
 import testeo.UsuariosExtras;
 
 @Accessors

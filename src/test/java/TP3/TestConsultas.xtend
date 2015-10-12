@@ -4,12 +4,12 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.Before
 import testeo.UsuariosExtras
-import filtro.FiltroPorGusto
-import filtro.FiltroPorExcesoDeCalorias
+import ar.edu.domain.filtro.FiltroPorGusto
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias
 import java.util.HashSet
-import receta.Receta
+import ar.edu.domain.receta.Receta
 import java.util.Set
-import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
+import ar.edu.domain.procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
 
 class TestConsultas extends UsuariosExtras {
 	

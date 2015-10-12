@@ -1,15 +1,15 @@
 package testeo;
 
-import cosasUsuario.GrupoUsuario;
-import cosasUsuario.Usuario;
+import ar.edu.domain.cosasUsuario.GrupoUsuario;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.receta.Caracteristica;
+import ar.edu.domain.receta.Condimento;
+import ar.edu.domain.receta.Ingrediente;
 import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.junit.Before;
-import receta.Caracteristica;
-import receta.Condimento;
-import receta.Ingrediente;
 import testeo.UsuariosExtras;
 
 @Accessors

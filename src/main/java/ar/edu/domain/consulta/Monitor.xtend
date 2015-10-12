@@ -1,0 +1,6 @@
+package ar.edu.domain.consulta
+
+interface Monitor {
+	def void monitorear(Consulta consulta)
+	def String mostrarResultados()
+}

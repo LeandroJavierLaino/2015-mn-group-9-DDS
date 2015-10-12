@@ -1,6 +1,6 @@
 package TP1
 
-import excepcion.SinPermisosExcepcion
+import ar.edu.domain.excepcion.SinPermisosExcepcion
 import org.junit.Test
 import testeo.Grupos
 

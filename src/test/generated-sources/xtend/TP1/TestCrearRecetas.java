@@ -1,9 +1,9 @@
 package TP1;
 
-import cosasUsuario.Usuario;
-import excepcion.RecetaInvalidaExcepcion;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.excepcion.RecetaInvalidaExcepcion;
+import ar.edu.domain.receta.Receta;
 import org.junit.Test;
-import receta.Receta;
 import testeo.UsuariosExtras;
 
 /**

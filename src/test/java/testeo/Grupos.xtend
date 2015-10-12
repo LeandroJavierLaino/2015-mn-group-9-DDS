@@ -1,7 +1,7 @@
 package testeo
 
 import testeo.UsuariosExtras
-import cosasUsuario.GrupoUsuario
+import ar.edu.domain.cosasUsuario.GrupoUsuario
 import org.junit.Before
 import org.eclipse.xtend.lib.annotations.Accessors
 

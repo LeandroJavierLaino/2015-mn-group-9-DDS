@@ -2,7 +2,7 @@ package TP1
 
 import org.junit.Assert
 import org.junit.Test
-import excepcion.UsuarioInvalidoExcepcion
+import ar.edu.domain.excepcion.UsuarioInvalidoExcepcion
 import testeo.UsuariosExtras
 
 

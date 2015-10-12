@@ -1,29 +1,29 @@
 package testeo
 
-import condicion.CondicionCeliaco
-import condicion.CondicionDiabetico
-import condicion.CondicionHipertenso
-import condicion.CondicionVegano
-import cosasUsuario.GrupoUsuario
-import filtro.FiltroPorCondicionesPreexistentes
-import filtro.FiltroPorExcesoDeCalorias
-import filtro.FiltroPorGusto
-import filtro.FiltroPorSerCaros
+import ar.edu.domain.condicion.CondicionCeliaco
+import ar.edu.domain.condicion.CondicionDiabetico
+import ar.edu.domain.condicion.CondicionHipertenso
+import ar.edu.domain.condicion.CondicionVegano
+import ar.edu.domain.cosasUsuario.GrupoUsuario
+import ar.edu.domain.filtro.FiltroPorCondicionesPreexistentes
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias
+import ar.edu.domain.filtro.FiltroPorGusto
+import ar.edu.domain.filtro.FiltroPorSerCaros
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.junit.Before
-import receta.Condimento
-import receta.Ingrediente
-import receta.Receta
-import repositorioRecetas.RepositorioRecetas
-import rutina.RutinaActiva
-import rutina.RutinaSedentaria
-import receta.RecetaBuilder
-import receta.CondimentoBuilder
-import receta.IngredienteBuilder
+import ar.edu.domain.receta.Condimento
+import ar.edu.domain.receta.Ingrediente
+import ar.edu.domain.receta.Receta
+import ar.edu.domain.repositorioRecetas.RepositorioRecetas
+import ar.edu.domain.rutina.RutinaActiva
+import ar.edu.domain.rutina.RutinaSedentaria
+import ar.edu.domain.receta.RecetaBuilder
+import ar.edu.domain.receta.CondimentoBuilder
+import ar.edu.domain.receta.IngredienteBuilder
 
 @Accessors
 class TestInstances {

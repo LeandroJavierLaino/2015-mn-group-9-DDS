@@ -1,10 +1,10 @@
 package TP1;
 
-import cosasUsuario.Usuario;
-import excepcion.SinPermisosExcepcion;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.excepcion.SinPermisosExcepcion;
+import ar.edu.domain.receta.Receta;
 import org.junit.Before;
 import org.junit.Test;
-import receta.Receta;
 import testeo.Grupos;
 
 /**

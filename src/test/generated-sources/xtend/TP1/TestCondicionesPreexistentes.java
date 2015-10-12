@@ -1,12 +1,12 @@
 package TP1;
 
-import condicion.CondicionVegano;
-import cosasUsuario.Usuario;
+import ar.edu.domain.condicion.CondicionVegano;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.receta.Receta;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import receta.Receta;
 import testeo.UsuariosExtras;
 
 /**

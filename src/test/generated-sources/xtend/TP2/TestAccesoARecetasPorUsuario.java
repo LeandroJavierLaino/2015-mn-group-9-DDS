@@ -1,9 +1,9 @@
 package TP2;
 
-import cosasUsuario.Usuario;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.receta.Receta;
 import org.junit.Assert;
 import org.junit.Test;
-import receta.Receta;
 import testeo.Grupos;
 
 @SuppressWarnings("all")

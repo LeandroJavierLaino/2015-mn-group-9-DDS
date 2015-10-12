@@ -1,25 +1,25 @@
 package TP3;
 
-import consulta.GestorDeConsultas;
-import consulta.Monitor;
-import consulta.MonitorHora;
-import consulta.MonitorRecetas;
-import consulta.MonitorRecetasF;
-import consulta.MonitorRecetasM;
-import consulta.MonitorVegano;
-import cosasUsuario.Usuario;
-import filtro.Filtro;
-import filtro.FiltroPorExcesoDeCalorias;
-import filtro.FiltroPorGusto;
+import ar.edu.domain.consulta.GestorDeConsultas;
+import ar.edu.domain.consulta.Monitor;
+import ar.edu.domain.consulta.MonitorHora;
+import ar.edu.domain.consulta.MonitorRecetas;
+import ar.edu.domain.consulta.MonitorRecetasF;
+import ar.edu.domain.consulta.MonitorRecetasM;
+import ar.edu.domain.consulta.MonitorVegano;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.filtro.Filtro;
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias;
+import ar.edu.domain.filtro.FiltroPorGusto;
+import ar.edu.domain.procesamientoPosterior.ProcesamientoOrdenarlosPorNombre;
+import ar.edu.domain.procesamientoPosterior.ProcesamientoParaTomarResultadosPares;
+import ar.edu.domain.receta.Receta;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.joda.time.DateTime;
-import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre;
-import procesamientoPosterior.ProcesamientoParaTomarResultadosPares;
-import receta.Receta;
 import testeo.UsuariosExtras;
 
 @Accessors

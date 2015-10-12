@@ -1,19 +1,19 @@
 package TP2;
 
-import cosasUsuario.Usuario;
-import filtro.Filtro;
-import filtro.FiltroPorExcesoDeCalorias;
-import filtro.FiltroPorGusto;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.filtro.Filtro;
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias;
+import ar.edu.domain.filtro.FiltroPorGusto;
+import ar.edu.domain.procesamientoPosterior.ProcesamientoParaTomarLosPrimerosN;
+import ar.edu.domain.receta.Caracteristica;
+import ar.edu.domain.receta.Ingrediente;
+import ar.edu.domain.receta.Receta;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.junit.Assert;
 import org.junit.Test;
-import procesamientoPosterior.ProcesamientoParaTomarLosPrimerosN;
-import receta.Caracteristica;
-import receta.Ingrediente;
-import receta.Receta;
 import testeo.UsuariosPrincipales;
 
 @SuppressWarnings("all")

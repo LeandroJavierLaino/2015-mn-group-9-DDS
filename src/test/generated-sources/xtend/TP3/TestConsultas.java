@@ -1,15 +1,15 @@
 package TP3;
 
-import cosasUsuario.Usuario;
-import filtro.FiltroPorExcesoDeCalorias;
-import filtro.FiltroPorGusto;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias;
+import ar.edu.domain.filtro.FiltroPorGusto;
+import ar.edu.domain.procesamientoPosterior.ProcesamientoOrdenarlosPorNombre;
+import ar.edu.domain.receta.Receta;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre;
-import receta.Receta;
 import testeo.UsuariosExtras;
 
 @SuppressWarnings("all")

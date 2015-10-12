@@ -3,18 +3,18 @@ package TP3
 import testeo.UsuariosExtras
 import org.junit.Assert
 import org.junit.Test
-import consulta.MonitorHora
-import consulta.MonitorRecetas
-import consulta.MonitorRecetasM
-import consulta.MonitorVegano
-import consulta.MonitorRecetasF
+import ar.edu.domain.consulta.MonitorHora
+import ar.edu.domain.consulta.MonitorRecetas
+import ar.edu.domain.consulta.MonitorRecetasM
+import ar.edu.domain.consulta.MonitorVegano
+import ar.edu.domain.consulta.MonitorRecetasF
 import org.joda.time.DateTime
-import consulta.GestorDeConsultas
+import ar.edu.domain.consulta.GestorDeConsultas
 import org.junit.Before
-import filtro.FiltroPorGusto
-import filtro.FiltroPorExcesoDeCalorias
-import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
-import procesamientoPosterior.ProcesamientoOrdenarlosPorCalorias
+import ar.edu.domain.filtro.FiltroPorGusto
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias
+import ar.edu.domain.procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
+import ar.edu.domain.procesamientoPosterior.ProcesamientoOrdenarlosPorCalorias
 //import procesamientoPosterior.ProcesamientoParaTomarResultadosPares
 
 class TestObserver extends UsuariosExtras{

@@ -1,10 +1,12 @@
 package testeo;
 
-import condicion.CondicionCeliaco;
-import condicion.CondicionDiabetico;
-import condicion.CondicionHipertenso;
-import condicion.CondicionVegano;
-import cosasUsuario.Usuario;
+import ar.edu.domain.condicion.CondicionCeliaco;
+import ar.edu.domain.condicion.CondicionDiabetico;
+import ar.edu.domain.condicion.CondicionHipertenso;
+import ar.edu.domain.condicion.CondicionVegano;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.rutina.RutinaActiva;
+import ar.edu.domain.rutina.RutinaSedentaria;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
@@ -13,8 +15,6 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.joda.time.LocalDate;
 import org.junit.Before;
-import rutina.RutinaActiva;
-import rutina.RutinaSedentaria;
 import testeo.UsuariosPrincipales;
 
 @Accessors

@@ -1,13 +1,13 @@
 package TP2
 
 import org.junit.Test
-import filtro.FiltroPorGusto
-import filtro.FiltroPorExcesoDeCalorias
+import ar.edu.domain.filtro.FiltroPorGusto
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias
 import org.junit.Assert
 import java.util.HashSet
-import receta.Receta
+import ar.edu.domain.receta.Receta
 import java.util.Set
-import procesamientoPosterior.ProcesamientoParaTomarLosPrimerosN
+import ar.edu.domain.procesamientoPosterior.ProcesamientoParaTomarLosPrimerosN
 import testeo.UsuariosPrincipales
 
 class TestFiltrosYProcesamientoOrdenamiento extends UsuariosPrincipales {

@@ -1,8 +1,9 @@
 package TP3;
 
-import condicion.CondicionDiabetico;
-import cosasUsuario.Usuario;
-import cosasUsuario.UsuarioAdministrador;
+import ar.edu.domain.condicion.CondicionDiabetico;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.cosasUsuario.UsuarioAdministrador;
+import ar.edu.domain.repositorioUsuarios.RepositorioUsuarios;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +17,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import repositorioUsuarios.RepositorioUsuarios;
 import testeo.UsuariosExtras;
 
 @Accessors

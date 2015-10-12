@@ -1,4 +1,8 @@
-import cosasUsuario.Usuario
+import ar.edu.domain.cosasUsuario.Usuario
+import ar.edu.domain.excepcion.RecetaInvalidaExcepcion
+import ar.edu.domain.receta.Receta
+import ar.edu.domain.repositorioRecetas.RepositorioRecetas
+import ar.edu.domain.repositorioUsuarios.RepositorioUsuarios
 import java.util.List
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
@@ -8,11 +12,6 @@ import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
-import receta.Receta
-import repositorioRecetas.RepositorioRecetas
-import repositorioUsuarios.RepositorioUsuarios
-import repositorioRecetas.BuscaReceta
-import excepcion.RecetaInvalidaExcepcion
 
 @Controller
 class QueComemosController {

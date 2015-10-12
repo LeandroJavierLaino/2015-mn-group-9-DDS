@@ -1,9 +1,9 @@
 package TP1;
 
-import cosasUsuario.Usuario;
-import excepcion.CondPreexistenteExcepcion;
-import excepcion.FechaInvalidaExcepcion;
-import excepcion.UsuarioInvalidoExcepcion;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.excepcion.CondPreexistenteExcepcion;
+import ar.edu.domain.excepcion.FechaInvalidaExcepcion;
+import ar.edu.domain.excepcion.UsuarioInvalidoExcepcion;
 import org.junit.Test;
 import testeo.UsuariosExtras;
 

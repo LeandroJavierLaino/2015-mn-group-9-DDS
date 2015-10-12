@@ -1,13 +1,13 @@
 package TP3
 
-import cosasUsuario.Usuario
-import cosasUsuario.UsuarioAdministrador
+import ar.edu.domain.cosasUsuario.Usuario
+import ar.edu.domain.cosasUsuario.UsuarioAdministrador
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import repositorioUsuarios.RepositorioUsuarios
+import ar.edu.domain.repositorioUsuarios.RepositorioUsuarios
 import testeo.UsuariosExtras
 import org.junit.After
 

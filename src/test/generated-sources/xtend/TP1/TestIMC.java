@@ -1,7 +1,7 @@
 package TP1;
 
-import cosasUsuario.Usuario;
-import excepcion.UsuarioInvalidoExcepcion;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.excepcion.UsuarioInvalidoExcepcion;
 import org.junit.Assert;
 import org.junit.Test;
 import testeo.UsuariosExtras;

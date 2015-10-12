@@ -2,10 +2,10 @@ package TP2
 
 import org.junit.Test
 import testeo.UsuariosPrincipales
-import filtro.FiltroPorGusto
-import filtro.FiltroPorExcesoDeCalorias
+import ar.edu.domain.filtro.FiltroPorGusto
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias
 import java.util.HashSet
-import receta.Receta
+import ar.edu.domain.receta.Receta
 import java.util.Set
 import org.junit.Assert
 

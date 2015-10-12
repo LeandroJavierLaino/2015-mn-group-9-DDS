@@ -1,23 +1,23 @@
 package TP3;
 
-import consulta.GestorDeConsultas;
-import consulta.Monitor;
-import consulta.MonitorHora;
-import consulta.MonitorRecetas;
-import consulta.MonitorRecetasF;
-import consulta.MonitorRecetasM;
-import consulta.MonitorVegano;
-import cosasUsuario.Usuario;
-import filtro.FiltroPorExcesoDeCalorias;
-import filtro.FiltroPorGusto;
+import ar.edu.domain.consulta.GestorDeConsultas;
+import ar.edu.domain.consulta.Monitor;
+import ar.edu.domain.consulta.MonitorHora;
+import ar.edu.domain.consulta.MonitorRecetas;
+import ar.edu.domain.consulta.MonitorRecetasF;
+import ar.edu.domain.consulta.MonitorRecetasM;
+import ar.edu.domain.consulta.MonitorVegano;
+import ar.edu.domain.cosasUsuario.Usuario;
+import ar.edu.domain.filtro.FiltroPorExcesoDeCalorias;
+import ar.edu.domain.filtro.FiltroPorGusto;
+import ar.edu.domain.procesamientoPosterior.ProcesamientoOrdenarlosPorCalorias;
+import ar.edu.domain.procesamientoPosterior.ProcesamientoOrdenarlosPorNombre;
+import ar.edu.domain.receta.Receta;
 import java.util.Set;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import procesamientoPosterior.ProcesamientoOrdenarlosPorCalorias;
-import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre;
-import receta.Receta;
 import testeo.UsuariosExtras;
 
 @SuppressWarnings("all")

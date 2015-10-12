@@ -1,9 +1,9 @@
 package TP1
 
-import excepcion.CondPreexistenteExcepcion
+import ar.edu.domain.excepcion.CondPreexistenteExcepcion
 import org.junit.Test
-import excepcion.UsuarioInvalidoExcepcion
-import excepcion.FechaInvalidaExcepcion
+import ar.edu.domain.excepcion.UsuarioInvalidoExcepcion
+import ar.edu.domain.excepcion.FechaInvalidaExcepcion
 import testeo.UsuariosExtras
 
 //Punto 1 VALIDEZ

@@ -2,10 +2,10 @@ package testeo
 
 import testeo.TestInstances
 import org.junit.Before
-import cosasUsuario.Usuario
+import ar.edu.domain.cosasUsuario.Usuario
 import org.joda.time.LocalDate
 import org.eclipse.xtend.lib.annotations.Accessors
-import cosasUsuario.UsuarioBuilder
+import ar.edu.domain.cosasUsuario.UsuarioBuilder
 
 @Accessors
 class UsuariosPrincipales extends TestInstances {

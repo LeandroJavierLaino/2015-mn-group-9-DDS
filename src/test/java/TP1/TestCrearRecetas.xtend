@@ -1,6 +1,6 @@
 package TP1
 
-import excepcion.RecetaInvalidaExcepcion
+import ar.edu.domain.excepcion.RecetaInvalidaExcepcion
 import org.junit.Test
 import testeo.UsuariosExtras
 

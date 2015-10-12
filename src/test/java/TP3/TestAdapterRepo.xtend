@@ -2,8 +2,8 @@ package TP3
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import queComemos.entrega3.repositorio.BusquedaRecetas
-import repositorioRecetas.AdapterRepositorioRecetas
-import repositorioRecetas.JsonParserReceta
+import ar.edu.domain.repositorioRecetas.AdapterRepositorioRecetas
+import ar.edu.domain.repositorioRecetas.JsonParserReceta
 import testeo.UsuariosExtras
 import org.junit.Test
 import org.junit.Before
