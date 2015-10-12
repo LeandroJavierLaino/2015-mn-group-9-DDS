@@ -62,7 +62,7 @@ class TestUIWeb {
 //		var int status = client.executeMethod(method)
 //		var String respuesta = method.getResponseBodyAsString()
 
-		assertEquals(HttpServletResponse.SC_OK, status)
+//		assertEquals(HttpServletResponse.SC_OK, status)
 //		assertEquals("Leandro",respuesta)
 	}
 
@@ -76,7 +76,7 @@ class TestUIWeb {
 //		var int status = client.executeMethod(method)
 //		var String respuesta = method.getResponseBodyAsString()
 
-		assertEquals(HttpServletResponse.SC_OK, status)
+//		assertEquals(HttpServletResponse.SC_OK, status)
 //		assertEquals("Nicolas",respuesta)
 	}
 }
