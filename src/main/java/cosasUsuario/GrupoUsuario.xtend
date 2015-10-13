@@ -17,7 +17,7 @@ class GrupoUsuario {
 	String nombre
 	Set<Receta> recetas
 	
-	def perteneceALasPalabrasClave(Caracteristica caracteristica){
+	def boolean perteneceALasPalabrasClave(Caracteristica caracteristica){
 		palabrasClave.contains(caracteristica)
 	}
 	

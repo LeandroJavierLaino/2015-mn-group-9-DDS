@@ -6,6 +6,7 @@ import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import receta.Receta
+import repositorioUsuarios.RepositorioUsuarios
 
 @Accessors
 class RepositorioRecetas {
@@ -24,7 +25,7 @@ class RepositorioRecetas {
 		instance
 	}
 
-	def tieneLaReceta(Receta receta) {
+	def boolean tieneLaReceta(Receta receta) {
 		(!recetas.nullOrEmpty) && recetas.contains(receta)
 	}
 
@@ -60,4 +61,3 @@ class RepositorioRecetas {
 		recetas = recetas.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
 	}
 }
-	

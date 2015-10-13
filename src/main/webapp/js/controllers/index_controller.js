@@ -8,8 +8,8 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 	this.listadoDeUsuarios;
 	this.consulta = new Consulta;
 	this.resultadoDeLaConsulta;
-	this.dificultades = [ "", "facil", "media", "dificil" ];
-	this.temporadas = [ "", "verano", "otonio", "invierno", "primavera",
+	this.dificultades = [ "FACIL", "MEDIANA", "DIFICIL" ];
+	this.temporadas = [ "VERANO", "OTOÑO", "INVIERNO", "PRIMAVERA",
 			"todoElAnio" ];
 
 	this.acceder = function() {

@@ -9,7 +9,6 @@ import excepcion.FechaInvalidaExcepcion
 import excepcion.UsuarioInvalidoExcepcion
 import filtro.Filtro
 import java.util.ArrayList
-import java.util.Collection
 import java.util.HashSet
 import java.util.List
 import java.util.Set
@@ -19,17 +18,19 @@ import org.uqbar.commons.model.Entity
 import procesamientoPosterior.ProcesamientoPosterior
 import receta.Caracteristica
 import receta.Receta
-import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
+import repositorioRecetas.BuscaReceta
+import receta.Ingrediente
+import receta.Condimento
 
 @JsonSerialize
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown=true)
 class Usuario extends Entity {
 
-	// Datos varops
+	// Datos varios
 	LocalDate fechaActual = new LocalDate()
 	int CARACTERES_MINIMOS = 4
 	boolean habilitarFavoritos = false
@@ -242,6 +243,13 @@ class Usuario extends Entity {
 		}
 
 		return recetasABuscar
+	}
+	
+	def contieneIngredienteQueDisgusta(Ingrediente ingrediente) {
+		comidasQueDisgustan.contains(ingrediente)
+	}
+	def contieneCondimentoQueDisgusta(Condimento condimento) {
+		comidasQueDisgustan.contains(condimento)
 	}
 
 }

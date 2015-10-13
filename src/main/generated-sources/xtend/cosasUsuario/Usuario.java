@@ -24,6 +24,7 @@ import org.joda.time.LocalDate;
 import org.uqbar.commons.model.Entity;
 import procesamientoPosterior.ProcesamientoPosterior;
 import receta.Caracteristica;
+import receta.Condimento;
 import receta.Ingrediente;
 import receta.Receta;
 import repositorioRecetas.BuscaReceta;
@@ -431,6 +432,14 @@ public class Usuario extends Entity {
       recetasABuscar = _set_5;
     }
     return recetasABuscar;
+  }
+  
+  public boolean contieneIngredienteQueDisgusta(final Ingrediente ingrediente) {
+    return this.comidasQueDisgustan.contains(ingrediente);
+  }
+  
+  public boolean contieneCondimentoQueDisgusta(final Condimento condimento) {
+    return this.comidasQueDisgustan.contains(condimento);
   }
   
   @Pure
