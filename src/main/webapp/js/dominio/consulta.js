@@ -1,10 +1,10 @@
 function Consulta() {
 	this.usuario;
-	this.nombre = null;
+	this.nombre ;
 	this.caloriasMinimas = -1;
 	this.caloriasMaximas = -1;
-	this.temporada = null;
-	this.dificultad = null;
-	this.ingrediente= null;
+	this.temporada ;
+	this.dificultad ;
+	this.ingrediente;
 	this.filtros = false;
 }

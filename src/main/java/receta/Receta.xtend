@@ -17,9 +17,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 
 //Nuevas excepciones modificadas
 @Accessors
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown=true)
 @JsonSerialize
-class Receta{
+class Receta {
 
 	String nombrePlato
 	Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
@@ -42,6 +42,7 @@ class Receta{
 			throw new RecetaInvalidaExcepcion("No está en el rango de calorías o no tiene un ingrediente la receta")
 		}
 	}
+
 	def init() {
 		esPublica = true
 	}
@@ -55,19 +56,22 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		esPublica //|| usuario.comparteGrupoCon(creador) || this.creador == usuario.nombre || usuario.tieneLaReceta(this) 
-		//TODO revisar todo lo que hay despues de esPublica trae conflictos con la app Web
+		esPublica != null && esPublica ||
+			(!creador.nullOrEmpty && usuario != null) &&
+				(usuario.comparteGrupoCon(creador) || creador.equals(usuario.nombre) || usuario.tieneLaReceta(this))
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || (RepositorioRecetas.getInstance.tieneLaReceta(this) && creador.equals(usuario.nombre))
-		// || (creador != null && usuario.comparteGrupoCon(creador))
+		usuario.tieneLaReceta(this) ||
+			(RepositorioRecetas.getInstance.tieneLaReceta(this) && creador.equals(usuario.nombre))
+
+	// || (creador != null && usuario.comparteGrupoCon(creador))
 	}
 
 	def puedeModificarReceta(Usuario usuario) {
 		if (tienePermisosParaModificarReceta(usuario) && puedeVerReceta(usuario)) {
 		} else {
-			throw new SinPermisosExcepcion("No puede ver o modificar la receta") 
+			throw new SinPermisosExcepcion("No puede ver o modificar la receta")
 		}
 	}
 
@@ -111,30 +115,30 @@ class Receta{
 		ingredientes.exists[comidaQueDisgusta|usuario.contienteComidaQueDisgusta(comidaQueDisgusta)] ||
 			condimentos.exists[comidaQueDisgusta|usuario.contienteComidaQueDisgusta(comidaQueDisgusta)]
 	}
-	
+
 	def tieneUnIngredienteOCondimentoQueGustaPara(GrupoUsuario usuario) {
 		ingredientes.exists[comidaQueGusta|usuario.perteneceALasPalabrasClave(comidaQueGusta)] ||
-		condimentos.exists[comidaQueGusta|usuario.perteneceALasPalabrasClave(comidaQueGusta)]		
+			condimentos.exists[comidaQueGusta|usuario.perteneceALasPalabrasClave(comidaQueGusta)]
 	}
 
-	def tieneExcesoDeCalorias(){
+	def tieneExcesoDeCalorias() {
 		totalCalorias > 500
 	}
-	
-	def tieneIngredientesCaros(){
+
+	def tieneIngredientesCaros() {
 		ingredientes.forall[ingrediente|ingrediente.esCaro]
 	}
-	
+
 	def esDificil() {
 		dificultad.equalsIgnoreCase("Alta") || dificultad.equalsIgnoreCase("A") || dificultad.equalsIgnoreCase("D")
 	}
-	
+
 	def asignarAutor(String string) {
 		creador = string
 	}
-	
-	def esInadecuadaParaLasCondiciones(){
-		condicionesPreexistentes.filter[condicion | condicion.tolera(this)].toSet
+
+	def esInadecuadaParaLasCondiciones() {
+		condicionesPreexistentes.filter[condicion|condicion.tolera(this)].toSet
 	}
-	
+
 }

@@ -25,7 +25,7 @@ class RepositorioRecetas {
 		instance
 	}
 
-	def tieneLaReceta(Receta receta) {
+	def boolean tieneLaReceta(Receta receta) {
 		(!recetas.nullOrEmpty) && recetas.contains(receta)
 	}
 

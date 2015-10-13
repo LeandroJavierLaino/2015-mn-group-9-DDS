@@ -2,7 +2,7 @@ indexApp.controller('consultasController', function(indexSrvc, $state, $statePar
 	var self = this;
 	this.recetas;
 
-	this.obtenerConsulta = function() {
+	this.listarRecetas = function() {
 		self.recetas = indexSrvc.recetasRecibidas;
 	}
 	

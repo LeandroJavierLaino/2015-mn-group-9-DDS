@@ -76,7 +76,7 @@ class Usuario extends Entity {
 	}
 
 	def tieneLaReceta(Receta receta) {
-		recetas.contains(receta)
+		recetas.nullOrEmpty && recetas.contains(receta)
 	}
 
 	def Boolean noTieneCondicionesPreexistentes() {
