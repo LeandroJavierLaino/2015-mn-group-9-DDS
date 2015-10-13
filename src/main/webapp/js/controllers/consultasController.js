@@ -5,5 +5,8 @@ indexApp.controller('consultasController', function(indexSrvc, $state, $statePar
 	this.listarRecetas = function() {
 		self.recetas = indexSrvc.recetasRecibidas;
 	}
-	
+	this.abrirReceta = function(receta) {
+		indexSrvc.recetaSeleccionada = receta;
+		$state.go('verReceta', {"nombre": receta.nombrePlato})
+	}
 })
