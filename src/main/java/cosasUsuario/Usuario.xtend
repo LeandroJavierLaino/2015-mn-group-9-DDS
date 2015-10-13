@@ -78,7 +78,7 @@ class Usuario extends Entity {
 	}
 
 	def tieneLaReceta(Receta receta) {
-		recetas.contains(receta)
+		!recetas.nullOrEmpty && recetas.contains(receta)
 	}
 
 	def Boolean noTieneCondicionesPreexistentes() {
@@ -122,7 +122,7 @@ class Usuario extends Entity {
 	}
 
 	def comparteGrupoCon(String usuario) {
-		if(usuario == null || grupoAlQuePertenece == null) false else grupoAlQuePertenece.tieneUnUsuario(usuario)
+		usuario != null && grupoAlQuePertenece != null && grupoAlQuePertenece.tieneUnUsuario(usuario)
 	}
 
 	def marcarComoFavorita(Receta receta) {
@@ -205,43 +205,43 @@ class Usuario extends Entity {
 	}
 
 	def Set<Receta> consultar(BuscaReceta consulta) {
-		var Collection<Receta> recetasABuscar = listarRecetasVisibles
+		var recetasABuscar = listarRecetasVisibles
 
 		if (consulta.filtros != 0) {
-			recetasABuscar = this.postProcesarRecetas
+			recetasABuscar = postProcesarRecetas
 		}
 
 		if (consulta.nombre != null) {
 			val nombreConsultado = consulta.nombre
-			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toList
+			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toSet
 		}
 
 		if (consulta.caloriasMinimas != -1) {
 			val caloriasMinimas = consulta.caloriasMinimas
-			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias > caloriasMinimas].toList
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias > caloriasMinimas].toSet
 		}
 
 		if (consulta.caloriasMaximas != -1) {
 			val caloriasMaximas = consulta.caloriasMaximas
-			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias < caloriasMaximas].toList
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias < caloriasMaximas].toSet
 		}
 
 		if (consulta.dificultad != null) {
 			val dificultad = consulta.dificultad
-			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toList
+			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toSet
 		}
 
-		if (consulta.temporada != null) {
+		if (!consulta.temporada.nullOrEmpty) {
 			val temporada = consulta.temporada
-			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.contains(temporada)].toList
+			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.equalsIgnoreCase(temporada)].toSet
 		}
 
 		if (consulta.ingrediente != null) {
 			val ingrediente = consulta.ingrediente
-			recetasABuscar = recetasABuscar.filter[receta|receta.ingredientes.contains(ingrediente)].toList
+			recetasABuscar = recetasABuscar.filter[receta|receta.ingredientes.contains(ingrediente)].toSet
 		}
 
-		return recetasABuscar.toSet
+		return recetasABuscar
 	}
 
 }

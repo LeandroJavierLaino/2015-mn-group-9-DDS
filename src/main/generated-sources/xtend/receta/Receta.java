@@ -91,41 +91,48 @@ public class Receta {
   
   public boolean puedeVerReceta(final Usuario usuario) {
     boolean _or = false;
-    if ((this.esPublica).booleanValue()) {
+    boolean _and = false;
+    boolean _notEquals = (!Objects.equal(this.esPublica, null));
+    if (!_notEquals) {
+      _and = false;
+    } else {
+      _and = (this.esPublica).booleanValue();
+    }
+    if (_and) {
       _or = true;
     } else {
-      boolean _and = false;
-      boolean _or_1 = false;
+      boolean _and_1 = false;
+      boolean _and_2 = false;
       boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(this.creador);
       boolean _not = (!_isNullOrEmpty);
-      if (_not) {
-        _or_1 = true;
+      if (!_not) {
+        _and_2 = false;
       } else {
-        boolean _notEquals = (!Objects.equal(usuario, null));
-        _or_1 = _notEquals;
+        boolean _notEquals_1 = (!Objects.equal(usuario, null));
+        _and_2 = _notEquals_1;
       }
-      if (!_or_1) {
-        _and = false;
+      if (!_and_2) {
+        _and_1 = false;
       } else {
+        boolean _or_1 = false;
         boolean _or_2 = false;
-        boolean _or_3 = false;
         boolean _comparteGrupoCon = usuario.comparteGrupoCon(this.creador);
         if (_comparteGrupoCon) {
-          _or_3 = true;
+          _or_2 = true;
         } else {
           String _nombre = usuario.getNombre();
           boolean _equals = this.creador.equals(_nombre);
-          _or_3 = _equals;
+          _or_2 = _equals;
         }
-        if (_or_3) {
-          _or_2 = true;
+        if (_or_2) {
+          _or_1 = true;
         } else {
           boolean _tieneLaReceta = usuario.tieneLaReceta(this);
-          _or_2 = _tieneLaReceta;
+          _or_1 = _tieneLaReceta;
         }
-        _and = _or_2;
+        _and_1 = _or_1;
       }
-      _or = _and;
+      _or = _and_1;
     }
     return _or;
   }

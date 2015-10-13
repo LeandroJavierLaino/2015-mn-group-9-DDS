@@ -15,7 +15,6 @@ import condicion.CondicionPreexistente
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 
-//Nuevas excepciones modificadas
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSerialize
@@ -55,13 +54,13 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		esPublica || (!creador.nullOrEmpty || usuario != null) && (usuario.comparteGrupoCon(creador) || creador.equals(usuario.nombre) || usuario.tieneLaReceta(this))
-		//TODO revisar todo lo que hay despues de esPublica trae conflictos con la app Web
+
+		esPublica != null && esPublica || (!creador.nullOrEmpty && usuario != null) && (usuario.comparteGrupoCon(creador) || creador.equals(usuario.nombre) || usuario.tieneLaReceta(this))
+
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
 		usuario.tieneLaReceta(this) || (RepositorioRecetas.getInstance.tieneLaReceta(this) && creador.equals(usuario.nombre))
-		// || (creador != null && usuario.comparteGrupoCon(creador))
 	}
 
 	def puedeModificarReceta(Usuario usuario) {

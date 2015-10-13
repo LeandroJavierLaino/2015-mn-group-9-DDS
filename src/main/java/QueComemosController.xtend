@@ -19,7 +19,7 @@ import repositorioUsuarios.RepositorioUsuarios
 @Controller
 class QueComemosController {
 	extension JSONUtils = new JSONUtils
-	extension JSONPropertyUtils = new JSONPropertyUtils
+	//extension JSONPropertyUtils = new JSONPropertyUtils
 
 	@Get("/recetas")
 	def Result recetas() {
@@ -91,14 +91,12 @@ class QueComemosController {
 		}
 	}
 	
-	@Post('/consulta/recetas')
+	@Post('/:nombre/consulta/recetas')
 	def Result realizarConsulta(@Body String body){
 		response.contentType = ContentType.APPLICATION_JSON
-		var Usuario usuario = body.getPropertyValue("usuario").fromJson(Usuario)
 		var BuscaReceta consulta = body.fromJson(BuscaReceta)
-		
-				
-		//var Usuario usuario = RepositorioUsuarios.instance.getUserByName(nombreUsuario)
+		var Usuario usuario = RepositorioUsuarios.instance.getUserByName(nombre)
+
 		var Set<Receta> recetasConsultadas = usuario.consultar(consulta).toSet
 		ok(recetasConsultadas.toJson)
 	}

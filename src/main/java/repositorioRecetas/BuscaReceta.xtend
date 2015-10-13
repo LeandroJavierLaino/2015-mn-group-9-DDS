@@ -4,7 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class BuscaReceta {
-	String usuario
+	
 	String nombre
 	int caloriasMinimas
 	int caloriasMaximas

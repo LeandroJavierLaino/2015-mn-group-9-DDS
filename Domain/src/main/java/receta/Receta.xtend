@@ -12,9 +12,12 @@ import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import repositorioRecetas.RepositorioRecetas
 import condicion.CondicionPreexistente
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 
-//Nuevas excepciones modificadas
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize
 class Receta{
 
 	String nombrePlato
@@ -27,27 +30,19 @@ class Receta{
 	double cantidadMinimaCalorias = 10
 	double cantidadMaximaCalorias = 5000
 	Set<Receta> subRecetas = new HashSet<Receta>
-	Usuario creador
+	String creador
 	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
+	Boolean esPublica
 
-	/*new(String nombre, Set<Ingrediente> ingredientesCargados, Set<Condimento> condimentosCargados,
-		List<String> procesoPreparacionCargado, double caloriasCargadas, String dificultadCargada,
-		String temporadaCargada) {
-		nombrePlato = nombre
-		ingredientes = ingredientesCargados
-		condimentos = condimentosCargados
-		procesoPreparacion = procesoPreparacionCargado
-		totalCalorias = caloriasCargadas
-		dificultad = dificultadCargada
-		temporada = temporadaCargada
-	}*/
-
-	def puedeSerCreada(Receta receta) {
-		if (hayUnIngrediente(receta.ingredientes) && totalDeCaloriasEnRango(receta.totalCalorias)) {
-			receta
+	def puedeSerCreada() {
+		if (hayUnIngrediente(this.ingredientes) && totalDeCaloriasEnRango(this.totalCalorias)) {
+			this
 		} else {
 			throw new RecetaInvalidaExcepcion("No está en el rango de calorías o no tiene un ingrediente la receta")
 		}
+	}
+	def init() {
+		esPublica = true
 	}
 
 	def hayUnIngrediente(Collection<Ingrediente> ingredientes) {
@@ -59,11 +54,13 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario)) || usuario.tieneLaReceta(this)
+
+		esPublica != null && esPublica || (!creador.nullOrEmpty && usuario != null) && (usuario.comparteGrupoCon(creador) || creador.equals(usuario.nombre) || usuario.tieneLaReceta(this))
+
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario))
+		usuario.tieneLaReceta(this) || (RepositorioRecetas.getInstance.tieneLaReceta(this) && creador.equals(usuario.nombre))
 	}
 
 	def puedeModificarReceta(Usuario usuario) {
@@ -87,9 +84,9 @@ class Receta{
 	}
 
 	def crearReceta(Usuario usuario) {
-		puedeSerCreada(this)
+		puedeSerCreada()
 		usuario.agregarReceta(this)
-		creador = usuario
+		creador = usuario.nombre
 	}
 
 	def modificarReceta(Usuario usuario, Receta recetaModificada) {
@@ -127,13 +124,12 @@ class Receta{
 		ingredientes.forall[ingrediente|ingrediente.esCaro]
 	}
 	
-	def isVeryDifficult() {
+	def esDificil() {
 		dificultad.equalsIgnoreCase("Alta") || dificultad.equalsIgnoreCase("A") || dificultad.equalsIgnoreCase("D")
 	}
 	
 	def asignarAutor(String string) {
-		creador = new Usuario
-		creador.nombre = string
+		creador = string
 	}
 	
 	def esInadecuadaParaLasCondiciones(){

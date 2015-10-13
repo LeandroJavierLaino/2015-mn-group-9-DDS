@@ -67,6 +67,7 @@ class Iniciador {
 		.conAltura(1.74)
 		.conPeso(60)
 		.conPass("123")
+		.conReceta(recetaSalchiPapa)
 		.build
 		
 		leandro = new UsuarioBuilder()

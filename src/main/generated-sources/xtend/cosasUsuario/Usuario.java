@@ -11,7 +11,6 @@ import excepcion.FechaInvalidaExcepcion;
 import excepcion.UsuarioInvalidoExcepcion;
 import filtro.Filtro;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +19,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.joda.time.LocalDate;
 import org.uqbar.commons.model.Entity;
 import procesamientoPosterior.ProcesamientoPosterior;
@@ -102,7 +102,16 @@ public class Usuario extends Entity {
   }
   
   public boolean tieneLaReceta(final Receta receta) {
-    return this.recetas.contains(receta);
+    boolean _and = false;
+    boolean _isNullOrEmpty = IterableExtensions.isNullOrEmpty(this.recetas);
+    boolean _not = (!_isNullOrEmpty);
+    if (!_not) {
+      _and = false;
+    } else {
+      boolean _contains = this.recetas.contains(receta);
+      _and = _contains;
+    }
+    return _and;
   }
   
   public Boolean noTieneCondicionesPreexistentes() {
@@ -206,21 +215,22 @@ public class Usuario extends Entity {
   }
   
   public boolean comparteGrupoCon(final String usuario) {
-    boolean _xifexpression = false;
-    boolean _or = false;
-    boolean _equals = Objects.equal(usuario, null);
-    if (_equals) {
-      _or = true;
+    boolean _and = false;
+    boolean _and_1 = false;
+    boolean _notEquals = (!Objects.equal(usuario, null));
+    if (!_notEquals) {
+      _and_1 = false;
     } else {
-      boolean _equals_1 = Objects.equal(this.grupoAlQuePertenece, null);
-      _or = _equals_1;
+      boolean _notEquals_1 = (!Objects.equal(this.grupoAlQuePertenece, null));
+      _and_1 = _notEquals_1;
     }
-    if (_or) {
-      _xifexpression = false;
+    if (!_and_1) {
+      _and = false;
     } else {
-      _xifexpression = this.grupoAlQuePertenece.tieneUnUsuario(usuario);
+      boolean _tieneUnUsuario = this.grupoAlQuePertenece.tieneUnUsuario(usuario);
+      _and = _tieneUnUsuario;
     }
-    return _xifexpression;
+    return _and;
   }
   
   public boolean marcarComoFavorita(final Receta receta) {
@@ -328,7 +338,7 @@ public class Usuario extends Entity {
   }
   
   public Set<Receta> consultar(final BuscaReceta consulta) {
-    Collection<Receta> recetasABuscar = this.listarRecetasVisibles();
+    Set<Receta> recetasABuscar = this.listarRecetasVisibles();
     boolean _isFiltros = consulta.isFiltros();
     boolean _notEquals = (!Objects.equal(Boolean.valueOf(_isFiltros), Integer.valueOf(0)));
     if (_notEquals) {
@@ -346,8 +356,8 @@ public class Usuario extends Entity {
         }
       };
       Iterable<Receta> _filter = IterableExtensions.<Receta>filter(recetasABuscar, _function);
-      List<Receta> _list = IterableExtensions.<Receta>toList(_filter);
-      recetasABuscar = _list;
+      Set<Receta> _set = IterableExtensions.<Receta>toSet(_filter);
+      recetasABuscar = _set;
     }
     int _caloriasMinimas = consulta.getCaloriasMinimas();
     boolean _notEquals_2 = (_caloriasMinimas != (-1));
@@ -360,8 +370,8 @@ public class Usuario extends Entity {
         }
       };
       Iterable<Receta> _filter_1 = IterableExtensions.<Receta>filter(recetasABuscar, _function_1);
-      List<Receta> _list_1 = IterableExtensions.<Receta>toList(_filter_1);
-      recetasABuscar = _list_1;
+      Set<Receta> _set_1 = IterableExtensions.<Receta>toSet(_filter_1);
+      recetasABuscar = _set_1;
     }
     int _caloriasMaximas = consulta.getCaloriasMaximas();
     boolean _notEquals_3 = (_caloriasMaximas != (-1));
@@ -374,8 +384,8 @@ public class Usuario extends Entity {
         }
       };
       Iterable<Receta> _filter_2 = IterableExtensions.<Receta>filter(recetasABuscar, _function_2);
-      List<Receta> _list_2 = IterableExtensions.<Receta>toList(_filter_2);
-      recetasABuscar = _list_2;
+      Set<Receta> _set_2 = IterableExtensions.<Receta>toSet(_filter_2);
+      recetasABuscar = _set_2;
     }
     String _dificultad = consulta.getDificultad();
     boolean _notEquals_4 = (!Objects.equal(_dificultad, null));
@@ -388,26 +398,27 @@ public class Usuario extends Entity {
         }
       };
       Iterable<Receta> _filter_3 = IterableExtensions.<Receta>filter(recetasABuscar, _function_3);
-      List<Receta> _list_3 = IterableExtensions.<Receta>toList(_filter_3);
-      recetasABuscar = _list_3;
+      Set<Receta> _set_3 = IterableExtensions.<Receta>toSet(_filter_3);
+      recetasABuscar = _set_3;
     }
     String _temporada = consulta.getTemporada();
-    boolean _notEquals_5 = (!Objects.equal(_temporada, null));
-    if (_notEquals_5) {
+    boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(_temporada);
+    boolean _not = (!_isNullOrEmpty);
+    if (_not) {
       final String temporada = consulta.getTemporada();
       final Function1<Receta, Boolean> _function_4 = new Function1<Receta, Boolean>() {
         public Boolean apply(final Receta receta) {
           String _temporada = receta.getTemporada();
-          return Boolean.valueOf(_temporada.contains(temporada));
+          return Boolean.valueOf(_temporada.equalsIgnoreCase(temporada));
         }
       };
       Iterable<Receta> _filter_4 = IterableExtensions.<Receta>filter(recetasABuscar, _function_4);
-      List<Receta> _list_4 = IterableExtensions.<Receta>toList(_filter_4);
-      recetasABuscar = _list_4;
+      Set<Receta> _set_4 = IterableExtensions.<Receta>toSet(_filter_4);
+      recetasABuscar = _set_4;
     }
     String _ingrediente = consulta.getIngrediente();
-    boolean _notEquals_6 = (!Objects.equal(_ingrediente, null));
-    if (_notEquals_6) {
+    boolean _notEquals_5 = (!Objects.equal(_ingrediente, null));
+    if (_notEquals_5) {
       final String ingrediente = consulta.getIngrediente();
       final Function1<Receta, Boolean> _function_5 = new Function1<Receta, Boolean>() {
         public Boolean apply(final Receta receta) {
@@ -416,10 +427,10 @@ public class Usuario extends Entity {
         }
       };
       Iterable<Receta> _filter_5 = IterableExtensions.<Receta>filter(recetasABuscar, _function_5);
-      List<Receta> _list_5 = IterableExtensions.<Receta>toList(_filter_5);
-      recetasABuscar = _list_5;
+      Set<Receta> _set_5 = IterableExtensions.<Receta>toSet(_filter_5);
+      recetasABuscar = _set_5;
     }
-    return IterableExtensions.<Receta>toSet(recetasABuscar);
+    return recetasABuscar;
   }
   
   @Pure

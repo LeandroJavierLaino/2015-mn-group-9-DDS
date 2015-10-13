@@ -55,11 +55,13 @@
 						<input ng-model="index.aBuscar" type="text" class="form-control"
 							placeholder="Buscar">
 					</div>
-					<button data-toggle="modal" data-target="#modalConsulta"
-						type="submit" class="glyphicon glyphicon-list btn btn-default"></button>
 
 					<button ng-click="index.buscarUsuarios()" type="submit"
 						class="glyphicon glyphicon-user btn btn-default"></button>
+					<label style="color:black"> Consultar Recetas </label>					
+					<button data-toggle="modal" data-target="#modalConsulta"
+						type="submit" class="glyphicon glyphicon-list btn btn-default"></button>
+
 				</form>
 				<form class="navbar-form navbar-right">
 					<div ng-show="!index.logeo.exito" class="form-inline">
@@ -107,11 +109,11 @@
 									placeholder="Ingrese el nombre de la receta"
 									autofocus="autofocus"> <label>Calorias</label> <label><small>De:</small>
 								</label> <input class="form-control" name="caloriasMinimas"
-									ng-model="index.consulta.cantidadMinimaCalorias"
+									ng-model="index.consulta.caloriasMinimas"
 									placeholder="Ingrese el calorias minimas" autofocus="autofocus">
 								<label><small>Hasta:</small> </label> <input
 									class="form-control" name="caloriasMaximas"
-									ng-model="index.consulta.cantidadMaximaCalorias"
+									ng-model="index.consulta.caloriasMaximas"
 									placeholder="Ingrese el calorias maximas" autofocus="autofocus">
 							</div>
 
