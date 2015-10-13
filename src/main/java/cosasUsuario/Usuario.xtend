@@ -17,6 +17,8 @@ import org.joda.time.LocalDate
 import org.uqbar.commons.model.Entity
 import procesamientoPosterior.ProcesamientoPosterior
 import receta.Caracteristica
+import receta.Condimento
+import receta.Ingrediente
 import receta.Receta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
@@ -111,11 +113,19 @@ class Usuario extends Entity {
 			throw new FechaInvalidaExcepcion("Se Ingreso una fecha invalida")
 	}
 
-	def contienteComidaQueDisgusta(Caracteristica comidaQueDisgusta) {
+	def boolean contienteComidaQueDisgusta(Caracteristica comidaQueDisgusta) {
 		comidasQueDisgustan.contains(comidaQueDisgusta)
 	}
+	
+	def boolean contieneCondimentoQueDisgusta(Condimento condimento){
+		comidasQueDisgustan.contains(condimento)
+	}
+	
+	def boolean contieneIngredienteQueDisgusta(Ingrediente ingrediente){
+		comidasQueDisgustan.contains(ingrediente)
+	}
 
-	def esRecomendable(Receta receta) {
+	def boolean esRecomendable(Receta receta) {
 		noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tolera(receta)]
 	}
 
@@ -201,5 +211,4 @@ class Usuario extends Entity {
 
 		recetasVisibles
 	}
-
 }
