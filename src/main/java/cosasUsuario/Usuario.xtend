@@ -229,12 +229,12 @@ class Usuario extends Entity {
 
 		if (consulta.dificultad != null) {
 			val dificultad = consulta.dificultad
-			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toSet
+			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.toLowerCase.contains(dificultad.toLowerCase)].toSet
 		}
 
 		if (!consulta.temporada.nullOrEmpty) {
 			val temporada = consulta.temporada
-			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.equalsIgnoreCase(temporada)].toSet
+			recetasABuscar = recetasABuscar.filter[receta| !receta.temporada.nullOrEmpty && receta.temporada.toLowerCase.contains(temporada.toLowerCase)].toSet
 		}
 
 		if (consulta.ingrediente != null) {

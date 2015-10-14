@@ -24,6 +24,7 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 
 	this.realizarConsulta = function() {
 
+		console.log(self.consulta);
 		indexSrvc.realizarConsulta(self.usuario.nombre, self.consulta, function(data) {
 			indexSrvc.recetasRecibidas = _.map(data, transformarAReceta);
 			if($state.includes('realizarConsulta')) {
@@ -33,4 +34,5 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 		});
 
 	}
+
 })

@@ -58,7 +58,7 @@
 
 					<button ng-click="index.buscarUsuarios()" type="submit"
 						class="glyphicon glyphicon-user btn btn-default"></button>
-					<label style="color:black"> Consultar Recetas </label>					
+					<label style="color: black"> Consultar Recetas </label>
 					<button data-toggle="modal" data-target="#modalConsulta"
 						type="submit" class="glyphicon glyphicon-list btn btn-default"></button>
 
@@ -119,14 +119,15 @@
 
 							<div>
 								<label>Dificultad </label> <select name="dificultad"
-									class="form-control" ng-model="index.consulta.dificultad  " >
-									<option ng-repeat="dificultad in index.dificultades"
-										ng-bind="dificultad"></option>
-								</select> <label>Temporada </label> <select name="temporada"
-									class="form-control" ng-model="index.consulta.temporada">
-									<option ng-repeat="temporada in index.temporadas"
-										ng-bind="temporada"></option>
-								</select>
+									class="form-control"
+									ng-model="index.consulta.dificultad">
+									<option ng-repeat="dificultad in index.dificultades" value="{{dificultad}}">{{dificultad}}</option>
+									</select> 
+								<label>Temporada
+								</label> <select name="temporada" class="form-control"
+									ng-model="index.consulta.temporada">
+									<option ng-repeat="temporada in index.temporadas" value="{{temporada}}">{{temporada}}</option>
+									</select>
 							</div>
 
 							<div>
