@@ -50,10 +50,12 @@ public class Usuario {
   @GeneratedValue
   private Long id;
   
+  @Column
   private LocalDate fechaActual = new LocalDate();
   
   private int CARACTERES_MINIMOS = 4;
   
+  @Column
   private boolean habilitarFavoritos = false;
   
   @Column(length = 30)
@@ -83,6 +85,7 @@ public class Usuario {
   @OneToMany(fetch = FetchType.EAGER)
   private List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>();
   
+  @Column(length = 150)
   private List<String> comidaPreferida = new ArrayList<String>();
   
   @ManyToOne
@@ -91,6 +94,7 @@ public class Usuario {
   @OneToMany(fetch = FetchType.LAZY)
   private Set<Receta> recetas = new HashSet<Receta>();
   
+  @OneToMany
   private Set<Receta> recetasFavoritas = new HashSet<Receta>();
   
   @OneToMany(fetch = FetchType.LAZY)

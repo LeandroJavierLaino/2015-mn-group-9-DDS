@@ -12,9 +12,16 @@ import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
 import java.util.Set
+import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
+import org.uqbar.commons.utils.Observable
 import procesamientoPosterior.ProcesamientoPosterior
 import receta.Caracteristica
 import receta.Condimento
@@ -24,13 +31,6 @@ import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
-import org.uqbar.commons.utils.Observable
-import javax.persistence.Id
-import javax.persistence.GeneratedValue
-import javax.persistence.Column
-import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
-import javax.persistence.FetchType
 
 @JsonSerialize
 @Accessors
@@ -44,8 +44,10 @@ class Usuario{
 	private Long id;
 	
 	// Datos varops
+	@Column
 	LocalDate fechaActual = new LocalDate()
 	int CARACTERES_MINIMOS = 4
+	@Column
 	boolean habilitarFavoritos = false
 
 	// Datos basicos
@@ -75,6 +77,7 @@ class Usuario{
 	String sexo
 	@OneToMany(fetch=FetchType.EAGER)
 	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
+	@Column(length = 150)
 	List<String> comidaPreferida = new ArrayList<String>
 	@ManyToOne()
 	Rutina rutina
@@ -82,6 +85,7 @@ class Usuario{
 	// Recetas
 	@OneToMany(fetch=FetchType.LAZY)
 	Set<Receta> recetas = new HashSet<Receta>
+	@OneToMany
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
 	@OneToMany(fetch=FetchType.LAZY)
 	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>

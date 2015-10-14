@@ -13,7 +13,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -36,6 +38,7 @@ public class Receta {
   @GeneratedValue
   private long idReceta;
   
+  @Column(length = 150)
   private String nombrePlato;
   
   @OneToMany
@@ -44,26 +47,34 @@ public class Receta {
   @OneToMany
   private Set<Condimento> condimentos = new HashSet<Condimento>();
   
+  @Column(length = 500)
   private List<String> procesoPreparacion = new ArrayList<String>();
   
+  @Column
   private double totalCalorias;
   
+  @Column(length = 30)
   private String dificultad;
   
+  @Column(length = 30)
   private String temporada;
   
+  @Column
   private double cantidadMinimaCalorias = 10;
   
+  @Column
   private double cantidadMaximaCalorias = 5000;
   
   @OneToMany
   private Set<Receta> subRecetas = new HashSet<Receta>();
   
+  @Column(length = 30)
   private String creador;
   
-  @OneToMany
+  @OneToMany(fetch = FetchType.LAZY)
   private Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>();
   
+  @Column
   private Boolean esPublica;
   
   public Receta puedeSerCreada() {

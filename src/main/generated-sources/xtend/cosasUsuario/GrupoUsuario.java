@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -16,14 +22,23 @@ import receta.Receta;
 
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 @SuppressWarnings("all")
 public class GrupoUsuario {
+  @Id
+  @GeneratedValue
+  private long idGrupoUsuario;
+  
+  @OneToMany
   private List<Caracteristica> palabrasClave = new ArrayList<Caracteristica>();
   
+  @ManyToOne
   private Set<Usuario> usuarios = new HashSet<Usuario>();
   
+  @Column(length = 50)
   private String nombre;
   
+  @OneToMany
   private Set<Receta> recetas;
   
   public boolean perteneceALasPalabrasClave(final Caracteristica caracteristica) {
@@ -84,6 +99,15 @@ public class GrupoUsuario {
       _xblockexpression = todasLasRecetas;
     }
     return _xblockexpression;
+  }
+  
+  @Pure
+  public long getIdGrupoUsuario() {
+    return this.idGrupoUsuario;
+  }
+  
+  public void setIdGrupoUsuario(final long idGrupoUsuario) {
+    this.idGrupoUsuario = idGrupoUsuario;
   }
   
   @Pure

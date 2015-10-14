@@ -1,15 +1,30 @@
 package receta;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
 
 @Accessors
+@Inheritance(strategy = InheritanceType.JOINED)
+@Entity
 @SuppressWarnings("all")
 public abstract class Caracteristica {
+  @Id
+  @GeneratedValue
+  private long idCaracteristica;
+  
+  @Column(length = 30)
   private String nombre;
   
+  @Column
   private double cantidad;
   
+  @Column(length = 30)
   private String tipo;
   
   public Caracteristica() {
@@ -19,6 +34,15 @@ public abstract class Caracteristica {
     this.nombre = cNombre;
     this.cantidad = cCantidad;
     this.tipo = cTipo;
+  }
+  
+  @Pure
+  public long getIdCaracteristica() {
+    return this.idCaracteristica;
+  }
+  
+  public void setIdCaracteristica(final long idCaracteristica) {
+    this.idCaracteristica = idCaracteristica;
   }
   
   @Pure

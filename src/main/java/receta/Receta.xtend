@@ -18,6 +18,8 @@ import javax.persistence.Id
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import repositorioRecetas.RepositorioRecetas
+import javax.persistence.Column
+import javax.persistence.FetchType
 
 //Nuevas excepciones modificadas
 @Accessors
@@ -29,6 +31,7 @@ class Receta{
 	@Id @GeneratedValue
 	private long idReceta
 
+	@Column(length = 150)
 	String nombrePlato
 
 	@OneToMany
@@ -37,26 +40,34 @@ class Receta{
 	@OneToMany
 	Set<Condimento> condimentos = new HashSet<Condimento>
 
+	@Column(length = 500)
 	List<String> procesoPreparacion = new ArrayList<String>
 
+	@Column
 	double totalCalorias
 
+	@Column(length = 30)
 	String dificultad
 
+	@Column(length = 30)
 	String temporada
 
+	@Column
 	double cantidadMinimaCalorias = 10
 
+	@Column
 	double cantidadMaximaCalorias = 5000
 
 	@OneToMany
 	Set<Receta> subRecetas = new HashSet<Receta>
 
+	@Column(length = 30)
 	String creador
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
 
+	@Column
 	Boolean esPublica
 
 	def puedeSerCreada() {
