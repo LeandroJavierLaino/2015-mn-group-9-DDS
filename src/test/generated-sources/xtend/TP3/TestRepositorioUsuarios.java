@@ -88,8 +88,6 @@ public class TestRepositorioUsuarios extends UsuariosExtras {
     this.admin.aceptarSuscripcion(_diego_1);
     Usuario _leandro_1 = this.getLeandro();
     this.admin.aceptarSuscripcion(_leandro_1);
-    Usuario _get = this.repousuarios.get(usuarioPrototipo);
-    usuarioDevuelto = _get;
     Usuario _diego_2 = this.getDiego();
     Assert.assertEquals(usuarioDevuelto, _diego_2);
   }
@@ -114,7 +112,7 @@ public class TestRepositorioUsuarios extends UsuariosExtras {
     Usuario _diego_1 = this.getDiego();
     this.admin.aceptarSuscripcion(_diego_1);
     this.admin.aceptarSuscripcion(this.diabeticoDiego);
-    List<Usuario> _list = this.repousuarios.list(usuarioPrototipo);
+    List _list = this.repousuarios.list(usuarioPrototipo);
     Assert.assertEquals(Collections.<Usuario>unmodifiableList(CollectionLiterals.<Usuario>newArrayList(this.diabeticoDiego)), _list);
   }
   

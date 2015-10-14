@@ -14,16 +14,27 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.joda.time.LocalDate;
-import org.uqbar.commons.model.Entity;
+import org.uqbar.commons.utils.Observable;
 import procesamientoPosterior.ProcesamientoPosterior;
 import receta.Caracteristica;
+import receta.Condimento;
+import receta.Ingrediente;
 import receta.Receta;
+import repositorioRecetas.BuscaReceta;
 import repositorioRecetas.RepositorioRecetas;
 import repositorioUsuarios.RepositorioUsuarios;
 import rutina.Rutina;
@@ -31,42 +42,61 @@ import rutina.Rutina;
 @JsonSerialize
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@Observable
 @SuppressWarnings("all")
-public class Usuario extends Entity {
+public class Usuario {
+  @Id
+  @GeneratedValue
+  private Long id;
+  
   private LocalDate fechaActual = new LocalDate();
   
   private int CARACTERES_MINIMOS = 4;
   
   private boolean habilitarFavoritos = false;
   
+  @Column(length = 30)
   private String nombre;
   
+  @Column
   private double altura;
   
+  @Column
   private double peso;
   
+  @Column
   private LocalDate fechaDeNacimiento;
   
+  @Column(length = 10)
   private String password;
   
+  @ManyToOne
   private GrupoUsuario grupoAlQuePertenece;
   
+  @OneToMany(fetch = FetchType.LAZY)
   private List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>();
   
+  @Column
   private String sexo;
   
+  @OneToMany(fetch = FetchType.EAGER)
   private List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>();
   
   private List<String> comidaPreferida = new ArrayList<String>();
   
+  @ManyToOne
   private Rutina rutina;
   
+  @OneToMany(fetch = FetchType.LAZY)
   private Set<Receta> recetas = new HashSet<Receta>();
   
   private Set<Receta> recetasFavoritas = new HashSet<Receta>();
   
+  @OneToMany(fetch = FetchType.LAZY)
   private List<Filtro> filtrosAAplicar = new ArrayList<Filtro>();
   
+  @ManyToOne
   private ProcesamientoPosterior procesamiento;
   
   public double calculaIMC() {
@@ -183,6 +213,14 @@ public class Usuario extends Entity {
   
   public boolean contienteComidaQueDisgusta(final Caracteristica comidaQueDisgusta) {
     return this.comidasQueDisgustan.contains(comidaQueDisgusta);
+  }
+  
+  public boolean contieneCondimentoQueDisgusta(final Condimento condimento) {
+    return this.comidasQueDisgustan.contains(condimento);
+  }
+  
+  public boolean contieneIngredienteQueDisgusta(final Ingrediente ingrediente) {
+    return this.comidasQueDisgustan.contains(ingrediente);
   }
   
   public boolean esRecomendable(final Receta receta) {
@@ -322,6 +360,124 @@ public class Usuario extends Entity {
       _xblockexpression = recetasVisibles;
     }
     return _xblockexpression;
+  }
+  
+  public Set<Receta> consultar(final BuscaReceta consulta) {
+    Set<Receta> recetasABuscar = this.listarRecetasVisibles();
+    boolean _isFiltros = consulta.isFiltros();
+    boolean _notEquals = (!Objects.equal(Boolean.valueOf(_isFiltros), Integer.valueOf(0)));
+    if (_notEquals) {
+      Set<Receta> _postProcesarRecetas = this.postProcesarRecetas();
+      recetasABuscar = _postProcesarRecetas;
+    }
+    String _nombre = consulta.getNombre();
+    boolean _notEquals_1 = (!Objects.equal(_nombre, null));
+    if (_notEquals_1) {
+      final String nombreConsultado = consulta.getNombre();
+      final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          String _nombrePlato = receta.getNombrePlato();
+          return Boolean.valueOf(_nombrePlato.contains(nombreConsultado));
+        }
+      };
+      Iterable<Receta> _filter = IterableExtensions.<Receta>filter(recetasABuscar, _function);
+      Set<Receta> _set = IterableExtensions.<Receta>toSet(_filter);
+      recetasABuscar = _set;
+    }
+    int _caloriasMinimas = consulta.getCaloriasMinimas();
+    boolean _notEquals_2 = (_caloriasMinimas != (-1));
+    if (_notEquals_2) {
+      final int caloriasMinimas = consulta.getCaloriasMinimas();
+      final Function1<Receta, Boolean> _function_1 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          double _totalCalorias = receta.getTotalCalorias();
+          return Boolean.valueOf((_totalCalorias >= caloriasMinimas));
+        }
+      };
+      Iterable<Receta> _filter_1 = IterableExtensions.<Receta>filter(recetasABuscar, _function_1);
+      Set<Receta> _set_1 = IterableExtensions.<Receta>toSet(_filter_1);
+      recetasABuscar = _set_1;
+    }
+    int _caloriasMaximas = consulta.getCaloriasMaximas();
+    boolean _notEquals_3 = (_caloriasMaximas != (-1));
+    if (_notEquals_3) {
+      final int caloriasMaximas = consulta.getCaloriasMaximas();
+      final Function1<Receta, Boolean> _function_2 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          double _totalCalorias = receta.getTotalCalorias();
+          return Boolean.valueOf((_totalCalorias <= caloriasMaximas));
+        }
+      };
+      Iterable<Receta> _filter_2 = IterableExtensions.<Receta>filter(recetasABuscar, _function_2);
+      Set<Receta> _set_2 = IterableExtensions.<Receta>toSet(_filter_2);
+      recetasABuscar = _set_2;
+    }
+    String _dificultad = consulta.getDificultad();
+    boolean _notEquals_4 = (!Objects.equal(_dificultad, null));
+    if (_notEquals_4) {
+      final String dificultad = consulta.getDificultad();
+      final Function1<Receta, Boolean> _function_3 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          String _dificultad = receta.getDificultad();
+          String _lowerCase = _dificultad.toLowerCase();
+          String _lowerCase_1 = dificultad.toLowerCase();
+          return Boolean.valueOf(_lowerCase.contains(_lowerCase_1));
+        }
+      };
+      Iterable<Receta> _filter_3 = IterableExtensions.<Receta>filter(recetasABuscar, _function_3);
+      Set<Receta> _set_3 = IterableExtensions.<Receta>toSet(_filter_3);
+      recetasABuscar = _set_3;
+    }
+    String _temporada = consulta.getTemporada();
+    boolean _notEquals_5 = (!Objects.equal(_temporada, null));
+    if (_notEquals_5) {
+      final String temporada = consulta.getTemporada();
+      final Function1<Receta, Boolean> _function_4 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          boolean _and = false;
+          String _temporada = receta.getTemporada();
+          boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(_temporada);
+          boolean _not = (!_isNullOrEmpty);
+          if (!_not) {
+            _and = false;
+          } else {
+            String _temporada_1 = receta.getTemporada();
+            String _lowerCase = _temporada_1.toLowerCase();
+            String _lowerCase_1 = temporada.toLowerCase();
+            boolean _contains = _lowerCase.contains(_lowerCase_1);
+            _and = _contains;
+          }
+          return Boolean.valueOf(_and);
+        }
+      };
+      Iterable<Receta> _filter_4 = IterableExtensions.<Receta>filter(recetasABuscar, _function_4);
+      Set<Receta> _set_4 = IterableExtensions.<Receta>toSet(_filter_4);
+      recetasABuscar = _set_4;
+    }
+    String _ingrediente = consulta.getIngrediente();
+    boolean _notEquals_6 = (!Objects.equal(_ingrediente, null));
+    if (_notEquals_6) {
+      final String ingrediente = consulta.getIngrediente();
+      final Function1<Receta, Boolean> _function_5 = new Function1<Receta, Boolean>() {
+        public Boolean apply(final Receta receta) {
+          Set<Ingrediente> _ingredientes = receta.getIngredientes();
+          return Boolean.valueOf(_ingredientes.contains(ingrediente));
+        }
+      };
+      Iterable<Receta> _filter_5 = IterableExtensions.<Receta>filter(recetasABuscar, _function_5);
+      Set<Receta> _set_5 = IterableExtensions.<Receta>toSet(_filter_5);
+      recetasABuscar = _set_5;
+    }
+    return recetasABuscar;
+  }
+  
+  @Pure
+  public Long getId() {
+    return this.id;
+  }
+  
+  public void setId(final Long id) {
+    this.id = id;
   }
   
   @Pure

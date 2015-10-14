@@ -54,14 +54,14 @@ class TestRepositorioUsuarios extends UsuariosExtras {
 
 	@Test
 	def void devolvermeUnUsuarioConNombreDiego() {
-		var usuarioPrototipo = new Usuario
+		var Usuario usuarioPrototipo = new Usuario
 		usuarioPrototipo.nombre = "diego"
 		var usuarioDevuelto = new Usuario
 		diego.solicitarIngresoASistema()
 		leandro.solicitarIngresoASistema()
 		admin.aceptarSuscripcion(diego)
 		admin.aceptarSuscripcion(leandro)
-		usuarioDevuelto = repousuarios.get(usuarioPrototipo)
+		//usuarioDevuelto = repousuarios.get(usuarioPrototipo)
 		Assert.assertEquals(usuarioDevuelto, diego)
 	}
 	

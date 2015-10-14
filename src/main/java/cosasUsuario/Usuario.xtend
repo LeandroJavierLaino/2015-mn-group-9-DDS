@@ -24,39 +24,68 @@ import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
+import org.uqbar.commons.utils.Observable
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Column
+import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
+import javax.persistence.FetchType
 
 @JsonSerialize
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Entity
+@Observable
 class Usuario{
 
+	@Id
+	@GeneratedValue
+	private Long id;
+	
 	// Datos varops
 	LocalDate fechaActual = new LocalDate()
 	int CARACTERES_MINIMOS = 4
 	boolean habilitarFavoritos = false
 
 	// Datos basicos
+	@Column(length=30)
 	String nombre
+	
+	@Column
 	double altura
+	
+	@Column
 	double peso
+	
+	@Column
 	LocalDate fechaDeNacimiento
+	
+	@Column(length=10)
 	String password
 
 	// Grupo
+	@ManyToOne()
 	GrupoUsuario grupoAlQuePertenece
 
 	// Para condiciones preexistentes
+	@OneToMany(fetch=FetchType.LAZY)
 	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
+	@Column
 	String sexo
+	@OneToMany(fetch=FetchType.EAGER)
 	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
 	List<String> comidaPreferida = new ArrayList<String>
+	@ManyToOne()
 	Rutina rutina
 
 	// Recetas
+	@OneToMany(fetch=FetchType.LAZY)
 	Set<Receta> recetas = new HashSet<Receta>
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
+	@OneToMany(fetch=FetchType.LAZY)
 	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
+	@ManyToOne()
 	ProcesamientoPosterior procesamiento
 
 	//Mensajes

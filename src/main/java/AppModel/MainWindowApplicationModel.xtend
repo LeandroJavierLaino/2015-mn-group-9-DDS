@@ -19,7 +19,7 @@ class MainWindowApplicationModel {
 	}
 	
 	def login() {
-		if(RepositorioUsuarios.instance.objects.exists[it.nombre == usuario] && contrasenia == "123") {
+		if(RepositorioUsuarios.instance.allInstances.exists[it.nombre == usuario] && contrasenia == "123") {
 			
 			logro = "Acceso Permitido"
 			val window = new org.queComemos.uiArena.UserRecipesWindow(owner, new AppModel.UserRecipesModel(getUser(usuario)))

@@ -2,6 +2,7 @@ package receta;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.base.Objects;
 import condicion.CondicionPreexistente;
 import cosasUsuario.GrupoUsuario;
 import cosasUsuario.Usuario;
@@ -12,6 +13,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -24,12 +29,19 @@ import repositorioRecetas.RepositorioRecetas;
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSerialize
+@Entity
 @SuppressWarnings("all")
 public class Receta {
+  @Id
+  @GeneratedValue
+  private long idReceta;
+  
   private String nombrePlato;
   
+  @OneToMany
   private Set<Ingrediente> ingredientes = new HashSet<Ingrediente>();
   
+  @OneToMany
   private Set<Condimento> condimentos = new HashSet<Condimento>();
   
   private List<String> procesoPreparacion = new ArrayList<String>();
@@ -44,10 +56,12 @@ public class Receta {
   
   private double cantidadMaximaCalorias = 5000;
   
+  @OneToMany
   private Set<Receta> subRecetas = new HashSet<Receta>();
   
   private String creador;
   
+  @OneToMany
   private Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>();
   
   private Boolean esPublica;
@@ -88,7 +102,29 @@ public class Receta {
   }
   
   public boolean puedeVerReceta(final Usuario usuario) {
-    return (this.esPublica).booleanValue();
+    boolean _or = false;
+    boolean _or_1 = false;
+    boolean _or_2 = false;
+    if ((this.esPublica).booleanValue()) {
+      _or_2 = true;
+    } else {
+      boolean _comparteGrupoCon = usuario.comparteGrupoCon(this.creador);
+      _or_2 = _comparteGrupoCon;
+    }
+    if (_or_2) {
+      _or_1 = true;
+    } else {
+      String _nombre = usuario.getNombre();
+      boolean _equals = Objects.equal(this.creador, _nombre);
+      _or_1 = _equals;
+    }
+    if (_or_1) {
+      _or = true;
+    } else {
+      boolean _tieneLaReceta = usuario.tieneLaReceta(this);
+      _or = _tieneLaReceta;
+    }
+    return _or;
   }
   
   public boolean tienePermisosParaModificarReceta(final Usuario usuario) {
@@ -220,8 +256,8 @@ public class Receta {
   public boolean tieneUnIngredienteOCondimentoQueDisgustaPara(final Usuario usuario) {
     boolean _or = false;
     final Function1<Ingrediente, Boolean> _function = new Function1<Ingrediente, Boolean>() {
-      public Boolean apply(final Ingrediente comidaQueDisgusta) {
-        return Boolean.valueOf(usuario.contienteComidaQueDisgusta(comidaQueDisgusta));
+      public Boolean apply(final Ingrediente ingrediente) {
+        return Boolean.valueOf(usuario.contieneIngredienteQueDisgusta(ingrediente));
       }
     };
     boolean _exists = IterableExtensions.<Ingrediente>exists(this.ingredientes, _function);
@@ -229,8 +265,8 @@ public class Receta {
       _or = true;
     } else {
       final Function1<Condimento, Boolean> _function_1 = new Function1<Condimento, Boolean>() {
-        public Boolean apply(final Condimento comidaQueDisgusta) {
-          return Boolean.valueOf(usuario.contienteComidaQueDisgusta(comidaQueDisgusta));
+        public Boolean apply(final Condimento condimento) {
+          return Boolean.valueOf(usuario.contieneCondimentoQueDisgusta(condimento));
         }
       };
       boolean _exists_1 = IterableExtensions.<Condimento>exists(this.condimentos, _function_1);
@@ -305,6 +341,15 @@ public class Receta {
     };
     Iterable<CondicionPreexistente> _filter = IterableExtensions.<CondicionPreexistente>filter(this.condicionesPreexistentes, _function);
     return IterableExtensions.<CondicionPreexistente>toSet(_filter);
+  }
+  
+  @Pure
+  public long getIdReceta() {
+    return this.idReceta;
+  }
+  
+  public void setIdReceta(final long idReceta) {
+    this.idReceta = idReceta;
   }
   
   @Pure

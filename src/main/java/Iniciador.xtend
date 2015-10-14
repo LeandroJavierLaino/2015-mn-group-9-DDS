@@ -15,6 +15,7 @@ import filtro.FiltroPorGusto
 import filtro.FiltroPorExcesoDeCalorias
 import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
 import repositorioRecetas.RepositorioRecetas
+import repositorioUsuarios.RepositorioUsuarios
 
 class Iniciador {
 	
@@ -103,7 +104,17 @@ class Iniciador {
 		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		
 		leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
-		leandro.filtrosAAplicar.add(filtroGusto) 
+		leandro.filtrosAAplicar.add(filtroGusto)
+		this.crearUsuario(leandro)
+		this.crearUsuario(nicolas) 
 		
+	}
+	
+	def crearUsuario(Usuario usuario) {
+		val repoUsuarios = RepositorioUsuarios.instance
+		if (repoUsuarios.searchByExample(usuario).isEmpty) {
+			repoUsuarios.add(usuario)
+			println("Usuario " + usuario.nombre + " creado")
+		}
 	}
 }

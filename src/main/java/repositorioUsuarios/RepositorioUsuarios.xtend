@@ -11,9 +11,13 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import cosasUsuario.UsuarioBuilder
 import receta.Receta
 import receta.RecetaBuilder
+import org.hibernate.SessionFactory
+import org.hibernate.cfg.AnnotationConfiguration
+import org.hibernate.criterion.Restrictions
+import org.hibernate.HibernateException
 
 @Accessors
-class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
+class RepositorioUsuarios {
 
 	Usuario pepe
 	List<Usuario> listaPorAceptarse = new ArrayList<Usuario>
@@ -29,6 +33,8 @@ class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 		instance
 	}
 	
+	private static final SessionFactory sessionFactory = new AnnotationConfiguration().configure().addAnnotatedClass(Usuario).buildSessionFactory()
+	
 	def init() {
 			
 		recetaDePepe = new RecetaBuilder()
@@ -43,11 +49,31 @@ class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 			.build
 	}
 	def add(Usuario usuario) {
-		this.effectiveCreate(usuario)
+		val session = sessionFactory.openSession
+		try {
+			session.beginTransaction
+			session.save(usuario)
+			session.getTransaction.commit
+		} catch (HibernateException e) {
+			session.getTransaction.rollback
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
 	}
 
 	def remove(Usuario usuario) {
-		this.effectiveDelete(usuario)
+		val session = sessionFactory.openSession
+		try {
+			session.beginTransaction
+			session.delete(usuario)
+			session.getTransaction.commit
+		} catch (HibernateException e) {
+			session.getTransaction.rollback
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
 	}
 
 	def get(Usuario usuario) {
@@ -56,31 +82,31 @@ class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 	}
 	
 	def Usuario getUserByName(String vnombre) {
-		objects.findFirst[usr | usr.nombre == vnombre]
+		allInstances.findFirst[usr | usr.nombre == vnombre]
 	}
 	def List<Usuario> searchByName(String vName) {
-		objects.filter[it.nombre.toLowerCase.contains(vName)].toList
+		allInstances.filter[it.nombre.toLowerCase.contains(vName)].toList
 	}
 
 	def list(Usuario usuario) {
 		this.searchByExample(usuario)
 	}
-
-	override def Predicate<Usuario> getCriterio(Usuario example) {
-		var resultado = this.criterioTodas
-		if (example.nombre != null) {
-			resultado = new AndPredicate(resultado, this.getCriterioPorNombre(example.nombre))
+	
+	def searchByExample(Usuario usuario) {
+		val session = sessionFactory.openSession
+		try {
+			val criteriaUsuario = session.createCriteria(Usuario)
+			if(usuario.nombre != null){
+				criteriaUsuario.add(Restrictions.eq("nombre",usuario.nombre))
+			}
+			return criteriaUsuario.list()
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
 		}
-		if (!example.condicionesPreexistentes.isEmpty) {
-			resultado = new AndPredicate(resultado,
-				this.getCriterioPorCondicionesPreexistentes(example.condicionesPreexistentes))
-		}
-		resultado
 	}
 
-	override getCriterioTodas() {
-		[Usuario usuario|true]
-	}
 
 	def getCriterioPorNombre(String nombre) {
 		[Usuario usuario|usuario.nombre.toLowerCase.equals(nombre.toLowerCase)] as Predicate<Usuario>
@@ -90,20 +116,21 @@ class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 		[Usuario usuario|usuario.condicionesPreexistentes.equals(condiciones)]
 	}
 
-	override createExample() {
-		new Usuario
-	}
-
-	override getEntityType() {
-		typeof(Usuario)
-	}
-
 	def agregarAListaPendientes(Usuario usuario) {
 		listaPorAceptarse.add(usuario)
 	}
 
 	def removerDeListaPendientes(Usuario usuario) {
 		listaPorAceptarse.remove(usuario)
+	}
+	
+	def List<Usuario> allInstances() {
+		val session = sessionFactory.openSession
+		try {
+			return session.createCriteria(Usuario).list()
+		} finally {
+			session.close
+		}
 	}
 
 }

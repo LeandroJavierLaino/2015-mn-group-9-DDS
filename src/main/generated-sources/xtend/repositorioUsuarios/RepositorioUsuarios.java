@@ -7,18 +7,25 @@ import cosasUsuario.UsuarioBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections15.Predicate;
-import org.apache.commons.collections15.functors.AndPredicate;
 import org.eclipse.xtend.lib.annotations.Accessors;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.uqbar.commons.model.CollectionBasedHome;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.classic.Session;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import receta.Receta;
 import receta.RecetaBuilder;
 
 @Accessors
 @SuppressWarnings("all")
-public class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
+public class RepositorioUsuarios {
   private Usuario pepe;
   
   private List<Usuario> listaPorAceptarse = new ArrayList<Usuario>();
@@ -40,6 +47,8 @@ public class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
     return _xblockexpression;
   }
   
+  private final static SessionFactory sessionFactory = new AnnotationConfiguration().configure().addAnnotatedClass(Usuario.class).buildSessionFactory();
+  
   public Usuario init() {
     Usuario _xblockexpression = null;
     {
@@ -60,32 +69,66 @@ public class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
   }
   
   public void add(final Usuario usuario) {
-    this.effectiveCreate(usuario);
+    final Session session = RepositorioUsuarios.sessionFactory.openSession();
+    try {
+      session.beginTransaction();
+      session.save(usuario);
+      Transaction _transaction = session.getTransaction();
+      _transaction.commit();
+    } catch (final Throwable _t) {
+      if (_t instanceof HibernateException) {
+        final HibernateException e = (HibernateException)_t;
+        Transaction _transaction_1 = session.getTransaction();
+        _transaction_1.rollback();
+        throw new RuntimeException(e);
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    } finally {
+      session.close();
+    }
   }
   
   public void remove(final Usuario usuario) {
-    this.effectiveDelete(usuario);
+    final Session session = RepositorioUsuarios.sessionFactory.openSession();
+    try {
+      session.beginTransaction();
+      session.delete(usuario);
+      Transaction _transaction = session.getTransaction();
+      _transaction.commit();
+    } catch (final Throwable _t) {
+      if (_t instanceof HibernateException) {
+        final HibernateException e = (HibernateException)_t;
+        Transaction _transaction_1 = session.getTransaction();
+        _transaction_1.rollback();
+        throw new RuntimeException(e);
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    } finally {
+      session.close();
+    }
   }
   
-  public Usuario get(final Usuario usuario) {
-    List<Usuario> _searchByExample = this.searchByExample(usuario);
-    List<Usuario> _list = IterableExtensions.<Usuario>toList(_searchByExample);
-    return IterableExtensions.<Usuario>head(_list);
+  public Object get(final Usuario usuario) {
+    List _searchByExample = this.searchByExample(usuario);
+    List<Object> _list = IterableExtensions.<Object>toList(_searchByExample);
+    return IterableExtensions.<Object>head(_list);
   }
   
   public Usuario getUserByName(final String vnombre) {
-    List<Usuario> _objects = this.getObjects();
+    List<Usuario> _allInstances = this.allInstances();
     final Function1<Usuario, Boolean> _function = new Function1<Usuario, Boolean>() {
       public Boolean apply(final Usuario usr) {
         String _nombre = usr.getNombre();
         return Boolean.valueOf(Objects.equal(_nombre, vnombre));
       }
     };
-    return IterableExtensions.<Usuario>findFirst(_objects, _function);
+    return IterableExtensions.<Usuario>findFirst(_allInstances, _function);
   }
   
   public List<Usuario> searchByName(final String vName) {
-    List<Usuario> _objects = this.getObjects();
+    List<Usuario> _allInstances = this.allInstances();
     final Function1<Usuario, Boolean> _function = new Function1<Usuario, Boolean>() {
       public Boolean apply(final Usuario it) {
         String _nombre = it.getNombre();
@@ -93,52 +136,36 @@ public class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
         return Boolean.valueOf(_lowerCase.contains(vName));
       }
     };
-    Iterable<Usuario> _filter = IterableExtensions.<Usuario>filter(_objects, _function);
+    Iterable<Usuario> _filter = IterableExtensions.<Usuario>filter(_allInstances, _function);
     return IterableExtensions.<Usuario>toList(_filter);
   }
   
-  public List<Usuario> list(final Usuario usuario) {
+  public List list(final Usuario usuario) {
     return this.searchByExample(usuario);
   }
   
-  public Predicate<Usuario> getCriterio(final Usuario example) {
-    Predicate<Usuario> _xblockexpression = null;
-    {
-      Predicate<Usuario> resultado = this.getCriterioTodas();
-      String _nombre = example.getNombre();
+  public List searchByExample(final Usuario usuario) {
+    final Session session = RepositorioUsuarios.sessionFactory.openSession();
+    try {
+      final Criteria criteriaUsuario = session.createCriteria(Usuario.class);
+      String _nombre = usuario.getNombre();
       boolean _notEquals = (!Objects.equal(_nombre, null));
       if (_notEquals) {
-        String _nombre_1 = example.getNombre();
-        Predicate<Usuario> _criterioPorNombre = this.getCriterioPorNombre(_nombre_1);
-        AndPredicate<Usuario> _andPredicate = new AndPredicate<Usuario>(resultado, _criterioPorNombre);
-        resultado = _andPredicate;
+        String _nombre_1 = usuario.getNombre();
+        SimpleExpression _eq = Restrictions.eq("nombre", _nombre_1);
+        criteriaUsuario.add(_eq);
       }
-      List<CondicionPreexistente> _condicionesPreexistentes = example.getCondicionesPreexistentes();
-      boolean _isEmpty = _condicionesPreexistentes.isEmpty();
-      boolean _not = (!_isEmpty);
-      if (_not) {
-        List<CondicionPreexistente> _condicionesPreexistentes_1 = example.getCondicionesPreexistentes();
-        Function1<Usuario, Boolean> _criterioPorCondicionesPreexistentes = this.getCriterioPorCondicionesPreexistentes(_condicionesPreexistentes_1);
-        final Function1<Usuario, Boolean> _final_criterioPorCondicionesPreexistentes = _criterioPorCondicionesPreexistentes;
-        AndPredicate<Usuario> _andPredicate_1 = new AndPredicate<Usuario>(resultado, new Predicate<Usuario>() {
-            public boolean evaluate(Usuario object) {
-              return _final_criterioPorCondicionesPreexistentes.apply(object);
-            }
-        });
-        resultado = _andPredicate_1;
+      return criteriaUsuario.list();
+    } catch (final Throwable _t) {
+      if (_t instanceof HibernateException) {
+        final HibernateException e = (HibernateException)_t;
+        throw new RuntimeException(e);
+      } else {
+        throw Exceptions.sneakyThrow(_t);
       }
-      _xblockexpression = resultado;
+    } finally {
+      session.close();
     }
-    return _xblockexpression;
-  }
-  
-  public Predicate<Usuario> getCriterioTodas() {
-    final Predicate<Usuario> _function = new Predicate<Usuario>() {
-      public boolean evaluate(final Usuario usuario) {
-        return true;
-      }
-    };
-    return _function;
   }
   
   public Predicate<Usuario> getCriterioPorNombre(final String nombre) {
@@ -167,20 +194,22 @@ public class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
     return _function;
   }
   
-  public Usuario createExample() {
-    return new Usuario();
-  }
-  
-  public Class<Usuario> getEntityType() {
-    return Usuario.class;
-  }
-  
   public boolean agregarAListaPendientes(final Usuario usuario) {
     return this.listaPorAceptarse.add(usuario);
   }
   
   public boolean removerDeListaPendientes(final Usuario usuario) {
     return this.listaPorAceptarse.remove(usuario);
+  }
+  
+  public List<Usuario> allInstances() {
+    final Session session = RepositorioUsuarios.sessionFactory.openSession();
+    try {
+      Criteria _createCriteria = session.createCriteria(Usuario.class);
+      return _createCriteria.list();
+    } finally {
+      session.close();
+    }
   }
   
   @Pure
