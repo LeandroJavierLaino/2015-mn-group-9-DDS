@@ -219,12 +219,12 @@ class Usuario extends Entity {
 
 		if (consulta.caloriasMinimas != -1) {
 			val caloriasMinimas = consulta.caloriasMinimas
-			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias > caloriasMinimas].toSet
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias >= caloriasMinimas].toSet
 		}
 
 		if (consulta.caloriasMaximas != -1) {
 			val caloriasMaximas = consulta.caloriasMaximas
-			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias < caloriasMaximas].toSet
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias <= caloriasMaximas].toSet
 		}
 
 		if (consulta.dificultad != null) {
@@ -232,7 +232,7 @@ class Usuario extends Entity {
 			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.contains(dificultad)].toSet
 		}
 
-		if (!consulta.temporada.nullOrEmpty) {
+		if (consulta.temporada != null) {
 			val temporada = consulta.temporada
 			recetasABuscar = recetasABuscar.filter[receta|receta.temporada.equalsIgnoreCase(temporada)].toSet
 		}
