@@ -26,7 +26,10 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 
 		indexSrvc.realizarConsulta(self.usuario.nombre, self.consulta, function(data) {
 			indexSrvc.recetasRecibidas = _.map(data, transformarAReceta);
-			$state.go('realizarConsulta');
+			if($state.includes('realizarConsulta')) {
+				$state.go($state.current, {}, {reload: true});
+			}
+			else $state.go('realizarConsulta');
 		});
 
 	}
