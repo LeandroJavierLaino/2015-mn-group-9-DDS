@@ -11,6 +11,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import cosasUsuario.UsuarioBuilder
 import receta.Receta
 import receta.RecetaBuilder
+import org.hibernate.SessionFactory
+import org.hibernate.cfg.AnnotationConfiguration
 
 @Accessors
 class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
@@ -19,6 +21,42 @@ class RepositorioUsuarios extends CollectionBasedHome<Usuario> {
 	List<Usuario> listaPorAceptarse = new ArrayList<Usuario>
 	
 	Receta recetaDePepe
+	
+	/*
+	private static final SessionFactory sessionFactory = new AnnotationConfiguration()
+		.configure()
+		.addAnnotatedClass(Usuario)
+		.addAnnotatedClass(List<Usuario>)
+		.buildSessionFactory
+		
+	def allInstances() {
+		val session = sessionFactory.openSession
+			try{return session.createCriteria(Usuario).list}
+				finally{session.close}
+		}
+	def searchByExample(Usuario usuario){
+		val session = sessionFactory.openSession
+			try{val criteria = session.createCriteria(Usuario)
+				if(usuario.nombre != null){
+					criteria.add()}
+				return criteria.list}
+				finally{session.close}
+			}
+	
+	def create (Usuario usuario){
+		val session = sessionFactory.openSession
+		try{session.beginTransaction
+			session.save(usuario)
+			session.transaction.commit
+			}
+		catch(HybernateException e){
+			session.transaction.rollback
+			throw new RuntimeException()
+			}
+		finally{session.close}
+	}
+	
+	*/
 
 	static RepositorioUsuarios instance = null
 

@@ -24,6 +24,11 @@ import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.Column
+import javax.persistence.FetchType
 
 @JsonSerialize
 @Accessors
@@ -31,32 +36,52 @@ import rutina.Rutina
 @Entity
 class Usuario{
 
+	@Id @GeneratedValue
+	private long idReceta
+	
 	// Datos varops
+	@Column
 	LocalDate fechaActual = new LocalDate()
 	int CARACTERES_MINIMOS = 4
+	@Column
 	boolean habilitarFavoritos = false
 
 	// Datos basicos
+	@Column(length = 30)
 	String nombre
+	@Column
 	double altura
+	@Column
 	double peso
+	@Column
 	LocalDate fechaDeNacimiento
+	@Column(length = 30)
 	String password
 
 	// Grupo
+	@Column
 	GrupoUsuario grupoAlQuePertenece
 
 	// Para condiciones preexistentes
+	@OneToMany
 	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
+	@Column(length = 30)
 	String sexo
+	@OneToMany
 	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
+	@Column(length = 150)
 	List<String> comidaPreferida = new ArrayList<String>
+	@Column
 	Rutina rutina
 
 	// Recetas
+	@OneToMany
 	Set<Receta> recetas = new HashSet<Receta>
+	@OneToMany
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
+	@OneToMany(fetch = FetchType.LAZY)
 	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
+	@Column
 	ProcesamientoPosterior procesamiento
 
 	//Mensajes
