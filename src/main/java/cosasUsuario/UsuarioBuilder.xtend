@@ -1,11 +1,11 @@
 package cosasUsuario
 
-import org.joda.time.LocalDate
 import condicion.CondicionPreexistente
+import org.joda.time.LocalDate
 import receta.Caracteristica
-import rutina.Rutina
 import receta.Receta
 import repositorioUsuarios.RepositorioUsuarios
+import rutina.Rutina
 
 class UsuarioBuilder {
 	
@@ -60,7 +60,6 @@ class UsuarioBuilder {
 		this
 	}
 	def Usuario build(){
-		RepositorioUsuarios.instance.add(usuario)
 		usuario
 	}
 }

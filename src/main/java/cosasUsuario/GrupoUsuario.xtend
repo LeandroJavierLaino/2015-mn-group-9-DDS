@@ -1,19 +1,19 @@
 package cosasUsuario
 
-import java.util.List
-import java.util.ArrayList
-import org.eclipse.xtend.lib.annotations.Accessors
-import receta.Caracteristica
-import receta.Receta
-import java.util.HashSet
-import java.util.Set
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.util.ArrayList
+import java.util.HashSet
+import java.util.List
+import java.util.Set
+import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.OneToMany
-import javax.persistence.ManyToOne
-import javax.persistence.Column
+import org.eclipse.xtend.lib.annotations.Accessors
+import receta.Caracteristica
+import receta.Receta
 
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -25,10 +25,13 @@ class GrupoUsuario {
 	
 	@OneToMany
 	List<Caracteristica> palabrasClave = new ArrayList<Caracteristica>
-	@ManyToOne
-	Set<Usuario> usuarios = new HashSet<Usuario>
+	
+	@OneToMany(fetch=FetchType.LAZY)
+	Set<Usuario> usuarios = new HashSet
+	
 	@Column(length = 50)
 	String nombre
+	
 	@OneToMany
 	Set<Receta> recetas
 	

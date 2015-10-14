@@ -1,8 +1,10 @@
 package receta
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import javax.persistence.Entity
 
 @Accessors
+@Entity
 class Condimento extends Caracteristica{
 	
 	def boolean esParteDe(String unCondimento,int unaCantidad){

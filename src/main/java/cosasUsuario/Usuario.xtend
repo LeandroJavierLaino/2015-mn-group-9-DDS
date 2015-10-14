@@ -13,12 +13,14 @@ import java.util.HashSet
 import java.util.List
 import java.util.Set
 import javax.persistence.Column
+import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
+import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import org.uqbar.commons.utils.Observable
@@ -46,7 +48,9 @@ class Usuario{
 	// Datos varops
 	@Column
 	LocalDate fechaActual = new LocalDate()
+
 	int CARACTERES_MINIMOS = 4
+	
 	@Column
 	boolean habilitarFavoritos = false
 
@@ -67,18 +71,23 @@ class Usuario{
 	String password
 
 	// Grupo
-	@ManyToOne()
+	@ManyToOne
 	GrupoUsuario grupoAlQuePertenece
 
 	// Para condiciones preexistentes
 	@OneToMany(fetch=FetchType.LAZY)
 	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
+	
 	@Column
 	String sexo
+	
 	@OneToMany(fetch=FetchType.EAGER)
 	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
-	@Column(length = 150)
+	
+	@Column
+	@ElementCollection
 	List<String> comidaPreferida = new ArrayList<String>
+	
 	@ManyToOne()
 	Rutina rutina
 
@@ -87,9 +96,11 @@ class Usuario{
 	Set<Receta> recetas = new HashSet<Receta>
 	@OneToMany
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
-	@OneToMany(fetch=FetchType.LAZY)
+	@Column
+	@ElementCollection
 	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
-	@ManyToOne()
+
+	@OneToOne
 	ProcesamientoPosterior procesamiento
 
 	//Mensajes

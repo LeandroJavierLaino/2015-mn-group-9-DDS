@@ -1,11 +1,13 @@
 package condicion
+
 import cosasUsuario.Usuario
-import receta.Receta
 import excepcion.CondPreexistenteExcepcion
+import javax.persistence.Entity
+import receta.Receta
 
 //Nuevas excepciones modificadas
-
-class CondicionDiabetico implements CondicionPreexistente {
+@Entity
+class CondicionDiabetico extends CondicionPreexistente {
 
 	override def valido(Usuario unUsuario) {
 

@@ -20,6 +20,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import repositorioRecetas.RepositorioRecetas
 import javax.persistence.Column
 import javax.persistence.FetchType
+import javax.persistence.ElementCollection
 
 //Nuevas excepciones modificadas
 @Accessors
@@ -40,6 +41,7 @@ class Receta{
 	@OneToMany
 	Set<Condimento> condimentos = new HashSet<Condimento>
 
+	@ElementCollection
 	@Column(length = 500)
 	List<String> procesoPreparacion = new ArrayList<String>
 
@@ -97,8 +99,7 @@ class Receta{
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) ||
-			(RepositorioRecetas.getInstance.tieneLaReceta(this) && creador.equals(usuario.nombre))
+		usuario.tieneLaReceta(this) || (RepositorioRecetas.getInstance.tieneLaReceta(this) && creador.equals(usuario.nombre))
 
 	// || (creador != null && usuario.comparteGrupoCon(creador))
 	}

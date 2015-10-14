@@ -1,10 +1,12 @@
 package filtro
 
-import java.util.Set
-import receta.Receta
 import cosasUsuario.Usuario
+import java.util.Set
+import javax.persistence.Entity
+import receta.Receta
 
-class FiltroPorSerCaros implements Filtro{
+@Entity
+class FiltroPorSerCaros extends Filtro{
 	
 	override filtrar(Set<Receta> recetas, Usuario usuario) {
 		recetas.filter[receta|receta.tieneIngredientesCaros].toSet

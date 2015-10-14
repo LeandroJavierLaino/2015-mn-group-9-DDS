@@ -7,13 +7,14 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 
 @Accessors
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 abstract class Caracteristica {
 	
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy=GenerationType.TABLE)
 	private long idCaracteristica
 	
 	@Column(length = 30)

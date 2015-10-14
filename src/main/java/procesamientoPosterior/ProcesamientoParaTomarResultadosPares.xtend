@@ -4,8 +4,10 @@ import java.util.Set
 import receta.Receta
 import java.util.List
 import java.util.ArrayList
+import javax.persistence.Entity
 
-class ProcesamientoParaTomarResultadosPares implements ProcesamientoPosterior{
+@Entity
+class ProcesamientoParaTomarResultadosPares extends ProcesamientoPosterior{
 	
 	override asociarProcesamiento(Set<Receta> recetas) {
 		var List<Receta> listaFiltrada = new ArrayList<Receta>

@@ -1,8 +1,11 @@
 package condicion
+
 import cosasUsuario.Usuario
+import javax.persistence.Entity
 import receta.Receta
 
-class CondicionCeliaco implements CondicionPreexistente {
+@Entity
+class CondicionCeliaco extends CondicionPreexistente {
 	
 	override valido(Usuario unUsuario) {
 		true
