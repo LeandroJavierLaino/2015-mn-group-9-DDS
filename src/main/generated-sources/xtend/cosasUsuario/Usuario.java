@@ -367,7 +367,7 @@ public class Usuario extends Entity {
       final Function1<Receta, Boolean> _function_1 = new Function1<Receta, Boolean>() {
         public Boolean apply(final Receta receta) {
           double _totalCalorias = receta.getTotalCalorias();
-          return Boolean.valueOf((_totalCalorias > caloriasMinimas));
+          return Boolean.valueOf((_totalCalorias >= caloriasMinimas));
         }
       };
       Iterable<Receta> _filter_1 = IterableExtensions.<Receta>filter(recetasABuscar, _function_1);
@@ -381,7 +381,7 @@ public class Usuario extends Entity {
       final Function1<Receta, Boolean> _function_2 = new Function1<Receta, Boolean>() {
         public Boolean apply(final Receta receta) {
           double _totalCalorias = receta.getTotalCalorias();
-          return Boolean.valueOf((_totalCalorias < caloriasMaximas));
+          return Boolean.valueOf((_totalCalorias <= caloriasMaximas));
         }
       };
       Iterable<Receta> _filter_2 = IterableExtensions.<Receta>filter(recetasABuscar, _function_2);
@@ -395,7 +395,9 @@ public class Usuario extends Entity {
       final Function1<Receta, Boolean> _function_3 = new Function1<Receta, Boolean>() {
         public Boolean apply(final Receta receta) {
           String _dificultad = receta.getDificultad();
-          return Boolean.valueOf(_dificultad.contains(dificultad));
+          String _lowerCase = _dificultad.toLowerCase();
+          String _lowerCase_1 = dificultad.toLowerCase();
+          return Boolean.valueOf(_lowerCase.contains(_lowerCase_1));
         }
       };
       Iterable<Receta> _filter_3 = IterableExtensions.<Receta>filter(recetasABuscar, _function_3);
@@ -403,14 +405,25 @@ public class Usuario extends Entity {
       recetasABuscar = _set_3;
     }
     String _temporada = consulta.getTemporada();
-    boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(_temporada);
-    boolean _not = (!_isNullOrEmpty);
-    if (_not) {
+    boolean _notEquals_5 = (!Objects.equal(_temporada, null));
+    if (_notEquals_5) {
       final String temporada = consulta.getTemporada();
       final Function1<Receta, Boolean> _function_4 = new Function1<Receta, Boolean>() {
         public Boolean apply(final Receta receta) {
+          boolean _and = false;
           String _temporada = receta.getTemporada();
-          return Boolean.valueOf(_temporada.equalsIgnoreCase(temporada));
+          boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(_temporada);
+          boolean _not = (!_isNullOrEmpty);
+          if (!_not) {
+            _and = false;
+          } else {
+            String _temporada_1 = receta.getTemporada();
+            String _lowerCase = _temporada_1.toLowerCase();
+            String _lowerCase_1 = temporada.toLowerCase();
+            boolean _contains = _lowerCase.contains(_lowerCase_1);
+            _and = _contains;
+          }
+          return Boolean.valueOf(_and);
         }
       };
       Iterable<Receta> _filter_4 = IterableExtensions.<Receta>filter(recetasABuscar, _function_4);
@@ -418,8 +431,8 @@ public class Usuario extends Entity {
       recetasABuscar = _set_4;
     }
     String _ingrediente = consulta.getIngrediente();
-    boolean _notEquals_5 = (!Objects.equal(_ingrediente, null));
-    if (_notEquals_5) {
+    boolean _notEquals_6 = (!Objects.equal(_ingrediente, null));
+    if (_notEquals_6) {
       final String ingrediente = consulta.getIngrediente();
       final Function1<Receta, Boolean> _function_5 = new Function1<Receta, Boolean>() {
         public Boolean apply(final Receta receta) {

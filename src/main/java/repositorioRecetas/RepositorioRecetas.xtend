@@ -6,7 +6,6 @@ import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import receta.Receta
-import repositorioUsuarios.RepositorioUsuarios
 
 @Accessors
 class RepositorioRecetas {
