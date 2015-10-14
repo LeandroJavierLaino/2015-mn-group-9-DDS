@@ -8,13 +8,28 @@ import receta.Receta
 import java.util.HashSet
 import java.util.Set
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.ManyToOne
+import javax.persistence.Column
 
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 class GrupoUsuario {
+	
+	@Id @GeneratedValue
+	private long idGrupoUsuario
+	
+	@OneToMany
 	List<Caracteristica> palabrasClave = new ArrayList<Caracteristica>
+	@ManyToOne
 	Set<Usuario> usuarios = new HashSet<Usuario>
+	@Column(length = 50)
 	String nombre
+	@OneToMany
 	Set<Receta> recetas
 	
 	def perteneceALasPalabrasClave(Caracteristica caracteristica){
