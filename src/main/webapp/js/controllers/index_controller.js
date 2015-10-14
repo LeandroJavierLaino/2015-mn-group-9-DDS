@@ -8,8 +8,8 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 	this.listadoDeUsuarios;
 	this.consulta = new Consulta;
 	this.resultadoDeLaConsulta;
-	this.dificultades = [ "", "facil", "media", "dificil" ];
-	this.temporadas = [ "", "verano", "otonio", "invierno", "primavera",
+	this.dificultades = [ "" ,"FACIL", "MEDIANA", "DIFICIL" ];
+	this.temporadas = [ "","VERANO", "OTOÑO", "INVIERNO", "PRIMAVERA",
 			"todoElAnio" ];
 
 	this.acceder = function() {
@@ -24,17 +24,15 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 
 	this.realizarConsulta = function() {
 
-		// self.consulta.ingredientes.push(self.consulta.ingrediente);
-		// self.consulta.ingrediente = null;
-		//
-		console.log(self.usuario.nombre);
 		console.log(self.consulta);
-		console.log(jsonify(self.consulta));
-
-		indexSrvc.recetas(function(data) {
+		indexSrvc.realizarConsulta(self.usuario.nombre, self.consulta, function(data) {
 			indexSrvc.recetasRecibidas = _.map(data, transformarAReceta);
-			$state.go('realizarConsulta');
+			if($state.includes('realizarConsulta')) {
+				$state.go($state.current, {}, {reload: true});
+			}
+			else $state.go('realizarConsulta');
 		});
 
 	}
+
 })

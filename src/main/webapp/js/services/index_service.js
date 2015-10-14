@@ -26,12 +26,8 @@ indexApp.service('indexSrvc', function($http) {
 		$http.put('/receta/', receta).then(callback, errorHandler);
 	}
 	
-	this.recetas = function(callback) {
-		$http.get('/recetas').success(callback);
-	}
-	
-	this.realizarConsulta = function(consulta, callback) {
-		$http.post('/consulta/recetas', consulta).success(callback);
+	this.realizarConsulta = function(nombre, consulta, callback) {
+		$http.post(nombre + '/consulta/recetas', consulta).success(callback);
 	}
 	
 })
