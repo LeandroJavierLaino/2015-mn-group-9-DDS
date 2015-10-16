@@ -21,6 +21,7 @@ import repositorioRecetas.RepositorioRecetas
 import javax.persistence.Column
 import javax.persistence.FetchType
 import javax.persistence.ElementCollection
+import javax.persistence.GenerationType
 
 //Nuevas excepciones modificadas
 @Accessors
@@ -29,8 +30,9 @@ import javax.persistence.ElementCollection
 @Entity
 class Receta{
 
-	@Id @GeneratedValue
-	private long idReceta
+	@Id 
+	@GeneratedValue()
+	private Long idReceta
 
 	@Column(length = 150)
 	String nombrePlato

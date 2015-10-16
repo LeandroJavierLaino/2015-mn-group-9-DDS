@@ -44,7 +44,6 @@ class GrupoUsuario {
 	}
 	
 	def tieneUnUsuario(String usuario){
-		//usuarios.contains(usuario)
 		usuarios.exists[it.nombre.equalsIgnoreCase(usuario)]
 	}
 	

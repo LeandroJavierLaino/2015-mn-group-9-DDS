@@ -45,14 +45,30 @@ class RepositorioUsuarios {
 		instance
 	}
 
-	private static final SessionFactory sessionFactory = new AnnotationConfiguration().
-		configure().
-		addAnnotatedClass(Usuario).
-		addAnnotatedClass(Receta).
-		addAnnotatedClass(Caracteristica).
-		addAnnotatedClass(Ingrediente).
-		addAnnotatedClass(Condimento).addAnnotatedClass(Rutina).addAnnotatedClass(CondicionPreexistente)
-		.addAnnotatedClass(CondicionCeliaco).addAnnotatedClass(CondicionDiabetico).addAnnotatedClass(GrupoUsuario).addAnnotatedClass(CondicionHipertenso).addAnnotatedClass(CondicionVegano).addAnnotatedClass(ProcesamientoPosterior).addAnnotatedClass(ProcesamientoOrdenarlosPorCalorias).addAnnotatedClass(ProcesamientoOrdenarlosPorNombre).addAnnotatedClass(ProcesamientoParaTomarLosPrimerosN).addAnnotatedClass(ProcesamientoParaTomarResultadosPares) .addAnnotatedClass(Filtro).addAnnotatedClass(FiltroPorCondicionesPreexistentes).addAnnotatedClass(FiltroPorExcesoDeCalorias).addAnnotatedClass(FiltroPorGusto).addAnnotatedClass(FiltroPorSerCaros).buildSessionFactory()
+	private static final SessionFactory sessionFactory = new AnnotationConfiguration().configure()
+		.addAnnotatedClass(Usuario)
+		.addAnnotatedClass(Receta)
+		.addAnnotatedClass(Caracteristica)
+		.addAnnotatedClass(Ingrediente)
+		.addAnnotatedClass(Condimento)
+		.addAnnotatedClass(Rutina)
+		.addAnnotatedClass(CondicionPreexistente)
+		.addAnnotatedClass(CondicionCeliaco)
+		.addAnnotatedClass(CondicionDiabetico)
+		.addAnnotatedClass(GrupoUsuario)
+		.addAnnotatedClass(CondicionHipertenso)
+		.addAnnotatedClass(CondicionVegano)
+		.addAnnotatedClass(ProcesamientoPosterior)
+		.addAnnotatedClass(ProcesamientoOrdenarlosPorCalorias)
+		.addAnnotatedClass(ProcesamientoOrdenarlosPorNombre)
+		.addAnnotatedClass(ProcesamientoParaTomarLosPrimerosN)
+		.addAnnotatedClass(ProcesamientoParaTomarResultadosPares)
+		.addAnnotatedClass(Filtro)
+		.addAnnotatedClass(FiltroPorCondicionesPreexistentes)
+		.addAnnotatedClass(FiltroPorExcesoDeCalorias)
+		.addAnnotatedClass(FiltroPorGusto)
+		.addAnnotatedClass(FiltroPorSerCaros)
+		.buildSessionFactory()
 
 	def List<Usuario> allInstances() {
 		val session = sessionFactory.openSession

@@ -105,8 +105,8 @@ class Iniciador {
 		
 		leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		leandro.filtrosAAplicar.add(filtroGusto)
-		this.crearUsuario(leandro)
-		this.crearUsuario(nicolas) 
+		crearUsuario(leandro)
+		crearUsuario(nicolas) 
 		
 	}
 	

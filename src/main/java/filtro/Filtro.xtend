@@ -17,5 +17,6 @@ import receta.Receta
 abstract class Filtro {
 	@Id	@GeneratedValue(strategy=GenerationType.TABLE)
 	private long idFiltro	
+	
 	def Set<Receta> filtrar(Set<Receta> recetas,Usuario usuario)
 }

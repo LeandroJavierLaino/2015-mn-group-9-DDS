@@ -33,6 +33,7 @@ import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
+import javax.persistence.CascadeType
 
 @JsonSerialize
 @Accessors
@@ -41,15 +42,16 @@ import rutina.Rutina
 @Observable
 class Usuario{
 
+
+	int CARACTERES_MINIMOS = 4
+	
 	@Id
 	@GeneratedValue
 	private Long id;
 	
-	// Datos varops
-	@Column
+	// Datos varios
+	//@Column
 	LocalDate fechaActual = new LocalDate()
-
-	int CARACTERES_MINIMOS = 4
 	
 	@Column
 	boolean habilitarFavoritos = false
@@ -92,15 +94,18 @@ class Usuario{
 	Rutina rutina
 
 	// Recetas
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER) //LAZY A EAGER
 	Set<Receta> recetas = new HashSet<Receta>
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER) 
 	Set<Receta> recetasFavoritas = new HashSet<Receta>
-	@Column
-	@ElementCollection
-	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
+	
+//	@Column
+//	@ElementCollection
 
-	@OneToOne
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	Set<Filtro> filtrosAAplicar = new HashSet<Filtro> //Cambio List a SET
+
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	ProcesamientoPosterior procesamiento
 
 	//Mensajes
