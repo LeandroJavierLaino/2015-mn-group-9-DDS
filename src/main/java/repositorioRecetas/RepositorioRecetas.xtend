@@ -86,9 +86,34 @@ class RepositorioRecetas {
 	def add(Receta receta) {
 		val session = sessionFactory.openSession
 		try {
-			session.beginTransaction
-			session.save(receta)
+			if(searchByExample(receta).empty) {
+				
+				session.beginTransaction			
+				session.saveOrUpdate(receta)
+				session.flush
+				session.refresh(receta)
+				session.getTransaction.commit
+
+			}
+			
+		} catch (HibernateException e) {
+			session.getTransaction.rollback
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
+	def update(Receta receta) {
+		val session = sessionFactory.openSession
+		try {
+
+			session.beginTransaction			
+			session.update(receta)
+			session.flush
+			session.refresh(receta)
 			session.getTransaction.commit
+
+			
 		} catch (HibernateException e) {
 			session.getTransaction.rollback
 			throw new RuntimeException(e)
@@ -156,6 +181,7 @@ class RepositorioRecetas {
 
 	def quitarPorNombre(String nombreDeReceta) {
 		//recetas = recetas.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
-		allInstances.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
+		val receta = allInstances.filter[it.nombrePlato.equals(nombreDeReceta)].head
+		remove(receta)
 	}
 }

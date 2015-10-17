@@ -44,7 +44,7 @@ class Receta{
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<Condimento> condimentos = new HashSet<Condimento>
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(length = 500)
 	List<String> procesoPreparacion = new ArrayList<String>
 

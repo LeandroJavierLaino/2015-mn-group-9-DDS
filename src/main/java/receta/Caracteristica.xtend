@@ -16,22 +16,18 @@ abstract class Caracteristica {
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.TABLE)
-	private Long idCaracteristica
+	private long idCaracteristica
 	
 	@Column(length = 30)
 	String nombre
+	
 	@Column
 	double cantidad
+	
 	@Column(length = 30)
 	String tipo
 
 	new(){
 		
-	}
-	
-	new(String cNombre, double cCantidad, String cTipo) {
-		nombre = cNombre
-		cantidad = cCantidad
-		tipo = cTipo
 	}
 }

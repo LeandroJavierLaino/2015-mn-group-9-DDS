@@ -73,16 +73,20 @@ class QueComemosController {
 	def Result guardarReceta(@Body String body) {
 		val Receta receta = body.fromJson(Receta)
 
-		val recetaVieja = RepositorioRecetas.instance.recetas.findFirst[it.nombrePlato.equals(receta.nombrePlato)]
+		val recetaVieja = RepositorioRecetas.instance.allInstances.findFirst[it.nombrePlato.equals(receta.nombrePlato)]
 		try {
 
 			receta.puedeSerCreada()
-
-			if (recetaVieja != null) {
+			if(recetaVieja != null)
+				RepositorioRecetas.instance.update(receta)
+				
+			else RepositorioRecetas.instance.add(receta)
+			
+			/*if (recetaVieja != null) {
 				RepositorioRecetas.instance.quitarPorNombre(receta.nombrePlato)
 				RepositorioRecetas.instance.add(receta)
 			} else
-				RepositorioRecetas.instance.add(receta)
+				RepositorioRecetas.instance.add(receta)*/
 
 			ok('{ "status" : "OK" }')
 

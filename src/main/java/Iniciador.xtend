@@ -53,8 +53,8 @@ class Iniciador {
 		.dificultad("Baja")
 		.pasoInstruccion("Hervir Salchichas")
 		.pasoInstruccion("Freir Papas")
-		.ingrediente(salchicha)
-		.condimento(ketchup)
+		//.ingrediente(salchicha)
+		//.condimento(ketchup)
 		.temporada("Verano")
 		.esPrivada
 		.creadaPor("Nicolas")
@@ -109,6 +109,7 @@ class Iniciador {
 		crearUsuario(nicolas) 
 		
 		crearReceta(recetaSalchiPapa)
+
 	}
 	
 	def crearUsuario(Usuario usuario) {
