@@ -6,6 +6,7 @@ import org.joda.time.LocalDate
 import java.util.ArrayList
 import org.junit.Before
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.HashSet
 
 @Accessors
 class UsuariosExtras extends UsuariosPrincipales {
@@ -99,7 +100,7 @@ class UsuariosExtras extends UsuariosPrincipales {
 			peso = 67
 			altura = 1.71
 			rutina = rutinaActivaCorta
-			comidaPreferida = new ArrayList<String>()
+			comidaPreferida = new HashSet<String>()
 			comidaPreferida.add("Pollo")
 			agregarCondicion(vegano)
 		]
@@ -111,7 +112,7 @@ class UsuariosExtras extends UsuariosPrincipales {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaActivaCorta
-			comidaPreferida = new ArrayList<String>()
+			comidaPreferida = new HashSet<String>()
 			comidaPreferida.add("Fruta")
 			agregarCondicion(vegano)
 		]
@@ -133,7 +134,7 @@ class UsuariosExtras extends UsuariosPrincipales {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaActivaCorta
-			comidaPreferida = new ArrayList<String>()
+			comidaPreferida = new HashSet<String>()
 			comidaPreferida.add("Carne")
 			agregarCondicion(hipertenso)
 		]
@@ -145,7 +146,7 @@ class UsuariosExtras extends UsuariosPrincipales {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaSedentaria
-			comidaPreferida = new ArrayList<String>()
+			comidaPreferida = new HashSet<String>()
 			comidaPreferida.add("Pollo")
 			agregarCondicion(hipertenso)
 		]
@@ -157,7 +158,7 @@ class UsuariosExtras extends UsuariosPrincipales {
 			altura = 1.70
 			peso = 67
 			rutina = rutinaSedentaria
-			comidaPreferida = new ArrayList<String>()
+			comidaPreferida = new HashSet<String>()
 			comidaPreferida.add("Pollo")
 			agregarCondicion(hipertenso)
 		]
@@ -169,7 +170,7 @@ class UsuariosExtras extends UsuariosPrincipales {
 			altura = 1.70
 			peso = 80
 			rutina = rutinaActivaCorta
-			comidaPreferida = new ArrayList<String>()
+			comidaPreferida = new HashSet<String>()
 			comidaPreferida.add("Carne")
 			agregarCondicion(diabetico)
 		]
@@ -191,7 +192,7 @@ class UsuariosExtras extends UsuariosPrincipales {
 			altura = 1.70
 			peso = 78
 			rutina = rutinaSedentaria
-			comidaPreferida = new ArrayList<String>()
+			comidaPreferida = new HashSet<String>()
 			comidaPreferida.add("Pollo")
 			agregarCondicion(diabetico)
 		]
@@ -203,7 +204,7 @@ class UsuariosExtras extends UsuariosPrincipales {
 			altura = 1.70
 			peso = 65
 			rutina = rutinaSedentaria
-			comidaPreferida = new ArrayList<String>()
+			comidaPreferida = new HashSet<String>()
 			comidaPreferida.add("Fruta")
 			agregarCondicion(diabetico)
 		]

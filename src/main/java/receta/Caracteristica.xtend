@@ -14,8 +14,9 @@ import javax.persistence.GenerationType
 @Entity
 abstract class Caracteristica {
 	
-	@Id @GeneratedValue(strategy=GenerationType.TABLE)
-	private long idCaracteristica
+	@Id 
+	@GeneratedValue(strategy=GenerationType.TABLE)
+	private Long idCaracteristica
 	
 	@Column(length = 30)
 	String nombre

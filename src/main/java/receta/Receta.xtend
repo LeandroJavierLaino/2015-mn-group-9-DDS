@@ -22,6 +22,7 @@ import javax.persistence.Column
 import javax.persistence.FetchType
 import javax.persistence.ElementCollection
 import javax.persistence.GenerationType
+import javax.persistence.CascadeType
 
 //Nuevas excepciones modificadas
 @Accessors
@@ -31,16 +32,16 @@ import javax.persistence.GenerationType
 class Receta{
 
 	@Id 
-	@GeneratedValue()
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long idReceta
 
 	@Column(length = 150)
 	String nombrePlato
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<Condimento> condimentos = new HashSet<Condimento>
 
 	@ElementCollection
@@ -62,13 +63,13 @@ class Receta{
 	@Column
 	double cantidadMaximaCalorias = 5000
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<Receta> subRecetas = new HashSet<Receta>
 
 	@Column(length = 30)
 	String creador
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
 
 	@Column
@@ -102,8 +103,6 @@ class Receta{
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
 		usuario.tieneLaReceta(this) || (RepositorioRecetas.getInstance.tieneLaReceta(this) && creador.equals(usuario.nombre))
-
-	// || (creador != null && usuario.comparteGrupoCon(creador))
 	}
 
 	def puedeModificarReceta(Usuario usuario) {

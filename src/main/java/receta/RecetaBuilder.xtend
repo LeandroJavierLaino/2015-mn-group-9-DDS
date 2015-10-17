@@ -61,7 +61,7 @@ class RecetaBuilder {
 		this
 	}
 	def Receta build() {
-		RepositorioRecetas.instance.agregar(receta)
+		RepositorioRecetas.instance.add(receta)
 		receta
 	}
 

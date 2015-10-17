@@ -80,9 +80,9 @@ class QueComemosController {
 
 			if (recetaVieja != null) {
 				RepositorioRecetas.instance.quitarPorNombre(receta.nombrePlato)
-				RepositorioRecetas.instance.agregar(receta)
+				RepositorioRecetas.instance.add(receta)
 			} else
-				RepositorioRecetas.instance.agregar(receta)
+				RepositorioRecetas.instance.add(receta)
 
 			ok('{ "status" : "OK" }')
 

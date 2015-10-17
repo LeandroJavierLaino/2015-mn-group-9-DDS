@@ -77,18 +77,18 @@ class Usuario{
 	GrupoUsuario grupoAlQuePertenece
 
 	// Para condiciones preexistentes
-	@OneToMany(fetch=FetchType.LAZY)
-	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
+	@OneToMany(fetch=FetchType.EAGER)
+	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
 	
 	@Column
 	String sexo
 	
-	@OneToMany(fetch=FetchType.EAGER)
-	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	Set<Caracteristica> comidasQueDisgustan = new HashSet<Caracteristica>
 	
 	@Column
-	@ElementCollection
-	List<String> comidaPreferida = new ArrayList<String>
+	@ElementCollection(fetch = FetchType.EAGER)
+	Set<String> comidaPreferida = new HashSet<String>
 	
 	@ManyToOne()
 	Rutina rutina

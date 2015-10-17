@@ -98,8 +98,8 @@ class Iniciador {
 		GestorDeConsultas.getInstance.monitores.add(monitorRecetasHombre)
 		GestorDeConsultas.getInstance.monitores.add(monitorRecetasMujer)
 		
-		nicolas.recetasFavoritas.add(recetaSalchiPapa)
-		nicolas.habilitarFavoritos = true
+		//nicolas.recetasFavoritas.add(recetaSalchiPapa)
+		//nicolas.habilitarFavoritos = true
 		
 		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		
@@ -108,6 +108,7 @@ class Iniciador {
 		crearUsuario(leandro)
 		crearUsuario(nicolas) 
 		
+		crearReceta(recetaSalchiPapa)
 	}
 	
 	def crearUsuario(Usuario usuario) {
@@ -115,6 +116,13 @@ class Iniciador {
 		if (repoUsuarios.searchByExample(usuario).isEmpty) {
 			repoUsuarios.add(usuario)
 			println("Usuario " + usuario.nombre + " creado")
+		}
+	}
+	def crearReceta(Receta receta) {
+		val repoRecetas = RepositorioRecetas.instance
+		if(repoRecetas.searchByExample(receta).empty) {
+			repoRecetas.add(receta)
+			println("Receta " + receta.nombrePlato + " creada")
 		}
 	}
 }
