@@ -1,5 +1,8 @@
 package receta
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import condicion.CondicionPreexistente
 import cosasUsuario.GrupoUsuario
 import cosasUsuario.Usuario
 import excepcion.RecetaInvalidaExcepcion
@@ -9,30 +12,31 @@ import java.util.Collection
 import java.util.HashSet
 import java.util.List
 import java.util.Set
-import org.eclipse.xtend.lib.annotations.Accessors
+import org.neo4j.cypher.internal.commands.Entity
 import repositorioRecetas.RepositorioRecetas
-import condicion.CondicionPreexistente
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import uqbar.arena.persistence.annotations.PersistentClass
+import uqbar.arena.persistence.annotations.PersistentField
+import uqbar.arena.persistence.annotations.Relation
 
-@Accessors
+//@Accessors
 @JsonIgnoreProperties(ignoreUnknown=true)
 @JsonSerialize
-class Receta {
+@PersistentClass
+class Receta extends Entity{
 
-	String nombrePlato
-	Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-	Set<Condimento> condimentos = new HashSet<Condimento>
-	List<String> procesoPreparacion = new ArrayList<String>
-	double totalCalorias
-	String dificultad
-	String temporada
-	double cantidadMinimaCalorias = 10
-	double cantidadMaximaCalorias = 5000
-	Set<Receta> subRecetas = new HashSet<Receta>
-	String creador
-	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
-	Boolean esPublica
+	@PersistentField String nombrePlato
+	@Relation Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
+	@Relation Set<Condimento> condimentos = new HashSet<Condimento>
+	@Relation List<String> procesoPreparacion = new ArrayList<String>
+	@PersistentField double totalCalorias
+	@PersistentField String dificultad
+	@PersistentField String temporada
+	@PersistentField double cantidadMinimaCalorias = 10
+	@PersistentField double cantidadMaximaCalorias = 5000
+	@Relation Set<Receta> subRecetas = new HashSet<Receta>
+	@PersistentField String creador
+	@Relation Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
+	@PersistentField Boolean esPublica
 
 	def puedeSerCreada() {
 		if (hayUnIngrediente(this.ingredientes) && totalDeCaloriasEnRango(this.totalCalorias)) {
