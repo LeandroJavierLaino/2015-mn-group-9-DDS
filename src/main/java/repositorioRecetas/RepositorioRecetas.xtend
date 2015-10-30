@@ -22,7 +22,7 @@ class RepositorioRecetas extends PersistentHome<Receta>{
 	@Relation Collection<Receta> listarRecetasVisibles
 
 	static def getInstance() {
-		if (instance == null) {
+		if (instance == null){
 			instance = new RepositorioRecetas()
 		}
 		instance
