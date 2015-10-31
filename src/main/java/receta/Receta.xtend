@@ -12,16 +12,19 @@ import java.util.Collection
 import java.util.HashSet
 import java.util.List
 import java.util.Set
-import org.neo4j.cypher.internal.commands.Entity
+import org.uqbar.commons.model.Entity
 import repositorioRecetas.RepositorioRecetas
 import uqbar.arena.persistence.annotations.PersistentClass
 import uqbar.arena.persistence.annotations.PersistentField
 import uqbar.arena.persistence.annotations.Relation
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Transactional
 
-//@Accessors
+@Transactional
 @JsonIgnoreProperties(ignoreUnknown=true)
 @JsonSerialize
 @PersistentClass
+@Accessors
 class Receta extends Entity{
 
 	@PersistentField String nombrePlato
