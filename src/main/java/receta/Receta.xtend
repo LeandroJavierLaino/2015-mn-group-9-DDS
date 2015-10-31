@@ -18,9 +18,9 @@ import uqbar.arena.persistence.annotations.PersistentClass
 import uqbar.arena.persistence.annotations.PersistentField
 import uqbar.arena.persistence.annotations.Relation
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Transactional
+import org.uqbar.commons.utils.TransactionalAndObservable
 
-@Transactional
+@TransactionalAndObservable
 @JsonIgnoreProperties(ignoreUnknown=true)
 @JsonSerialize
 @PersistentClass
@@ -30,7 +30,7 @@ class Receta extends Entity{
 	@PersistentField String nombrePlato
 	@Relation Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
 	@Relation Set<Condimento> condimentos = new HashSet<Condimento>
-	@Relation List<String> procesoPreparacion = new ArrayList<String>
+	List<String> procesoPreparacion = new ArrayList<String>
 	@PersistentField double totalCalorias
 	@PersistentField String dificultad
 	@PersistentField String temporada

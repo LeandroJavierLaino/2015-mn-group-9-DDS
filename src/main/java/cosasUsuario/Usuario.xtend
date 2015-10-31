@@ -27,13 +27,13 @@ import receta.Condimento
 import uqbar.arena.persistence.annotations.PersistentField
 import uqbar.arena.persistence.annotations.Relation
 import uqbar.arena.persistence.annotations.PersistentClass
-import org.uqbar.commons.utils.Transactional
+import org.uqbar.commons.utils.TransactionalAndObservable
 
 @JsonSerialize
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown=true)
 @PersistentClass
-@Transactional
+@TransactionalAndObservable
 class Usuario extends Entity {
 
 	// Datos varios
@@ -45,7 +45,7 @@ class Usuario extends Entity {
 	@PersistentField String nombre
 	@PersistentField double altura
 	@PersistentField double peso
-	@Relation LocalDate fechaDeNacimiento
+	LocalDate fechaDeNacimiento
 	@PersistentField String password
 
 	// Grupo
@@ -55,7 +55,7 @@ class Usuario extends Entity {
 	@Relation List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
 	@PersistentField String sexo
 	@Relation List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
-	@Relation List<String> comidaPreferida = new ArrayList<String>
+	List<String> comidaPreferida = new ArrayList<String>
 	Rutina rutina
 
 	// Recetas

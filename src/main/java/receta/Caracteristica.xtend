@@ -1,15 +1,21 @@
 package receta
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import uqbar.arena.persistence.annotations.PersistentClass
+import uqbar.arena.persistence.annotations.PersistentField
+import org.uqbar.commons.utils.TransactionalAndObservable
+import org.uqbar.commons.model.Entity
 
+@PersistentClass
+@TransactionalAndObservable
 @Accessors
-abstract class Caracteristica {
-	String nombre
-	double cantidad
-	String tipo
+abstract class Caracteristica extends Entity {
+	
+	@PersistentField String nombre
+	@PersistentField double cantidad
+	@PersistentField String tipo
 
 	new(){
-		
 	}
 	
 	new(String cNombre, double cCantidad, String cTipo) {

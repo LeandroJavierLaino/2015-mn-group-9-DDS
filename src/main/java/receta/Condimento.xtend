@@ -1,7 +1,9 @@
 package receta
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import uqbar.arena.persistence.annotations.PersistentClass
 
+@PersistentClass
 @Accessors
 class Condimento extends Caracteristica{
 	

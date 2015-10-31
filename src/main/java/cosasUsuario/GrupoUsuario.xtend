@@ -8,8 +8,10 @@ import receta.Receta
 import java.util.HashSet
 import java.util.Set
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import uqbar.arena.persistence.annotations.PersistentClass
 
 @Accessors
+@PersistentClass
 @JsonIgnoreProperties(ignoreUnknown = true)
 class GrupoUsuario {
 	List<Caracteristica> palabrasClave = new ArrayList<Caracteristica>

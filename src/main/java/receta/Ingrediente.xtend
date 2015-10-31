@@ -1,8 +1,11 @@
 package receta
+
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
 import java.util.List
+import uqbar.arena.persistence.annotations.PersistentClass
 
+@PersistentClass
 @Accessors
 class Ingrediente extends Caracteristica {
 	

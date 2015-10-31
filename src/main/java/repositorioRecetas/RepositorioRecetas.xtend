@@ -100,7 +100,7 @@ class RepositorioRecetas extends PersistentHome<Receta>{
 
 	def cargarTodasLasRecetas() {
 		//recetas = (recetas + obtenerRecetasExternas()).toList
-		obtenerRecetasExternas.forEach[create(it)]
+		obtenerRecetasExternas.forEach[createIfNotExist(it)]
 	}
 
 	def listarRecetasVisiblesPara(Usuario usuario) {

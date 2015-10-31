@@ -26,7 +26,7 @@ class QueComemosController {
 
 	@Get("/recetas")
 	def Result recetas() {
-		val recetas = RepositorioRecetas.instance.recetas.toList
+		val recetas = RepositorioRecetas.instance.allInstances.toList
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(recetas.toJson)
 	}
