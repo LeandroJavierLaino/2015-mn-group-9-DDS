@@ -24,37 +24,43 @@ import rutina.Rutina
 import repositorioRecetas.BuscaReceta
 import receta.Ingrediente
 import receta.Condimento
+import uqbar.arena.persistence.annotations.PersistentField
+import uqbar.arena.persistence.annotations.Relation
+import uqbar.arena.persistence.annotations.PersistentClass
+import org.uqbar.commons.utils.Transactional
 
 @JsonSerialize
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown=true)
+@PersistentClass
+@Transactional
 class Usuario extends Entity {
 
 	// Datos varios
 	LocalDate fechaActual = new LocalDate()
 	int CARACTERES_MINIMOS = 4
-	boolean habilitarFavoritos = false
+	@PersistentField boolean habilitarFavoritos = false
 
 	// Datos basicos
-	String nombre
-	double altura
-	double peso
-	LocalDate fechaDeNacimiento
-	String password
+	@PersistentField String nombre
+	@PersistentField double altura
+	@PersistentField double peso
+	@Relation LocalDate fechaDeNacimiento
+	@PersistentField String password
 
 	// Grupo
-	GrupoUsuario grupoAlQuePertenece
+	@Relation GrupoUsuario grupoAlQuePertenece
 
 	// Para condiciones preexistentes
-	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
-	String sexo
-	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
-	List<String> comidaPreferida = new ArrayList<String>
+	@Relation List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
+	@PersistentField String sexo
+	@Relation List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
+	@Relation List<String> comidaPreferida = new ArrayList<String>
 	Rutina rutina
 
 	// Recetas
-	Set<Receta> recetas = new HashSet<Receta>
-	Set<Receta> recetasFavoritas = new HashSet<Receta>
+	@Relation Set<Receta> recetas = new HashSet<Receta>
+	@Relation Set<Receta> recetasFavoritas = new HashSet<Receta>
 	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
 	ProcesamientoPosterior procesamiento
 

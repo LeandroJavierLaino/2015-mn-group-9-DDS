@@ -15,6 +15,8 @@ import receta.Receta
 import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
+import uqbar.arena.persistence.Configuration
+import org.uqbar.commons.utils.ApplicationContext
 
 @Controller
 class QueComemosController {
@@ -103,6 +105,11 @@ class QueComemosController {
 	}
 
 	def static void main(String[] args) {
+		
+		Configuration.configure()
+		ApplicationContext.instance.configureSingleton(typeof(Receta), new RepositorioRecetas)
+		ApplicationContext.instance.configureSingleton(typeof(Usuario), new RepositorioUsuarios)
+		
 		new Iniciador()
 		XTRest.start(QueComemosController, 9000)
 	}

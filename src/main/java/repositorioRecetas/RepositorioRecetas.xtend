@@ -29,9 +29,9 @@ class RepositorioRecetas extends PersistentHome<Receta>{
 	}
 
 	/**
-	 * *****************************************
-	 *  DEFINICION DEL SINGLETON
-	 * *****************************************
+	 * *********************************************
+	 *           DEFINICION DEL SINGLETON
+	 * *********************************************
 	 */
 	 
 	static RepositorioRecetas instance = null
@@ -69,10 +69,11 @@ class RepositorioRecetas extends PersistentHome<Receta>{
 
 	def quitar(Receta receta) {
 		recetas.remove(receta)
+		delete(receta)
 	}
 	/**
 	 * *********************************************
-	 *                     BUSQUEDA
+	 *                    BUSQUEDA
 	 * *********************************************
 	 */
 	
@@ -87,20 +88,24 @@ class RepositorioRecetas extends PersistentHome<Receta>{
 		}
 	}
 	def buscarPorNombre(String nombreDeReceta) {
-		recetas.findFirst[it.nombrePlato.equals(nombreDeReceta)]
+		//recetas.findFirst[it.nombrePlato.equals(nombreDeReceta)]
+		allInstances.findFirst[it.nombrePlato.equals(nombreDeReceta)]
 	}
 	
 	
 	def boolean tieneLaReceta(Receta receta) {
-		(!recetas.nullOrEmpty) && recetas.contains(receta)
+		//(!recetas.nullOrEmpty) && recetas.contains(receta)
+		!allInstances.nullOrEmpty && allInstances.contains(receta)
 	}
 
 	def cargarTodasLasRecetas() {
-		recetas = (recetas + obtenerRecetasExternas()).toList
+		//recetas = (recetas + obtenerRecetasExternas()).toList
+		obtenerRecetasExternas.forEach[create(it)]
 	}
 
 	def listarRecetasVisiblesPara(Usuario usuario) {
-		recetas.filter[unaReceta|unaReceta.puedeVerReceta(usuario)].toSet
+		//recetas.filter[unaReceta|unaReceta.puedeVerReceta(usuario)].toSet
+		allInstances.filter[unaReceta | unaReceta.puedeVerReceta(usuario)].toSet
 	}
 
 	def obtenerRecetasExternas(BusquedaRecetas busquedaRecetas) {
