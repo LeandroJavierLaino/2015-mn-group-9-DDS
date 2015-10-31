@@ -5,7 +5,7 @@ import cosasUsuario.Usuario
 import java.util.ArrayList
 import java.util.List
 import org.apache.commons.collections15.Predicate
-import org.apache.commons.collections15.functors.AndPredicate
+//import org.apache.commons.collections15.functors.AndPredicate
 import org.eclipse.xtend.lib.annotations.Accessors
 import uqbar.arena.persistence.PersistentHome
 import org.uqbar.commons.utils.Observable

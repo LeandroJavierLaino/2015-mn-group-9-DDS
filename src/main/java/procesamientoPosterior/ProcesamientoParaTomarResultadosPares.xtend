@@ -1,10 +1,12 @@
 package procesamientoPosterior
 
+import java.util.ArrayList
+import java.util.List
 import java.util.Set
 import receta.Receta
-import java.util.List
-import java.util.ArrayList
+import uqbar.arena.persistence.annotations.PersistentClass
 
+@PersistentClass
 class ProcesamientoParaTomarResultadosPares implements ProcesamientoPosterior{
 	
 	override asociarProcesamiento(Set<Receta> recetas) {

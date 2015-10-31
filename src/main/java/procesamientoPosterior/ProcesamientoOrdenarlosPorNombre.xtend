@@ -1,12 +1,14 @@
 package procesamientoPosterior
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import java.util.ArrayList
+import java.util.List
 import java.util.Set
 import receta.Receta
-import java.util.List
-import java.util.ArrayList
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import uqbar.arena.persistence.annotations.PersistentClass
 
 @JsonSerialize
+@PersistentClass
 class ProcesamientoOrdenarlosPorNombre implements ProcesamientoPosterior {
 	
 	override asociarProcesamiento(Set<Receta> recetas) {

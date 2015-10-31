@@ -55,14 +55,14 @@ class Usuario extends Entity {
 	@Relation List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
 	@PersistentField String sexo
 	@Relation List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
-	List<String> comidaPreferida = new ArrayList<String>
-	Rutina rutina
+	/*/@PersistentField*/ List<String> comidaPreferida = new ArrayList<String>
+	@Relation Rutina rutina
 
 	// Recetas
 	@Relation Set<Receta> recetas = new HashSet<Receta>
 	@Relation Set<Receta> recetasFavoritas = new HashSet<Receta>
-	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
-	ProcesamientoPosterior procesamiento
+	@Relation List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
+	@Relation ProcesamientoPosterior procesamiento
 
 	//Mensajes
 	def double calculaIMC() {

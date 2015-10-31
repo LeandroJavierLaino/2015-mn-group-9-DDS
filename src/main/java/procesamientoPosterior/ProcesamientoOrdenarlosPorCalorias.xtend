@@ -4,7 +4,9 @@ import java.util.ArrayList
 import java.util.List
 import java.util.Set
 import receta.Receta
+import uqbar.arena.persistence.annotations.PersistentClass
 
+@PersistentClass
 class ProcesamientoOrdenarlosPorCalorias implements ProcesamientoPosterior{
 	
 	override asociarProcesamiento(Set<Receta> recetas){
