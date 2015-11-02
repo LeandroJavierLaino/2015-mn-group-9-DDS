@@ -26,7 +26,8 @@ class RepositorioUsuarios extends PersistentHome<Usuario> {
 	}
 	
 	def add(Usuario usuario) {
-		this.create(usuario)
+		if(!allInstances.exists[user | user.nombre.equals(usuario.nombre)])
+			this.create(usuario)
 	}
 
 	def remove(Usuario usuario) {

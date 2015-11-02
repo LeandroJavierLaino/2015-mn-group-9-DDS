@@ -52,7 +52,7 @@ class UsuarioBuilder {
 		this
 	}
 	def UsuarioBuilder conReceta(Receta receta) {
-		usuario.recetas.add(receta)
+		usuario.agregarReceta(receta)
 		this
 	}
 	def UsuarioBuilder conPass(String password) {

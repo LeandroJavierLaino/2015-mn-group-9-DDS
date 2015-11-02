@@ -12,7 +12,7 @@ import uqbar.arena.persistence.PersistentHome
 @Observable
 @Accessors
 class RepositorioRecetas extends PersistentHome<Receta>{
-	Collection<Receta> recetas = new ArrayList<Receta>
+	//Collection<Receta> recetas = new ArrayList<Receta>
 	
 	AdapterRepositorioRecetas adapter = new AdapterRepositorioRecetas
 
@@ -53,22 +53,23 @@ class RepositorioRecetas extends PersistentHome<Receta>{
 	 */
 	 
 	def createIfNotExist(Receta receta) {
-		var recetaDB = get(receta.nombrePlato)
-		if(recetaDB == null) {
+		var recetaDB = buscarPorNombre(receta.nombrePlato)
+		if(!allInstances.exists[recipe | recipe.nombrePlato.equals(receta.nombrePlato)]) {
+			System.out.println(receta.nombrePlato)
 			create(receta)
-			recetaDB = receta
 		} else {
+			System.out.println("No se creo la receta " + receta.nombrePlato + " debido a que ya existe")
 		}
-		recetaDB
+		//recetaDB
 	}
 	
 	def agregar(Receta receta) {
-		recetas.add(receta)
-		create(receta)
+		//recetas.add(receta)
+		createIfNotExist(receta)
 	}
 
 	def quitar(Receta receta) {
-		recetas.remove(receta)
+		//recetas.remove(receta)
 		delete(receta)
 	}
 	/**
@@ -119,7 +120,10 @@ class RepositorioRecetas extends PersistentHome<Receta>{
 	
 
 	def quitarPorNombre(String nombreDeReceta) {
-		recetas = recetas.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
+		//recetas = recetas.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
+		val allInstancesProvisorio = allInstances.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
+		allInstances.clear
+		allInstances.addAll(allInstancesProvisorio)
 	}
 	
 

@@ -400,7 +400,7 @@ class Iniciador {
 		GestorDeConsultas.getInstance.monitores.add(monitorRecetasHombre)
 		GestorDeConsultas.getInstance.monitores.add(monitorRecetasMujer)
 		
-		nicolas.recetasFavoritas.add(recetaSalchiPapa)
+		nicolas.agregarAFavoritos(recetaSalchiPapa)
 		nicolas.habilitarFavoritos = true
 		
 		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
@@ -408,5 +408,6 @@ class Iniciador {
 		leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		leandro.filtrosAAplicar.add(filtroGusto) 
 		
+		nicolas.recetas.forEach[System.out.println(it.nombrePlato + " ")] // Demuestra que si tiene la receta en su lista
 	}
 }

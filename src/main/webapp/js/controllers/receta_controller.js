@@ -16,7 +16,7 @@ indexApp
 					this.errores = [];
 
 					function notificarError(message) {
-						self.errores.push(message);
+						self.errores.push(message.statusText);
 					}
 
 					this.cargarReceta = function() {
@@ -72,5 +72,6 @@ indexApp
 						indexSrvc.guardarReceta(self.receta, function(data) {
 							console.log(data);
 						}, notificarError);
+						self.errores = [];
 					}
 				})

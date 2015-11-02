@@ -68,7 +68,7 @@ class QueComemosController {
 	@Get('/receta/:nombre')
 	def Result getReceta() {
 		response.contentType = ContentType.APPLICATION_JSON
-		val Receta receta = RepositorioRecetas.instance.recetas.findFirst[it.nombrePlato.equals(nombre)]
+		val Receta receta = RepositorioRecetas.instance.buscarPorNombre(nombre)
 		ok(receta.toJson)
 	}
 
@@ -76,7 +76,7 @@ class QueComemosController {
 	def Result guardarReceta(@Body String body) {
 		val Receta receta = body.fromJson(Receta)
 
-		val recetaVieja = RepositorioRecetas.instance.recetas.findFirst[it.nombrePlato.equals(receta.nombrePlato)]
+		val recetaVieja = RepositorioRecetas.instance.buscarPorNombre(receta.nombrePlato)
 		try {
 
 			receta.puedeSerCreada()

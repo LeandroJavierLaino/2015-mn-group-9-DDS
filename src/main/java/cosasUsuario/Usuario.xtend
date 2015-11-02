@@ -108,7 +108,8 @@ class Usuario extends Entity {
 	}
 
 	def agregarReceta(Receta receta) {
-		recetas.add(receta)
+		if(!recetas.exists[it.nombrePlato.equals(receta.nombrePlato)])
+			recetas.add(receta)
 	}
 
 	def borrarReceta(Receta receta) {
@@ -256,6 +257,10 @@ class Usuario extends Entity {
 	}
 	def contieneCondimentoQueDisgusta(Condimento condimento) {
 		comidasQueDisgustan.contains(condimento)
+	}
+	
+	def agregarAFavoritos(Receta receta) {
+		if(!recetas.exists[it.nombrePlato.equals(receta.nombrePlato)]) recetasFavoritas.add(receta)
 	}
 
 }
