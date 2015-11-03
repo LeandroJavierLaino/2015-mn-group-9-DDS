@@ -2,7 +2,9 @@ package rutina;
 
 import org.eclipse.xtend.lib.annotations.Accessors;
 import rutina.Rutina;
+import uqbar.arena.persistence.annotations.PersistentClass;
 
+@PersistentClass
 @Accessors
 @SuppressWarnings("all")
 public class RutinaActiva extends Rutina {

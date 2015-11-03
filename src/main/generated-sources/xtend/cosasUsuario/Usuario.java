@@ -22,6 +22,7 @@ import org.eclipse.xtext.xbase.lib.Pure;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.joda.time.LocalDate;
 import org.uqbar.commons.model.Entity;
+import org.uqbar.commons.utils.TransactionalAndObservable;
 import procesamientoPosterior.ProcesamientoPosterior;
 import receta.Caracteristica;
 import receta.Condimento;
@@ -31,46 +32,68 @@ import repositorioRecetas.BuscaReceta;
 import repositorioRecetas.RepositorioRecetas;
 import repositorioUsuarios.RepositorioUsuarios;
 import rutina.Rutina;
+import uqbar.arena.persistence.annotations.PersistentClass;
+import uqbar.arena.persistence.annotations.PersistentField;
+import uqbar.arena.persistence.annotations.Relation;
 
 @JsonSerialize
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
+@PersistentClass
+@TransactionalAndObservable
 @SuppressWarnings("all")
 public class Usuario extends Entity {
   private LocalDate fechaActual = new LocalDate();
   
   private int CARACTERES_MINIMOS = 4;
   
+  @PersistentField
   private boolean habilitarFavoritos = false;
   
+  @PersistentField
   private String nombre;
   
+  @PersistentField
   private double altura;
   
+  @PersistentField
   private double peso;
   
   private LocalDate fechaDeNacimiento;
   
+  @PersistentField
   private String password;
   
+  @Relation
   private GrupoUsuario grupoAlQuePertenece;
   
+  @Relation
   private List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>();
   
+  @PersistentField
   private String sexo;
   
+  @Relation
   private List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>();
   
+  /**
+   * /@PersistentField
+   */
   private List<String> comidaPreferida = new ArrayList<String>();
   
+  @Relation
   private Rutina rutina;
   
+  @Relation
   private Set<Receta> recetas = new HashSet<Receta>();
   
+  @Relation
   private Set<Receta> recetasFavoritas = new HashSet<Receta>();
   
+  @Relation
   private List<Filtro> filtrosAAplicar = new ArrayList<Filtro>();
   
+  @Relation
   private ProcesamientoPosterior procesamiento;
   
   public double calculaIMC() {
@@ -180,7 +203,20 @@ public class Usuario extends Entity {
   }
   
   public boolean agregarReceta(final Receta receta) {
-    return this.recetas.add(receta);
+    boolean _xifexpression = false;
+    final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
+      public Boolean apply(final Receta it) {
+        String _nombrePlato = it.getNombrePlato();
+        String _nombrePlato_1 = receta.getNombrePlato();
+        return Boolean.valueOf(_nombrePlato.equals(_nombrePlato_1));
+      }
+    };
+    boolean _exists = IterableExtensions.<Receta>exists(this.recetas, _function);
+    boolean _not = (!_exists);
+    if (_not) {
+      _xifexpression = this.recetas.add(receta);
+    }
+    return _xifexpression;
   }
   
   public boolean borrarReceta(final Receta receta) {
@@ -453,6 +489,23 @@ public class Usuario extends Entity {
   
   public boolean contieneCondimentoQueDisgusta(final Condimento condimento) {
     return this.comidasQueDisgustan.contains(condimento);
+  }
+  
+  public boolean agregarAFavoritos(final Receta receta) {
+    boolean _xifexpression = false;
+    final Function1<Receta, Boolean> _function = new Function1<Receta, Boolean>() {
+      public Boolean apply(final Receta it) {
+        String _nombrePlato = it.getNombrePlato();
+        String _nombrePlato_1 = receta.getNombrePlato();
+        return Boolean.valueOf(_nombrePlato.equals(_nombrePlato_1));
+      }
+    };
+    boolean _exists = IterableExtensions.<Receta>exists(this.recetas, _function);
+    boolean _not = (!_exists);
+    if (_not) {
+      _xifexpression = this.recetasFavoritas.add(receta);
+    }
+    return _xifexpression;
   }
   
   @Pure

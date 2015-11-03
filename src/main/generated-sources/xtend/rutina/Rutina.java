@@ -2,7 +2,11 @@ package rutina;
 
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.uqbar.commons.utils.TransactionalAndObservable;
+import uqbar.arena.persistence.annotations.PersistentClass;
 
+@PersistentClass
+@TransactionalAndObservable
 @Accessors
 @SuppressWarnings("all")
 public abstract class Rutina {

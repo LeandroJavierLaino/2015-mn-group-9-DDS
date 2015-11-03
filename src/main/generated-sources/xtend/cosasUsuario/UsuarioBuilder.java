@@ -4,7 +4,6 @@ import condicion.CondicionPreexistente;
 import cosasUsuario.Usuario;
 import cosasUsuario.UsuarioAdministrador;
 import java.util.List;
-import java.util.Set;
 import org.joda.time.LocalDate;
 import receta.Caracteristica;
 import receta.Receta;
@@ -112,8 +111,7 @@ public class UsuarioBuilder {
   public UsuarioBuilder conReceta(final Receta receta) {
     UsuarioBuilder _xblockexpression = null;
     {
-      Set<Receta> _recetas = this.usuario.getRecetas();
-      _recetas.add(receta);
+      this.usuario.agregarReceta(receta);
       _xblockexpression = this;
     }
     return _xblockexpression;

@@ -7,7 +7,9 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import procesamientoPosterior.ProcesamientoPosterior;
 import receta.Receta;
+import uqbar.arena.persistence.annotations.PersistentClass;
 
+@PersistentClass
 @SuppressWarnings("all")
 public class ProcesamientoOrdenarlosPorCalorias implements ProcesamientoPosterior {
   public Set<Receta> asociarProcesamiento(final Set<Receta> recetas) {

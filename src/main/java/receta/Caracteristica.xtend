@@ -5,10 +5,12 @@ import uqbar.arena.persistence.annotations.PersistentClass
 import uqbar.arena.persistence.annotations.PersistentField
 import org.uqbar.commons.utils.TransactionalAndObservable
 import org.uqbar.commons.model.Entity
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @PersistentClass
 @TransactionalAndObservable
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
 abstract class Caracteristica extends Entity {
 	
 	@PersistentField String nombre

@@ -6,7 +6,9 @@ import java.util.Set;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import receta.Receta;
+import uqbar.arena.persistence.annotations.PersistentClass;
 
+@PersistentClass
 @SuppressWarnings("all")
 public class FiltroPorCondicionesPreexistentes implements Filtro {
   public Set<Receta> filtrar(final Set<Receta> recetas, final Usuario usuario) {

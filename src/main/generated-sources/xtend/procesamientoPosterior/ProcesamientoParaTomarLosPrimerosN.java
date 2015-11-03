@@ -6,8 +6,10 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 import procesamientoPosterior.ProcesamientoPosterior;
 import receta.Receta;
+import uqbar.arena.persistence.annotations.PersistentClass;
 
 @Accessors
+@PersistentClass
 @SuppressWarnings("all")
 public class ProcesamientoParaTomarLosPrimerosN implements ProcesamientoPosterior {
   private int cantidadDeRecetasATraer = 10;

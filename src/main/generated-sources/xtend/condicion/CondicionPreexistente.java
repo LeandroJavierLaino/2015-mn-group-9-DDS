@@ -2,7 +2,9 @@ package condicion;
 
 import cosasUsuario.Usuario;
 import receta.Receta;
+import uqbar.arena.persistence.annotations.PersistentClass;
 
+@PersistentClass
 @SuppressWarnings("all")
 public interface CondicionPreexistente {
   public abstract boolean valido(final Usuario unUsusario);

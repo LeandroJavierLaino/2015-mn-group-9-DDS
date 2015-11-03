@@ -1,9 +1,15 @@
 package receta;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.eclipse.xtend.lib.annotations.Accessors;
+import org.uqbar.commons.utils.TransactionalAndObservable;
 import receta.Caracteristica;
+import uqbar.arena.persistence.annotations.PersistentClass;
 
+@PersistentClass
+@TransactionalAndObservable
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
 @SuppressWarnings("all")
 public class Condimento extends Caracteristica {
   public boolean esParteDe(final String unCondimento, final int unaCantidad) {

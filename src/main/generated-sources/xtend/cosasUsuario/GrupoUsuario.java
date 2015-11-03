@@ -13,8 +13,10 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 import receta.Caracteristica;
 import receta.Receta;
+import uqbar.arena.persistence.annotations.PersistentClass;
 
 @Accessors
+@PersistentClass
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SuppressWarnings("all")
 public class GrupoUsuario {

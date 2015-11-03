@@ -30,7 +30,7 @@ class Receta extends Entity{
 	@PersistentField String nombrePlato
 	@Relation Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
 	@Relation Set<Condimento> condimentos = new HashSet<Condimento>
-	List<String> procesoPreparacion = new ArrayList<String>
+	@Relation @PersistentField List<String> procesoPreparacion = new ArrayList<String>
 	@PersistentField double totalCalorias
 	@PersistentField String dificultad
 	@PersistentField String temporada

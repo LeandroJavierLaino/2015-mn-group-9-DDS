@@ -19,39 +19,60 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.uqbar.commons.model.Entity;
+import org.uqbar.commons.utils.TransactionalAndObservable;
 import receta.Condimento;
 import receta.Ingrediente;
 import repositorioRecetas.RepositorioRecetas;
+import uqbar.arena.persistence.annotations.PersistentClass;
+import uqbar.arena.persistence.annotations.PersistentField;
+import uqbar.arena.persistence.annotations.Relation;
 
-@Accessors
+@TransactionalAndObservable
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSerialize
+@PersistentClass
+@Accessors
 @SuppressWarnings("all")
-public class Receta {
+public class Receta extends Entity {
+  @PersistentField
   private String nombrePlato;
   
+  @Relation
   private Set<Ingrediente> ingredientes = new HashSet<Ingrediente>();
   
+  @Relation
   private Set<Condimento> condimentos = new HashSet<Condimento>();
   
+  @Relation
+  @PersistentField
   private List<String> procesoPreparacion = new ArrayList<String>();
   
+  @PersistentField
   private double totalCalorias;
   
+  @PersistentField
   private String dificultad;
   
+  @PersistentField
   private String temporada;
   
+  @PersistentField
   private double cantidadMinimaCalorias = 10;
   
+  @PersistentField
   private double cantidadMaximaCalorias = 5000;
   
+  @Relation
   private Set<Receta> subRecetas = new HashSet<Receta>();
   
+  @PersistentField
   private String creador;
   
+  @Relation
   private Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>();
   
+  @PersistentField
   private Boolean esPublica;
   
   public Receta puedeSerCreada() {

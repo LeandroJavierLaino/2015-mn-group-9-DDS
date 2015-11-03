@@ -82,8 +82,7 @@ class QueComemosController {
 			receta.puedeSerCreada()
 
 			if (recetaVieja != null) {
-				RepositorioRecetas.instance.quitarPorNombre(receta.nombrePlato)
-				RepositorioRecetas.instance.agregar(receta)
+				RepositorioRecetas.instance.update(receta)
 			} else
 				RepositorioRecetas.instance.agregar(receta)
 

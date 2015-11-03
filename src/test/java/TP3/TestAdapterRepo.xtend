@@ -31,7 +31,7 @@ class TestAdapterRepo extends UsuariosExtras{
 		busqueda.nombre = "flan casero"
 		adapter.obtenerRecetas(busqueda)
 		repo.obtenerRecetasExternas(busqueda)
-		Assert.assertTrue(repo.recetas.exists[receta | receta.nombrePlato.equals("flan casero")])
+		Assert.assertTrue(repo.recetasTotales.exists[receta | receta.nombrePlato.equals("flan casero")])
 	}
 	
 }

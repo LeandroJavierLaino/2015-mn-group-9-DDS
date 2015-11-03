@@ -8,11 +8,12 @@ import org.uqbar.commons.utils.Observable
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import receta.Receta
 import uqbar.arena.persistence.PersistentHome
+import org.uqbar.commons.utils.TransactionalAndObservable
 
-@Observable
+@TransactionalAndObservable
 @Accessors
 class RepositorioRecetas extends PersistentHome<Receta>{
-	//Collection<Receta> recetas = new ArrayList<Receta>
+	Collection<Receta> recetas = new ArrayList<Receta>
 	
 	AdapterRepositorioRecetas adapter = new AdapterRepositorioRecetas
 
@@ -117,15 +118,9 @@ class RepositorioRecetas extends PersistentHome<Receta>{
 		adapter.obtenerRecetas()
 	}
 
-	
-
-	def quitarPorNombre(String nombreDeReceta) {
-		//recetas = recetas.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
-		val allInstancesProvisorio = allInstances.filter[!it.nombrePlato.equals(nombreDeReceta)].toList
-		allInstances.clear
-		allInstances.addAll(allInstancesProvisorio)
+	def obtenerTodasLasRecetas() {
+		recetas = allInstances
 	}
-	
 
 	
 }
