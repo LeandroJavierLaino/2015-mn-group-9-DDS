@@ -27,6 +27,7 @@ import procesamientoPosterior.ProcesamientoPosterior;
 import receta.Caracteristica;
 import receta.Condimento;
 import receta.Ingrediente;
+import receta.Palabras;
 import receta.Receta;
 import repositorioRecetas.BuscaReceta;
 import repositorioRecetas.RepositorioRecetas;
@@ -76,10 +77,8 @@ public class Usuario extends Entity {
   @Relation
   private List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>();
   
-  /**
-   * /@PersistentField
-   */
-  private List<String> comidaPreferida = new ArrayList<String>();
+  @Relation
+  private List<Palabras> comidaPreferida = new ArrayList<Palabras>();
   
   @Relation
   private Rutina rutina;
@@ -617,11 +616,11 @@ public class Usuario extends Entity {
   }
   
   @Pure
-  public List<String> getComidaPreferida() {
+  public List<Palabras> getComidaPreferida() {
     return this.comidaPreferida;
   }
   
-  public void setComidaPreferida(final List<String> comidaPreferida) {
+  public void setComidaPreferida(final List<Palabras> comidaPreferida) {
     this.comidaPreferida = comidaPreferida;
   }
   

@@ -81,4 +81,7 @@ indexApp
 						}, notificarError);
 						self.errores = [];
 					}
+					this.volver = function() {
+						$state.go('listarRecetas', {"nombre" : self.usuario.nombre});
+					}
 				})

@@ -23,6 +23,7 @@ import org.uqbar.commons.model.Entity;
 import org.uqbar.commons.utils.TransactionalAndObservable;
 import receta.Condimento;
 import receta.Ingrediente;
+import receta.Palabras;
 import repositorioRecetas.RepositorioRecetas;
 import uqbar.arena.persistence.annotations.PersistentClass;
 import uqbar.arena.persistence.annotations.PersistentField;
@@ -45,8 +46,7 @@ public class Receta extends Entity {
   private Set<Condimento> condimentos = new HashSet<Condimento>();
   
   @Relation
-  @PersistentField
-  private List<String> procesoPreparacion = new ArrayList<String>();
+  private List<Palabras> procesoPreparacion = new ArrayList<Palabras>();
   
   @PersistentField
   private double totalCalorias;
@@ -402,11 +402,11 @@ public class Receta extends Entity {
   }
   
   @Pure
-  public List<String> getProcesoPreparacion() {
+  public List<Palabras> getProcesoPreparacion() {
     return this.procesoPreparacion;
   }
   
-  public void setProcesoPreparacion(final List<String> procesoPreparacion) {
+  public void setProcesoPreparacion(final List<Palabras> procesoPreparacion) {
     this.procesoPreparacion = procesoPreparacion;
   }
   

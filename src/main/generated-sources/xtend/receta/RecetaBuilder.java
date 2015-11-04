@@ -2,8 +2,11 @@ package receta;
 
 import java.util.List;
 import java.util.Set;
+import org.eclipse.xtext.xbase.lib.ObjectExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import receta.Condimento;
 import receta.Ingrediente;
+import receta.Palabras;
 import receta.Receta;
 import repositorioRecetas.RepositorioRecetas;
 
@@ -63,17 +66,24 @@ public class RecetaBuilder {
   public RecetaBuilder pasoInstruccion(final String paso) {
     RecetaBuilder _xblockexpression = null;
     {
-      List<String> _procesoPreparacion = this.receta.getProcesoPreparacion();
-      _procesoPreparacion.add(paso);
+      Palabras _palabras = new Palabras();
+      final Procedure1<Palabras> _function = new Procedure1<Palabras>() {
+        public void apply(final Palabras it) {
+          it.setPalabras(paso);
+        }
+      };
+      final Palabras pasoPalabras = ObjectExtensions.<Palabras>operator_doubleArrow(_palabras, _function);
+      List<Palabras> _procesoPreparacion = this.receta.getProcesoPreparacion();
+      _procesoPreparacion.add(pasoPalabras);
       _xblockexpression = this;
     }
     return _xblockexpression;
   }
   
-  public RecetaBuilder instrucciones(final List<String> pasos) {
+  public RecetaBuilder instrucciones(final List<Palabras> pasos) {
     RecetaBuilder _xblockexpression = null;
     {
-      List<String> _procesoPreparacion = this.receta.getProcesoPreparacion();
+      List<Palabras> _procesoPreparacion = this.receta.getProcesoPreparacion();
       _procesoPreparacion.addAll(pasos);
       _xblockexpression = this;
     }

@@ -44,9 +44,9 @@ public class JsonParserReceta {
       RecetaBuilder _ingredientes = _nombre.ingredientes(_transformarIngredientes);
       RecetaBuilder _conCalorias = _ingredientes.conCalorias(((double) receta.totalCalorias));
       RecetaBuilder _dificultad = _conCalorias.dificultad(receta.dificultadReceta);
-      RecetaBuilder _esPublica = _dificultad.esPublica();
+      RecetaBuilder _creadaPor = _dificultad.creadaPor(receta.autor);
+      RecetaBuilder _esPublica = _creadaPor.esPublica();
       Receta recetaTransformada = _esPublica.build();
-      recetaTransformada.asignarAutor(receta.autor);
       _xblockexpression = recetaTransformada;
     }
     return _xblockexpression;

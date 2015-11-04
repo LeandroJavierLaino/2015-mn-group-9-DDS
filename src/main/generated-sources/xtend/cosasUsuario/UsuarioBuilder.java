@@ -6,6 +6,7 @@ import cosasUsuario.UsuarioAdministrador;
 import java.util.List;
 import org.joda.time.LocalDate;
 import receta.Caracteristica;
+import receta.Palabras;
 import receta.Receta;
 import repositorioUsuarios.RepositorioUsuarios;
 import rutina.Rutina;
@@ -89,10 +90,10 @@ public class UsuarioBuilder {
     return _xblockexpression;
   }
   
-  public UsuarioBuilder leGusta(final String comida) {
+  public UsuarioBuilder leGusta(final Palabras comida) {
     UsuarioBuilder _xblockexpression = null;
     {
-      List<String> _comidaPreferida = this.usuario.getComidaPreferida();
+      List<Palabras> _comidaPreferida = this.usuario.getComidaPreferida();
       _comidaPreferida.add(comida);
       _xblockexpression = this;
     }

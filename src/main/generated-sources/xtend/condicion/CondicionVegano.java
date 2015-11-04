@@ -6,6 +6,7 @@ import excepcion.CondPreexistenteExcepcion;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import receta.Palabras;
 import receta.Receta;
 
 @SuppressWarnings("all")
@@ -16,26 +17,26 @@ public class CondicionVegano implements CondicionPreexistente {
       boolean _or = false;
       boolean _or_1 = false;
       boolean _or_2 = false;
-      List<String> _comidaPreferida = unUsuario.getComidaPreferida();
+      List<Palabras> _comidaPreferida = unUsuario.getComidaPreferida();
       boolean _contains = _comidaPreferida.contains("Carne");
       if (_contains) {
         _or_2 = true;
       } else {
-        List<String> _comidaPreferida_1 = unUsuario.getComidaPreferida();
+        List<Palabras> _comidaPreferida_1 = unUsuario.getComidaPreferida();
         boolean _contains_1 = _comidaPreferida_1.contains("Pollo");
         _or_2 = _contains_1;
       }
       if (_or_2) {
         _or_1 = true;
       } else {
-        List<String> _comidaPreferida_2 = unUsuario.getComidaPreferida();
+        List<Palabras> _comidaPreferida_2 = unUsuario.getComidaPreferida();
         boolean _contains_2 = _comidaPreferida_2.contains("Chivito");
         _or_1 = _contains_2;
       }
       if (_or_1) {
         _or = true;
       } else {
-        List<String> _comidaPreferida_3 = unUsuario.getComidaPreferida();
+        List<Palabras> _comidaPreferida_3 = unUsuario.getComidaPreferida();
         boolean _contains_3 = _comidaPreferida_3.contains("Chori");
         _or = _contains_3;
       }
@@ -54,12 +55,12 @@ public class CondicionVegano implements CondicionPreexistente {
     try {
       boolean _xblockexpression = false;
       {
-        List<String> _comidaPreferida = unUsuario.getComidaPreferida();
+        List<Palabras> _comidaPreferida = unUsuario.getComidaPreferida();
         boolean _isNullOrEmpty = IterableExtensions.isNullOrEmpty(_comidaPreferida);
         if (_isNullOrEmpty) {
           throw new CondPreexistenteExcepcion("La lista comidaPreferida no se declaro o esta vacia");
         }
-        List<String> _comidaPreferida_1 = unUsuario.getComidaPreferida();
+        List<Palabras> _comidaPreferida_1 = unUsuario.getComidaPreferida();
         _xblockexpression = _comidaPreferida_1.contains("Fruta");
       }
       return _xblockexpression;

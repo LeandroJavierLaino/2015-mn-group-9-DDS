@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import receta.Palabras;
 import receta.Receta;
 import rutina.Rutina;
 
@@ -16,12 +17,12 @@ public class CondicionHipertenso implements CondicionPreexistente {
     try {
       boolean _xblockexpression = false;
       {
-        List<String> _comidaPreferida = unUsuario.getComidaPreferida();
+        List<Palabras> _comidaPreferida = unUsuario.getComidaPreferida();
         boolean _isNullOrEmpty = IterableExtensions.isNullOrEmpty(_comidaPreferida);
         if (_isNullOrEmpty) {
           throw new CondPreexistenteExcepcion("La lista comidaPreferida no se declaro o esta vacia");
         }
-        List<String> _comidaPreferida_1 = unUsuario.getComidaPreferida();
+        List<Palabras> _comidaPreferida_1 = unUsuario.getComidaPreferida();
         int _length = ((Object[])Conversions.unwrapArray(_comidaPreferida_1, Object.class)).length;
         _xblockexpression = (_length > 0);
       }

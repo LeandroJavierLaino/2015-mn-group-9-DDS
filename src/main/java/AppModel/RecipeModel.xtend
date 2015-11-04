@@ -1,13 +1,14 @@
 package AppModel
 
-import receta.Receta
-import receta.Ingrediente
-import receta.Condimento
-import java.util.List
 import condicion.CondicionPreexistente
 import cosasUsuario.Usuario
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import receta.Condimento
+import receta.Ingrediente
+import receta.Palabras
+import receta.Receta
 
 @Accessors
 @Observable
@@ -21,7 +22,7 @@ class RecipeModel {
 	
 	List<Condimento> condimentos
 	List<Ingrediente> ingredientes
-	List<String> procesoPreparacion
+	List<Palabras> procesoPreparacion
 	List<Receta> subRecetas
 	List<CondicionPreexistente> condicionesPreexistentes
 	

@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
+import receta.Palabras;
 import receta.Receta;
 import rutina.Rutina;
 
@@ -36,7 +37,7 @@ public class CondicionDiabetico implements CondicionPreexistente {
             throw new CondPreexistenteExcepcion("El campo sexo es dintinto de \'M\' y \'F\'");
           }
         }
-        List<String> _comidaPreferida = unUsuario.getComidaPreferida();
+        List<Palabras> _comidaPreferida = unUsuario.getComidaPreferida();
         boolean _isNullOrEmpty_1 = IterableExtensions.isNullOrEmpty(_comidaPreferida);
         if (_isNullOrEmpty_1) {
           throw new CondPreexistenteExcepcion("La lista comidaPreferida no se declaro o esta vacia");

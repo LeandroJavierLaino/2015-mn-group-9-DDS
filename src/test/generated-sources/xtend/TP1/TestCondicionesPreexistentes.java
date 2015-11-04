@@ -1,8 +1,6 @@
 package TP1;
 
-import condicion.CondicionVegano;
 import cosasUsuario.Usuario;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,13 +21,8 @@ import testeo.UsuariosExtras;
 public class TestCondicionesPreexistentes extends UsuariosExtras {
   @Before
   public void init() {
-    super.init();
-    Usuario _usuarioVeganoLeGustaPolloYNoLaFruta = this.getUsuarioVeganoLeGustaPolloYNoLaFruta();
-    List<String> _comidaPreferida = _usuarioVeganoLeGustaPolloYNoLaFruta.getComidaPreferida();
-    _comidaPreferida.add("Pollo");
-    Usuario _usuarioVeganoLeGustaPolloYNoLaFruta_1 = this.getUsuarioVeganoLeGustaPolloYNoLaFruta();
-    CondicionVegano _vegano = this.getVegano();
-    _usuarioVeganoLeGustaPolloYNoLaFruta_1.agregarCondicion(_vegano);
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from String to Palabras");
   }
   
   @Test
