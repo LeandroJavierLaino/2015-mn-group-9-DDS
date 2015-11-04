@@ -4,16 +4,20 @@
     </div>
 	<form style="text-align: center">
 		<div class="col-md-2">
-			<label class="form-group">Nombre de la Receta</label> <input
-				class="form-control" type="text"
-				ng-model="receta.receta.nombrePlato">
+			<label class="form-group">Nombre de la Receta</label>
+						<input
+						class="form-control" type="text"
+						ng-model="receta.receta.nombrePlato"
+						ng-readonly="receta.puedeEditar">
+			 
 				<label class="form-group">Creada por {{receta.receta.creador}}</label>
 		</div>
-
+		
 		<div class="col-md-2">
 			<label class="form-group">Calorias</label> <input
 				class="form-control" type="number"
-				ng-model="receta.receta.totalCalorias">
+				ng-model="receta.receta.totalCalorias"
+				ng-readonly="receta.puedeEditar">
 		</div>
 
 		<div class="col-md-2">
@@ -23,15 +27,16 @@
 				<ul class="list-group">
 					<li class="list-group-item"><div class="form-inline">
 							<input class="form-control" type="text"
-								ng-model="receta.nuevoPaso">
+								ng-model="receta.nuevoPaso"
+								ng-readonly="receta.puedeEditar">
 							<button type="submit" ng-click="receta.agregarPaso()"
-								class="glyphicon glyphicon glyphicon-plus btn btn-primary"></button>
+								class="glyphicon glyphicon glyphicon-plus btn btn-primary" ng-show="receta.puedeEditar"></button>
 						</div></li>
 					<li class="list-group-item"
 						ng-repeat="paso in receta.receta.procesoPreparacion">{{paso}}
 						<button type="submit"
 							class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
-							ng-click="receta.borrarPaso(paso)"></button>
+							ng-click="receta.borrarPaso(paso)" ng-show="receta.puedeEditar"></button>
 					</li>
 				</ul>
 			</div>
@@ -56,7 +61,7 @@
 							<td>{{ingrediente.cantidad}} {{ingrediente.tipo}}</td>
 							<td><button type="submit"
 									class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
-									ng-click="receta.borrarIngrediente(ingrediente)"></button></td>
+									ng-click="receta.borrarIngrediente(ingrediente) ng-show="receta.puedeEditar""></button></td>
 						</tr>
 				</table>
 				<button type="submit"
@@ -80,22 +85,25 @@
 							<ul class="list-group">
 								<li class="list-group-item"><input class="form-control"
 									placeholder="Nombre del nuevo ingrediente"
-									ng-model="receta.ingrediente.nombre"></li>
+									ng-model="receta.ingrediente.nombre"
+									ng-readonly="receta.puedeEditar"></li>
 								<li class="list-group-item"><input class="form-control"
 									placeholder="Cantidad del nuevo ingrediente"
-									ng-model="receta.ingrediente.cantidad"></li>
+									ng-model="receta.ingrediente.cantidad"
+									ng-readonly="receta.puedeEditar"></li>
 								<li class="list-group-item"><input class="form-control"
 									placeholder="Medida del nuevo ingrediente"
-									ng-model="receta.ingrediente.tipo"></li>
+									ng-model="receta.ingrediente.tipo"
+									ng-readonly="receta.puedeEditar"></li>
 							</ul>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" ng-click="receta.agregarIngrediente()"
 								class="glyphicon glyphicon-ok btn btn-success"
-								data-dismiss="modal"></button>
+								data-dismiss="modal" ng-show="receta.puedeEditar"></button>
 							<button type="submit"
 								class="glyphicon glyphicon-remove btn btn-danger"
-								data-dismiss="modal"></button>
+								data-dismiss="modal" ng-show="receta.puedeEditar"></button>
 						</div>
 					</div>
 				</div>
@@ -120,7 +128,8 @@
 						<td>{{condimento.cantidad}} {{condimento.tipo}}</td>
 						<td><button type="submit"
 								class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
-								ng-click="receta.borrarCondimento(condimento)"></button>
+								ng-click="receta.borrarCondimento(condimento)"
+								ng-show="receta.puedeEditar"></button>
 					</tr>
 			</table>
 			<button type="submit" data-toggle="modal"
@@ -141,22 +150,25 @@
 						<ul class="list-group">
 							<li class="list-group-item"><input class="form-control"
 								placeholder="Nombre del nuevo condimento"
-								ng-model="receta.condimento.nombre"></li>
+								ng-model="receta.condimento.nombre"
+								ng-readonly="receta.puedeEditar"></li>
 							<li class="list-group-item"><input class="form-control"
 								placeholder="Cantidad del nuevo condimento"
-								ng-model="receta.condimento.cantidad"></li>
+								ng-model="receta.condimento.cantidad"
+								ng-readonly="receta.puedeEditar"></li>
 							<li class="list-group-item"><input class="form-control"
 								placeholder="Medida del nuevo condimento"
-								ng-model="receta.condimento.tipo"></li>
+								ng-model="receta.condimento.tipo"
+								ng-readonly="receta.puedeEditar"></li>
 						</ul>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" ng-click="receta.agregarCondimento()"
 							class="glyphicon glyphicon-ok btn btn-success"
-							data-dismiss="modal"></button>
+							data-dismiss="modal" ng-show="receta.puedeEditar"></button>
 						<button type="submit"
 							class="glyphicon glyphicon-remove btn btn-danger"
-							data-dismiss="modal"></button>
+							data-dismiss="modal" ng-show="receta.puedeEditar"></button>
 					</div>
 				</div>
 			</div>
