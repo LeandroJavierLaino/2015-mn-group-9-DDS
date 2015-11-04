@@ -23,8 +23,6 @@ class Iniciador {
 	Usuario leandro
 	
 	//Salchi papa y Salchichas con Pure
-	Palabras freirPapas	
-	Palabras hervirSalchichas	
 	Receta recetaSalchichasConPure	
 	Receta recetaSalchiPapa
 	Ingrediente salchicha

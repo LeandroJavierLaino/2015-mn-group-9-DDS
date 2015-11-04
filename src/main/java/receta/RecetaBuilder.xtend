@@ -29,8 +29,9 @@ class RecetaBuilder {
 		this
 	}
 	def RecetaBuilder pasoInstruccion(String paso) {
-		val Palabras pasoPalabras = new Palabras =>[p=paso]
+		val Palabras pasoPalabras = new Palabras =>[palabras=paso]
 		receta.procesoPreparacion.add(pasoPalabras)
+
 		this
 	}
 	def RecetaBuilder instrucciones(List<Palabras> pasos) {

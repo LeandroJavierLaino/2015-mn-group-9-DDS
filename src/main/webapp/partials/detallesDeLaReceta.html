@@ -6,14 +6,14 @@
 		<div class="col-md-2">
 			<label class="form-group">Nombre de la Receta</label> <input
 				class="form-control" type="text"
-				ng-model="receta.receta.nombrePlato">
+				ng-model="receta.receta.nombrePlato" ng-disabled="!receta.puedeEditar">
 				<label class="form-group">Creada por {{receta.receta.creador}}</label>
 		</div>
 
 		<div class="col-md-2">
 			<label class="form-group">Calorias</label> <input
 				class="form-control" type="number"
-				ng-model="receta.receta.totalCalorias">
+				ng-model="receta.receta.totalCalorias" ng-disabled="!receta.puedeEditar">
 		</div>
 
 		<div class="col-md-2">
@@ -23,15 +23,15 @@
 				<ul class="list-group">
 					<li class="list-group-item"><div class="form-inline">
 							<input class="form-control" type="text"
-								ng-model="receta.nuevoPaso">
+								ng-model="receta.textoNuevoPaso" ng-show="receta.puedeEditar">
 							<button type="submit" ng-click="receta.agregarPaso()"
-								class="glyphicon glyphicon glyphicon-plus btn btn-primary"></button>
+								class="glyphicon glyphicon glyphicon-plus btn btn-primary" ng-show="receta.puedeEditar"></button>
 						</div></li>
 					<li class="list-group-item"
-						ng-repeat="paso in receta.receta.procesoPreparacion">{{paso}}
+						ng-repeat="paso in receta.receta.procesoPreparacion">{{paso.palabras}}
 						<button type="submit"
 							class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
-							ng-click="receta.borrarPaso(paso)"></button>
+							ng-click="receta.borrarPaso(paso)" ng-show="receta.puedeEditar"></button>
 					</li>
 				</ul>
 			</div>
@@ -56,12 +56,12 @@
 							<td>{{ingrediente.cantidad}} {{ingrediente.tipo}}</td>
 							<td><button type="submit"
 									class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
-									ng-click="receta.borrarIngrediente(ingrediente)"></button></td>
+									ng-click="receta.borrarIngrediente(ingrediente)" ng-show="receta.puedeEditar"></button></td>
 						</tr>
 				</table>
 				<button type="submit"
 					class="glyphicon glyphicon glyphicon-plus btn btn-primary"
-					data-toggle="modal" data-target="#modalIngrediente">
+					data-toggle="modal" data-target="#modalIngrediente" ng-show="receta.puedeEditar">
 			</div>
 		</div>
 		<div class="modal fade" id="modalIngrediente">
@@ -120,12 +120,12 @@
 						<td>{{condimento.cantidad}} {{condimento.tipo}}</td>
 						<td><button type="submit"
 								class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
-								ng-click="receta.borrarCondimento(condimento)"></button>
+								ng-click="receta.borrarCondimento(condimento)" ng-show="receta.puedeEditar"></button>
 					</tr>
 			</table>
 			<button type="submit" data-toggle="modal"
 				data-target="#modalCondimento"
-				class="glyphicon glyphicon glyphicon-plus btn btn-primary">
+				class="glyphicon glyphicon glyphicon-plus btn btn-primary" ng-show="receta.puedeEditar">
 		</div>
 		<div class="modal fade" id="modalCondimento">
 			<div class="modal-dialog" role="document">

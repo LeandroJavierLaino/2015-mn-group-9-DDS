@@ -6,13 +6,13 @@ indexApp
 
 					var self = this;
 					this.receta;
-					this.nuevoPaso;
+					this.textoNuevoPaso;
 					this.ingrediente = new Ingrediente;
 					this.condimento = new Condimento;
 					this.mostrarDivNuevoIngrediente = false;
 					this.mostrarDivNuevoCondimento = false;
 					this.usuario = null;
-					this.puedeEditar = false;
+					//this.puedeEditar = false;
 					this.errores = [];
 
 					function notificarError(message) {
@@ -25,8 +25,15 @@ indexApp
 						self.puedeEditar = (self.usuario != null && self.receta.creador == self.usuario.nombre);
 					}
 					this.agregarPaso = function() {
-						if (self.nuevoPaso != null) {
-							self.receta.procesoPreparacion.push(self.nuevoPaso);
+						if (self.textoNuevoPaso != null) {
+							
+							var nuevoPaso = new Palabras();
+							nuevoPaso.palabras = self.textoNuevoPaso;
+							
+							self.receta.procesoPreparacion.push(nuevoPaso);
+							
+							self.textoNuevoPaso = null;
+							console.log(self.receta.procesoPreparacion)
 						} else {
 							return alert('Debe ingresar un paso');
 						}
@@ -64,7 +71,7 @@ indexApp
 						self.receta.condimentos.splice(index, 1);
 					}
 					this.puedeEditar = function() {
-
+						(self.receta.creador == self.usuario.nombre) || contains(self.receta, self.usuario.recetas)
 					}
 
 					this.guardarReceta = function() {
