@@ -3,8 +3,10 @@ indexApp.controller('consultasController', function(indexSrvc, $state, $statePar
 	this.recetas;
 
 	this.listarRecetas = function() {
-//		self.recetas = indexSrvc.recetasRecibidas;
-		indexSrvc.realizarConsulta(indexSrvc.usuario.nombre, indexSrvc.consulta, function(data) {
+		
+		console.log($state)
+		
+		indexSrvc.realizarConsulta(function(data) {
 			self.recetas = _.map(data, transformarAReceta);
 		});
 	}

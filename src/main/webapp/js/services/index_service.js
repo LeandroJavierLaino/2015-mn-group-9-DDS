@@ -1,6 +1,7 @@
 "use strict"
 indexApp.service('indexSrvc', function($http) {
 
+	var self = this;
 	this.usuario;
 	this.recetaSeleccionada;
 	this.recetasRecibidas;
@@ -27,8 +28,11 @@ indexApp.service('indexSrvc', function($http) {
 		$http.put('/receta/', receta).then(callback, errorHandler);
 	}
 	
-	this.realizarConsulta = function(nombre, consulta, callback) {
-		$http.post(nombre + '/consulta/recetas', consulta).success(callback);
+	this.realizarConsulta = function(callback) {
+		$http.post(self.usuario.nombre + '/consulta/recetas', self.consulta).success(callback);
 	}
+//	this.realizarConsulta = function(nombre, consulta, callback) {
+//		$http.post(nombre + '/consulta/recetas', consulta).success(callback);
+//	}
 	
 })
