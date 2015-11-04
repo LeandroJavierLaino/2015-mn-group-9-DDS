@@ -32,10 +32,10 @@ class JsonParserReceta {
 		.ingredientes(this.transformarIngredientes(receta.ingredientes))
 		.conCalorias(receta.totalCalorias as double)
 		.dificultad(receta.dificultadReceta)
+		.creadaPor(receta.autor)
 		.esPublica
 		.build //esto devuelve la receta que creo
 			
-		recetaTransformada.asignarAutor(receta.autor)
 		recetaTransformada
 	}
 
