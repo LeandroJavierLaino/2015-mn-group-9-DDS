@@ -31,11 +31,11 @@ class Receta extends Entity{
 	@Relation Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
 	@Relation Set<Condimento> condimentos = new HashSet<Condimento>
 	@Relation List<Palabras> procesoPreparacion = new ArrayList<Palabras>
-	@PersistentField double totalCalorias
+	@PersistentField Double totalCalorias
 	@PersistentField String dificultad
 	@PersistentField String temporada
-	@PersistentField double cantidadMinimaCalorias = 10
-	@PersistentField double cantidadMaximaCalorias = 5000
+	@PersistentField Double cantidadMinimaCalorias = 10.0
+	@PersistentField Double cantidadMaximaCalorias = 5000.0
 	@Relation Set<Receta> subRecetas = new HashSet<Receta>
 	@PersistentField String creador
 	@Relation Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>

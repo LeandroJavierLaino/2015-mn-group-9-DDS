@@ -6,8 +6,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class BuscaReceta {
 	
 	String nombre
-	int caloriasMinimas
-	int caloriasMaximas
+	Double caloriasMinimas
+	Double caloriasMaximas
 	String temporada
 	String dificultad
 	String ingrediente

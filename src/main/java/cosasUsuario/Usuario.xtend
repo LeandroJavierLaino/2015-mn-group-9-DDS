@@ -225,12 +225,12 @@ class Usuario extends Entity {
 			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toSet
 		}
 
-		if (consulta.caloriasMinimas >= 0) {
+		if (consulta.caloriasMinimas != null) {
 			val caloriasMinimas = consulta.caloriasMinimas
 			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias >= caloriasMinimas].toSet
 		}
 
-		if (consulta.caloriasMaximas >= 0) {
+		if (consulta.caloriasMaximas != null) {
 			val caloriasMaximas = consulta.caloriasMaximas
 			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias <= caloriasMaximas].toSet
 		}
