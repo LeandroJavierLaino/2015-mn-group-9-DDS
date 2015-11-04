@@ -15,6 +15,7 @@ function Logeo(indexSrvc) {
 			self.exito = true;
 			indexSrvc.usuario = self.usuarioCompleto;
 			
+			console.log(self.usuarioCompleto);
 			$state.go('listarRecetas', {"nombre" : self.usuarioCompleto.nombre});
 
 		})

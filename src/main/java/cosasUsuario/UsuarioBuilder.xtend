@@ -7,6 +7,7 @@ import receta.Palabras
 import receta.Receta
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
+import procesamientoPosterior.ProcesamientoPosterior
 
 class UsuarioBuilder {
 	
@@ -58,6 +59,10 @@ class UsuarioBuilder {
 	}
 	def UsuarioBuilder conPass(String password) {
 		usuario.password = password
+		this
+	}
+	def UsuarioBuilder conProcesamiento(ProcesamientoPosterior procesamientoPosterior) {
+		usuario.procesamiento = procesamientoPosterior
 		this
 	}
 	def Usuario build(){

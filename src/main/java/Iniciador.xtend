@@ -373,6 +373,7 @@ class Iniciador {
 		.conPeso(60)
 		.conPass("123")
 		.conReceta(recetaSalchiPapa)
+		.conProcesamiento(new ProcesamientoOrdenarlosPorNombre)
 		.build
 		
 		leandro = new UsuarioBuilder()
@@ -382,6 +383,7 @@ class Iniciador {
 		.conPeso(70)
 		.conAltura(1.74)
 		.conPass("123")
+		.conProcesamiento(new ProcesamientoOrdenarlosPorNombre)
 		.build
 		
 		RepositorioRecetas.instance.cargarTodasLasRecetas
@@ -406,11 +408,7 @@ class Iniciador {
 		nicolas.agregarAFavoritos(recetaSalchiPapa)
 		nicolas.habilitarFavoritos = true
 		
-		nicolas.procesamiento = new ProcesamientoOrdenarlosPorNombre
-		
-		leandro.procesamiento = new ProcesamientoOrdenarlosPorNombre
 		leandro.filtrosAAplicar.add(filtroGusto) 
 		
-		nicolas.recetas.forEach[System.out.println(it.nombrePlato + " ")] // Demuestra que si tiene la receta en su lista
 	}
 }
