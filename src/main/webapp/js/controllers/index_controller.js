@@ -21,18 +21,26 @@ indexApp.controller('indexCtrl', function(indexSrvc, $state, $stateParams) {
 			"nombre" : self.aBuscar
 		});
 	}
-
 	this.realizarConsulta = function() {
-
-		console.log(self.consulta);
-		indexSrvc.realizarConsulta(self.usuario.nombre, self.consulta, function(data) {
-			indexSrvc.recetasRecibidas = _.map(data, transformarAReceta);
-			if($state.includes('realizarConsulta')) {
-				$state.go($state.current, {}, {reload: true});
-			}
-			else $state.go('realizarConsulta');
-		});
-
+		indexSrvc.consulta = self.consulta;
+		
+		if($state.includes('realizarConsulta')) {
+			$state.go($state.current, {}, {reload: true});
+		}
+		else $state.go('realizarConsulta');
 	}
+
+//	this.realizarConsulta = function() {
+//
+//		console.log(self.consulta);
+//		indexSrvc.realizarConsulta(self.usuario.nombre, self.consulta, function(data) {
+//			indexSrvc.recetasRecibidas = _.map(data, transformarAReceta);
+//			if($state.includes('realizarConsulta')) {
+//				$state.go($state.current, {}, {reload: true});
+//			}
+//			else $state.go('realizarConsulta');
+//		});
+//
+//	}
 
 })

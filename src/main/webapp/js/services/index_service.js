@@ -4,6 +4,7 @@ indexApp.service('indexSrvc', function($http) {
 	this.usuario;
 	this.recetaSeleccionada;
 	this.recetasRecibidas;
+	this.consulta;
 
 	this.getUsuario = function(usuario, callback) {
 		$http.get('usuario/' + usuario.nombre, usuario.password).success(
