@@ -19,5 +19,5 @@ class ProcesamientoOrdenarlosPorNombre extends Entity implements ProcesamientoPo
 		recetasLista.sortBy[receta|receta.nombrePlato]
 		recetasLista.toSet
 	}
-	
+	 
 }

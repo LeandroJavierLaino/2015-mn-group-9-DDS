@@ -11,6 +11,6 @@ function Receta() {
 	this.esDificil = false;
 	this.esPublica;
 	this.creador = null;
-	this.cantidadMinimaCalorias;
-	this.cantidadMaximaCalorias;
+	this.cantidadMinimaCalorias=null;
+	this.cantidadMaximaCalorias=null;
 }
