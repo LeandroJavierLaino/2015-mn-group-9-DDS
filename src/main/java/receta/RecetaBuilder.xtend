@@ -28,8 +28,9 @@ class RecetaBuilder {
 		receta.condimentos.addAll(vCondimentos)
 		this
 	}
-	def RecetaBuilder pasoInstruccion(Palabras paso) {
-		receta.procesoPreparacion.add(paso)
+	def RecetaBuilder pasoInstruccion(String paso) {
+		val Palabras pasoPalabras = new Palabras =>[p=paso]
+		receta.procesoPreparacion.add(pasoPalabras)
 		this
 	}
 	def RecetaBuilder instrucciones(List<Palabras> pasos) {
