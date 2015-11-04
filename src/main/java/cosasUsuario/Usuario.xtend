@@ -15,19 +15,20 @@ import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import org.uqbar.commons.model.Entity
+import org.uqbar.commons.utils.TransactionalAndObservable
 import procesamientoPosterior.ProcesamientoPosterior
 import receta.Caracteristica
+import receta.Condimento
+import receta.Ingrediente
+import receta.Palabras
 import receta.Receta
+import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
-import repositorioRecetas.BuscaReceta
-import receta.Ingrediente
-import receta.Condimento
+import uqbar.arena.persistence.annotations.PersistentClass
 import uqbar.arena.persistence.annotations.PersistentField
 import uqbar.arena.persistence.annotations.Relation
-import uqbar.arena.persistence.annotations.PersistentClass
-import org.uqbar.commons.utils.TransactionalAndObservable
 
 @JsonSerialize
 @Accessors
@@ -55,7 +56,7 @@ class Usuario extends Entity {
 	@Relation List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
 	@PersistentField String sexo
 	@Relation List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
-	/*/@PersistentField*/ List<String> comidaPreferida = new ArrayList<String>
+	@Relation List<Palabras> comidaPreferida = new ArrayList<Palabras>
 	@Relation Rutina rutina
 
 	// Recetas

@@ -1,7 +1,7 @@
 package receta
 
-import java.util.Set
 import java.util.List
+import java.util.Set
 import repositorioRecetas.RepositorioRecetas
 
 class RecetaBuilder {
@@ -28,11 +28,11 @@ class RecetaBuilder {
 		receta.condimentos.addAll(vCondimentos)
 		this
 	}
-	def RecetaBuilder pasoInstruccion(String paso) {
+	def RecetaBuilder pasoInstruccion(Palabras paso) {
 		receta.procesoPreparacion.add(paso)
 		this
 	}
-	def RecetaBuilder instrucciones(List<String> pasos) {
+	def RecetaBuilder instrucciones(List<Palabras> pasos) {
 		receta.procesoPreparacion.addAll(pasos)
 		this
 	}

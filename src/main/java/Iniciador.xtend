@@ -15,6 +15,7 @@ import filtro.FiltroPorGusto
 import filtro.FiltroPorExcesoDeCalorias
 import procesamientoPosterior.ProcesamientoOrdenarlosPorNombre
 import repositorioRecetas.RepositorioRecetas
+import receta.Palabras
 
 class Iniciador {
 	
@@ -22,6 +23,8 @@ class Iniciador {
 	Usuario leandro
 	
 	//Salchi papa y Salchichas con Pure
+	Palabras freirPapas	
+	Palabras hervirSalchichas	
 	Receta recetaSalchichasConPure	
 	Receta recetaSalchiPapa
 	Ingrediente salchicha
@@ -74,6 +77,8 @@ class Iniciador {
 	MonitorRecetasF monitorRecetasMujer
 	DateTime time
 	int hora
+	
+
 	
 	new() {
 		
@@ -194,12 +199,15 @@ class Iniciador {
 			tipo = "gramos"
 		]
 		
+		hervirSalchichas.getPalabras("Hervir Salchichas")
+		freirPapas.getPalabras("Freir Papas")
+		
 		recetaSalchiPapa = new RecetaBuilder()
 		.nombre("SalchiPapa")
 		.conCalorias(150)
 		.dificultad("BAJA")
-		.pasoInstruccion("Hervir Salchichas")
-		.pasoInstruccion("Freir Papas")
+		.pasoInstruccion(hervirSalchichas)
+		.pasoInstruccion(freirPapas)
 		.ingrediente(salchicha)
 		.condimento(ketchup)
 		.temporada("VERANO")
@@ -249,8 +257,8 @@ class Iniciador {
 		.nombre("Grog")
 		.conCalorias(15000)
 		.dificultad("ALTA")
-		.pasoInstruccion("en una olla con el ron y la acetona ir agregando uno a uno los ingredientes")
-		.pasoInstruccion("condimentar a gusto con pepperoni y acido de baterias a gusto")
+		//.pasoInstruccion("en una olla con el ron y la acetona ir agregando uno a uno los ingredientes")
+		//.pasoInstruccion("condimentar a gusto con pepperoni y acido de baterias a gusto")
 		.ingrediente(queroseno)
 		.ingrediente(glicolPropilico)
 		.ingrediente(endulzantesArtificiales)
@@ -278,8 +286,8 @@ class Iniciador {
 		.nombre("Grog Posta")
 		.conCalorias(300)
 		.dificultad("BAJA")
-		.pasoInstruccion("en un vaso con ron agregamos el jugo de lima")
-		.pasoInstruccion("agregamos azucar y canela a gusto y batimos")
+//		.pasoInstruccion("en un vaso con ron agregamos el jugo de lima")
+//		.pasoInstruccion("agregamos azucar y canela a gusto y batimos")
 		.ingrediente(ron)
 		.ingrediente(jugoDeLima)
 		.condimento(canela)
