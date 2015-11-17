@@ -2,6 +2,9 @@
 	<div class="example-animate-container" style="padding-top:10px">
          <div class="alert alert-danger animate-repeat" ng-repeat="error in receta.errores">{{error}}</div>
     </div>
+    <div class="example-animate-container" style="padding-top:10px">
+         <div class="alert alert-success animate-repeat" ng-repeat="mensaje in receta.message">{{mensaje}}</div>
+    </div>
 	<form style="text-align: center">
 		<div class="col-md-2">
 			<label class="form-group">Nombre de la Receta</label> <input
@@ -166,7 +169,7 @@
 	<nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
 		<div class="container">
 			<button type="submit" ng-click="receta.guardarReceta()" ng-show="receta.puedeEditar"
-								class="glyphicon glyphicon-ok btn btn-success" onclick="return alert('se guardo la receta');"></button>
+								class="glyphicon glyphicon-ok btn btn-success"></button>
 			<button type="submit" ng-click="receta.volver()"
 								class="btn btn-danger">Volver</button>
 		</div>

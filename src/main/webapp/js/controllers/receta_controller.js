@@ -14,9 +14,11 @@ indexApp
 					this.usuario = null;
 					//this.puedeEditar = false;
 					this.errores = [];
+					this.message = [];
 
 					function notificarError(message) {
-						self.errores.push(message.statusText);
+						console.log(message)
+						self.errores.push(message.data);
 					}
 
 					this.cargarReceta = function() {
@@ -77,8 +79,14 @@ indexApp
 					this.guardarReceta = function() {
 
 						indexSrvc.guardarReceta(self.receta, function(data) {
+							
 							console.log(data);
+							self.message = [];
+							self.message.push("Los cambios se han guardado con exito");
+							self.errores = [];
+							
 						}, notificarError);
+						self.message = [];
 						self.errores = [];
 					}
 					this.volver = function() {
