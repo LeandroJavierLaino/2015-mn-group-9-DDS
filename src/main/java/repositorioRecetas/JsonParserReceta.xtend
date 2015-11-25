@@ -11,7 +11,7 @@ import com.eclipsesource.json.JsonObject
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
 import receta.RecetaBuilder
-
+import org.uqbar.xtrest.json.JSONUtils
 
 @Accessors
 class JsonParserReceta {
@@ -23,6 +23,8 @@ class JsonParserReceta {
 	String autor
 	int anioReceta
 
+	extension JSONUtils = new JSONUtils
+	
 	def Receta transformarReceta(JsonParserReceta receta) {
 		
 		var Receta recetaTransformada = new RecetaBuilder()
@@ -30,19 +32,17 @@ class JsonParserReceta {
 		.ingredientes(this.transformarIngredientes(receta.ingredientes))
 		.conCalorias(receta.totalCalorias as double)
 		.dificultad(receta.dificultadReceta)
+		.creadaPor(receta.autor)
+		.esPublica
 		.build //esto devuelve la receta que creo
-				
-		 /*new Receta(receta.nombre, this.transformarIngredientes(receta.ingredientes),
-			emptySet, emptyList, receta.totalCalorias as double, receta.dificultadReceta, "")*/
 			
-		recetaTransformada.asignarAutor(receta.autor)
 		recetaTransformada
 	}
 
 	def transformarIngredientes(List<String> ingredientes) {
 		var Set<Ingrediente> ingredientesTransformados = new HashSet<Ingrediente>
 		for (ingrediente : ingredientes) {
-			var Ingrediente ingredienteTransformado = new Ingrediente(ingrediente, 0, "")
+			var Ingrediente ingredienteTransformado = ingrediente.fromJson(Ingrediente)
 			ingredientesTransformados.add(ingredienteTransformado)
 		}
 		ingredientesTransformados

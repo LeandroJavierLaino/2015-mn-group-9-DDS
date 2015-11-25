@@ -5,3 +5,5 @@
 .classpath
 /target/
 /bin/
+/xtend-gen/
+/Domain/

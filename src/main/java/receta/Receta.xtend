@@ -1,5 +1,8 @@
 package receta
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import condicion.CondicionPreexistente
 import cosasUsuario.GrupoUsuario
 import cosasUsuario.Usuario
 import excepcion.RecetaInvalidaExcepcion
@@ -9,33 +12,45 @@ import java.util.Collection
 import java.util.HashSet
 import java.util.List
 import java.util.Set
-import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.Entity
 import repositorioRecetas.RepositorioRecetas
-import condicion.CondicionPreexistente
+import uqbar.arena.persistence.annotations.PersistentClass
+import uqbar.arena.persistence.annotations.PersistentField
+import uqbar.arena.persistence.annotations.Relation
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.TransactionalAndObservable
 
-//Nuevas excepciones modificadas
+
+@TransactionalAndObservable
+@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonSerialize
+@PersistentClass
 @Accessors
-class Receta{
+class Receta extends Entity{
+	@PersistentField String nombrePlato
+	@Relation Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
+	@Relation Set<Condimento> condimentos = new HashSet<Condimento>
+	@Relation List<Palabras> procesoPreparacion = new ArrayList<Palabras>
+	@PersistentField Double totalCalorias
+	@PersistentField String dificultad
+	@PersistentField String temporada
+	@PersistentField Double cantidadMinimaCalorias = 10.0
+	@PersistentField Double cantidadMaximaCalorias = 5000.0
+	@Relation Set<Receta> subRecetas = new HashSet<Receta>
+	@PersistentField String creador
+	@Relation Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
+	@PersistentField Boolean esPublica
 
-	String nombrePlato
-	Set<Ingrediente> ingredientes = new HashSet<Ingrediente>
-	Set<Condimento> condimentos = new HashSet<Condimento>
-	List<String> procesoPreparacion = new ArrayList<String>
-	double totalCalorias
-	String dificultad
-	String temporada
-	double cantidadMinimaCalorias = 10
-	double cantidadMaximaCalorias = 5000
-	Set<Receta> subRecetas = new HashSet<Receta>
-	Usuario creador
-	Set<CondicionPreexistente> condicionesPreexistentes = new HashSet<CondicionPreexistente>
-
-	def puedeSerCreada(Receta receta) {
-		if (hayUnIngrediente(receta.ingredientes) && totalDeCaloriasEnRango(receta.totalCalorias)) {
-			receta
+	def puedeSerCreada() {
+		if (hayUnIngrediente(this.ingredientes) && totalDeCaloriasEnRango(this.totalCalorias)) {
+			this
 		} else {
 			throw new RecetaInvalidaExcepcion("No está en el rango de calorías o no tiene un ingrediente la receta")
 		}
+	}
+
+	def init() {
+		esPublica = true
 	}
 
 	def hayUnIngrediente(Collection<Ingrediente> ingredientes) {
@@ -47,17 +62,18 @@ class Receta{
 	}
 
 	def boolean puedeVerReceta(Usuario usuario) {
-		RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario)) || usuario.tieneLaReceta(this)
+
+		esPublica != null && esPublica || (!creador.nullOrEmpty && usuario != null) && (usuario.comparteGrupoCon(creador) || creador.equals(usuario.nombre) || usuario.tieneLaReceta(this))
 	}
 
 	def boolean tienePermisosParaModificarReceta(Usuario usuario) {
-		usuario.tieneLaReceta(this) || RepositorioRecetas.getInstance.tieneLaReceta(this) || (creador != null && creador.comparteGrupoCon(usuario))
+		usuario.tieneLaReceta(this) || (RepositorioRecetas.getInstance.tieneLaReceta(this) && creador.equals(usuario.nombre))
 	}
 
 	def puedeModificarReceta(Usuario usuario) {
 		if (tienePermisosParaModificarReceta(usuario) && puedeVerReceta(usuario)) {
 		} else {
-			throw new SinPermisosExcepcion("No puede ver o modificar la receta") 
+			throw new SinPermisosExcepcion("No puede ver o modificar la receta")
 		}
 	}
 
@@ -75,9 +91,9 @@ class Receta{
 	}
 
 	def crearReceta(Usuario usuario) {
-		puedeSerCreada(this)
+		puedeSerCreada()
 		usuario.agregarReceta(this)
-		creador = usuario
+		creador = usuario.nombre
 	}
 
 	def modificarReceta(Usuario usuario, Receta recetaModificada) {
@@ -101,31 +117,30 @@ class Receta{
 		ingredientes.exists[comidaQueDisgusta|usuario.contienteComidaQueDisgusta(comidaQueDisgusta)] ||
 			condimentos.exists[comidaQueDisgusta|usuario.contienteComidaQueDisgusta(comidaQueDisgusta)]
 	}
-	
+
 	def tieneUnIngredienteOCondimentoQueGustaPara(GrupoUsuario usuario) {
 		ingredientes.exists[comidaQueGusta|usuario.perteneceALasPalabrasClave(comidaQueGusta)] ||
-		condimentos.exists[comidaQueGusta|usuario.perteneceALasPalabrasClave(comidaQueGusta)]		
+			condimentos.exists[comidaQueGusta|usuario.perteneceALasPalabrasClave(comidaQueGusta)]
 	}
 
-	def tieneExcesoDeCalorias(){
+	def tieneExcesoDeCalorias() {
 		totalCalorias > 500
 	}
-	
-	def tieneIngredientesCaros(){
+
+	def tieneIngredientesCaros() {
 		ingredientes.forall[ingrediente|ingrediente.esCaro]
 	}
-	
-	def isVeryDifficult() {
+
+	def esDificil() {
 		dificultad.equalsIgnoreCase("Alta") || dificultad.equalsIgnoreCase("A") || dificultad.equalsIgnoreCase("D")
 	}
-	
+
 	def asignarAutor(String string) {
-		creador = new Usuario
-		creador.nombre = string
+		creador = string
 	}
-	
-	def esInadecuadaParaLasCondiciones(){
-		condicionesPreexistentes.filter[condicion | condicion.tolera(this)].toSet
+
+	def esInadecuadaParaLasCondiciones() {
+		condicionesPreexistentes.filter[condicion|condicion.tolera(this)].toSet
 	}
-	
+
 }

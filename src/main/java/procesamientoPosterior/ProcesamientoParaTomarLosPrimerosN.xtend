@@ -1,11 +1,14 @@
 package procesamientoPosterior
 
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Set
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.Entity
 import receta.Receta
+import uqbar.arena.persistence.annotations.PersistentClass
 
 @Accessors
-class ProcesamientoParaTomarLosPrimerosN implements ProcesamientoPosterior{
+@PersistentClass
+class ProcesamientoParaTomarLosPrimerosN extends Entity implements ProcesamientoPosterior{
 	int cantidadDeRecetasATraer  = 10
 	
 	override asociarProcesamiento(Set<Receta> recetas) {

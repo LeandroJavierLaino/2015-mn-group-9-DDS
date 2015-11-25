@@ -1,11 +1,13 @@
 package cosasUsuario
 
-import org.joda.time.LocalDate
 import condicion.CondicionPreexistente
+import org.joda.time.LocalDate
 import receta.Caracteristica
-import rutina.Rutina
+import receta.Palabras
 import receta.Receta
 import repositorioUsuarios.RepositorioUsuarios
+import rutina.Rutina
+import procesamientoPosterior.ProcesamientoPosterior
 
 class UsuarioBuilder {
 	
@@ -43,7 +45,7 @@ class UsuarioBuilder {
 		usuario.comidasQueDisgustan.add(comida)
 		this
 	}
-	def UsuarioBuilder leGusta(String comida) {
+	def UsuarioBuilder leGusta(Palabras comida) {
 		usuario.comidaPreferida.add(comida)
 		this
 	}
@@ -52,7 +54,15 @@ class UsuarioBuilder {
 		this
 	}
 	def UsuarioBuilder conReceta(Receta receta) {
-		usuario.recetas.add(receta)
+		usuario.agregarReceta(receta)
+		this
+	}
+	def UsuarioBuilder conPass(String password) {
+		usuario.password = password
+		this
+	}
+	def UsuarioBuilder conProcesamiento(ProcesamientoPosterior procesamientoPosterior) {
+		usuario.procesamiento = procesamientoPosterior
 		this
 	}
 	def Usuario build(){

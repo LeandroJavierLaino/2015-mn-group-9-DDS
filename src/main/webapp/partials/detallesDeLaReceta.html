@@ -1,0 +1,177 @@
+<div class="well well-lg text-center" ng-init="receta.cargarReceta()">
+	<div class="example-animate-container" style="padding-top:10px">
+         <div class="alert alert-danger animate-repeat" ng-repeat="error in receta.errores">{{error}}</div>
+    </div>
+    <div class="example-animate-container" style="padding-top:10px">
+         <div class="alert alert-success animate-repeat" ng-repeat="mensaje in receta.message">{{mensaje}}</div>
+    </div>
+	<form style="text-align: center">
+		<div class="col-md-2">
+			<label class="form-group">Nombre de la Receta</label> <input
+				class="form-control" type="text"
+				ng-model="receta.receta.nombrePlato" ng-readonly="!receta.puedeEditar">
+				<label class="form-group">Creada por {{receta.receta.creador}}</label>
+		</div>
+
+		<div class="col-md-2">
+			<label class="form-group">Calorias</label> <input
+				class="form-control" type="number"
+				ng-model="receta.receta.totalCalorias" ng-readonly="!receta.puedeEditar">
+		</div>
+
+		<div class="col-md-2">
+			<label class="form-group">Preparacion</label>
+			<div class="form-inline"></div>
+			<div>
+				<ul class="list-group">
+					<li class="list-group-item"><div class="form-inline" ng-show="receta.puedeEditar">
+							<input class="form-control" type="text"
+								ng-model="receta.textoNuevoPaso">
+							<button type="submit" ng-click="receta.agregarPaso()"
+								class="glyphicon glyphicon glyphicon-plus btn btn-primary"></button>
+						</div></li>
+					<li class="list-group-item"
+						ng-repeat="paso in receta.receta.procesoPreparacion">{{paso.palabras}}
+						<button type="submit"
+							class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
+							ng-click="receta.borrarPaso(paso)" ng-show="receta.puedeEditar"></button>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<label class="form-group">Ingredientes</label>
+			<div>
+				<table table cellpadding="0" cellspacing="0" border='1'
+					align="center"
+					class="table table-striped table-bordered table-hover"
+					style="width: 85%">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Cantidad</th>
+						</tr>
+					</thead>
+					<tbody style="font-size: 12px">
+						<tr ng-repeat="ingrediente in receta.receta.ingredientes">
+							<td ng-bind="ingrediente.nombre"></td>
+							<td>{{ingrediente.cantidad}} {{ingrediente.tipo}}</td>
+							<td ng-show="receta.puedeEditar"><button type="submit"
+									class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
+									ng-click="receta.borrarIngrediente(ingrediente)" ></button></td>
+						</tr>
+				</table>
+				<button type="submit"
+					class="glyphicon glyphicon glyphicon-plus btn btn-primary"
+					data-toggle="modal" data-target="#modalIngrediente" ng-show="receta.puedeEditar">
+			</div>
+		</div>
+		<div class="modal fade" id="modalIngrediente">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Cerrar">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4>Agregar Ingrediente</h4>
+
+					</div>
+					<div class="modal-body">
+						<div>
+							<ul class="list-group">
+								<li class="list-group-item"><input class="form-control"
+									placeholder="Nombre del nuevo ingrediente"
+									ng-model="receta.ingrediente.nombre"></li>
+								<li class="list-group-item"><input class="form-control"
+									placeholder="Cantidad del nuevo ingrediente"
+									ng-model="receta.ingrediente.cantidad"></li>
+								<li class="list-group-item"><input class="form-control"
+									placeholder="Medida del nuevo ingrediente"
+									ng-model="receta.ingrediente.tipo"></li>
+							</ul>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" ng-click="receta.agregarIngrediente()"
+								class="glyphicon glyphicon-ok btn btn-success"
+								data-dismiss="modal"></button>
+							<button type="submit"
+								class="glyphicon glyphicon-remove btn btn-danger"
+								data-dismiss="modal"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<label class="form-group">Condimentos</label>
+			<table table cellpadding="0" cellspacing="0" border='1'
+				align="center"
+				class="table table-striped table-bordered table-hover"
+				style="width: 85%">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Cantidad</th>
+					</tr>
+				</thead>
+				<tbody style="font-size: 12px">
+					<tr ng-repeat="condimento in receta.receta.condimentos">
+						<td ng-bind="condimento.nombre"></td>
+						<td>{{condimento.cantidad}} {{condimento.tipo}}</td>
+						<td ng-show="receta.puedeEditar"><button type="submit"
+								class="glyphicon glyphicon glyphicon-trash btn btn-xs btn-danger"
+								ng-click="receta.borrarCondimento(condimento)"></button>
+					</tr>
+			</table>
+			<button type="submit" data-toggle="modal"
+				data-target="#modalCondimento"
+				class="glyphicon glyphicon glyphicon-plus btn btn-primary" ng-show="receta.puedeEditar">
+		</div>
+		<div class="modal fade" id="modalCondimento">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Cerrar">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4>Agregar Condimento</h4>
+					</div>
+					<div class="modal-body">
+						<ul class="list-group">
+							<li class="list-group-item"><input class="form-control"
+								placeholder="Nombre del nuevo condimento"
+								ng-model="receta.condimento.nombre"></li>
+							<li class="list-group-item"><input class="form-control"
+								placeholder="Cantidad del nuevo condimento"
+								ng-model="receta.condimento.cantidad"></li>
+							<li class="list-group-item"><input class="form-control"
+								placeholder="Medida del nuevo condimento"
+								ng-model="receta.condimento.tipo"></li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" ng-click="receta.agregarCondimento()"
+							class="glyphicon glyphicon-ok btn btn-success"
+							data-dismiss="modal"></button>
+						<button type="submit"
+							class="glyphicon glyphicon-remove btn btn-danger"
+							data-dismiss="modal"></button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</form>
+	<nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
+		<div class="container">
+			<button type="submit" ng-click="receta.guardarReceta()" ng-show="receta.puedeEditar"
+								class="glyphicon glyphicon-ok btn btn-success"></button>
+			<button type="submit" ng-click="receta.volver()"
+								class="btn btn-danger">Volver</button>
+		</div>
+	</nav>
+</div>

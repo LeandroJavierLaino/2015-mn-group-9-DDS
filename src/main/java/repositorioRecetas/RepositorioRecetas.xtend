@@ -4,98 +4,123 @@ import cosasUsuario.Usuario
 import java.util.ArrayList
 import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import receta.Receta
-import receta.RecetaBuilder
-import cosasUsuario.UsuarioBuilder
-import org.joda.time.LocalDate
-import receta.Ingrediente
-import receta.Condimento
+import uqbar.arena.persistence.PersistentHome
+import org.uqbar.commons.utils.TransactionalAndObservable
 
+@TransactionalAndObservable
 @Accessors
-class RepositorioRecetas {
+class RepositorioRecetas extends PersistentHome<Receta>{
 	Collection<Receta> recetas = new ArrayList<Receta>
-	static RepositorioRecetas instance = null
+	
 	AdapterRepositorioRecetas adapter = new AdapterRepositorioRecetas
-	
+
 	Collection<Receta> recetasTotales = new ArrayList<Receta>
+
+	Collection<Receta> listarRecetasVisibles
 	
-	//PARA EL EJEMPLO
-	Receta recetaSalchiPapa
-	Usuario nicolas
-	Usuario leandro
-	Ingrediente salchicha
-	Condimento ketchup
+	override def createExample() {
+		new Receta
+	}
+	
+	override def getEntityType() {
+		typeof(Receta)
+	}
+
+	/**
+	 * *********************************************
+	 *           DEFINICION DEL SINGLETON
+	 * *********************************************
+	 */
+	 
+	static RepositorioRecetas instance = null
 	
 	static def getInstance() {
-		if (instance == null) {
+		if (instance == null){
 			instance = new RepositorioRecetas()
 		}
 		instance
 	}
-	new() {
-		
-		salchicha = new Ingrediente("Salchichas", 12, "unidades")
-		ketchup = new Condimento("ketchup", 200, "mililitros")
-		
-		recetaSalchiPapa = new RecetaBuilder()
-		.nombre("SalchiPapa")
-		.conCalorias(150)
-		.dificultad("Baja")
-		.pasoInstruccion("Hervir Salchichas")
-		.pasoInstruccion("Freir Papas")
-		.ingrediente(salchicha)
-		.condimento(ketchup)
-		.temporada("Verano")
-		.build
-		
-		recetas.add(recetaSalchiPapa)
-		
-		nicolas = new UsuarioBuilder()
-		.conNombre("Nicolas")
-		.deSexo("M")
-		.fechaDeNacimiento(new LocalDate(1980,11,10))
-		.conAltura(1.74)
-		.conPeso(60)
-		.build
-		
-		leandro = new UsuarioBuilder()
-		.conNombre("Leandro")
-		.deSexo("M")
-		.fechaDeNacimiento(new LocalDate(1988,6,27))
-		.conPeso(70)
-		.conAltura(1.74)
-		.build
-		
-		recetaSalchiPapa.creador = nicolas
 
+
+	
+	
+	/**
+	 * *********************************************
+	 *                     ALTA 
+	 * *********************************************
+	 */
+	 
+	def createIfNotExist(Receta receta) {
+		var recetaDB = buscarPorNombre(receta.nombrePlato)
+		if(!allInstances.exists[recipe | recipe.nombrePlato.equals(receta.nombrePlato)]) {
+			System.out.println(receta.nombrePlato)
+			create(receta)
+		} else {
+			System.out.println("No se creo la receta " + receta.nombrePlato + " debido a que ya existe")
+		}
+		//recetaDB
 	}
 	
-	def tieneLaReceta(Receta receta) {
-		(!recetas.nullOrEmpty) && recetas.contains(receta)
-	}
-
-	def listarRecetas() {
-		recetas + obtenerRecetasExternas()
-	}
-
 	def agregar(Receta receta) {
-		recetas.add(receta)
+		//recetas.add(receta)
+		createIfNotExist(receta)
 	}
 
 	def quitar(Receta receta) {
-		recetas.remove(receta)
+		//recetas.remove(receta)
+		delete(receta)
+	}
+	/**
+	 * *********************************************
+	 *                    BUSQUEDA
+	 * *********************************************
+	 */
+	
+	def Receta get(String unNombre) {
+		val Receta receta = new Receta => [ nombrePlato = unNombre]
+		
+		val recetas = searchByExample(receta)
+		if(recetas.isEmpty) {
+			null
+		} else {
+			recetas.get(0)
+		}
+	}
+	def buscarPorNombre(String nombreDeReceta) {
+		//recetas.findFirst[it.nombrePlato.equals(nombreDeReceta)]
+		allInstances.findFirst[it.nombrePlato.equals(nombreDeReceta)]
+	}
+	
+	
+	def boolean tieneLaReceta(Receta receta) {
+		//(!recetas.nullOrEmpty) && recetas.contains(receta)
+		!allInstances.nullOrEmpty && allInstances.contains(receta)
+	}
+
+	def cargarTodasLasRecetas() {
+		//recetas = (recetas + obtenerRecetasExternas()).toList
+		obtenerRecetasExternas.forEach[createIfNotExist(it)]
 	}
 
 	def listarRecetasVisiblesPara(Usuario usuario) {
-		listarRecetas.filter[unaReceta|unaReceta.puedeVerReceta(usuario)].toSet
+		//recetas.filter[unaReceta|unaReceta.puedeVerReceta(usuario)].toSet
+		allInstances.filter[unaReceta | unaReceta.puedeVerReceta(usuario)].toSet
 	}
-	
+
 	def obtenerRecetasExternas(BusquedaRecetas busquedaRecetas) {
 		adapter.obtenerRecetas(busquedaRecetas)
 	}
+
 	def obtenerRecetasExternas() {
 		adapter.obtenerRecetas()
 	}
+
+	def obtenerTodasLasRecetas() {
+		recetas = allInstances
+	}
+
 	
 }

@@ -1,7 +1,8 @@
 package receta
 
-import java.util.Set
 import java.util.List
+import java.util.Set
+import repositorioRecetas.RepositorioRecetas
 
 class RecetaBuilder {
 	
@@ -28,10 +29,12 @@ class RecetaBuilder {
 		this
 	}
 	def RecetaBuilder pasoInstruccion(String paso) {
-		receta.procesoPreparacion.add(paso)
+		val Palabras pasoPalabras = new Palabras =>[palabras=paso]
+		receta.procesoPreparacion.add(pasoPalabras)
+
 		this
 	}
-	def RecetaBuilder instrucciones(List<String> pasos) {
+	def RecetaBuilder instrucciones(List<Palabras> pasos) {
 		receta.procesoPreparacion.addAll(pasos)
 		this
 	}
@@ -47,8 +50,20 @@ class RecetaBuilder {
 		receta.temporada = temporada
 		this
 	}
-	
+	def RecetaBuilder esPublica() {
+		receta.esPublica = true
+		this
+	}
+	def RecetaBuilder esPrivada() {
+		receta.esPublica = false
+		this
+	}
+	def RecetaBuilder creadaPor(String creador) {
+		receta.creador = creador
+		this
+	}
 	def Receta build() {
+		RepositorioRecetas.instance.agregar(receta)
 		receta
 	}
 

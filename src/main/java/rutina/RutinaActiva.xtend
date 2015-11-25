@@ -1,7 +1,9 @@
 package rutina
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import uqbar.arena.persistence.annotations.PersistentClass
 
+@PersistentClass
 @Accessors 
 class RutinaActiva extends Rutina {
 	override def activaIntensa(){

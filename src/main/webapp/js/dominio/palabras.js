@@ -1,0 +1,3 @@
+function Palabras() {
+	this.palabras = "";
+}

@@ -4,6 +4,7 @@ import org.junit.Assert
 import org.junit.Test
 import testeo.UsuariosExtras
 import org.junit.Before
+import receta.Palabras
 
 //Punto 3 CONDICIONES PREEX
 
@@ -26,7 +27,7 @@ class TestCondicionesPreexistentes extends UsuariosExtras{
 	override init() {
 		super.init
 		
-		usuarioVeganoLeGustaPolloYNoLaFruta.comidaPreferida.add("Pollo")
+		usuarioVeganoLeGustaPolloYNoLaFruta.comidaPreferida.add(new Palabras("Pollo"))
 		usuarioVeganoLeGustaPolloYNoLaFruta.agregarCondicion(vegano)
 		
 	}

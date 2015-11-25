@@ -22,6 +22,9 @@ import repositorioRecetas.RepositorioRecetas
 import rutina.RutinaActiva
 import rutina.RutinaSedentaria
 import receta.RecetaBuilder
+import receta.CondimentoBuilder
+import receta.IngredienteBuilder
+import receta.Palabras
 
 @Accessors
 class TestInstances {
@@ -64,7 +67,7 @@ class TestInstances {
 	Set<Ingrediente> ingredientesParaCualquiera = new HashSet<Ingrediente>
 	Set<Ingrediente> ingredientesAntiVegano = new HashSet<Ingrediente>
 	
-	List<String> preparacionDefault = new ArrayList<String>
+	List<Palabras> preparacionDefault = new ArrayList<Palabras>
 	
 	GrupoUsuario grupoDeLaMuerte
 	GrupoUsuario grupoFlojito
@@ -84,19 +87,18 @@ class TestInstances {
 		diabetico = new CondicionDiabetico
 		hipertenso = new CondicionHipertenso
 		vegano = new CondicionVegano
-		azucar = new Condimento("Azucar", 150, "grs")
-		chori = new Ingrediente("Chori", 2, "unidades")
-		caldo = new Condimento("Caldo", 0, "cantidad necesaria")
-		ajiMolido = new Condimento("Aji Molido", 0, "cantidad necesaria")
-		pimienta = new Condimento("Pimienta", 0, "cantidad necesaria")
-		cuadril = new Ingrediente("Cuadril", 3, "kgs")
-		huevos = new Ingrediente("Huevos", 20, "unidades")
-		cebollas = new Ingrediente("Cebollas", 1, "kgs")
+		azucar = new CondimentoBuilder("Azucar", 150, "grs").build
+		chori = new IngredienteBuilder("Chori", 2, "unidades").build
+		caldo = new CondimentoBuilder("Caldo", 0, "cantidad necesaria").build
+		ajiMolido = new CondimentoBuilder("Aji Molido", 0, "cantidad necesaria").build
+		pimienta = new CondimentoBuilder("Pimienta", 0, "cantidad necesaria").build
+		cuadril = new IngredienteBuilder("Cuadril", 3, "kgs").build
+		huevos = new IngredienteBuilder("Huevos", 20, "unidades").build
+		cebollas = new IngredienteBuilder("Cebollas", 1, "kgs").build
 		condimentosParaCualquiera.add(ajiMolido)
 		condimentosAntiDiabetico.add(azucar)
 		ingredientesParaCualquiera.add(cebollas)
 		ingredientesAntiVegano.add(chori)
-		preparacionDefault.add("paso")
 
 		recetaAntiVegano = new RecetaBuilder()
 		.nombre("antiVegano")

@@ -1,5 +1,7 @@
 package cosasUsuario
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import condicion.CondicionPreexistente
 import consulta.Consulta
 import consulta.GestorDeConsultas
@@ -13,45 +15,55 @@ import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalDate
 import org.uqbar.commons.model.Entity
+import org.uqbar.commons.utils.TransactionalAndObservable
 import procesamientoPosterior.ProcesamientoPosterior
 import receta.Caracteristica
+import receta.Condimento
+import receta.Ingrediente
+import receta.Palabras
 import receta.Receta
+import repositorioRecetas.BuscaReceta
 import repositorioRecetas.RepositorioRecetas
 import repositorioUsuarios.RepositorioUsuarios
 import rutina.Rutina
+import uqbar.arena.persistence.annotations.PersistentClass
+import uqbar.arena.persistence.annotations.PersistentField
+import uqbar.arena.persistence.annotations.Relation
 
+@JsonSerialize
 @Accessors
-class Usuario extends Entity{
-	
-	// Datos varops
+@JsonIgnoreProperties(ignoreUnknown=true)
+@PersistentClass
+@TransactionalAndObservable
+class Usuario extends Entity {
+
+	// Datos varios
 	LocalDate fechaActual = new LocalDate()
 	int CARACTERES_MINIMOS = 4
-	boolean habilitarFavoritos = false
-	
+	@PersistentField boolean habilitarFavoritos = false
+
 	// Datos basicos
-	
-	String nombre
-	double altura
-	double peso
+	@PersistentField String nombre
+	@PersistentField double altura
+	@PersistentField double peso
 	LocalDate fechaDeNacimiento
-	
+	@PersistentField String password
+
 	// Grupo
-	GrupoUsuario grupoAlQuePertenece
-	
+	@Relation GrupoUsuario grupoAlQuePertenece
+
 	// Para condiciones preexistentes
-	
-	List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
-	String sexo
-	List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
-	List<String> comidaPreferida = new ArrayList<String>
-	Rutina rutina
-	
+	@Relation List<CondicionPreexistente> condicionesPreexistentes = new ArrayList<CondicionPreexistente>
+	@PersistentField String sexo
+	@Relation List<Caracteristica> comidasQueDisgustan = new ArrayList<Caracteristica>
+	@Relation List<Palabras> comidaPreferida = new ArrayList<Palabras>
+	@Relation Rutina rutina
+
 	// Recetas
-	Set<Receta> recetas = new HashSet<Receta>
-	Set<Receta> recetasFavoritas = new HashSet<Receta>
-	List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
-	ProcesamientoPosterior procesamiento
-	
+	@Relation Set<Receta> recetas = new HashSet<Receta>
+	@Relation Set<Receta> recetasFavoritas = new HashSet<Receta>
+	@Relation List<Filtro> filtrosAAplicar = new ArrayList<Filtro>
+	@Relation ProcesamientoPosterior procesamiento
 
 	//Mensajes
 	def double calculaIMC() {
@@ -61,21 +73,20 @@ class Usuario extends Entity{
 	def void agregarCondicion(CondicionPreexistente condicion) {
 		condicionesPreexistentes.add(condicion)
 	}
-	
+
 	def validar() {
-		
-		if(!(altura > 0 && peso > 0 && nombre.length() >= CARACTERES_MINIMOS)) {
+
+		if (!(altura > 0 && peso > 0 && nombre.length() >= CARACTERES_MINIMOS)) {
 			throw new UsuarioInvalidoExcepcion("Usuario no valido")
 		}
 		condicionesPreexistentesSonValidas()
-		
-		
+
 		fechaValida(fechaActual, fechaDeNacimiento)
-		
+
 	}
 
 	def tieneLaReceta(Receta receta) {
-		recetas.contains(receta)
+		!recetas.nullOrEmpty && recetas.contains(receta)
 	}
 
 	def Boolean noTieneCondicionesPreexistentes() {
@@ -98,105 +109,159 @@ class Usuario extends Entity{
 	}
 
 	def agregarReceta(Receta receta) {
-		recetas.add(receta)
+		if(!recetas.exists[it.nombrePlato.equals(receta.nombrePlato)])
+			recetas.add(receta)
 	}
 
 	def borrarReceta(Receta receta) {
 		recetas.remove(receta)
 	}
-	
+
 	def fechaValida(LocalDate fechaActual, LocalDate fechaSegunda) {
-		if (fechaActual.isBefore(fechaSegunda)) 
-			throw new FechaInvalidaExcepcion("Se Ingreso una fecha invalida")		
+		if (fechaActual.isBefore(fechaSegunda))
+			throw new FechaInvalidaExcepcion("Se Ingreso una fecha invalida")
 	}
-	
+
 	def contienteComidaQueDisgusta(Caracteristica comidaQueDisgusta) {
 		comidasQueDisgustan.contains(comidaQueDisgusta)
 	}
-	
-	def esRecomendable(Receta receta){
+
+	def esRecomendable(Receta receta) {
 		noTieneCondicionesPreexistentes() || condicionesPreexistentes.forall[it.tolera(receta)]
 	}
-	
-	def comparteGrupoCon(Usuario usuario) {
-		grupoAlQuePertenece.tieneUnUsuario(usuario)
+
+	def comparteGrupoCon(String usuario) {
+		usuario != null && grupoAlQuePertenece != null && grupoAlQuePertenece.tieneUnUsuario(usuario)
 	}
-	
-	def marcarComoFavorita(Receta receta){
+
+	def marcarComoFavorita(Receta receta) {
 		recetasFavoritas.add(receta)
 	}
-	
-	def agregarFiltro(Filtro filtro){
+
+	def agregarFiltro(Filtro filtro) {
 		filtrosAAplicar.add(filtro)
 	}
-	
-	def tieneSobrepeso(){
+
+	def tieneSobrepeso() {
 		calculaIMC > 500
 	}
-	
+
 	def indicarProcesamientoPosterior() {
 		procesamiento
 	}
-	
-	def elegirProcesamiento(ProcesamientoPosterior procesamientoProcesado){
+
+	def elegirProcesamiento(ProcesamientoPosterior procesamientoProcesado) {
 		procesamiento = procesamientoProcesado
 	}
-	
+
 	def habilitaSusFavoritos() {
-		habilitarFavoritos = true	
+		habilitarFavoritos = true
 	}
-	
-	def aplicarFiltros(){
-		
+
+	def aplicarFiltros() {
+
 		var busquedaReceta = listarRecetasVisibles
-		
-		for(filtro : filtrosAAplicar){
-			busquedaReceta = filtro.filtrar(busquedaReceta,this)
+
+		for (filtro : filtrosAAplicar) {
+			busquedaReceta = filtro.filtrar(busquedaReceta, this)
 		}
-		
+
 		busquedaReceta
 	}
-	
-	def postProcesarRecetas(){
-		
+
+	def postProcesarRecetas() {
+
 		var Set<Receta> recetasFiltradas = new HashSet<Receta>
 		recetasFiltradas = aplicarFiltros()
-		
+
 		var ProcesamientoPosterior procesamiento = this.indicarProcesamientoPosterior()
 		recetasFiltradas = procesamiento.asociarProcesamiento(recetasFiltradas)
-		
-		if(habilitaSusFavoritos()){
+
+		if (habilitaSusFavoritos()) {
 			recetasFavoritas.addAll(recetasFiltradas)
 			recetasFiltradas = recetasFavoritas
 		}
-		
+
 		//Se dispara el gestor de consultas
 		var consulta = new Consulta(this, recetasFiltradas)
 		GestorDeConsultas.getInstance.monitorear(consulta)
-		
+
 		recetasFiltradas
 	}
-	
-	def puedeSerSugeridaUnaReceta(Receta receta){
+
+	def puedeSerSugeridaUnaReceta(Receta receta) {
 		(!receta.tieneUnIngredienteOCondimentoQueDisgustaPara(this)) && this.condicionesPreexistentesSonValidas
 	}
-	
-	def solicitarIngresoASistema(){
+
+	def solicitarIngresoASistema() {
 		RepositorioUsuarios.getInstance.agregarAListaPendientes(this)
 	}
-	
+
 	def Boolean esVegano() {
-		condicionesPreexistentes.exists[condicion | condicion.esCondicionVegana]
+		condicionesPreexistentes.exists[condicion|condicion.esCondicionVegana]
 	}
+
 	def listarRecetasVisibles() {
 		var Set<Receta> recetasVisibles = recetas
-		recetasVisibles.addAll(RepositorioRecetas.getInstance.listarRecetas)
-		
-		if(grupoAlQuePertenece != null) {
+		recetasVisibles.addAll(RepositorioRecetas.getInstance.listarRecetasVisiblesPara(this))
+
+		if (grupoAlQuePertenece != null) {
 			recetasVisibles.addAll(grupoAlQuePertenece.todasLasRecetas)
-		
+
 		}
-		
+
 		recetasVisibles
 	}
+
+	def Set<Receta> consultar(BuscaReceta consulta) {
+		var recetasABuscar = listarRecetasVisibles
+
+		if (consulta.filtros != 0) {
+			recetasABuscar = postProcesarRecetas
+		}
+
+		if (consulta.nombre != null) {
+			val nombreConsultado = consulta.nombre
+			recetasABuscar = recetasABuscar.filter[receta|receta.nombrePlato.contains(nombreConsultado)].toSet
+		}
+
+		if (consulta.caloriasMinimas != null) {
+			val caloriasMinimas = consulta.caloriasMinimas
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias >= caloriasMinimas].toSet
+		}
+
+		if (consulta.caloriasMaximas != null) {
+			val caloriasMaximas = consulta.caloriasMaximas
+			recetasABuscar = recetasABuscar.filter[receta|receta.totalCalorias <= caloriasMaximas].toSet
+		}
+
+		if (consulta.dificultad != null) {
+			val dificultad = consulta.dificultad
+			recetasABuscar = recetasABuscar.filter[receta|receta.dificultad.toLowerCase.contains(dificultad.toLowerCase)].toSet
+		}
+
+		if (consulta.temporada != null) {
+			val temporada = consulta.temporada
+			recetasABuscar = recetasABuscar.filter[receta| !receta.temporada.nullOrEmpty && receta.temporada.toLowerCase.contains(temporada.toLowerCase)].toSet
+		}
+
+		if (consulta.ingrediente != null) {
+			val ingrediente = consulta.ingrediente
+			recetasABuscar = recetasABuscar.filter[receta|receta.ingredientes.contains(ingrediente)].toSet
+		}
+
+		return recetasABuscar
+	}
+	
+	def contieneIngredienteQueDisgusta(Ingrediente ingrediente) {
+		comidasQueDisgustan.contains(ingrediente)
+	}
+	def contieneCondimentoQueDisgusta(Condimento condimento) {
+		comidasQueDisgustan.contains(condimento)
+	}
+	
+	def agregarAFavoritos(Receta receta) {
+		if(!recetas.exists[it.nombrePlato.equals(receta.nombrePlato)]) recetasFavoritas.add(receta)
+	}
+
 }
